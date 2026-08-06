@@ -1,0 +1,29 @@
+{
+  "note": "Placeholder queue for the next batch of reviews. Not researched, priced, or scored yet, do not add these to data/rankings.json until a real reviews/{slug}.html page exists with verified pricing.",
+  "tools": [
+    {
+      "slug": "durable",
+      "name": "Durable",
+      "category": "Website Builder",
+      "blurb": "Generates a full small-business website, copy, images, and booking, in under a minute, aimed at service businesses that need something live today."
+    },
+    {
+      "slug": "instantly-ai",
+      "name": "Instantly.ai",
+      "category": "Email Outreach",
+      "blurb": "Cold email outreach and deliverability tooling with AI-assisted copywriting, relevant if the business runs on outbound email prospecting."
+    },
+    {
+      "slug": "craft",
+      "name": "Craft",
+      "category": "Notes & Docs",
+      "blurb": "A visually polished notes and document app with AI writing assistance, positioned as a more design-forward alternative to Notion."
+    },
+    {
+      "slug": "podium",
+      "name": "Podium",
+      "category": "Local Business Messaging",
+      "blurb": "AI-assisted text messaging, review requests, and lead follow-up built for local service businesses, not online-only solopreneurs."
+    }
+  ]
+}
