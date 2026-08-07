@@ -316,6 +316,34 @@ main.wide { max-width: 1100px; }
   background: var(--card);
 }
 
+/* ---------- Review roast box ---------- */
+.review-roast {
+  position: relative;
+  border: 1.5px dashed var(--rust);
+  background: var(--panel);
+  padding: 18px 20px 16px;
+  margin: 22px 0 30px;
+}
+.review-roast::before {
+  content: "NERD NOTES";
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  background: var(--paper);
+  padding: 0 8px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--rust-dark);
+}
+.review-roast p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+.review-roast p + p { margin-top: 8px; }
+
 /* ---------- Coming soon cards ---------- */
 .card.placeholder {
   border: 1.5px dashed var(--line);
