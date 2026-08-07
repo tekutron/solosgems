@@ -56,4 +56,5 @@ Last updated: 2026-08-04.
 - [About / methodology](https://solosgems.com/about.html): How reviews are built, how the ranking/scoring works, and the affiliate disclosure.
 - [State of AI Tools for Solopreneurs 2026](https://solosgems.com/state-of-ai-tools.html): Original aggregate data pulled from the 43 scored reviews, median score, free-tier rate, category breadth, updated as new reviews are added.
 - [DeathStack](https://solosgems.com/deathstack.html): Nine real, sourced case studies of AI tools and services that shut down (ChatGPT Plugins, Neeva, Olive AI, Builder.ai, Tune AI, Woebot, Coqui AI, Yara AI, and the PDF-chat wrapper category), with cause of death and the lesson for solopreneurs relying on a single AI vendor.
+- [News](https://solosgems.com/news.html): Live AI industry headlines pulled automatically from TechCrunch, VentureBeat, MIT Technology Review, Wired, and Hacker News, refreshed on a schedule. Flagged for controversy/high discussion volume and for mentions of tools in this database.
 - [Submit](https://solosgems.com/submit.html): Submit an AI tool for review, or report a defunct AI tool/service for the DeathStack graveyard.

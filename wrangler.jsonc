@@ -15,6 +15,13 @@
     {
       "binding": "SUBMISSIONS",
       "id": "55764449171e450e93d688b4485fc7a9"
+    },
+    {
+      "binding": "NEWS",
+      "id": "36562e96bcdb41849da8d7a33f1d8407"
     }
-  ]
+  ],
+  "triggers": {
+    "crons": ["0 */6 * * *"]
+  }
 }

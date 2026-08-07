@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1475310308913553"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="max-image-preview:large">
+<title>AI News: Live Headlines and the Controversial Ones | Solos Gems</title>
+<meta name="description" content="Live AI industry headlines pulled from TechCrunch, VentureBeat, MIT Technology Review, Wired, and Hacker News, refreshed automatically. Flagged for controversy and for mentions of tools in our database.">
+<link rel="canonical" href="https://solosgems.com/news.html">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Solos Gems">
+<meta property="og:title" content="AI News: Live Headlines and the Controversial Ones | Solos Gems">
+<meta property="og:description" content="Live AI industry headlines, auto-refreshed, flagged for controversy and for tools in our database.">
+<meta property="og:url" content="https://solosgems.com/news.html">
+<meta property="og:image" content="https://solosgems.com/images/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI News: Live Headlines and the Controversial Ones | Solos Gems">
+<meta name="twitter:description" content="Live AI industry headlines, auto-refreshed, flagged for controversy and for tools in our database.">
+<meta name="twitter:image" content="https://solosgems.com/images/og-default.png">
+<meta name="theme-color" content="#1a1a18">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "AI News",
+  "description": "Live AI industry headlines, auto-refreshed, flagged for controversy and for tools in our database.",
+  "url": "https://solosgems.com/news.html",
+  "isPartOf": { "@type": "WebSite", "name": "Solos Gems", "url": "https://solosgems.com/" }
+}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html"><svg class="gem-icon" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true">
+        <defs>
+          <linearGradient id="gemGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ffd76a"/>
+            <stop offset="100%" stop-color="#b8790f"/>
+          </linearGradient>
+        </defs>
+        <polygon points="16,2 27,12 16,30 5,12" fill="url(#gemGrad)" stroke="#1a1a18" stroke-width="1"/>
+        <polygon points="16,2 27,12 21,12" fill="#fff3cf"/>
+        <polygon points="16,2 5,12 11,12" fill="#ffe9a8"/>
+        <polygon points="5,12 11,12 16,30" fill="#c98a1f"/>
+        <polygon points="27,12 21,12 16,30" fill="#8a5a12"/>
+        <line x1="11" y1="12" x2="21" y2="12" stroke="#1a1a18" stroke-width="0.6"/>
+      </svg><span class="logo-word">SOLOS GEMS</span></a>
+    <nav>
+      <a href="reviews.html">Reviews</a>
+      <a href="deathstack.html">DeathStack</a>
+      <a href="news.html">News</a>
+      <a href="submit.html">Submit</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <article>
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">/</span> <span>News</span></nav>
+    <span class="kicker">Live From The AI Beat</span>
+    <h1>AI News</h1>
+    <p class="byline">Pulled automatically from TechCrunch, VentureBeat, MIT Technology Review, Wired, and Hacker News. No editor picking favorites, just a feed that refreshes itself every few hours. <span id="news-updated"></span></p>
+
+    <div class="news-filters">
+      <button type="button" class="news-filter active" data-filter="all">All</button>
+      <button type="button" class="news-filter" data-filter="controversial">Controversial / Highly Discussed</button>
+      <button type="button" class="news-filter" data-filter="tools">Mentions a Tool We Cover</button>
+    </div>
+
+    <div id="news-status" class="news-status">Loading the latest headlines...</div>
+    <div id="news-list" class="news-list" hidden></div>
+    <p id="news-empty" class="news-empty" hidden>Nothing matches that filter right now. Check back after the next refresh.</p>
+
+    <p class="news-footnote">This feed pulls from public RSS sources and Hacker News' search API on a schedule, tags stories as controversial by keyword and by Hacker News discussion volume, and flags any story that mentions a tool in our <a href="index.html">database</a>. It doesn't editorialize beyond that. Source links go straight to the original publisher.</p>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Solos Gems is an independent site. Some links may be affiliate links; we only recommend tools we'd use ourselves.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var listEl = document.getElementById('news-list');
+  var statusEl = document.getElementById('news-status');
+  var emptyEl = document.getElementById('news-empty');
+  var updatedEl = document.getElementById('news-updated');
+  var filterButtons = Array.prototype.slice.call(document.querySelectorAll('.news-filter'));
+  var currentFilter = 'all';
+  var items = [];
+
+  function escapeHtml(s) {
+    var div = document.createElement('div');
+    div.textContent = s || '';
+    return div.innerHTML;
+  }
+
+  function relativeTime(iso) {
+    if (!iso) return '';
+    var then = new Date(iso).getTime();
+    if (isNaN(then)) return '';
+    var diffMs = Date.now() - then;
+    var mins = Math.round(diffMs / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return mins + 'm ago';
+    var hours = Math.round(mins / 60);
+    if (hours < 24) return hours + 'h ago';
+    var days = Math.round(hours / 24);
+    return days + 'd ago';
+  }
+
+  function cardHtml(item) {
+    var badges = '';
+    if (item.controversial) {
+      badges += '<span class="news-badge hot">Controversial</span>';
+    }
+    (item.tools || []).forEach(function (t) {
+      badges += '<span class="news-badge tool">' + escapeHtml(t) + '</span>';
+    });
+    var excerpt = item.excerpt ? '<p class="news-excerpt">' + escapeHtml(item.excerpt) + '</p>' : '';
+    return (
+      '<a class="news-card" href="' + escapeHtml(item.link) + '" target="_blank" rel="noopener">' +
+      '<div class="news-card-head">' +
+      '<span class="news-source">' + escapeHtml(item.source) + '</span>' +
+      '<span class="news-time">' + relativeTime(item.published) + '</span>' +
+      '</div>' +
+      '<h3 class="news-title">' + escapeHtml(item.title) + '</h3>' +
+      excerpt +
+      (badges ? '<div class="news-badges">' + badges + '</div>' : '') +
+      '</a>'
+    );
+  }
+
+  function applyFilter() {
+    var filtered = items.filter(function (item) {
+      if (currentFilter === 'controversial') return !!item.controversial;
+      if (currentFilter === 'tools') return (item.tools || []).length > 0;
+      return true;
+    });
+    listEl.innerHTML = filtered.map(cardHtml).join('');
+    emptyEl.hidden = filtered.length !== 0;
+    listEl.hidden = filtered.length === 0;
+  }
+
+  filterButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      filterButtons.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentFilter = btn.dataset.filter;
+      applyFilter();
+    });
+  });
+
+  fetch('/api/news')
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      items = data.items || [];
+      if (!items.length) {
+        statusEl.textContent = 'No headlines yet. The feed refreshes automatically every few hours, check back soon.';
+        return;
+      }
+      statusEl.hidden = true;
+      listEl.hidden = false;
+      if (data.generated_at) {
+        updatedEl.textContent = 'Last refreshed ' + relativeTime(data.generated_at) + '.';
+      }
+      applyFilter();
+    })
+    .catch(function () {
+      statusEl.textContent = "Couldn't load the news feed right now. Try refreshing the page.";
+    });
+})();
+</script>
+
+</body>
+</html>
