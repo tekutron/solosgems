@@ -871,6 +871,9 @@ article li { margin: 6px 0; }
   grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
   gap: 10px;
 }
+.db-wall-grid[hidden] { display: none; }
+
+.db-wall-item[hidden] { display: none; }
 
 .db-wall-item {
   position: relative;
