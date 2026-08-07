@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1475310308913553"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="max-image-preview:large">
+<title>Submit an AI Tool or a DeathStack Tip | Solos Gems</title>
+<meta name="description" content="Submit an AI tool for an honest, scored review, or tip us off about an AI tool or service that's shut down for the DeathStack graveyard.">
+<link rel="canonical" href="https://solosgems.com/submit.html">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Solos Gems">
+<meta property="og:title" content="Submit an AI Tool or a DeathStack Tip | Solos Gems">
+<meta property="og:description" content="Submit an AI tool for an honest, scored review, or tip us off about a defunct AI tool for the DeathStack graveyard.">
+<meta property="og:url" content="https://solosgems.com/submit.html">
+<meta property="og:image" content="https://solosgems.com/images/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Submit an AI Tool or a DeathStack Tip | Solos Gems">
+<meta name="twitter:description" content="Submit an AI tool for an honest, scored review, or tip us off about a defunct AI tool for the DeathStack graveyard.">
+<meta name="twitter:image" content="https://solosgems.com/images/og-default.png">
+<meta name="theme-color" content="#1a1a18">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html"><svg class="gem-icon" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true">
+        <defs>
+          <linearGradient id="gemGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ffd76a"/>
+            <stop offset="100%" stop-color="#b8790f"/>
+          </linearGradient>
+        </defs>
+        <polygon points="16,2 27,12 16,30 5,12" fill="url(#gemGrad)" stroke="#1a1a18" stroke-width="1"/>
+        <polygon points="16,2 27,12 21,12" fill="#fff3cf"/>
+        <polygon points="16,2 5,12 11,12" fill="#ffe9a8"/>
+        <polygon points="5,12 11,12 16,30" fill="#c98a1f"/>
+        <polygon points="27,12 21,12 16,30" fill="#8a5a12"/>
+        <line x1="11" y1="12" x2="21" y2="12" stroke="#1a1a18" stroke-width="0.6"/>
+      </svg><span class="logo-word">SOLOS GEMS</span></a>
+    <nav>
+      <a href="reviews.html">Reviews</a>
+      <a href="deathstack.html">DeathStack</a>
+      <a href="submit.html">Submit</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <article>
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">/</span> <span>Submit</span></nav>
+    <span class="kicker">Two ways to contribute</span>
+    <h1>Submit</h1>
+    <p class="byline">Get a tool reviewed, or help us bury one that didn't make it</p>
+
+    <h2>Submit an AI tool for review</h2>
+    <p>Built or found an AI tool solopreneurs should know about? Submit it below. We test everything ourselves against real pricing before it gets a score, so not every submission gets a full review, but every submission gets looked at.</p>
+
+    <form class="subscribe-form submit-form" action="/api/submit" method="POST" style="justify-content:flex-start; max-width:520px;">
+      <input type="hidden" name="type" value="tool">
+      <div class="submit-field">
+        <label for="tool-name">Tool name</label>
+        <input type="text" id="tool-name" name="tool_name" required placeholder="e.g. Acme AI">
+      </div>
+      <div class="submit-field">
+        <label for="tool-url">Website</label>
+        <input type="url" id="tool-url" name="tool_url" required placeholder="https://">
+      </div>
+      <div class="submit-field">
+        <label for="tool-category">Category</label>
+        <input type="text" id="tool-category" name="category" placeholder="e.g. AI Writing, Scheduling, Bookkeeping">
+      </div>
+      <div class="submit-field">
+        <label for="tool-pitch">Why should we review it? (optional)</label>
+        <textarea id="tool-pitch" name="pitch" rows="3" placeholder="What does it do that similar tools don't?"></textarea>
+      </div>
+      <div class="submit-field">
+        <label for="tool-email">Your email (optional, in case we have questions)</label>
+        <input type="email" id="tool-email" name="submitter_email" placeholder="you@email.com">
+      </div>
+      <button type="submit">Submit tool</button>
+    </form>
+
+    <h2 style="margin-top:48px;">Report a dead AI tool for DeathStack</h2>
+    <p>Know an AI tool or service that shut down, got discontinued, or quietly disappeared? Send it our way for the <a href="deathstack.html">DeathStack</a> graveyard. Include a source if you have one, we only publish sourced, factual entries.</p>
+
+    <form class="subscribe-form submit-form" action="/api/submit" method="POST" style="justify-content:flex-start; max-width:520px;">
+      <input type="hidden" name="type" value="deathstack">
+      <div class="submit-field">
+        <label for="ds-name">Tool or service name</label>
+        <input type="text" id="ds-name" name="tool_name" required placeholder="e.g. Acme AI">
+      </div>
+      <div class="submit-field">
+        <label for="ds-what">What happened</label>
+        <textarea id="ds-what" name="pitch" rows="3" required placeholder="What happened, and when, as best you know it"></textarea>
+      </div>
+      <div class="submit-field">
+        <label for="ds-source">Source link (news article, official announcement, etc.)</label>
+        <input type="url" id="ds-source" name="tool_url" placeholder="https://">
+      </div>
+      <div class="submit-field">
+        <label for="ds-email">Your email (optional)</label>
+        <input type="email" id="ds-email" name="submitter_email" placeholder="you@email.com">
+      </div>
+      <button type="submit">Submit tip</button>
+    </form>
+
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Solos Gems is an independent site. Some links may be affiliate links; we only recommend tools we'd use ourselves.</p>
+  </div>
+</footer>
+
+</body>
+</html>
