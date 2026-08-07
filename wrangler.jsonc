@@ -11,6 +11,10 @@
     {
       "binding": "SUBSCRIBERS",
       "id": "d3a0828b34be497aa2a264631373be7b"
+    },
+    {
+      "binding": "SUBMISSIONS",
+      "id": "55764449171e450e93d688b4485fc7a9"
     }
   ]
 }
