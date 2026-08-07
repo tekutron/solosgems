@@ -804,6 +804,83 @@ article li { margin: 6px 0; }
   .db-banner { padding: 20px; }
 }
 
+/* ---------- Homepage news ticker ---------- */
+.news-ticker {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1.5px solid var(--line);
+  background: var(--card);
+  padding: 10px 16px;
+  margin-bottom: 32px;
+  overflow: hidden;
+}
+.news-ticker-label {
+  flex: none;
+  font-family: "IBM Plex Mono", monospace;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: var(--rust);
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.news-ticker-label:hover { background: var(--rust-dark); }
+
+.news-ticker-viewport {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+}
+
+.news-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: news-ticker-scroll 40s linear infinite;
+}
+.news-ticker:hover .news-ticker-track { animation-play-state: paused; }
+
+.news-ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 26px;
+  white-space: nowrap;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.85rem;
+  border-right: 1px solid var(--line);
+}
+.news-ticker-item:hover { color: var(--rust-dark); }
+.news-ticker-source {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+.news-ticker-hot { color: #ff9a5c; }
+
+@keyframes news-ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .news-ticker-track { animation: none; }
+  .news-ticker-viewport { overflow-x: auto; }
+}
+
+@media (max-width: 600px) {
+  .news-ticker-label { padding: 5px 8px; font-size: 0.66rem; }
+}
+
 /* ---------- Logo wall ---------- */
 .db-wall {
   border: 1.5px solid var(--line);

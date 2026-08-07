@@ -92,6 +92,69 @@
     <span class="db-banner-cta">See the rankings &rarr;</span>
   </a>
 
+  <div class="news-ticker" aria-label="Latest AI news, scrolling">
+    <a class="news-ticker-label" href="news.html">News</a>
+    <div class="news-ticker-viewport">
+      <div class="news-ticker-track" id="news-ticker-track">
+        <span class="news-ticker-item">Loading the latest AI headlines...</span>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function () {
+    var track = document.getElementById('news-ticker-track');
+    if (!track) return;
+
+    function buildItem(it) {
+      var a = document.createElement('a');
+      a.className = 'news-ticker-item';
+      a.href = it.link;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      if (it.controversial) {
+        var dot = document.createElement('span');
+        dot.className = 'news-ticker-hot';
+        dot.textContent = '● ';
+        a.appendChild(dot);
+      }
+      var src = document.createElement('span');
+      src.className = 'news-ticker-source';
+      src.textContent = it.source;
+      a.appendChild(src);
+      var title = document.createElement('span');
+      title.textContent = it.title;
+      a.appendChild(title);
+      return a;
+    }
+
+    fetch('/api/news')
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        var items = (data.items || []).slice(0, 15);
+        track.innerHTML = '';
+        if (!items.length) {
+          var span = document.createElement('span');
+          span.className = 'news-ticker-item';
+          span.textContent = 'No headlines yet, check back soon.';
+          track.appendChild(span);
+          return;
+        }
+        items.concat(items).forEach(function (it) {
+          track.appendChild(buildItem(it));
+        });
+        var duration = Math.max(20, items.length * 6);
+        track.style.animationDuration = duration + 's';
+      })
+      .catch(function () {
+        track.innerHTML = '';
+        var span = document.createElement('span');
+        span.className = 'news-ticker-item';
+        span.textContent = "Couldn't load headlines right now.";
+        track.appendChild(span);
+      });
+  })();
+  </script>
+
   <section class="db-wall">
     <div class="db-wall-head">
       <h2>Every tool. One glance.</h2>
