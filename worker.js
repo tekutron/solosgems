@@ -215,7 +215,11 @@ async function fetchHackerNews() {
     const data = await res.json();
     const hits = data.hits || [];
     return hits
-      .filter((h) => h.title)
+      // Hacker News posts far more often than the RSS sources here, so only
+      // keep stories with real discussion behind them (or a controversy
+      // keyword hit). Otherwise HN's raw volume crowds out TechCrunch,
+      // VentureBeat, MIT Technology Review, and Wired in the merged feed.
+      .filter((h) => h.title && ((h.points || 0) >= 20 || (h.num_comments || 0) >= 15 || isControversial(h.title)))
       .map((h) => {
         const link = h.url || `https://news.ycombinator.com/item?id=${h.objectID}`;
         const title = cleanText(h.title);
@@ -268,7 +272,7 @@ async function gatherNews(env) {
   const deduped = Array.from(byLink.values()).sort(
     (a, b) => new Date(b.published) - new Date(a.published)
   );
-  const capped = deduped.slice(0, 60);
+  const capped = deduped.slice(0, 70);
 
   const payload = {
     generated_at: new Date().toISOString(),
