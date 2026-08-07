@@ -147,13 +147,17 @@ function cleanText(s) {
   if (!s) return "";
   s = s.replace(/^\s*<!\[CDATA\[([\s\S]*?)\]\]>\s*$/, "$1");
   s = s.replace(/<[^>]+>/g, " ");
+  // Decode numeric HTML entities generically (smart quotes, en/em dashes,
+  // ellipses, etc. all come through RSS as &#8217; / &#x2019; style codes).
+  s = s.replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)));
+  s = s.replace(/&#(\d+);/g, (_, dec) => String.fromCharCode(parseInt(dec, 10)));
   s = s
-    .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
-    .replace(/&#0?39;/g, "'")
-    .replace(/&nbsp;/g, " ");
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&");
   return s.replace(/\s+/g, " ").trim();
 }
 
