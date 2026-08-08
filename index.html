@@ -440,6 +440,10 @@
     var popName = document.getElementById('db-wall-popover-name');
     var popDesc = document.getElementById('db-wall-popover-desc');
     var popFact = document.getElementById('db-wall-popover-fact');
+    var listRows = Array.prototype.slice.call(document.querySelectorAll('.db-main .db-row'));
+    var listSections = Array.prototype.slice.call(document.querySelectorAll('.db-main .db-section'));
+    var listEmpty = document.getElementById('db-list-empty');
+    var listClear = document.getElementById('db-list-clear');
 
     function paramsFromUrl() {
       var p = new URLSearchParams(window.location.search);
@@ -492,6 +496,23 @@
       count.textContent = (q || cat || tier) ? ('Showing ' + shown + ' of ' + total) : ('Showing all ' + total);
       empty.hidden = shown !== 0;
       grid.hidden = shown === 0;
+
+      var listShown = 0;
+      listRows.forEach(function(rowEl) {
+        var matchesName = !q || rowEl.dataset.name.indexOf(q) !== -1;
+        var matchesCat = !cat || rowEl.dataset.category === cat;
+        var matchesTier = !tier || rowEl.dataset.tier === tier;
+        var visible = matchesName && matchesCat && matchesTier;
+        rowEl.hidden = !visible;
+        if (visible) listShown++;
+      });
+      listSections.forEach(function(section) {
+        var visibleRows = section.querySelectorAll('.db-row:not([hidden])');
+        var sectionMatchesCat = !cat || section.dataset.category === cat;
+        section.hidden = !sectionMatchesCat || visibleRows.length === 0;
+      });
+      if (listEmpty) listEmpty.hidden = listShown !== 0;
+
       syncUrl();
     }
 
@@ -504,6 +525,15 @@
     category.addEventListener('change', runAll);
     tierSelect.addEventListener('change', runAll);
     sortSelect.addEventListener('change', runAll);
+    if (listClear) {
+      listClear.addEventListener('click', function(e) {
+        e.preventDefault();
+        search.value = '';
+        category.value = '';
+        tierSelect.value = '';
+        runAll();
+      });
+    }
 
     var initial = paramsFromUrl();
     if (initial.q) search.value = initial.q;
@@ -620,12 +650,12 @@
         </nav>
       </div>
     </aside>
-    <div class="db-main">
+    <div class="db-main" id="db-main">
 
-  <section class="db-section" id="ai-assistants">
+  <section class="db-section" id="ai-assistants" data-category="AI Assistants">
     <h2>AI Assistants <span class="db-count">(10)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://chatgpt.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://chatgpt.com/" target="_blank" rel="noopener" data-name="chatgpt" data-category="AI Assistants" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=chatgpt.com&sz=128" alt="ChatGPT logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>ChatGPT</h3>
@@ -633,7 +663,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Became one of the fastest-growing consumer apps in history after its 2022 launch.</p>
         </div>
       </a>
-      <a class="db-row" href="https://claude.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://claude.ai/" target="_blank" rel="noopener" data-name="claude" data-category="AI Assistants" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=claude.ai&sz=128" alt="Claude logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Claude</h3>
@@ -641,7 +671,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can hold entire books or codebases in a single conversation thanks to its large context window.</p>
         </div>
       </a>
-      <a class="db-row" href="https://gemini.google.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://gemini.google.com/" target="_blank" rel="noopener" data-name="gemini" data-category="AI Assistants" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=gemini.google.com&sz=128" alt="Gemini logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Gemini</h3>
@@ -649,7 +679,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Natively understands images, video, and audio in the same conversation, not just text.</p>
         </div>
       </a>
-      <a class="db-row" href="https://grok.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://grok.com/" target="_blank" rel="noopener" data-name="grok" data-category="AI Assistants" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=grok.com&sz=128" alt="Grok logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Grok</h3>
@@ -657,7 +687,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Grok Imagine can generate images and short videos from the same chat window.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.deepseek.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.deepseek.com/" target="_blank" rel="noopener" data-name="deepseek" data-category="AI Assistants" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=deepseek.com&sz=128" alt="DeepSeek logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>DeepSeek</h3>
@@ -665,7 +695,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its models can be downloaded and run by anyone, not just accessed through a paid API.</p>
         </div>
       </a>
-      <a class="db-row" href="https://chat.mistral.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://chat.mistral.ai/" target="_blank" rel="noopener" data-name="mistral le chat" data-category="AI Assistants" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=chat.mistral.ai&sz=128" alt="Mistral Le Chat logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Mistral Le Chat</h3>
@@ -673,7 +703,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Remembers details from conversations weeks earlier, even on the free tier.</p>
         </div>
       </a>
-      <a class="db-row" href="https://copilot.microsoft.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://copilot.microsoft.com/" target="_blank" rel="noopener" data-name="microsoft copilot" data-category="AI Assistants" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=copilot.microsoft.com&sz=128" alt="Microsoft Copilot logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Microsoft Copilot</h3>
@@ -681,7 +711,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can see and act on what's already open on your screen inside Microsoft 365 apps.</p>
         </div>
       </a>
-      <a class="db-row" href="reviews/perplexity-pro.html">
+      <a class="db-row" href="reviews/perplexity-pro.html" data-name="perplexity pro" data-category="AI Assistants" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=perplexity.ai&sz=128" alt="Perplexity Pro logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Perplexity Pro</h3>
@@ -689,7 +719,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Answers link directly back to the specific source they came from, not just a generic citation list.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.meta.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.meta.ai/" target="_blank" rel="noopener" data-name="meta ai" data-category="AI Assistants" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=meta.ai&sz=128" alt="Meta AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Meta AI</h3>
@@ -697,7 +727,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Runs inside the messaging apps billions of people already have open, no separate app required.</p>
         </div>
       </a>
-      <a class="db-row" href="https://poe.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://poe.com/" target="_blank" rel="noopener" data-name="poe" data-category="AI Assistants" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=poe.com&sz=128" alt="Poe logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Poe</h3>
@@ -708,10 +738,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="ai-search-browsing">
+  <section class="db-section" id="ai-search-browsing" data-category="AI Search & Browsing">
     <h2>AI Search & Browsing <span class="db-count">(5)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://comet.perplexity.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://comet.perplexity.ai/" target="_blank" rel="noopener" data-name="perplexity comet" data-category="AI Search & Browsing" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=perplexity.ai&sz=128" alt="Perplexity Comet logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Perplexity Comet</h3>
@@ -719,7 +749,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Free for all Perplexity account holders, unusual for a browser built around a paid AI subscription product.</p>
         </div>
       </a>
-      <a class="db-row" href="https://chatgpt.com/atlas" target="_blank" rel="noopener">
+      <a class="db-row" href="https://chatgpt.com/atlas" target="_blank" rel="noopener" data-name="chatgpt atlas" data-category="AI Search & Browsing" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=chatgpt.com&sz=128" alt="ChatGPT Atlas logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>ChatGPT Atlas</h3>
@@ -727,7 +757,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its agent mode can research, compare, and complete multi-step browsing tasks directly on live webpages.</p>
         </div>
       </a>
-      <a class="db-row" href="https://manus.im/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://manus.im/" target="_blank" rel="noopener" data-name="manus" data-category="AI Search & Browsing" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=manus.im&sz=128" alt="Manus logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Manus</h3>
@@ -735,7 +765,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can go from a plain-language brief to a working, published web app without a developer in the loop.</p>
         </div>
       </a>
-      <a class="db-row" href="https://kagi.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://kagi.com/" target="_blank" rel="noopener" data-name="kagi" data-category="AI Search & Browsing" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=kagi.com&sz=128" alt="Kagi logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Kagi</h3>
@@ -743,7 +773,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Lets you manually boost or block specific websites from ever appearing in your results again.</p>
         </div>
       </a>
-      <a class="db-row" href="https://you.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://you.com/" target="_blank" rel="noopener" data-name="you.com" data-category="AI Search & Browsing" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=you.com&sz=128" alt="You.com logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>You.com</h3>
@@ -754,10 +784,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="image-generation">
+  <section class="db-section" id="image-generation" data-category="Image Generation">
     <h2>Image Generation <span class="db-count">(9)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/midjourney.html">
+      <a class="db-row" href="reviews/midjourney.html" data-name="midjourney" data-category="Image Generation" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=midjourney.com&sz=128" alt="Midjourney logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Midjourney</h3>
@@ -765,7 +795,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Started as a Discord bot and still runs primarily through Discord commands.</p>
         </div>
       </a>
-      <a class="db-row" href="https://stability.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://stability.ai/" target="_blank" rel="noopener" data-name="stable diffusion" data-category="Image Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=stability.ai&sz=128" alt="Stable Diffusion logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Stable Diffusion</h3>
@@ -773,7 +803,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Because it's open-weight, it spawned an entire ecosystem of community fine-tunes and tools built on top of it.</p>
         </div>
       </a>
-      <a class="db-row" href="https://ideogram.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://ideogram.ai/" target="_blank" rel="noopener" data-name="ideogram" data-category="Image Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=ideogram.ai&sz=128" alt="Ideogram logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Ideogram</h3>
@@ -781,7 +811,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Reaches roughly 90% accuracy rendering legible text and logos inside generated images, long a weak spot for image models.</p>
         </div>
       </a>
-      <a class="db-row" href="https://leonardo.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://leonardo.ai/" target="_blank" rel="noopener" data-name="leonardo ai" data-category="Image Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=leonardo.ai&sz=128" alt="Leonardo AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Leonardo AI</h3>
@@ -789,7 +819,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its Phoenix model and real-time canvas are popular specifically with game studios for concept art pipelines.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.recraft.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.recraft.ai/" target="_blank" rel="noopener" data-name="recraft" data-category="Image Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=recraft.ai&sz=128" alt="Recraft logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Recraft</h3>
@@ -797,7 +827,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> One of the only AI image tools that natively outputs scalable SVG files, not just flat images.</p>
         </div>
       </a>
-      <a class="db-row" href="https://bfl.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://bfl.ai/" target="_blank" rel="noopener" data-name="flux" data-category="Image Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=bfl.ai&sz=128" alt="Flux logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Flux</h3>
@@ -805,7 +835,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Built by former Stable Diffusion researchers, it's become a common benchmark for photorealistic AI image quality.</p>
         </div>
       </a>
-      <a class="db-row" href="https://firefly.adobe.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://firefly.adobe.com/" target="_blank" rel="noopener" data-name="adobe firefly" data-category="Image Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=firefly.adobe.com&sz=128" alt="Adobe Firefly logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Adobe Firefly</h3>
@@ -813,7 +843,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Trained specifically on licensed and public-domain content, positioned as safer for commercial use.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.freepik.com/ai" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.freepik.com/ai" target="_blank" rel="noopener" data-name="freepik ai" data-category="Image Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=freepik.com&sz=128" alt="Freepik AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Freepik AI</h3>
@@ -821,7 +851,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Lets you generate a new image and drop it straight into a stock template in the same workspace.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.krea.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.krea.ai/" target="_blank" rel="noopener" data-name="krea ai" data-category="Image Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=krea.ai&sz=128" alt="Krea AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Krea AI</h3>
@@ -832,10 +862,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="video-generation">
+  <section class="db-section" id="video-generation" data-category="Video Generation">
     <h2>Video Generation <span class="db-count">(16)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/runway.html">
+      <a class="db-row" href="reviews/runway.html" data-name="runway" data-category="Video Generation" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=runwayml.com&sz=128" alt="Runway logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Runway</h3>
@@ -843,7 +873,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its Act-Two feature captures a real performance and maps it onto a generated character.</p>
         </div>
       </a>
-      <a class="db-row" href="reviews/synthesia.html">
+      <a class="db-row" href="reviews/synthesia.html" data-name="synthesia" data-category="Video Generation" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=synthesia.io&sz=128" alt="Synthesia logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Synthesia</h3>
@@ -851,7 +881,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Offers 125+ AI avatars to choose from without ever appearing on camera yourself.</p>
         </div>
       </a>
-      <a class="db-row" href="https://klingai.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://klingai.com/" target="_blank" rel="noopener" data-name="kling ai" data-category="Video Generation" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=klingai.com&sz=128" alt="Kling AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Kling AI</h3>
@@ -859,7 +889,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its Omni mode can lip-sync two different characters in one scene, each mouth matched to its own audio track.</p>
         </div>
       </a>
-      <a class="db-row" href="https://lumalabs.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://lumalabs.ai/" target="_blank" rel="noopener" data-name="luma dream machine" data-category="Video Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=lumalabs.ai&sz=128" alt="Luma Dream Machine logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Luma Dream Machine</h3>
@@ -867,7 +897,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Started as a 3D-capture company before pivoting to video, which shows in how well it renders room depth.</p>
         </div>
       </a>
-      <a class="db-row" href="https://labs.google/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://labs.google/" target="_blank" rel="noopener" data-name="veo" data-category="Video Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=labs.google&sz=128" alt="Veo logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Veo</h3>
@@ -875,7 +905,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Frequently cited as one of the top overall picks for AI video quality among current models.</p>
         </div>
       </a>
-      <a class="db-row" href="https://pika.art/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://pika.art/" target="_blank" rel="noopener" data-name="pika" data-category="Video Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=pika.art&sz=128" alt="Pika logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Pika</h3>
@@ -883,7 +913,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Popular for its one-click visual effects library, objects exploding, melting, and transforming.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.heygen.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.heygen.com/" target="_blank" rel="noopener" data-name="heygen" data-category="Video Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=heygen.com&sz=128" alt="HeyGen logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>HeyGen</h3>
@@ -891,7 +921,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can take a video in English and dub it into dozens of languages while matching the speaker's lips to the new language.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.d-id.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.d-id.com/" target="_blank" rel="noopener" data-name="d-id" data-category="Video Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=d-id.com&sz=128" alt="D-ID logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>D-ID</h3>
@@ -899,7 +929,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Powers things like interactive museum guides and AI tutors that talk back in real time.</p>
         </div>
       </a>
-      <a class="db-row" href="reviews/opusclip.html">
+      <a class="db-row" href="reviews/opusclip.html" data-name="opusclip" data-category="Video Generation" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=opus.pro&sz=128" alt="OpusClip logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>OpusClip</h3>
@@ -907,7 +937,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Scores every auto-generated clip by predicted engagement before you post it.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.capcut.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.capcut.com/" target="_blank" rel="noopener" data-name="capcut" data-category="Video Generation" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=capcut.com&sz=128" alt="CapCut logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>CapCut</h3>
@@ -915,7 +945,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Became one of the most-used video editing apps in the world largely through organic use by short-form creators.</p>
         </div>
       </a>
-      <a class="db-row" href="https://pictory.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://pictory.ai/" target="_blank" rel="noopener" data-name="pictory" data-category="Video Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=pictory.ai&sz=128" alt="Pictory logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Pictory</h3>
@@ -923,7 +953,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can generate a finished short video directly from a blog post URL, no footage of your own required.</p>
         </div>
       </a>
-      <a class="db-row" href="https://creatify.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://creatify.ai/" target="_blank" rel="noopener" data-name="creatify" data-category="Video Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=creatify.ai&sz=128" alt="Creatify logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Creatify</h3>
@@ -931,7 +961,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Built specifically for the fast turnaround and volume that brand-deal and performance-ad work demands.</p>
         </div>
       </a>
-      <a class="db-row" href="https://higgsfield.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://higgsfield.ai/" target="_blank" rel="noopener" data-name="higgsfield" data-category="Video Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=higgsfield.ai&sz=128" alt="Higgsfield logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Higgsfield</h3>
@@ -939,7 +969,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Offers a library of named camera-move presets, so a specific dramatic zoom or pan can be applied with one click instead of a prompt.</p>
         </div>
       </a>
-      <a class="db-row" href="https://pixverse.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://pixverse.ai/" target="_blank" rel="noopener" data-name="pixverse" data-category="Video Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=pixverse.ai&sz=128" alt="PixVerse logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>PixVerse</h3>
@@ -947,7 +977,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Includes a library of one-click effect templates, aimed at quick social clips rather than long-form production work.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.rask.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.rask.ai/" target="_blank" rel="noopener" data-name="rask ai" data-category="Video Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=rask.ai&sz=128" alt="Rask AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Rask AI</h3>
@@ -955,7 +985,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Clones the original speaker's voice into 130+ languages instead of swapping in a generic narrator.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.kapwing.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.kapwing.com/" target="_blank" rel="noopener" data-name="kapwing" data-category="Video Generation" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=kapwing.com&sz=128" alt="Kapwing logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Kapwing</h3>
@@ -966,10 +996,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="voice-music">
+  <section class="db-section" id="voice-music" data-category="Voice & Music">
     <h2>Voice & Music <span class="db-count">(8)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/elevenlabs.html">
+      <a class="db-row" href="reviews/elevenlabs.html" data-name="elevenlabs" data-category="Voice & Music" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=elevenlabs.io&sz=128" alt="ElevenLabs logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>ElevenLabs</h3>
@@ -977,7 +1007,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can clone a convincing voice from just a short audio sample.</p>
         </div>
       </a>
-      <a class="db-row" href="reviews/suno.html">
+      <a class="db-row" href="reviews/suno.html" data-name="suno" data-category="Voice & Music" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=suno.com&sz=128" alt="Suno logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Suno</h3>
@@ -985,7 +1015,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its latest model closes most of the uncanny valley in AI vocals, they sound like a real singer now.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.udio.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.udio.com/" target="_blank" rel="noopener" data-name="udio" data-category="Voice & Music" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=udio.com&sz=128" alt="Udio logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Udio</h3>
@@ -993,7 +1023,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Exports separate vocal, drum, bass, and instrument stems so you can remix the output in real music software.</p>
         </div>
       </a>
-      <a class="db-row" href="https://murf.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://murf.ai/" target="_blank" rel="noopener" data-name="murf ai" data-category="Voice & Music" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=murf.ai&sz=128" alt="Murf AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Murf AI</h3>
@@ -1001,7 +1031,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Includes a built-in voice changer that converts your own recorded voice into polished narration.</p>
         </div>
       </a>
-      <a class="db-row" href="https://play.ht/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://play.ht/" target="_blank" rel="noopener" data-name="play.ht" data-category="Voice & Music" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=play.ht&sz=128" alt="Play.ht logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Play.ht</h3>
@@ -1009,7 +1039,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Offers ultra-realistic voice cloning from just a short audio sample.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.aiva.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.aiva.ai/" target="_blank" rel="noopener" data-name="aiva" data-category="Voice & Music" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=aiva.ai&sz=128" alt="AIVA logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>AIVA</h3>
@@ -1017,7 +1047,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Was recognized as the first AI to be officially registered as a composer with a music rights society.</p>
         </div>
       </a>
-      <a class="db-row" href="https://soundraw.io/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://soundraw.io/" target="_blank" rel="noopener" data-name="soundraw" data-category="Voice & Music" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=soundraw.io&sz=128" alt="Soundraw logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Soundraw</h3>
@@ -1025,7 +1055,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Lets you edit the structure of a generated track, swapping sections in and out, instead of taking it as-is.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.respeecher.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.respeecher.com/" target="_blank" rel="noopener" data-name="respeecher" data-category="Voice & Music" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=respeecher.com&sz=128" alt="Respeecher logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Respeecher</h3>
@@ -1036,10 +1066,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="ai-phone-agents">
+  <section class="db-section" id="ai-phone-agents" data-category="AI Phone Agents">
     <h2>AI Phone Agents <span class="db-count">(2)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/bland-ai.html">
+      <a class="db-row" href="reviews/bland-ai.html" data-name="bland ai" data-category="AI Phone Agents" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=bland.ai&sz=128" alt="Bland AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Bland AI</h3>
@@ -1047,7 +1077,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Has resolved hundreds of millions of real phone calls to date.</p>
         </div>
       </a>
-      <a class="db-row" href="https://vapi.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://vapi.ai/" target="_blank" rel="noopener" data-name="vapi" data-category="AI Phone Agents" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=vapi.ai&sz=128" alt="Vapi logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Vapi</h3>
@@ -1058,10 +1088,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="3d-game-dev">
+  <section class="db-section" id="3d-game-dev" data-category="3D & Game Dev">
     <h2>3D & Game Dev <span class="db-count">(2)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://www.meshy.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.meshy.ai/" target="_blank" rel="noopener" data-name="meshy" data-category="3D & Game Dev" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=meshy.ai&sz=128" alt="Meshy logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Meshy</h3>
@@ -1069,7 +1099,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its texture generation can produce game-ready PBR materials that need little to no post-processing.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.tripo3d.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.tripo3d.ai/" target="_blank" rel="noopener" data-name="tripo ai" data-category="3D & Game Dev" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=tripo3d.ai&sz=128" alt="Tripo AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Tripo AI</h3>
@@ -1080,10 +1110,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="coding-dev-tools">
+  <section class="db-section" id="coding-dev-tools" data-category="Coding & Dev Tools">
     <h2>Coding & Dev Tools <span class="db-count">(14)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/cursor.html">
+      <a class="db-row" href="reviews/cursor.html" data-name="cursor" data-category="Coding & Dev Tools" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=cursor.com&sz=128" alt="Cursor logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Cursor</h3>
@@ -1091,7 +1121,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> It's a fork of VS Code, so most existing extensions and workflows carry over.</p>
         </div>
       </a>
-      <a class="db-row" href="https://github.com/features/copilot" target="_blank" rel="noopener">
+      <a class="db-row" href="https://github.com/features/copilot" target="_blank" rel="noopener" data-name="github copilot" data-category="Coding & Dev Tools" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=github.com&sz=128" alt="GitHub Copilot logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>GitHub Copilot</h3>
@@ -1099,7 +1129,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> One of the earliest mainstream AI coding tools, it helped popularize AI-assisted programming as a category.</p>
         </div>
       </a>
-      <a class="db-row" href="https://windsurf.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://windsurf.com/" target="_blank" rel="noopener" data-name="windsurf" data-category="Coding & Dev Tools" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=windsurf.com&sz=128" alt="Windsurf logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Windsurf</h3>
@@ -1107,7 +1137,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Now owned by Cognition, the same company behind the autonomous coding agent Devin.</p>
         </div>
       </a>
-      <a class="db-row" href="https://devin.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://devin.ai/" target="_blank" rel="noopener" data-name="devin" data-category="Coding & Dev Tools" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=devin.ai&sz=128" alt="Devin logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Devin</h3>
@@ -1115,7 +1145,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Hand it a task like 'fix this GitHub issue' and it executes the fix inside its own cloud sandbox, unsupervised.</p>
         </div>
       </a>
-      <a class="db-row" href="https://replit.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://replit.com/" target="_blank" rel="noopener" data-name="replit agent" data-category="Coding & Dev Tools" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=replit.com&sz=128" alt="Replit Agent logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Replit Agent</h3>
@@ -1123,7 +1153,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Handles the whole stack, servers, databases, and publishing, without anything installed locally.</p>
         </div>
       </a>
-      <a class="db-row" href="reviews/vercel-v0.html">
+      <a class="db-row" href="reviews/vercel-v0.html" data-name="v0" data-category="Coding & Dev Tools" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=v0.dev&sz=128" alt="v0 logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>v0</h3>
@@ -1131,7 +1161,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Generated components deploy straight to Vercel's hosting with zero extra setup.</p>
         </div>
       </a>
-      <a class="db-row" href="https://bolt.new/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://bolt.new/" target="_blank" rel="noopener" data-name="bolt.new" data-category="Coding & Dev Tools" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=bolt.new&sz=128" alt="Bolt.new logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Bolt.new</h3>
@@ -1139,7 +1169,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its daily token allowance resets every 24 hours, keeping it usable for ongoing experimentation.</p>
         </div>
       </a>
-      <a class="db-row" href="reviews/lovable.html">
+      <a class="db-row" href="reviews/lovable.html" data-name="lovable" data-category="Coding & Dev Tools" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=lovable.dev&sz=128" alt="Lovable logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Lovable</h3>
@@ -1147,7 +1177,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Lets you keep iterating conversationally, 'add a login page', instead of writing code yourself.</p>
         </div>
       </a>
-      <a class="db-row" href="https://aws.amazon.com/q/developer/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://aws.amazon.com/q/developer/" target="_blank" rel="noopener" data-name="amazon q developer" data-category="Coding & Dev Tools" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=aws.amazon.com&sz=128" alt="Amazon Q Developer logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Amazon Q Developer</h3>
@@ -1155,7 +1185,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can trace a bug or cost spike back through your actual AWS account resources, not just your codebase.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.tabnine.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.tabnine.com/" target="_blank" rel="noopener" data-name="tabnine" data-category="Coding & Dev Tools" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=tabnine.com&sz=128" alt="Tabnine logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Tabnine</h3>
@@ -1163,7 +1193,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> One of the earliest AI coding tools on the market, it predates most of today's AI-native code editors.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.coderabbit.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.coderabbit.ai/" target="_blank" rel="noopener" data-name="coderabbit" data-category="Coding & Dev Tools" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=coderabbit.ai&sz=128" alt="CodeRabbit logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>CodeRabbit</h3>
@@ -1171,7 +1201,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Learns a repo's own conventions over time instead of applying the same generic style rules to every project.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.harness.io/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.harness.io/" target="_blank" rel="noopener" data-name="harness ai" data-category="Coding & Dev Tools" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=harness.io&sz=128" alt="Harness AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Harness AI</h3>
@@ -1179,7 +1209,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can automatically roll back a bad deployment the moment it detects an anomaly in production.</p>
         </div>
       </a>
-      <a class="db-row" href="https://huggingface.co/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://huggingface.co/" target="_blank" rel="noopener" data-name="hugging face" data-category="Coding & Dev Tools" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=huggingface.co&sz=128" alt="Hugging Face logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Hugging Face</h3>
@@ -1187,7 +1217,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Hosts well over a million public models and datasets, most of it free to download and run.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.langchain.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.langchain.com/" target="_blank" rel="noopener" data-name="langchain" data-category="Coding & Dev Tools" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=langchain.com&sz=128" alt="LangChain logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>LangChain</h3>
@@ -1198,10 +1228,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="cybersecurity">
+  <section class="db-section" id="cybersecurity" data-category="Cybersecurity">
     <h2>Cybersecurity <span class="db-count">(2)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://www.wiz.io/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.wiz.io/" target="_blank" rel="noopener" data-name="wiz" data-category="Cybersecurity" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=wiz.io&sz=128" alt="Wiz logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Wiz</h3>
@@ -1209,7 +1239,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can map a full cloud environment's risk exposure without ever installing an agent on a single server.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.getastra.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.getastra.com/" target="_blank" rel="noopener" data-name="astra security" data-category="Cybersecurity" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=getastra.com&sz=128" alt="Astra Security logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Astra Security</h3>
@@ -1220,10 +1250,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="writing-copywriting">
+  <section class="db-section" id="writing-copywriting" data-category="Writing & Copywriting">
     <h2>Writing & Copywriting <span class="db-count">(9)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/grammarly.html">
+      <a class="db-row" href="reviews/grammarly.html" data-name="grammarly" data-category="Writing & Copywriting" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=grammarly.com&sz=128" alt="Grammarly logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Grammarly</h3>
@@ -1231,7 +1261,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Checks writing inside almost any app on your device, not just its own editor.</p>
         </div>
       </a>
-      <a class="db-row" href="reviews/copyai-vs-jasper.html">
+      <a class="db-row" href="reviews/copyai-vs-jasper.html" data-name="jasper" data-category="Writing & Copywriting" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=jasper.ai&sz=128" alt="Jasper logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Jasper</h3>
@@ -1239,7 +1269,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its brand-voice training keeps tone consistent across a high volume of generated content.</p>
         </div>
       </a>
-      <a class="db-row" href="reviews/copyai-vs-jasper.html">
+      <a class="db-row" href="reviews/copyai-vs-jasper.html" data-name="copy.ai" data-category="Writing & Copywriting" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=copy.ai&sz=128" alt="Copy.ai logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Copy.ai</h3>
@@ -1247,7 +1277,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Expanded past content generation into full go-to-market workflow automation.</p>
         </div>
       </a>
-      <a class="db-row" href="reviews/koala-ai.html">
+      <a class="db-row" href="reviews/koala-ai.html" data-name="koala ai" data-category="Writing & Copywriting" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=koala.sh&sz=128" alt="Koala AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Koala AI</h3>
@@ -1255,7 +1285,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Runs real-time SERP analysis before drafting, structuring articles to actually compete for a keyword.</p>
         </div>
       </a>
-      <a class="db-row" href="https://sudowrite.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://sudowrite.com/" target="_blank" rel="noopener" data-name="sudowrite" data-category="Writing & Copywriting" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=sudowrite.com&sz=128" alt="Sudowrite logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Sudowrite</h3>
@@ -1263,7 +1293,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its Story Bible feature tracks your characters and plot so the AI stays consistent across a long manuscript.</p>
         </div>
       </a>
-      <a class="db-row" href="https://writesonic.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://writesonic.com/" target="_blank" rel="noopener" data-name="writesonic" data-category="Writing & Copywriting" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=writesonic.com&sz=128" alt="Writesonic logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Writesonic</h3>
@@ -1271,7 +1301,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Bundles an AI chatbot, article writer, and image generator into one subscription.</p>
         </div>
       </a>
-      <a class="db-row" href="https://rytr.me/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://rytr.me/" target="_blank" rel="noopener" data-name="rytr" data-category="Writing & Copywriting" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=rytr.me&sz=128" alt="Rytr logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Rytr</h3>
@@ -1279,7 +1309,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its free plan supports a genuinely usable monthly character allowance, not just a one-time trial.</p>
         </div>
       </a>
-      <a class="db-row" href="https://novelai.net/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://novelai.net/" target="_blank" rel="noopener" data-name="novelai" data-category="Writing & Copywriting" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=novelai.net&sz=128" alt="NovelAI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>NovelAI</h3>
@@ -1287,7 +1317,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Bundles a fiction-tuned text model and an anime-trained image model in the same private workspace.</p>
         </div>
       </a>
-      <a class="db-row" href="https://prowritingaid.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://prowritingaid.com/" target="_blank" rel="noopener" data-name="prowritingaid" data-category="Writing & Copywriting" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=prowritingaid.com&sz=128" alt="ProWritingAid logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>ProWritingAid</h3>
@@ -1298,10 +1328,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="research-knowledge">
+  <section class="db-section" id="research-knowledge" data-category="Research & Knowledge">
     <h2>Research & Knowledge <span class="db-count">(4)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/notebooklm.html">
+      <a class="db-row" href="reviews/notebooklm.html" data-name="notebooklm" data-category="Research & Knowledge" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=notebooklm.google&sz=128" alt="NotebookLM logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>NotebookLM</h3>
@@ -1309,7 +1339,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Refuses to answer from general knowledge, every response is grounded in the documents you actually upload.</p>
         </div>
       </a>
-      <a class="db-row" href="https://consensus.app/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://consensus.app/" target="_blank" rel="noopener" data-name="consensus" data-category="Research & Knowledge" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=consensus.app&sz=128" alt="Consensus logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Consensus</h3>
@@ -1317,7 +1347,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Shows a visual 'Consensus Meter' indicating how much scientific agreement exists on a given question.</p>
         </div>
       </a>
-      <a class="db-row" href="https://elicit.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://elicit.com/" target="_blank" rel="noopener" data-name="elicit" data-category="Research & Knowledge" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=elicit.com&sz=128" alt="Elicit logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Elicit</h3>
@@ -1325,7 +1355,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can pull structured data out of hundreds of academic papers at once instead of you reading each one manually.</p>
         </div>
       </a>
-      <a class="db-row" href="https://anara.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://anara.com/" target="_blank" rel="noopener" data-name="anara" data-category="Research & Knowledge" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=anara.com&sz=128" alt="Anara logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Anara</h3>
@@ -1336,10 +1366,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="education-tutoring">
+  <section class="db-section" id="education-tutoring" data-category="Education & Tutoring">
     <h2>Education & Tutoring <span class="db-count">(3)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://www.khanacademy.org/khan-labs" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.khanacademy.org/khan-labs" target="_blank" rel="noopener" data-name="khanmigo" data-category="Education & Tutoring" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=khanacademy.org&sz=128" alt="Khanmigo logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Khanmigo</h3>
@@ -1347,7 +1377,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Acts as a Socratic tutor across math, science, and test prep, prompting students toward the answer instead of stating it.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.magicschool.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.magicschool.ai/" target="_blank" rel="noopener" data-name="magicschool ai" data-category="Education & Tutoring" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=magicschool.ai&sz=128" alt="MagicSchool AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>MagicSchool AI</h3>
@@ -1355,7 +1385,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its free tier includes more usable tools than many competing paid education platforms.</p>
         </div>
       </a>
-      <a class="db-row" href="https://quizlet.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://quizlet.com/" target="_blank" rel="noopener" data-name="quizlet" data-category="Education & Tutoring" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=quizlet.com&sz=128" alt="Quizlet logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Quizlet</h3>
@@ -1366,10 +1396,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="translation-localization">
+  <section class="db-section" id="translation-localization" data-category="Translation & Localization">
     <h2>Translation & Localization <span class="db-count">(2)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://www.deepl.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.deepl.com/" target="_blank" rel="noopener" data-name="deepl" data-category="Translation & Localization" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=deepl.com&sz=128" alt="DeepL logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>DeepL</h3>
@@ -1377,7 +1407,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Frequently outperforms larger general-purpose AI models on nuanced, idiomatic translation quality.</p>
         </div>
       </a>
-      <a class="db-row" href="https://lokalise.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://lokalise.com/" target="_blank" rel="noopener" data-name="lokalise" data-category="Translation & Localization" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=lokalise.com&sz=128" alt="Lokalise logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Lokalise</h3>
@@ -1388,10 +1418,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="accessibility">
+  <section class="db-section" id="accessibility" data-category="Accessibility">
     <h2>Accessibility <span class="db-count">(2)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://alttext.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://alttext.ai/" target="_blank" rel="noopener" data-name="alttext.ai" data-category="Accessibility" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=alttext.ai&sz=128" alt="AltText.ai logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>AltText.ai</h3>
@@ -1399,7 +1429,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Understands context well enough to describe a product photo differently than an editorial or decorative image.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.rev.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.rev.com/" target="_blank" rel="noopener" data-name="rev" data-category="Accessibility" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=rev.com&sz=128" alt="Rev logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Rev</h3>
@@ -1410,10 +1440,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="ai-detection-plagiarism">
+  <section class="db-section" id="ai-detection-plagiarism" data-category="AI Detection & Plagiarism">
     <h2>AI Detection & Plagiarism <span class="db-count">(3)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://gptzero.me/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://gptzero.me/" target="_blank" rel="noopener" data-name="gptzero" data-category="AI Detection & Plagiarism" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=gptzero.me&sz=128" alt="GPTZero logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>GPTZero</h3>
@@ -1421,7 +1451,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Was originally built by a Princeton student before growing into one of the most recognized names in AI detection.</p>
         </div>
       </a>
-      <a class="db-row" href="https://originality.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://originality.ai/" target="_blank" rel="noopener" data-name="originality.ai" data-category="AI Detection & Plagiarism" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=originality.ai&sz=128" alt="Originality.ai logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Originality.ai</h3>
@@ -1429,7 +1459,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Built specifically for content teams who need to verify a writer's submission wasn't AI-generated before paying for it.</p>
         </div>
       </a>
-      <a class="db-row" href="https://quillbot.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://quillbot.com/" target="_blank" rel="noopener" data-name="quillbot" data-category="AI Detection & Plagiarism" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=quillbot.com&sz=128" alt="QuillBot logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>QuillBot</h3>
@@ -1440,10 +1470,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="project-management">
+  <section class="db-section" id="project-management" data-category="Project Management">
     <h2>Project Management <span class="db-count">(1)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/clickup-ai.html">
+      <a class="db-row" href="reviews/clickup-ai.html" data-name="clickup brain" data-category="Project Management" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=clickup.com&sz=128" alt="ClickUp Brain logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>ClickUp Brain</h3>
@@ -1454,10 +1484,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="no-code-database">
+  <section class="db-section" id="no-code-database" data-category="No-code / Database">
     <h2>No-code / Database <span class="db-count">(3)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/airtable.html">
+      <a class="db-row" href="reviews/airtable.html" data-name="airtable" data-category="No-code / Database" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=airtable.com&sz=128" alt="Airtable logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Airtable</h3>
@@ -1465,7 +1495,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> The free tier (1,000 records/base, 500 AI credits/editor) genuinely covers most solo use cases before you'd need to upgrade.</p>
         </div>
       </a>
-      <a class="db-row" href="https://ai2sql.io/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://ai2sql.io/" target="_blank" rel="noopener" data-name="ai2sql" data-category="No-code / Database" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=ai2sql.io&sz=128" alt="AI2SQL logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>AI2SQL</h3>
@@ -1473,7 +1503,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Connects to your actual database schema, so the generated queries reference real table and column names, not guesses.</p>
         </div>
       </a>
-      <a class="db-row" href="https://vanna.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://vanna.ai/" target="_blank" rel="noopener" data-name="vanna ai" data-category="No-code / Database" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=vanna.ai&sz=128" alt="Vanna AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Vanna AI</h3>
@@ -1484,10 +1514,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="productivity-notes">
+  <section class="db-section" id="productivity-notes" data-category="Productivity & Notes">
     <h2>Productivity & Notes <span class="db-count">(5)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/notion-ai.html">
+      <a class="db-row" href="reviews/notion-ai.html" data-name="notion ai" data-category="Productivity & Notes" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=notion.com&sz=128" alt="Notion AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Notion AI</h3>
@@ -1495,7 +1525,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can build a tracker or database directly from a meeting summary you paste in.</p>
         </div>
       </a>
-      <a class="db-row" href="https://reflect.app/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://reflect.app/" target="_blank" rel="noopener" data-name="reflect" data-category="Productivity & Notes" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=reflect.app&sz=128" alt="Reflect logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Reflect</h3>
@@ -1503,7 +1533,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Syncs in real time across every device with no manual save step.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.craft.do/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.craft.do/" target="_blank" rel="noopener" data-name="craft" data-category="Productivity & Notes" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=craft.do&sz=128" alt="Craft logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Craft</h3>
@@ -1511,7 +1541,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Positioned as a more design-forward, visual alternative to Notion.</p>
         </div>
       </a>
-      <a class="db-row" href="https://tana.inc/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://tana.inc/" target="_blank" rel="noopener" data-name="tana" data-category="Productivity & Notes" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=tana.inc&sz=128" alt="Tana logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Tana</h3>
@@ -1519,7 +1549,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its 'supertag' system applies consistent structure and AI auto-tagging across your whole knowledge base as you type.</p>
         </div>
       </a>
-      <a class="db-row" href="https://get.mem.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://get.mem.ai/" target="_blank" rel="noopener" data-name="mem" data-category="Productivity & Notes" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=mem.ai&sz=128" alt="Mem logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Mem</h3>
@@ -1530,10 +1560,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="presentations-design">
+  <section class="db-section" id="presentations-design" data-category="Presentations & Design">
     <h2>Presentations & Design <span class="db-count">(5)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/gamma.html">
+      <a class="db-row" href="reviews/gamma.html" data-name="gamma" data-category="Presentations & Design" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=gamma.app&sz=128" alt="Gamma logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Gamma</h3>
@@ -1541,7 +1571,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> The same prompt can output a slide deck, a one-page doc, or a simple website.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.beautiful.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.beautiful.ai/" target="_blank" rel="noopener" data-name="beautiful.ai" data-category="Presentations & Design" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=beautiful.ai&sz=128" alt="Beautiful.ai logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Beautiful.ai</h3>
@@ -1549,7 +1579,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Slides re-flow and resize automatically when edited, so it's hard to accidentally break the design.</p>
         </div>
       </a>
-      <a class="db-row" href="https://uizard.io/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://uizard.io/" target="_blank" rel="noopener" data-name="uizard" data-category="Presentations & Design" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=uizard.io&sz=128" alt="Uizard logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Uizard</h3>
@@ -1557,7 +1587,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can convert a photo of a hand-drawn wireframe into an editable digital design.</p>
         </div>
       </a>
-      <a class="db-row" href="https://looka.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://looka.com/" target="_blank" rel="noopener" data-name="looka" data-category="Presentations & Design" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=looka.com&sz=128" alt="Looka logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Looka</h3>
@@ -1565,7 +1595,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Generates a full brand kit, logo, colors, fonts, and social templates, from a single questionnaire.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.plusai.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.plusai.com/" target="_blank" rel="noopener" data-name="plus ai" data-category="Presentations & Design" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=plusai.com&sz=128" alt="Plus AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Plus AI</h3>
@@ -1576,10 +1606,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="design-photography">
+  <section class="db-section" id="design-photography" data-category="Design & Photography">
     <h2>Design & Photography <span class="db-count">(2)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/canva-magic-studio.html">
+      <a class="db-row" href="reviews/canva-magic-studio.html" data-name="canva magic studio" data-category="Design & Photography" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=canva.com&sz=128" alt="Canva Magic Studio logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Canva Magic Studio</h3>
@@ -1587,7 +1617,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> The current #1-ranked tool on Solos Gems, across all 43 tools reviewed.</p>
         </div>
       </a>
-      <a class="db-row" href="reviews/photoroom.html">
+      <a class="db-row" href="reviews/photoroom.html" data-name="photoroom" data-category="Design & Photography" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=photoroom.com&sz=128" alt="Photoroom logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Photoroom</h3>
@@ -1598,10 +1628,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="meetings-transcription">
+  <section class="db-section" id="meetings-transcription" data-category="Meetings & Transcription">
     <h2>Meetings & Transcription <span class="db-count">(7)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/fireflies-ai.html">
+      <a class="db-row" href="reviews/fireflies-ai.html" data-name="fireflies.ai" data-category="Meetings & Transcription" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=fireflies.ai&sz=128" alt="Fireflies.ai logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Fireflies.ai</h3>
@@ -1609,7 +1639,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Unlimited transcription minutes even on its free plan, unusual for the category.</p>
         </div>
       </a>
-      <a class="db-row" href="reviews/otter-ai.html">
+      <a class="db-row" href="reviews/otter-ai.html" data-name="otter.ai" data-category="Meetings & Transcription" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=otter.ai&sz=128" alt="Otter.ai logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Otter.ai</h3>
@@ -1617,7 +1647,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can join a call automatically and start transcribing without anyone manually starting a recorder.</p>
         </div>
       </a>
-      <a class="db-row" href="https://fathom.video/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://fathom.video/" target="_blank" rel="noopener" data-name="fathom" data-category="Meetings & Transcription" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=fathom.video&sz=128" alt="Fathom logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Fathom</h3>
@@ -1625,7 +1655,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its core recording and summarization features are free with no minutes cap.</p>
         </div>
       </a>
-      <a class="db-row" href="https://grain.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://grain.com/" target="_blank" rel="noopener" data-name="grain" data-category="Meetings & Transcription" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=grain.com&sz=128" alt="Grain logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Grain</h3>
@@ -1633,7 +1663,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Designed so sales and customer teams can clip a 30-second moment from a call instead of the whole recording.</p>
         </div>
       </a>
-      <a class="db-row" href="reviews/loom.html">
+      <a class="db-row" href="reviews/loom.html" data-name="loom" data-category="Meetings & Transcription" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=loom.com&sz=128" alt="Loom logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Loom</h3>
@@ -1641,7 +1671,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Auto-generates a written summary and action items from any recorded video.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.granola.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.granola.ai/" target="_blank" rel="noopener" data-name="granola" data-category="Meetings & Transcription" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=granola.ai&sz=128" alt="Granola logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Granola</h3>
@@ -1649,7 +1679,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Builds its notes from your own rough, typed scribbles during the meeting, not just a raw transcript.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.meetjamie.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.meetjamie.ai/" target="_blank" rel="noopener" data-name="jamie" data-category="Meetings & Transcription" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=meetjamie.ai&sz=128" alt="Jamie logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Jamie</h3>
@@ -1660,10 +1690,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="email-messaging">
+  <section class="db-section" id="email-messaging" data-category="Email & Messaging">
     <h2>Email & Messaging <span class="db-count">(1)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/shortwave.html">
+      <a class="db-row" href="reviews/shortwave.html" data-name="shortwave" data-category="Email & Messaging" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=shortwave.com&sz=128" alt="Shortwave logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Shortwave</h3>
@@ -1674,10 +1704,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="marketing-social-media">
+  <section class="db-section" id="marketing-social-media" data-category="Marketing & Social Media">
     <h2>Marketing & Social Media <span class="db-count">(3)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://www.hootsuite.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.hootsuite.com/" target="_blank" rel="noopener" data-name="hootsuite" data-category="Marketing & Social Media" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=hootsuite.com&sz=128" alt="Hootsuite logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Hootsuite</h3>
@@ -1685,7 +1715,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its built-in OwlyWriter AI can draft new captions by learning from your own past best-performing posts.</p>
         </div>
       </a>
-      <a class="db-row" href="https://buffer.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://buffer.com/" target="_blank" rel="noopener" data-name="buffer" data-category="Marketing & Social Media" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=buffer.com&sz=128" alt="Buffer logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Buffer</h3>
@@ -1693,7 +1723,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Built from the start for individual creators and small teams rather than enterprise social war rooms.</p>
         </div>
       </a>
-      <a class="db-row" href="https://storychief.io/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://storychief.io/" target="_blank" rel="noopener" data-name="storychief" data-category="Marketing & Social Media" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=storychief.io&sz=128" alt="StoryChief logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>StoryChief</h3>
@@ -1704,10 +1734,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="automation-workflow">
+  <section class="db-section" id="automation-workflow" data-category="Automation & Workflow">
     <h2>Automation & Workflow <span class="db-count">(4)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/zapier-ai.html">
+      <a class="db-row" href="reviews/zapier-ai.html" data-name="zapier ai actions" data-category="Automation & Workflow" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=zapier.com&sz=128" alt="Zapier AI Actions logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Zapier AI Actions</h3>
@@ -1715,7 +1745,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Connects thousands of different apps together, the largest integration library in the category.</p>
         </div>
       </a>
-      <a class="db-row" href="reviews/make.html">
+      <a class="db-row" href="reviews/make.html" data-name="make" data-category="Automation & Workflow" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=make.com&sz=128" alt="Make logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Make</h3>
@@ -1723,7 +1753,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its canvas-style builder shows an entire automation, branches and all, on one screen.</p>
         </div>
       </a>
-      <a class="db-row" href="https://n8n.io/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://n8n.io/" target="_blank" rel="noopener" data-name="n8n" data-category="Automation & Workflow" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=n8n.io&sz=128" alt="n8n logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>n8n</h3>
@@ -1731,7 +1761,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Because it's open-source, you can self-host it for free instead of paying per task.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.lindy.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.lindy.ai/" target="_blank" rel="noopener" data-name="lindy" data-category="Automation & Workflow" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=lindy.ai&sz=128" alt="Lindy logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Lindy</h3>
@@ -1742,10 +1772,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="sales-prospecting">
+  <section class="db-section" id="sales-prospecting" data-category="Sales & Prospecting">
     <h2>Sales & Prospecting <span class="db-count">(3)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/apollo-io.html">
+      <a class="db-row" href="reviews/apollo-io.html" data-name="apollo.io" data-category="Sales & Prospecting" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=apollo.io&sz=128" alt="Apollo.io logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Apollo.io</h3>
@@ -1753,7 +1783,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Combines a large contact database and outreach automation in one platform.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.clay.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.clay.com/" target="_blank" rel="noopener" data-name="clay" data-category="Sales & Prospecting" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=clay.com&sz=128" alt="Clay logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Clay</h3>
@@ -1761,7 +1791,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Lets you chain dozens of different data sources and AI steps into a single custom prospecting pipeline.</p>
         </div>
       </a>
-      <a class="db-row" href="https://instantly.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://instantly.ai/" target="_blank" rel="noopener" data-name="instantly.ai" data-category="Sales & Prospecting" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=instantly.ai&sz=128" alt="Instantly.ai logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Instantly.ai</h3>
@@ -1772,10 +1802,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="hr-recruiting">
+  <section class="db-section" id="hr-recruiting" data-category="HR & Recruiting">
     <h2>HR & Recruiting <span class="db-count">(4)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://juicebox.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://juicebox.ai/" target="_blank" rel="noopener" data-name="juicebox" data-category="HR & Recruiting" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=juicebox.ai&sz=128" alt="Juicebox logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Juicebox</h3>
@@ -1783,7 +1813,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Replaces manually-built Boolean search strings with a single natural-language sourcing query.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.hirevue.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.hirevue.com/" target="_blank" rel="noopener" data-name="hirevue" data-category="HR & Recruiting" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=hirevue.com&sz=128" alt="HireVue logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>HireVue</h3>
@@ -1791,7 +1821,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Uses science-backed assessment models to keep interview scoring consistent across hundreds of candidates.</p>
         </div>
       </a>
-      <a class="db-row" href="https://recruiterflow.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://recruiterflow.com/" target="_blank" rel="noopener" data-name="recruiterflow" data-category="HR & Recruiting" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=recruiterflow.com&sz=128" alt="Recruiterflow logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Recruiterflow</h3>
@@ -1799,7 +1829,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Bundles one of the largest suites of AI recruiting agents into a single platform, from sourcing to outreach.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.paradox.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.paradox.ai/" target="_blank" rel="noopener" data-name="paradox" data-category="HR & Recruiting" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=paradox.ai&sz=128" alt="Paradox logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Paradox</h3>
@@ -1810,10 +1840,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="legal">
+  <section class="db-section" id="legal" data-category="Legal">
     <h2>Legal <span class="db-count">(7)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://www.spellbook.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.spellbook.com/" target="_blank" rel="noopener" data-name="spellbook" data-category="Legal" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=spellbook.com&sz=128" alt="Spellbook logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Spellbook</h3>
@@ -1821,7 +1851,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Flags risky clauses and suggests redlines directly in the Word document a lawyer is already working in.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.robinai.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.robinai.com/" target="_blank" rel="noopener" data-name="robin ai" data-category="Legal" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=robinai.com&sz=128" alt="Robin AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Robin AI</h3>
@@ -1829,7 +1859,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can compare a contract against a company's own playbook and flag every clause that deviates from it.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.luminance.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.luminance.com/" target="_blank" rel="noopener" data-name="luminance" data-category="Legal" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=luminance.com&sz=128" alt="Luminance logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Luminance</h3>
@@ -1837,7 +1867,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can process thousands of contracts during a due-diligence review far faster than a team reading them manually.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.docusign.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.docusign.com/" target="_blank" rel="noopener" data-name="docusign" data-category="Legal" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=docusign.com&sz=128" alt="DocuSign logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>DocuSign</h3>
@@ -1845,7 +1875,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its Navigator feature reads and organizes every signed contract into a searchable repository automatically.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.pandadoc.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.pandadoc.com/" target="_blank" rel="noopener" data-name="pandadoc" data-category="Legal" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=pandadoc.com&sz=128" alt="PandaDoc logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>PandaDoc</h3>
@@ -1853,7 +1883,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Tracks exactly when a recipient opens and scrolls through a document, before they ever sign it.</p>
         </div>
       </a>
-      <a class="db-row" href="https://ironclad.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://ironclad.com/" target="_blank" rel="noopener" data-name="ironclad" data-category="Legal" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=ironclad.com&sz=128" alt="Ironclad logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Ironclad</h3>
@@ -1861,7 +1891,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can automatically flag which clauses in an incoming contract deviate from a company's pre-approved playbook.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.legesgpt.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.legesgpt.com/" target="_blank" rel="noopener" data-name="legesgpt" data-category="Legal" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=legesgpt.com&sz=128" alt="LegesGPT logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>LegesGPT</h3>
@@ -1872,10 +1902,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="e-commerce">
+  <section class="db-section" id="e-commerce" data-category="E-commerce">
     <h2>E-commerce <span class="db-count">(2)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://www.shopify.com/magic" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.shopify.com/magic" target="_blank" rel="noopener" data-name="shopify magic" data-category="E-commerce" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=shopify.com&sz=128" alt="Shopify Magic logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Shopify Magic</h3>
@@ -1883,7 +1913,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Included at no extra cost inside every Shopify plan, rather than sold as a separate add-on.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.klevu.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.klevu.com/" target="_blank" rel="noopener" data-name="klevu" data-category="E-commerce" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=klevu.com&sz=128" alt="Klevu logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Klevu</h3>
@@ -1894,10 +1924,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="career-job-search">
+  <section class="db-section" id="career-job-search" data-category="Career & Job Search">
     <h2>Career & Job Search <span class="db-count">(3)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://www.tealhq.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.tealhq.com/" target="_blank" rel="noopener" data-name="teal" data-category="Career & Job Search" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=tealhq.com&sz=128" alt="Teal logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Teal</h3>
@@ -1905,7 +1935,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its Job Matcher feature highlights exactly which skills and keywords a resume is missing for a specific job post.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.jobscan.co/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.jobscan.co/" target="_blank" rel="noopener" data-name="jobscan" data-category="Career & Job Search" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=jobscan.io&sz=128" alt="Jobscan logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Jobscan</h3>
@@ -1913,7 +1943,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Checks resume match against named ATS platforms like Workday, Greenhouse, and iCIMS, not a generic score.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.rezi.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.rezi.ai/" target="_blank" rel="noopener" data-name="rezi" data-category="Career & Job Search" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=rezi.ai&sz=128" alt="Rezi logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Rezi</h3>
@@ -1924,10 +1954,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="crm-client-management">
+  <section class="db-section" id="crm-client-management" data-category="CRM & Client Management">
     <h2>CRM & Client Management <span class="db-count">(2)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/hubspot-free-crm.html">
+      <a class="db-row" href="reviews/hubspot-free-crm.html" data-name="hubspot free crm" data-category="CRM & Client Management" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=hubspot.com&sz=128" alt="HubSpot Free CRM logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>HubSpot Free CRM</h3>
@@ -1935,7 +1965,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> The free CRM tier has no user cap or expiration date, unusual among free CRM offers.</p>
         </div>
       </a>
-      <a class="db-row" href="reviews/bonsai.html">
+      <a class="db-row" href="reviews/bonsai.html" data-name="bonsai" data-category="CRM & Client Management" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=hellobonsai.com&sz=128" alt="Bonsai logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Bonsai</h3>
@@ -1946,10 +1976,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="customer-support">
+  <section class="db-section" id="customer-support" data-category="Customer Support">
     <h2>Customer Support <span class="db-count">(4)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/chatbase.html">
+      <a class="db-row" href="reviews/chatbase.html" data-name="chatbase" data-category="Customer Support" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=chatbase.co&sz=128" alt="Chatbase logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Chatbase</h3>
@@ -1957,7 +1987,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Trains exclusively on your own content, so answers stay consistent with your actual policies.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.intercom.com/fin" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.intercom.com/fin" target="_blank" rel="noopener" data-name="intercom fin" data-category="Customer Support" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=intercom.com&sz=128" alt="Intercom Fin logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Intercom Fin</h3>
@@ -1965,7 +1995,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can resolve a large share of incoming support volume start to finish with no human agent involved.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.tidio.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.tidio.com/" target="_blank" rel="noopener" data-name="tidio" data-category="Customer Support" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=tidio.com&sz=128" alt="Tidio logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Tidio</h3>
@@ -1973,7 +2003,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Built specifically for small e-commerce sellers rather than enterprise support desks.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.eesel.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.eesel.ai/" target="_blank" rel="noopener" data-name="eesel ai" data-category="Customer Support" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=eesel.ai&sz=128" alt="eesel AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>eesel AI</h3>
@@ -1984,10 +2014,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="data-analytics">
+  <section class="db-section" id="data-analytics" data-category="Data & Analytics">
     <h2>Data & Analytics <span class="db-count">(4)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://julius.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://julius.ai/" target="_blank" rel="noopener" data-name="julius ai" data-category="Data & Analytics" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=julius.ai&sz=128" alt="Julius AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Julius AI</h3>
@@ -1995,7 +2025,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can train and run actual machine learning models from a conversational prompt, not just make charts.</p>
         </div>
       </a>
-      <a class="db-row" href="reviews/numerous-ai.html">
+      <a class="db-row" href="reviews/numerous-ai.html" data-name="numerous.ai" data-category="Data & Analytics" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=numerous.ai&sz=128" alt="Numerous.ai logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Numerous.ai</h3>
@@ -2003,7 +2033,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Lets you write a plain-language instruction as a spreadsheet formula instead of a nested function.</p>
         </div>
       </a>
-      <a class="db-row" href="https://rows.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://rows.com/" target="_blank" rel="noopener" data-name="rows" data-category="Data & Analytics" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=rows.com&sz=128" alt="Rows logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Rows</h3>
@@ -2011,7 +2041,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can pull live data directly from APIs and other apps into a cell, instead of a manual copy-paste import.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.obviously.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.obviously.ai/" target="_blank" rel="noopener" data-name="obviously ai" data-category="Data & Analytics" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=obviously.ai&sz=128" alt="Obviously AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Obviously AI</h3>
@@ -2022,10 +2052,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="personal-finance">
+  <section class="db-section" id="personal-finance" data-category="Personal Finance">
     <h2>Personal Finance <span class="db-count">(4)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://copilot.money/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://copilot.money/" target="_blank" rel="noopener" data-name="copilot money" data-category="Personal Finance" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=copilot.money&sz=128" alt="Copilot Money logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Copilot Money</h3>
@@ -2033,7 +2063,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its AI learns your individual spending patterns over time instead of relying on generic category rules.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.monarchmoney.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.monarchmoney.com/" target="_blank" rel="noopener" data-name="monarch money" data-category="Personal Finance" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=monarchmoney.com&sz=128" alt="Monarch Money logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Monarch Money</h3>
@@ -2041,7 +2071,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Built to give a full household financial picture in one dashboard, not just a single account view.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.rocketmoney.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.rocketmoney.com/" target="_blank" rel="noopener" data-name="rocket money" data-category="Personal Finance" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=rocketmoney.com&sz=128" alt="Rocket Money logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Rocket Money</h3>
@@ -2049,7 +2079,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Will actually call and negotiate a lower bill for you, not just flag that a bill went up.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.meetcleo.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.meetcleo.com/" target="_blank" rel="noopener" data-name="cleo" data-category="Personal Finance" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=meetcleo.com&sz=128" alt="Cleo logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Cleo</h3>
@@ -2060,10 +2090,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="investing-markets">
+  <section class="db-section" id="investing-markets" data-category="Investing & Markets">
     <h2>Investing & Markets <span class="db-count">(2)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://seekingalpha.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://seekingalpha.com/" target="_blank" rel="noopener" data-name="seeking alpha premium" data-category="Investing & Markets" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=seekingalpha.com&sz=128" alt="Seeking Alpha Premium logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Seeking Alpha Premium</h3>
@@ -2071,7 +2101,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its Virtual Analyst Reports condense hours of financial-statement reading into one structured summary.</p>
         </div>
       </a>
-      <a class="db-row" href="https://danelfin.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://danelfin.com/" target="_blank" rel="noopener" data-name="danelfin" data-category="Investing & Markets" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=danelfin.com&sz=128" alt="Danelfin logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Danelfin</h3>
@@ -2082,10 +2112,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="seo">
+  <section class="db-section" id="seo" data-category="SEO">
     <h2>SEO <span class="db-count">(2)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/semrush.html">
+      <a class="db-row" href="reviews/semrush.html" data-name="semrush" data-category="SEO" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=semrush.com&sz=128" alt="Semrush logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Semrush</h3>
@@ -2093,7 +2123,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Widely considered the most capable SEO tool in its category, though the price is overkill unless organic content is your core growth channel.</p>
         </div>
       </a>
-      <a class="db-row" href="https://surferseo.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://surferseo.com/" target="_blank" rel="noopener" data-name="surfer seo" data-category="SEO" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=surferseo.com&sz=128" alt="Surfer SEO logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Surfer SEO</h3>
@@ -2104,10 +2134,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="scheduling-time">
+  <section class="db-section" id="scheduling-time" data-category="Scheduling & Time">
     <h2>Scheduling & Time <span class="db-count">(4)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/calendly.html">
+      <a class="db-row" href="reviews/calendly.html" data-name="calendly" data-category="Scheduling & Time" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=calendly.com&sz=128" alt="Calendly logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Calendly</h3>
@@ -2115,7 +2145,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can route a booking to the right team member automatically based on the meeting type.</p>
         </div>
       </a>
-      <a class="db-row" href="reviews/motion.html">
+      <a class="db-row" href="reviews/motion.html" data-name="motion" data-category="Scheduling & Time" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=usemotion.com&sz=128" alt="Motion logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Motion</h3>
@@ -2123,7 +2153,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Automatically re-shuffles your task schedule the moment a new meeting gets booked.</p>
         </div>
       </a>
-      <a class="db-row" href="reviews/toggl-track.html">
+      <a class="db-row" href="reviews/toggl-track.html" data-name="toggl track" data-category="Scheduling & Time" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=toggl.com&sz=128" alt="Toggl Track logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Toggl Track</h3>
@@ -2131,7 +2161,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Free plan supports up to 5 users at no cost, unusually generous for a time tracker.</p>
         </div>
       </a>
-      <a class="db-row" href="https://reclaim.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://reclaim.ai/" target="_blank" rel="noopener" data-name="reclaim.ai" data-category="Scheduling & Time" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=reclaim.ai&sz=128" alt="Reclaim.ai logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Reclaim.ai</h3>
@@ -2142,10 +2172,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="health-fitness">
+  <section class="db-section" id="health-fitness" data-category="Health & Fitness">
     <h2>Health & Fitness <span class="db-count">(5)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://www.fitbod.me/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.fitbod.me/" target="_blank" rel="noopener" data-name="fitbod" data-category="Health & Fitness" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=fitbod.me&sz=128" alt="Fitbod logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Fitbod</h3>
@@ -2153,7 +2183,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Adjusts the next workout's exercises and volume based on your recovery and performance in the last session.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.whoop.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.whoop.com/" target="_blank" rel="noopener" data-name="whoop" data-category="Health & Fitness" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=whoop.com&sz=128" alt="Whoop logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Whoop</h3>
@@ -2161,7 +2191,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Gives a daily recovery score that adjusts recommended training intensity based on how well you actually slept.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.myfitnesspal.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.myfitnesspal.com/" target="_blank" rel="noopener" data-name="myfitnesspal" data-category="Health & Fitness" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=myfitnesspal.com&sz=128" alt="MyFitnessPal logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>MyFitnessPal</h3>
@@ -2169,7 +2199,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can estimate a full meal's nutrition breakdown from a single photo instead of manual entry.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.calm.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.calm.com/" target="_blank" rel="noopener" data-name="calm" data-category="Health & Fitness" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=calm.com&sz=128" alt="Calm logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Calm</h3>
@@ -2177,7 +2207,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Tailors its daily meditation and sleep content suggestions to your own usage patterns over time.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.noom.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.noom.com/" target="_blank" rel="noopener" data-name="noom" data-category="Health & Fitness" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=noom.com&sz=128" alt="Noom logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Noom</h3>
@@ -2188,10 +2218,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="real-estate">
+  <section class="db-section" id="real-estate" data-category="Real Estate">
     <h2>Real Estate <span class="db-count">(2)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://www.epique.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.epique.ai/" target="_blank" rel="noopener" data-name="epique ai" data-category="Real Estate" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=epique.ai&sz=128" alt="Epique AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Epique AI</h3>
@@ -2199,7 +2229,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Generates MLS-ready listing copy alongside the buyer and seller emails an agent needs for the same transaction.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.virtualstagingai.app/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.virtualstagingai.app/" target="_blank" rel="noopener" data-name="virtual staging ai" data-category="Real Estate" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=virtualstagingai.app&sz=128" alt="Virtual Staging AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Virtual Staging AI</h3>
@@ -2210,10 +2240,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="interior-design">
+  <section class="db-section" id="interior-design" data-category="Interior Design">
     <h2>Interior Design <span class="db-count">(2)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://www.remodelai.io/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.remodelai.io/" target="_blank" rel="noopener" data-name="remodelai" data-category="Interior Design" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=remodelai.io&sz=128" alt="RemodelAI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>RemodelAI</h3>
@@ -2221,7 +2251,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Offers 30+ distinct design styles and lets you try several before committing to a real renovation.</p>
         </div>
       </a>
-      <a class="db-row" href="https://interiorai.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://interiorai.com/" target="_blank" rel="noopener" data-name="interior ai" data-category="Interior Design" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=interiorai.com&sz=128" alt="Interior AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Interior AI</h3>
@@ -2232,10 +2262,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="bookkeeping-finance">
+  <section class="db-section" id="bookkeeping-finance" data-category="Bookkeeping & Finance">
     <h2>Bookkeeping & Finance <span class="db-count">(3)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/quickbooks-solopreneur.html">
+      <a class="db-row" href="reviews/quickbooks-solopreneur.html" data-name="quickbooks solopreneur" data-category="Bookkeeping & Finance" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=quickbooks.intuit.com&sz=128" alt="QuickBooks Solopreneur logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>QuickBooks Solopreneur</h3>
@@ -2243,7 +2273,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Built from scratch specifically for one-person businesses, not just a trimmed-down version of the full product.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.lettuce.co/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.lettuce.co/" target="_blank" rel="noopener" data-name="lettuce" data-category="Bookkeeping & Finance" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=lettuce.co&sz=128" alt="Lettuce logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Lettuce</h3>
@@ -2251,7 +2281,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Built around the specific tax mechanics of a one-person S-corp, a structure most general bookkeeping tools treat as an afterthought.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.cashflowy.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.cashflowy.ai/" target="_blank" rel="noopener" data-name="cashflowy" data-category="Bookkeeping & Finance" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=cashflowy.ai&sz=128" alt="Cashflowy logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Cashflowy</h3>
@@ -2262,10 +2292,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="website-app-builders">
+  <section class="db-section" id="website-app-builders" data-category="Website & App Builders">
     <h2>Website & App Builders <span class="db-count">(5)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/framer.html">
+      <a class="db-row" href="reviews/framer.html" data-name="framer" data-category="Website & App Builders" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=framer.com&sz=128" alt="Framer logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Framer</h3>
@@ -2273,7 +2303,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> The free plan is genuinely usable to launch a real, live site, not a crippled demo.</p>
         </div>
       </a>
-      <a class="db-row" href="https://durable.co/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://durable.co/" target="_blank" rel="noopener" data-name="durable" data-category="Website & App Builders" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=durable.co&sz=128" alt="Durable logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Durable</h3>
@@ -2281,7 +2311,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Also auto-generates basic business tools like invoices and a CRM alongside the website itself.</p>
         </div>
       </a>
-      <a class="db-row" href="https://10web.io/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://10web.io/" target="_blank" rel="noopener" data-name="10web" data-category="Website & App Builders" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=10web.io&sz=128" alt="10Web logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>10Web</h3>
@@ -2289,7 +2319,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Can rebuild an existing website's layout and content automatically just from its URL.</p>
         </div>
       </a>
-      <a class="db-row" href="https://www.wix.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.wix.com/" target="_blank" rel="noopener" data-name="wix" data-category="Website & App Builders" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=wix.com&sz=128" alt="Wix logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Wix</h3>
@@ -2297,7 +2327,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Its AI assistant asks about your business first, then generates a tailored starting site instead of a generic template.</p>
         </div>
       </a>
-      <a class="db-row" href="https://webflow.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://webflow.com/" target="_blank" rel="noopener" data-name="webflow" data-category="Website & App Builders" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=webflow.com&sz=128" alt="Webflow logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Webflow</h3>
@@ -2308,10 +2338,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="forms-surveys">
+  <section class="db-section" id="forms-surveys" data-category="Forms & Surveys">
     <h2>Forms & Surveys <span class="db-count">(3)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/typeform.html">
+      <a class="db-row" href="reviews/typeform.html" data-name="typeform" data-category="Forms & Surveys" data-tier="paid">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=typeform.com&sz=128" alt="Typeform logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Typeform</h3>
@@ -2319,7 +2349,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Presents one question at a time in a full-screen format, which measurably raises completion rates.</p>
         </div>
       </a>
-      <a class="db-row" href="https://chattermill.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://chattermill.com/" target="_blank" rel="noopener" data-name="chattermill" data-category="Forms & Surveys" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=chattermill.com&sz=128" alt="Chattermill logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Chattermill</h3>
@@ -2327,7 +2357,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Reads open-text feedback across every channel at once, support tickets, reviews, surveys, in one unified view.</p>
         </div>
       </a>
-      <a class="db-row" href="https://dovetail.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://dovetail.com/" target="_blank" rel="noopener" data-name="dovetail" data-category="Forms & Surveys" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=dovetail.com&sz=128" alt="Dovetail logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Dovetail</h3>
@@ -2338,10 +2368,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="podcasting-video-editing">
+  <section class="db-section" id="podcasting-video-editing" data-category="Podcasting & Video Editing">
     <h2>Podcasting & Video Editing <span class="db-count">(4)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/riverside.html">
+      <a class="db-row" href="reviews/riverside.html" data-name="riverside.fm" data-category="Podcasting & Video Editing" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=riverside.fm&sz=128" alt="Riverside.fm logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Riverside.fm</h3>
@@ -2349,7 +2379,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Records each guest locally at full quality, so a bad internet connection doesn't degrade the final file.</p>
         </div>
       </a>
-      <a class="db-row" href="reviews/descript.html">
+      <a class="db-row" href="reviews/descript.html" data-name="descript" data-category="Podcasting & Video Editing" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=descript.com&sz=128" alt="Descript logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Descript</h3>
@@ -2357,7 +2387,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Deleting a word from the transcript deletes it from the actual audio and video too.</p>
         </div>
       </a>
-      <a class="db-row" href="https://auphonic.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://auphonic.com/" target="_blank" rel="noopener" data-name="auphonic" data-category="Podcasting & Video Editing" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=auphonic.com&sz=128" alt="Auphonic logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Auphonic</h3>
@@ -2365,7 +2395,7 @@
           <p class="db-cool"><strong>Cool fact:</strong> Normalizes multiple speakers recorded at different volumes into one consistent, broadcast-ready level automatically.</p>
         </div>
       </a>
-      <a class="db-row" href="https://cleanvoice.ai/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://cleanvoice.ai/" target="_blank" rel="noopener" data-name="cleanvoice" data-category="Podcasting & Video Editing" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=cleanvoice.ai&sz=128" alt="Cleanvoice logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Cleanvoice</h3>
@@ -2376,10 +2406,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="newsletters">
+  <section class="db-section" id="newsletters" data-category="Newsletters">
     <h2>Newsletters <span class="db-count">(1)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/beehiiv.html">
+      <a class="db-row" href="reviews/beehiiv.html" data-name="beehiiv" data-category="Newsletters" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=beehiiv.com&sz=128" alt="Beehiiv logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Beehiiv</h3>
@@ -2390,10 +2420,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="local-business">
+  <section class="db-section" id="local-business" data-category="Local Business">
     <h2>Local Business <span class="db-count">(1)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="https://www.podium.com/" target="_blank" rel="noopener">
+      <a class="db-row" href="https://www.podium.com/" target="_blank" rel="noopener" data-name="podium" data-category="Local Business" data-tier="unlisted">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=podium.com&sz=128" alt="Podium logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Podium</h3>
@@ -2404,10 +2434,10 @@
     </div>
   </section>
 
-  <section class="db-section" id="voice-dictation">
+  <section class="db-section" id="voice-dictation" data-category="Voice Dictation">
     <h2>Voice Dictation <span class="db-count">(1)</span></h2>
     <div class="db-list">
-      <a class="db-row" href="reviews/wispr-flow.html">
+      <a class="db-row" href="reviews/wispr-flow.html" data-name="wispr flow" data-category="Voice Dictation" data-tier="free">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=wisprflow.ai&sz=128" alt="Wispr Flow logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
           <h3>Wispr Flow</h3>
@@ -2417,6 +2447,7 @@
       </a>
     </div>
   </section>
+      <p id="db-list-empty" class="db-wall-empty" hidden>No tools in this view match your filters. <a href="#" id="db-list-clear">Clear filters</a> to see the full list.</p>
     </div>
   </div>
 
