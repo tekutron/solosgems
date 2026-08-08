@@ -926,6 +926,7 @@ article li { margin: 6px 0; }
 }
 .db-wall-head h2 { margin: 0; font-size: 1.05rem; }
 .db-wall-head p { margin: 0; font-size: 0.82rem; color: var(--ink-soft); }
+.db-wall-new-flag { color: var(--rust); font-weight: 600; }
 
 .db-wall-filters {
   display: flex;
@@ -967,6 +968,15 @@ article li { margin: 6px 0; }
 }
 .db-wall-empty a { color: var(--rust-dark); }
 
+.db-wall-data-links {
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-family: "IBM Plex Mono", monospace;
+  margin: 14px 0 0;
+}
+.db-wall-data-links a { color: var(--rust-dark); }
+
 @media (max-width: 600px) {
   .db-wall-count { margin-left: 0; }
 }
@@ -1004,33 +1014,62 @@ article li { margin: 6px 0; }
   object-fit: contain;
 }
 
-.db-wall-item::after {
-  content: attr(data-name);
+.db-wall-new {
   position: absolute;
-  left: 50%;
-  bottom: -4px;
-  transform: translate(-50%, 100%);
-  background: #1a1a18;
-  color: #f3f1ec;
+  top: -6px;
+  right: -6px;
+  background: var(--rust);
+  color: #1a1a18;
   font-family: "IBM Plex Mono", monospace;
-  font-size: 0.62rem;
-  padding: 3px 7px;
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 1px 4px;
   border-radius: 4px;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.12s, transform 0.12s;
-  z-index: 5;
-}
-.db-wall-item:hover::after {
-  opacity: 1;
-  transform: translate(-50%, 8px);
+  line-height: 1.4;
+  z-index: 3;
 }
 
 @media (max-width: 600px) {
   .db-wall { padding: 18px; }
   .db-wall-grid { grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 8px; }
-  .db-wall-item::after { display: none; }
+}
+
+.db-wall-popover {
+  position: absolute;
+  z-index: 50;
+  max-width: 280px;
+  background: #1a1a18;
+  color: #f3f1ec;
+  border: 1px solid var(--rust-dark);
+  border-radius: 8px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  pointer-events: none;
+}
+.db-wall-popover[hidden] { display: none; }
+.db-wall-popover-name {
+  margin: 0 0 4px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #fff;
+}
+.db-wall-popover-desc {
+  margin: 0 0 6px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: #f3f1ec;
+}
+.db-wall-popover-fact {
+  margin: 0;
+  font-size: 0.74rem;
+  line-height: 1.4;
+  color: var(--rust);
+}
+.db-wall-popover-fact:empty { display: none; }
+
+@media (max-width: 600px) {
+  .db-wall-popover { max-width: calc(100vw - 32px); }
 }
 
 /* ---------- AI Database ---------- */
