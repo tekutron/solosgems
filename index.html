@@ -425,161 +425,6 @@
     <p class="db-wall-popover-fact" id="db-wall-popover-fact"></p>
   </div>
 
-  <script>
-  (function() {
-    var search = document.getElementById('db-wall-search');
-    var category = document.getElementById('db-wall-category');
-    var tierSelect = document.getElementById('db-wall-tier');
-    var sortSelect = document.getElementById('db-wall-sort');
-    var grid = document.getElementById('db-wall-grid');
-    var items = Array.prototype.slice.call(grid.querySelectorAll('.db-wall-item'));
-    var count = document.getElementById('db-wall-count');
-    var empty = document.getElementById('db-wall-empty');
-    var total = items.length;
-    var popover = document.getElementById('db-wall-popover');
-    var popName = document.getElementById('db-wall-popover-name');
-    var popDesc = document.getElementById('db-wall-popover-desc');
-    var popFact = document.getElementById('db-wall-popover-fact');
-    var listRows = Array.prototype.slice.call(document.querySelectorAll('.db-main .db-row'));
-    var listSections = Array.prototype.slice.call(document.querySelectorAll('.db-main .db-section'));
-    var listEmpty = document.getElementById('db-list-empty');
-    var listClear = document.getElementById('db-list-clear');
-
-    function paramsFromUrl() {
-      var p = new URLSearchParams(window.location.search);
-      return { q: p.get('q') || '', cat: p.get('cat') || '', tier: p.get('tier') || '', sort: p.get('sort') || 'name' };
-    }
-
-    function syncUrl() {
-      var p = new URLSearchParams();
-      if (search.value.trim()) p.set('q', search.value.trim());
-      if (category.value) p.set('cat', category.value);
-      if (tierSelect.value) p.set('tier', tierSelect.value);
-      if (sortSelect.value !== 'name') p.set('sort', sortSelect.value);
-      var qs = p.toString();
-      var newUrl = window.location.pathname + (qs ? '?' + qs : '');
-      window.history.replaceState(null, '', newUrl);
-    }
-
-    function applySort() {
-      var mode = sortSelect.value;
-      var sorted = items.slice();
-      if (mode === 'newest') {
-        sorted.sort(function(a, b) {
-          if (a.dataset.date !== b.dataset.date) return a.dataset.date < b.dataset.date ? 1 : -1;
-          return a.dataset.name.localeCompare(b.dataset.name);
-        });
-      } else if (mode === 'category') {
-        sorted.sort(function(a, b) {
-          if (a.dataset.category !== b.dataset.category) return a.dataset.category.localeCompare(b.dataset.category);
-          return a.dataset.name.localeCompare(b.dataset.name);
-        });
-      } else {
-        sorted.sort(function(a, b) { return a.dataset.name.localeCompare(b.dataset.name); });
-      }
-      sorted.forEach(function(item) { grid.appendChild(item); });
-    }
-
-    function applyFilters() {
-      var q = search.value.trim().toLowerCase();
-      var cat = category.value;
-      var tier = tierSelect.value;
-      var shown = 0;
-      items.forEach(function(item) {
-        var matchesName = !q || item.dataset.name.indexOf(q) !== -1;
-        var matchesCat = !cat || item.dataset.category === cat;
-        var matchesTier = !tier || item.dataset.tier === tier;
-        var visible = matchesName && matchesCat && matchesTier;
-        item.hidden = !visible;
-        if (visible) shown++;
-      });
-      count.textContent = (q || cat || tier) ? ('Showing ' + shown + ' of ' + total) : ('Showing all ' + total);
-      empty.hidden = shown !== 0;
-      grid.hidden = shown === 0;
-
-      var listShown = 0;
-      listRows.forEach(function(rowEl) {
-        var matchesName = !q || rowEl.dataset.name.indexOf(q) !== -1;
-        var matchesCat = !cat || rowEl.dataset.category === cat;
-        var matchesTier = !tier || rowEl.dataset.tier === tier;
-        var visible = matchesName && matchesCat && matchesTier;
-        rowEl.hidden = !visible;
-        if (visible) listShown++;
-      });
-      listSections.forEach(function(section) {
-        var visibleRows = section.querySelectorAll('.db-row:not([hidden])');
-        var sectionMatchesCat = !cat || section.dataset.category === cat;
-        section.hidden = !sectionMatchesCat || visibleRows.length === 0;
-      });
-      if (listEmpty) listEmpty.hidden = listShown !== 0;
-
-      syncUrl();
-    }
-
-    function runAll() {
-      applySort();
-      applyFilters();
-    }
-
-    search.addEventListener('input', runAll);
-    category.addEventListener('change', runAll);
-    tierSelect.addEventListener('change', runAll);
-    sortSelect.addEventListener('change', runAll);
-    if (listClear) {
-      listClear.addEventListener('click', function(e) {
-        e.preventDefault();
-        search.value = '';
-        category.value = '';
-        tierSelect.value = '';
-        runAll();
-      });
-    }
-
-    var initial = paramsFromUrl();
-    if (initial.q) search.value = initial.q;
-    if (initial.cat) category.value = initial.cat;
-    if (initial.tier) tierSelect.value = initial.tier;
-    if (initial.sort) sortSelect.value = initial.sort;
-    runAll();
-
-    var activePopItem = null;
-    function showPopover(item) {
-      activePopItem = item;
-      popName.textContent = item.title;
-      popDesc.textContent = item.dataset.desc || '';
-      popFact.textContent = item.dataset.fact ? ('Cool fact: ' + item.dataset.fact) : '';
-      popover.hidden = false;
-      var rect = item.getBoundingClientRect();
-      var top = rect.bottom + window.scrollY + 8;
-      var left = rect.left + window.scrollX;
-      var maxLeft = window.scrollX + document.documentElement.clientWidth - 300;
-      if (left > maxLeft) left = Math.max(8, maxLeft);
-      popover.style.top = top + 'px';
-      popover.style.left = left + 'px';
-    }
-    function hidePopover() {
-      popover.hidden = true;
-      activePopItem = null;
-    }
-
-    items.forEach(function(item) {
-      item.addEventListener('mouseenter', function() { showPopover(item); });
-      item.addEventListener('mouseleave', hidePopover);
-      item.addEventListener('focus', function() { showPopover(item); });
-      item.addEventListener('blur', hidePopover);
-      item.addEventListener('touchstart', function(e) {
-        if (activePopItem !== item) {
-          e.preventDefault();
-          showPopover(item);
-        }
-      }, { passive: false });
-    });
-    document.addEventListener('click', function(e) {
-      if (activePopItem && !activePopItem.contains(e.target) && e.target !== activePopItem) hidePopover();
-    });
-  })();
-  </script>
-
   <div class="db-layout">
     <aside class="db-sidebar">
       <div class="db-sidebar-block">
@@ -2450,6 +2295,161 @@
       <p id="db-list-empty" class="db-wall-empty" hidden>No tools in this view match your filters. <a href="#" id="db-list-clear">Clear filters</a> to see the full list.</p>
     </div>
   </div>
+
+  <script>
+  (function() {
+    var search = document.getElementById('db-wall-search');
+    var category = document.getElementById('db-wall-category');
+    var tierSelect = document.getElementById('db-wall-tier');
+    var sortSelect = document.getElementById('db-wall-sort');
+    var grid = document.getElementById('db-wall-grid');
+    var items = Array.prototype.slice.call(grid.querySelectorAll('.db-wall-item'));
+    var count = document.getElementById('db-wall-count');
+    var empty = document.getElementById('db-wall-empty');
+    var total = items.length;
+    var popover = document.getElementById('db-wall-popover');
+    var popName = document.getElementById('db-wall-popover-name');
+    var popDesc = document.getElementById('db-wall-popover-desc');
+    var popFact = document.getElementById('db-wall-popover-fact');
+    var listRows = Array.prototype.slice.call(document.querySelectorAll('.db-main .db-row'));
+    var listSections = Array.prototype.slice.call(document.querySelectorAll('.db-main .db-section'));
+    var listEmpty = document.getElementById('db-list-empty');
+    var listClear = document.getElementById('db-list-clear');
+
+    function paramsFromUrl() {
+      var p = new URLSearchParams(window.location.search);
+      return { q: p.get('q') || '', cat: p.get('cat') || '', tier: p.get('tier') || '', sort: p.get('sort') || 'name' };
+    }
+
+    function syncUrl() {
+      var p = new URLSearchParams();
+      if (search.value.trim()) p.set('q', search.value.trim());
+      if (category.value) p.set('cat', category.value);
+      if (tierSelect.value) p.set('tier', tierSelect.value);
+      if (sortSelect.value !== 'name') p.set('sort', sortSelect.value);
+      var qs = p.toString();
+      var newUrl = window.location.pathname + (qs ? '?' + qs : '');
+      window.history.replaceState(null, '', newUrl);
+    }
+
+    function applySort() {
+      var mode = sortSelect.value;
+      var sorted = items.slice();
+      if (mode === 'newest') {
+        sorted.sort(function(a, b) {
+          if (a.dataset.date !== b.dataset.date) return a.dataset.date < b.dataset.date ? 1 : -1;
+          return a.dataset.name.localeCompare(b.dataset.name);
+        });
+      } else if (mode === 'category') {
+        sorted.sort(function(a, b) {
+          if (a.dataset.category !== b.dataset.category) return a.dataset.category.localeCompare(b.dataset.category);
+          return a.dataset.name.localeCompare(b.dataset.name);
+        });
+      } else {
+        sorted.sort(function(a, b) { return a.dataset.name.localeCompare(b.dataset.name); });
+      }
+      sorted.forEach(function(item) { grid.appendChild(item); });
+    }
+
+    function applyFilters() {
+      var q = search.value.trim().toLowerCase();
+      var cat = category.value;
+      var tier = tierSelect.value;
+      var shown = 0;
+      items.forEach(function(item) {
+        var matchesName = !q || item.dataset.name.indexOf(q) !== -1;
+        var matchesCat = !cat || item.dataset.category === cat;
+        var matchesTier = !tier || item.dataset.tier === tier;
+        var visible = matchesName && matchesCat && matchesTier;
+        item.hidden = !visible;
+        if (visible) shown++;
+      });
+      count.textContent = (q || cat || tier) ? ('Showing ' + shown + ' of ' + total) : ('Showing all ' + total);
+      empty.hidden = shown !== 0;
+      grid.hidden = shown === 0;
+
+      var listShown = 0;
+      listRows.forEach(function(rowEl) {
+        var matchesName = !q || rowEl.dataset.name.indexOf(q) !== -1;
+        var matchesCat = !cat || rowEl.dataset.category === cat;
+        var matchesTier = !tier || rowEl.dataset.tier === tier;
+        var visible = matchesName && matchesCat && matchesTier;
+        rowEl.hidden = !visible;
+        if (visible) listShown++;
+      });
+      listSections.forEach(function(section) {
+        var visibleRows = section.querySelectorAll('.db-row:not([hidden])');
+        var sectionMatchesCat = !cat || section.dataset.category === cat;
+        section.hidden = !sectionMatchesCat || visibleRows.length === 0;
+      });
+      if (listEmpty) listEmpty.hidden = listShown !== 0;
+
+      syncUrl();
+    }
+
+    function runAll() {
+      applySort();
+      applyFilters();
+    }
+
+    search.addEventListener('input', runAll);
+    category.addEventListener('change', runAll);
+    tierSelect.addEventListener('change', runAll);
+    sortSelect.addEventListener('change', runAll);
+    if (listClear) {
+      listClear.addEventListener('click', function(e) {
+        e.preventDefault();
+        search.value = '';
+        category.value = '';
+        tierSelect.value = '';
+        runAll();
+      });
+    }
+
+    var initial = paramsFromUrl();
+    if (initial.q) search.value = initial.q;
+    if (initial.cat) category.value = initial.cat;
+    if (initial.tier) tierSelect.value = initial.tier;
+    if (initial.sort) sortSelect.value = initial.sort;
+    runAll();
+
+    var activePopItem = null;
+    function showPopover(item) {
+      activePopItem = item;
+      popName.textContent = item.title;
+      popDesc.textContent = item.dataset.desc || '';
+      popFact.textContent = item.dataset.fact ? ('Cool fact: ' + item.dataset.fact) : '';
+      popover.hidden = false;
+      var rect = item.getBoundingClientRect();
+      var top = rect.bottom + window.scrollY + 8;
+      var left = rect.left + window.scrollX;
+      var maxLeft = window.scrollX + document.documentElement.clientWidth - 300;
+      if (left > maxLeft) left = Math.max(8, maxLeft);
+      popover.style.top = top + 'px';
+      popover.style.left = left + 'px';
+    }
+    function hidePopover() {
+      popover.hidden = true;
+      activePopItem = null;
+    }
+
+    items.forEach(function(item) {
+      item.addEventListener('mouseenter', function() { showPopover(item); });
+      item.addEventListener('mouseleave', hidePopover);
+      item.addEventListener('focus', function() { showPopover(item); });
+      item.addEventListener('blur', hidePopover);
+      item.addEventListener('touchstart', function(e) {
+        if (activePopItem !== item) {
+          e.preventDefault();
+          showPopover(item);
+        }
+      }, { passive: false });
+    });
+    document.addEventListener('click', function(e) {
+      if (activePopItem && !activePopItem.contains(e.target) && e.target !== activePopItem) hidePopover();
+    });
+  })();
+  </script>
 
   <div class="subscribe-box">
     <h3>Get notified about new reviews</h3>
