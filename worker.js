@@ -245,6 +245,66 @@ async function fetchHackerNews() {
   }
 }
 
+// ---------------- D&D flavor text ----------------
+// Generates a short, nerdy, sarcastic Dungeons & Dragons-flavored one-liner
+// for a news item via Workers AI (free-tier model, no external API key).
+// Failures are swallowed and simply leave the item without flavor text, this
+// is decoration, not core functionality, so it should never break the feed.
+
+const FLAVOR_SYSTEM_PROMPT =
+  "You are a snarky, nerdy Dungeon Master narrating tech industry news headlines " +
+  "as quest-log entries from a tabletop RPG campaign. Given a news headline and a " +
+  "short excerpt, write exactly ONE short, funny, sarcastic sentence, maximum 22 " +
+  "words, using Dungeons & Dragons flavor: things like quests, loot, saving throws, " +
+  "NPCs, dice rolls, dungeons, critical fails or hits, XP, campaigns, alignment, " +
+  "or party wipes. Do not use hashtags or emoji. Do not repeat the headline " +
+  "verbatim. Output ONLY the sentence itself, no quotation marks, no preamble, no " +
+  "label.";
+
+async function generateFlavor(title, excerpt, env) {
+  if (!env.AI) return null;
+  try {
+    const result = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+      messages: [
+        { role: "system", content: FLAVOR_SYSTEM_PROMPT },
+        { role: "user", content: `Headline: ${title}\nExcerpt: ${excerpt || "(none)"}` },
+      ],
+      max_tokens: 60,
+    });
+    let text = (result && (result.response || result.result || "")).toString().trim();
+    // Strip wrapping quotes and any stray "DM:" style prefix the model adds.
+    text = text.replace(/^["'“]+|["'”]+$/g, "").trim();
+    text = text.replace(/^(DM|Narrator|Quest Log)\s*[:\-]\s*/i, "").trim();
+    if (!text) return null;
+    return text.length > 220 ? text.slice(0, 217).trimEnd() + "..." : text;
+  } catch (err) {
+    return null;
+  }
+}
+
+// Cap how many brand-new items get a flavor-text AI call per scheduled run,
+// so a big batch of fresh headlines can't blow the Worker's CPU/time budget.
+// Leftover new items without flavor text just get picked up on the next run.
+const MAX_FLAVOR_PER_RUN = 15;
+
+async function attachFlavor(items, previousByLink, env) {
+  let budget = MAX_FLAVOR_PER_RUN;
+  for (const item of items) {
+    const prev = previousByLink.get(item.link);
+    if (prev && prev.flavor) {
+      item.flavor = prev.flavor;
+      continue;
+    }
+    if (budget <= 0) {
+      item.flavor = prev ? prev.flavor || null : null;
+      continue;
+    }
+    budget -= 1;
+    item.flavor = await generateFlavor(item.title, item.excerpt, env);
+  }
+  return items;
+}
+
 async function gatherNews(env) {
   const results = await Promise.allSettled(
     RSS_FEEDS.map(async (feed) => {
@@ -277,6 +337,23 @@ async function gatherNews(env) {
     (a, b) => new Date(b.published) - new Date(a.published)
   );
   const capped = deduped.slice(0, 70);
+
+  // Load the previous run's items so already-flavored stories keep their
+  // flavor text instead of paying for a fresh AI call every 6 hours.
+  let previousByLink = new Map();
+  if (env.NEWS) {
+    const prevRaw = await env.NEWS.get("latest");
+    if (prevRaw) {
+      try {
+        const prev = JSON.parse(prevRaw);
+        for (const it of prev.items || []) previousByLink.set(it.link, it);
+      } catch (err) {
+        // ignore malformed previous payload
+      }
+    }
+  }
+
+  await attachFlavor(capped, previousByLink, env);
 
   const payload = {
     generated_at: new Date().toISOString(),
