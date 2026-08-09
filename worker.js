@@ -264,7 +264,7 @@ const FLAVOR_SYSTEM_PROMPT =
 async function generateFlavor(title, excerpt, env) {
   if (!env.AI) return null;
   try {
-    const result = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+    const result = await env.AI.run("@cf/meta/llama-3.2-3b-instruct", {
       messages: [
         { role: "system", content: FLAVOR_SYSTEM_PROMPT },
         { role: "user", content: `Headline: ${title}\nExcerpt: ${excerpt || "(none)"}` },
