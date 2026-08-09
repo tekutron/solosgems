@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /api/
 
 # Explicitly allowed AI crawlers (also covered by the wildcard above,
 # listed here so it's unambiguous these aren't accidentally blocked).
