@@ -80,7 +80,7 @@
     <div id="news-list" class="news-list" hidden></div>
     <p id="news-empty" class="news-empty" hidden>Nothing matches that filter right now. Check back after the next refresh.</p>
 
-    <p class="news-footnote">This feed pulls from public RSS sources and Hacker News' search API on a schedule, tags stories as controversial by keyword and by Hacker News discussion volume, and flags any story that mentions a tool in our <a href="index.html">database</a>. It doesn't editorialize beyond that. Source links go straight to the original publisher.</p>
+    <p class="news-footnote">This feed pulls from public RSS sources and Hacker News' search API on a schedule, tags stories as controversial by keyword and by Hacker News discussion volume, and flags any story that mentions a tool in our <a href="index.html">database</a>. It doesn't editorialize beyond that. Source links go straight to the original publisher. The dice-roll one-liner under each headline is AI-generated flavor text, not analysis, treat it as a joke, not a source.</p>
   </article>
 </main>
 
@@ -129,6 +129,7 @@
       badges += '<span class="news-badge tool">' + escapeHtml(t) + '</span>';
     });
     var excerpt = item.excerpt ? '<p class="news-excerpt">' + escapeHtml(item.excerpt) + '</p>' : '';
+    var flavor = item.flavor ? '<p class="news-flavor"><span class="news-flavor-die" aria-hidden="true">&#9861;</span> ' + escapeHtml(item.flavor) + '</p>' : '';
     return (
       '<a class="news-card" href="' + escapeHtml(item.link) + '" target="_blank" rel="noopener">' +
       '<div class="news-card-head">' +
@@ -137,6 +138,7 @@
       '</div>' +
       '<h3 class="news-title">' + escapeHtml(item.title) + '</h3>' +
       excerpt +
+      flavor +
       (badges ? '<div class="news-badges">' + badges + '</div>' : '') +
       '</a>'
     );

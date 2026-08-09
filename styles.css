@@ -1542,6 +1542,21 @@ article li { margin: 6px 0; }
   font-size: 0.86rem;
 }
 
+.news-flavor {
+  margin: 0 0 8px;
+  padding: 6px 10px;
+  border-left: 2px solid var(--rust);
+  background: rgba(177, 69, 14, 0.08);
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+.news-flavor-die {
+  font-style: normal;
+  margin-right: 2px;
+}
+
 .news-badges {
   display: flex;
   flex-wrap: wrap;
