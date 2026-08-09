@@ -1,7 +1,7 @@
 {
   "source": "https://solosgems.com/",
   "generated": "2026-08-08",
-  "count": 190,
+  "count": 198,
   "license": "Free to use with attribution to Solos Gems (solosgems.com).",
   "tools": [
     {
@@ -25,6 +25,17 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Ahrefs",
+      "domain": "ahrefs.com",
+      "category": "SEO",
+      "description": "A comprehensive SEO platform with AI content grading and search-intent tools, from $29/month for the Starter plan. No free plan, only a trial.",
+      "cool_fact": "Its backlink index is large enough that competitors routinely cite Ahrefs' own crawl data as an industry benchmark for link data freshness.",
+      "url": "https://ahrefs.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "paid",
+      "date_added": "2026-08-08"
     },
     {
       "name": "AI2SQL",
@@ -115,6 +126,17 @@
       "date_added": "2026-08-01"
     },
     {
+      "name": "Attio",
+      "domain": "attio.com",
+      "category": "CRM & Client Management",
+      "description": "A flexible, data-first CRM with AI features built into every plan, including a free tier for up to 3 users, or $29/seat/month for Plus.",
+      "cool_fact": "Unlike most CRMs that gate AI behind the priciest tier, Attio includes AI research and enrichment on its free plan too, just with lower usage limits.",
+      "url": "https://attio.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-08-08"
+    },
+    {
       "name": "Auphonic",
       "domain": "auphonic.com",
       "category": "Podcasting & Video Editing",
@@ -146,6 +168,17 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Birdeye",
+      "domain": "birdeye.com",
+      "category": "Local Business",
+      "description": "AI-powered reputation management for local businesses, automating review requests, monitoring, and responses. No free plan, starting around $299 per location per month.",
+      "cool_fact": "Its pricing structure charges the full plan rate per physical location, which makes it a serious expense fast for any business with more than one storefront.",
+      "url": "https://birdeye.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "paid",
+      "date_added": "2026-08-08"
     },
     {
       "name": "Bland AI",
@@ -357,6 +390,17 @@
       "date_added": "2026-08-01"
     },
     {
+      "name": "Composer",
+      "domain": "composer.trade",
+      "category": "Investing & Markets",
+      "description": "AI-assisted, no-code trading strategy builder that backtests stock and ETF strategies, with a free tier for building and backtesting, or $32/month for live automated execution.",
+      "cool_fact": "You describe a trading idea in plain language or a visual editor, and it turns that into a fully automated, rebalancing strategy without writing a line of code.",
+      "url": "https://www.composer.trade/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-08-08"
+    },
+    {
       "name": "Consensus",
       "domain": "consensus.app",
       "category": "Research & Knowledge",
@@ -395,8 +439,8 @@
       "category": "Productivity & Notes",
       "description": "A visually polished notes and document app with AI writing assistance.",
       "cool_fact": "Positioned as a more design-forward, visual alternative to Notion.",
-      "url": "https://www.craft.do/",
-      "reviewed_on_solosgems": false,
+      "url": "https://solosgems.com/reviews/craft.html",
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01"
     },
@@ -516,8 +560,8 @@
       "category": "Website & App Builders",
       "description": "Generates a full small-business website, copy, images, and booking, in under a minute.",
       "cool_fact": "Also auto-generates basic business tools like invoices and a CRM alongside the website itself.",
-      "url": "https://durable.co/",
-      "reviewed_on_solosgems": false,
+      "url": "https://solosgems.com/reviews/durable.html",
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01"
     },
@@ -1237,6 +1281,17 @@
       "date_added": "2026-08-01"
     },
     {
+      "name": "MyArchitectAI",
+      "domain": "myarchitectai.com",
+      "category": "Interior Design",
+      "description": "Generates interior and exterior design renders from a photo or sketch, with a free tier covering 10 renders and 10 edits before $29/month plans kick in.",
+      "cool_fact": "It renders both interior room redesigns and full exterior architectural concepts from the same tool, most competitors only do one or the other.",
+      "url": "https://myarchitectai.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-08-08"
+    },
+    {
       "name": "MyFitnessPal",
       "domain": "myfitnesspal.com",
       "category": "Health & Fitness",
@@ -1323,6 +1378,17 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Ocoya",
+      "domain": "ocoya.com",
+      "category": "Marketing & Social Media",
+      "description": "AI social media scheduling and caption generation across 30+ platforms, with a free tier to start and paid plans from $19/month.",
+      "cool_fact": "It bundles AI copywriting directly into the scheduling calendar, so captions, hashtags, and post variations get generated on the same screen where you queue the post.",
+      "url": "https://www.ocoya.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-08-08"
     },
     {
       "name": "OpusClip",
@@ -1820,6 +1886,17 @@
       "date_added": "2026-08-01"
     },
     {
+      "name": "Superwhisper",
+      "domain": "superwhisper.com",
+      "category": "Voice Dictation",
+      "description": "AI voice dictation for Mac and iOS that types in any app, running on local AI models, free or $8.49/month for cloud models and file transcription.",
+      "cool_fact": "Runs entirely on-device using local AI models, so the free tier works offline with no word cap and no account required.",
+      "url": "https://superwhisper.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-08-08"
+    },
+    {
       "name": "Surfer SEO",
       "domain": "surferseo.com",
       "category": "SEO",
@@ -2016,6 +2093,17 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Willow Voice",
+      "domain": "willowvoice.com",
+      "category": "Voice Dictation",
+      "description": "Cross-platform AI dictation for Mac, Windows, and iOS with style memory that learns how you write, from a free tier of 2,000 words a week up to $15/month for unlimited use.",
+      "cool_fact": "Its iPhone keyboard now ships with free, unlimited AI dictation built in, a rare case of a paid tool's core feature going free on mobile.",
+      "url": "https://willowvoice.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-08-08"
     },
     {
       "name": "Windsurf",
