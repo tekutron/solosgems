@@ -534,8 +534,18 @@ article li { margin: 6px 0; }
   aspect-ratio: 1 / 1;
   border: 1.5px solid var(--ink);
   border-radius: 4px;
-  margin: 18px auto 26px;
+  margin: 18px auto 0;
   object-fit: cover;
+}
+.review-hero-caption {
+  max-width: 420px;
+  margin: 8px auto 26px;
+  padding: 0 6px;
+  font-size: 0.86rem;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  text-align: center;
 }
 
 /* ---------- Answer capsule (AEO summary) ---------- */
