@@ -525,6 +525,19 @@ article li { margin: 6px 0; }
 }
 .note-box strong { color: var(--rust-dark); }
 
+/* ---------- Review hero illustration ---------- */
+.review-hero {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border: 1.5px solid var(--ink);
+  border-radius: 4px;
+  margin: 18px auto 26px;
+  object-fit: cover;
+}
+
 /* ---------- Answer capsule (AEO summary) ---------- */
 .answer-capsule {
   border: 1.5px solid var(--ink);
