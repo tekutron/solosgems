@@ -712,6 +712,24 @@ article li { margin: 6px 0; }
 .compare-note a:hover { text-decoration: underline; }
 
 /* ---------- Related tools ---------- */
+.review-faq {
+  margin: 20px 0 28px;
+}
+.review-faq-item {
+  border-top: 1px solid var(--line);
+  padding: 16px 0;
+}
+.review-faq-item:first-child { border-top: none; padding-top: 4px; }
+.review-faq-item h3 {
+  margin: 0 0 6px;
+  font-size: 0.98rem;
+}
+.review-faq-item p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+
 .related-tools {
   border: 1.5px solid var(--line);
   background: var(--card);
