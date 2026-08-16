@@ -538,8 +538,8 @@ article li { margin: 6px 0; }
   object-fit: cover;
 }
 .review-hero-caption {
-  max-width: 420px;
-  margin: 8px auto 26px;
+  max-width: 420px !important;
+  margin: 8px auto 26px !important;
   padding: 0 6px;
   font-size: 0.86rem;
   font-style: italic;
