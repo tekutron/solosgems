@@ -2492,7 +2492,12 @@
     runAll();
 
     var activePopItem = null;
+    var popHideTimer = null;
+    function cancelPopHide() {
+      if (popHideTimer) { clearTimeout(popHideTimer); popHideTimer = null; }
+    }
     function showPopover(item) {
+      cancelPopHide();
       activePopItem = item;
       popName.textContent = item.title;
       popDesc.textContent = item.dataset.desc || '';
@@ -2507,18 +2512,30 @@
       }
       popCaption.textContent = item.dataset.caption || '';
       popover.hidden = false;
+      popover.scrollTop = 0;
       var rect = item.getBoundingClientRect();
-      var top = rect.bottom + window.scrollY + 8;
       var left = rect.left + window.scrollX;
       var maxLeft = window.scrollX + document.documentElement.clientWidth - 300;
       if (left > maxLeft) left = Math.max(8, maxLeft);
-      popover.style.top = top + 'px';
       popover.style.left = left + 'px';
+      var popHeight = popover.offsetHeight;
+      var viewportBottom = window.scrollY + window.innerHeight;
+      var top = rect.bottom + window.scrollY + 8;
+      if (top + popHeight > viewportBottom - 8) {
+        top = Math.max(window.scrollY + 8, viewportBottom - popHeight - 8);
+      }
+      popover.style.top = top + 'px';
     }
-    function hidePopover() {
+    function hidePopoverNow() {
       popover.hidden = true;
       activePopItem = null;
     }
+    function hidePopover() {
+      cancelPopHide();
+      popHideTimer = setTimeout(hidePopoverNow, 180);
+    }
+    popover.addEventListener('mouseenter', cancelPopHide);
+    popover.addEventListener('mouseleave', hidePopover);
 
     items.forEach(function(item) {
       item.addEventListener('mouseenter', function() { showPopover(item); });
@@ -2533,7 +2550,7 @@
       }, { passive: false });
     });
     document.addEventListener('click', function(e) {
-      if (activePopItem && !activePopItem.contains(e.target) && e.target !== activePopItem) hidePopover();
+      if (activePopItem && !activePopItem.contains(e.target) && e.target !== activePopItem && !popover.contains(e.target)) hidePopoverNow();
     });
   })();
   </script>
