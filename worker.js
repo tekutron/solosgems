@@ -31,7 +31,8 @@ export default {
 
     if (url.pathname === "/api/news/refresh") {
       if (request.method === "GET" || request.method === "POST") {
-        return handleRefreshNews(env);
+        const force = url.searchParams.get("force") === NEWS_FORCE_KEY;
+        return handleRefreshNews(env, force);
       }
       return new Response("Method not allowed", { status: 405 });
     }
@@ -132,6 +133,39 @@ const CONTROVERSY_KEYWORDS = [
   "probe", "investigation", "fined", "copyright", "plagiar", "deepfake", "backlash",
   "whistleblower", "leaked", "exploited", "misled", "deceptive", "recall",
 ];
+
+// Hard exclude list. This whole page treats headlines as raw material for
+// lighthearted D&D-flavored jokes, which makes it fundamentally the wrong
+// venue for real stories about child sexual abuse, exploitation, or similar
+// severe harm, regardless of whether the story happens to mention an AI
+// tool. Anything matching these terms is dropped entirely before it's ever
+// stored, flavored, or shown, no exceptions and no "but this one is
+// newsworthy" carve-out. Keep this list narrow and specific to avoid
+// accidentally sweeping up legitimate AI-safety policy coverage, but err on
+// the side of excluding when in doubt.
+const HARD_EXCLUDE_KEYWORDS = [
+  "child sexual abuse", "child sex abuse", "csam", "child exploitation",
+  "sexual abuse of a minor", "sexually explicit imag", "explicit imagery of a child",
+  "explicit images of a child", "child pornography", "child porn",
+  "pedophil", "paedophil", "child grooming", "grooming a child",
+  "sextortion", "child abuse", "abuse material involving", "minor into explicit",
+  // Broader proximity patterns so future stories phrased differently (not
+  // just this exact headline) still get caught, e.g. "used [tool] to turn a
+  // photo of her daughter into explicit images".
+  "(child|kid|minor|childhood|stepdaughter|stepson|daughter|son)[^.]{0,50}(explicit|sexual|nude|naked)",
+  "(explicit|sexual|nude|naked)[^.]{0,50}(child|kid|minor|childhood)",
+];
+
+function isHardExcluded(text) {
+  const lower = text.toLowerCase();
+  return HARD_EXCLUDE_KEYWORDS.some((kw) => {
+    try {
+      return new RegExp(kw, "i").test(lower);
+    } catch (err) {
+      return lower.includes(kw);
+    }
+  });
+}
 
 const TOOL_NAMES = ["10Web", "AI2SQL", "AIVA", "Adobe Firefly", "Airtable", "AltText.ai", "Amazon Q Developer", "Apollo.io", "Astra Security", "Auphonic", "Beautiful.ai", "Beehiiv", "Bland AI", "Bolt.new", "Bonsai", "Buffer", "Calendly", "Calm", "Canva Magic Studio", "CapCut", "ChatGPT", "ChatGPT Atlas", "Chatbase", "Chattermill", "Claude", "Clay", "Cleo", "ClickUp Brain", "CodeRabbit", "Consensus", "Copilot Money", "Copy.ai", "Craft", "Creatify", "Cursor", "D-ID", "Danelfin", "DeepL", "DeepSeek", "Descript", "Devin", "DocuSign", "Dovetail", "Durable", "ElevenLabs", "Elicit", "Epique AI", "Fathom", "Fireflies.ai", "Fitbod", "Flux", "Framer", "Freepik AI", "GPTZero", "Gamma", "Gemini", "GitHub Copilot", "Grain", "Grammarly", "Grok", "Harness AI", "HeyGen", "HireVue", "Hootsuite", "HubSpot Free CRM", "Ideogram", "Instantly.ai", "Intercom Fin", "Interior AI", "Ironclad", "Jasper", "Jobscan", "Juicebox", "Julius AI", "Kagi", "Kapwing", "Khanmigo", "Klevu", "Kling AI", "Koala AI", "Krea AI", "Leonardo AI", "Lokalise", "Looka", "Loom", "Lovable", "Luma Dream Machine", "Luminance", "MagicSchool AI", "Make", "Manus", "Mem", "Meshy", "Meta AI", "Microsoft Copilot", "Midjourney", "Mistral Le Chat", "Monarch Money", "Motion", "Murf AI", "MyFitnessPal", "Noom", "NotebookLM", "Notion AI", "Numerous.ai", "Obviously AI", "OpusClip", "Originality.ai", "Otter.ai", "PandaDoc", "Paradox", "Perplexity Comet", "Perplexity Pro", "Photoroom", "Pictory", "Pika", "Play.ht", "Plus AI", "Podium", "Poe", "QuickBooks Solopreneur", "QuillBot", "Quizlet", "Rask AI", "Reclaim.ai", "Recraft", "Recruiterflow", "Reflect", "RemodelAI", "Replit Agent", "Respeecher", "Rev", "Rezi", "Riverside.fm", "Robin AI", "Rocket Money", "Rows", "Runway", "Rytr", "Seeking Alpha Premium", "Semrush", "Shopify Magic", "Shortwave", "Soundraw", "Spellbook", "Stable Diffusion", "StoryChief", "Sudowrite", "Suno", "Surfer SEO", "Synthesia", "Tabnine", "Tana", "Teal", "Tidio", "Toggl Track", "Tripo AI", "Typeform", "Udio", "Uizard", "Vanna AI", "Vapi", "Veo", "Virtual Staging AI", "Webflow", "Whoop", "Windsurf", "Wispr Flow", "Wix", "Wiz", "Writesonic", "You.com", "Zapier AI Actions", "n8n", "v0"];
 
@@ -325,6 +359,10 @@ async function gatherNews(env) {
   const hnItems = await fetchHackerNews();
   items = items.concat(hnItems);
 
+  // Drop anything matching the hard-exclude list before it ever reaches
+  // dedupe, storage, or flavor generation. See HARD_EXCLUDE_KEYWORDS above.
+  items = items.filter((it) => !isHardExcluded(`${it.title} ${it.excerpt || ""}`));
+
   // Dedupe by link, keep newest, sort by published desc, cap the list.
   const byLink = new Map();
   for (const item of items) {
@@ -386,7 +424,12 @@ async function handleGetNews(env) {
   });
 }
 
-async function handleRefreshNews(env) {
+// Manually-keyed bypass for the cooldown below, used for urgent moderation
+// (e.g. purging a hard-excluded story immediately instead of waiting out the
+// normal 10-minute window). Not linked anywhere on the site.
+const NEWS_FORCE_KEY = "sg-news-force-q7k2wz";
+
+async function handleRefreshNews(env, force) {
   if (!env.NEWS) {
     return new Response(JSON.stringify({ ok: false, error: "NEWS KV not bound" }), {
       status: 500,
@@ -397,7 +440,7 @@ async function handleRefreshNews(env) {
   // Cooldown: skip if refreshed in the last 10 minutes, to stop this endpoint
   // from being hammered into spamming outbound requests to news sites.
   const existingRaw = await env.NEWS.get("latest");
-  if (existingRaw) {
+  if (!force && existingRaw) {
     try {
       const existing = JSON.parse(existingRaw);
       if (existing.generated_at) {
