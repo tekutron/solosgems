@@ -1086,17 +1086,35 @@ article li { margin: 6px 0; }
   color: #f3f1ec;
   border: 1px solid var(--rust-dark);
   border-radius: 8px;
-  padding: 12px 14px;
+  padding: 10px 14px 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.35);
   pointer-events: none;
 }
 .db-wall-popover[hidden] { display: none; }
+.db-wall-popover-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 6px;
+  margin: 0 0 8px;
+  background: #ece0c0;
+}
+.db-wall-popover-img[hidden] { display: none; }
 .db-wall-popover-name {
   margin: 0 0 4px;
   font-weight: 700;
   font-size: 0.9rem;
   color: #fff;
 }
+.db-wall-popover-caption {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--rust);
+}
+.db-wall-popover-caption:empty { display: none; }
 .db-wall-popover-desc {
   margin: 0 0 6px;
   font-size: 0.8rem;
