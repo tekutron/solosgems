@@ -3,7 +3,7 @@
   "tools": [
     {"slug": "instantly-ai", "name": "Instantly.ai", "category": "Email Outreach", "blurb": "Cold email outreach and deliverability tooling with AI-assisted copywriting, relevant if the business runs on outbound email prospecting."},
     {"slug": "podium", "name": "Podium", "category": "Local Business Messaging", "blurb": "AI-assisted text messaging, review requests, and lead follow-up built for local service businesses, not online-only solopreneurs."},
-    {"slug": "granola", "name": "Granola", "category": "Meetings & Transcription", "blurb": "AI meeting notes that work from your own live typing plus the audio, producing a sharper summary than transcription-only tools, popular with founders and consultants."},
-    {"slug": "anara", "name": "Anara", "category": "Research & Knowledge", "blurb": "An AI research assistant built to read and cross-reference PDFs, papers, and long documents, aimed at solo consultants and analysts doing deep research work."}
+    {"slug": "attio", "name": "Attio", "category": "CRM & Client Management", "blurb": "A flexible, data-first CRM with AI research and enrichment built into every plan, including the free tier, worth a look for anyone who's outgrown a spreadsheet but isn't ready for HubSpot's price tag."},
+    {"slug": "reclaim-ai", "name": "Reclaim.ai", "category": "Scheduling & Time", "blurb": "An AI calendar tool that auto-schedules habits, focus time, and tasks around your existing meetings, and reschedules them automatically when something collides."}
   ]
 }

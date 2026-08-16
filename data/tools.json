@@ -1,7 +1,7 @@
 {
   "source": "https://solosgems.com/",
   "generated": "2026-08-08",
-  "count": 198,
+  "count": 210,
   "license": "Free to use with attribution to Solos Gems (solosgems.com).",
   "tools": [
     {
@@ -98,10 +98,10 @@
       "category": "Research & Knowledge",
       "description": "An AI research assistant for reading, summarizing, and citing academic papers, with direct search across PubMed, arXiv, and JSTOR.",
       "cool_fact": "Rebranded from Unriddle AI in 2025 and is now used by more than 3 million researchers, including people at Stanford, MIT, and Johns Hopkins.",
-      "url": "https://anara.com/",
-      "reviewed_on_solosgems": false,
+      "url": "https://solosgems.com/reviews/anara.html",
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-16"
     },
     {
       "name": "Apollo.io",
@@ -124,6 +124,17 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Async",
+      "domain": "async.com",
+      "category": "Podcasting & Video Editing",
+      "description": "A browser-based podcast and video studio combining remote recording, multi-track editing, AI noise cleanup, and voice cloning in one platform.",
+      "cool_fact": "Rebranded from Podcastle to Async in February 2026 as the platform expanded from podcasting into video and code-enabled workflows, existing accounts and pricing carried over unchanged.",
+      "url": "https://async.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "unlisted",
+      "date_added": "2026-08-16"
     },
     {
       "name": "Attio",
@@ -223,6 +234,17 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Cal.com",
+      "domain": "cal.com",
+      "category": "Scheduling & Time",
+      "description": "An open-source Calendly alternative with AI-assisted routing forms and an AI phone agent, Cal.ai, that can take calls and book meetings on your behalf.",
+      "cool_fact": "The free plan already includes routing forms, workflow automation, and Cal.ai phone agent features, most competitors gate all three behind a paid tier.",
+      "url": "https://cal.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-08-16"
     },
     {
       "name": "Calendly",
@@ -676,6 +698,17 @@
       "date_added": "2026-08-01"
     },
     {
+      "name": "Fyxer AI",
+      "domain": "fyxer.com",
+      "category": "Email & Messaging",
+      "description": "An AI email assistant for Gmail and Outlook that triages your inbox into priority categories, drafts replies in your tone, and joins video calls to take notes.",
+      "cool_fact": "There's no permanent free tier, every plan starts as a 7-day trial before billing kicks in at $30/user/month.",
+      "url": "https://fyxer.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-08-16"
+    },
+    {
       "name": "Gamma",
       "domain": "gamma.app",
       "category": "Presentations & Design",
@@ -696,6 +729,17 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Genspark",
+      "domain": "genspark.ai",
+      "category": "AI Search & Browsing",
+      "description": "An all-in-one AI workspace built around a Super Agent that can research, build slide decks, analyze data, and make calls from a single dashboard.",
+      "cool_fact": "Basic AI chat and image generation run on zero credits through the end of 2026, a temporary perk buried in the pricing fine print.",
+      "url": "https://www.genspark.ai/",
+      "reviewed_on_solosgems": false,
+      "pricing": "unlisted",
+      "date_added": "2026-08-16"
     },
     {
       "name": "GitHub Copilot",
@@ -745,12 +789,12 @@
       "name": "Granola",
       "domain": "granola.ai",
       "category": "Meetings & Transcription",
-      "description": "An AI notetaker that runs locally on your Mac and never joins the call as a visible bot.",
+      "description": "An AI notetaker that runs on your desktop and never joins the call as a visible bot.",
       "cool_fact": "Builds its notes from your own rough, typed scribbles during the meeting, not just a raw transcript.",
-      "url": "https://www.granola.ai/",
-      "reviewed_on_solosgems": false,
+      "url": "https://solosgems.com/reviews/granola.html",
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-16"
     },
     {
       "name": "Grok",
@@ -762,6 +806,17 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Gumloop",
+      "domain": "gumloop.com",
+      "category": "Automation & Workflow",
+      "description": "A no-code AI automation platform where you build workflows on a visual canvas, chaining triggers, logic, integrations, and AI actions including web scraping and document parsing.",
+      "cool_fact": "It can run multiple AI sub-agents in parallel within a single workflow, each handling a different task at the same time.",
+      "url": "https://www.gumloop.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "unlisted",
+      "date_added": "2026-08-16"
     },
     {
       "name": "Harness AI",
@@ -1072,6 +1127,17 @@
       "date_added": "2026-08-08"
     },
     {
+      "name": "Lex",
+      "domain": "lex.page",
+      "category": "Writing & Copywriting",
+      "description": "A distraction-free AI word processor where you write normally and trigger AI feedback, brainstorming, or rewriting with a typed shortcut instead of a separate chat window.",
+      "cool_fact": "Style Guides can be trained on your own past writing samples, so its suggestions start sounding like you instead of generic AI.",
+      "url": "https://lex.page/",
+      "reviewed_on_solosgems": false,
+      "pricing": "unlisted",
+      "date_added": "2026-08-16"
+    },
+    {
       "name": "Lindy",
       "domain": "lindy.ai",
       "category": "Automation & Workflow",
@@ -1136,6 +1202,17 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Lumen5",
+      "domain": "lumen5.com",
+      "category": "Video Generation",
+      "description": "Turns a blog post, article, or script into a branded video with stock footage, AI voiceover, and captions, usually in under two minutes.",
+      "cool_fact": "The entire workflow starts from a pasted URL, not a video file, it reads the article and builds the storyboard itself.",
+      "url": "https://lumen5.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "unlisted",
+      "date_added": "2026-08-16"
     },
     {
       "name": "Luminance",
@@ -1345,6 +1422,17 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Notion Mail",
+      "domain": "notion.com",
+      "category": "Email & Messaging",
+      "description": "An inbox built with Notion's UI that auto-labels incoming email and can reference your Notion pages directly from AI, though AI features require a Business plan or higher.",
+      "cool_fact": "Notion retired its standalone $10 AI add-on in 2025, so Notion Mail's AI features now require a Business or Enterprise plan, no a la carte option anymore.",
+      "url": "https://www.notion.com/product/mail",
+      "reviewed_on_solosgems": false,
+      "pricing": "paid",
+      "date_added": "2026-08-16"
     },
     {
       "name": "NovelAI",
@@ -1820,6 +1908,28 @@
       "date_added": "2026-08-01"
     },
     {
+      "name": "Sider",
+      "domain": "sider.ai",
+      "category": "AI Assistants",
+      "description": "A browser sidebar extension that puts GPT, Claude, Gemini, and 20+ other models on any webpage, summarizing pages, chatting with PDFs, and translating without switching tabs.",
+      "cool_fact": "Started in 2019 as a simple ChatGPT sidebar and has grown into a platform with over 10 million active users.",
+      "url": "https://sider.ai/",
+      "reviewed_on_solosgems": false,
+      "pricing": "unlisted",
+      "date_added": "2026-08-16"
+    },
+    {
+      "name": "Simplified",
+      "domain": "simplified.com",
+      "category": "Marketing & Social Media",
+      "description": "A bundled marketing suite combining a no-code design editor, AI writer, video editor, and social scheduler in one subscription, aimed at small teams that don't want five separate tools.",
+      "cool_fact": "The free plan's AI writing credits are a one-time allotment of about 5,000 words that never renews, everything after that requires upgrading.",
+      "url": "https://simplified.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-08-16"
+    },
+    {
       "name": "Soundraw",
       "domain": "soundraw.io",
       "category": "Voice & Music",
@@ -1884,6 +1994,17 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Superhuman",
+      "domain": "superhuman.com",
+      "category": "Email & Messaging",
+      "description": "A premium, keyboard-shortcut-driven email client for Gmail and Outlook whose Auto Drafts feature writes full reply drafts in your voice before you even open the email.",
+      "cool_fact": "Starts at $30/month with no free tier, one of the more expensive ways to check email on this entire list.",
+      "url": "https://superhuman.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "paid",
+      "date_added": "2026-08-16"
     },
     {
       "name": "Superwhisper",
@@ -2071,6 +2192,17 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Warp",
+      "domain": "warp.dev",
+      "category": "Coding & Dev Tools",
+      "description": "An AI-native terminal that pairs a fast, GPU-rendered shell with an agent mode that can plan and run multi-step coding tasks directly in your command line.",
+      "cool_fact": "Free users can bring their own OpenAI, Anthropic, or Google API key instead of paying for Warp's own AI credits.",
+      "url": "https://www.warp.dev/",
+      "reviewed_on_solosgems": false,
+      "pricing": "unlisted",
+      "date_added": "2026-08-16"
     },
     {
       "name": "Webflow",
