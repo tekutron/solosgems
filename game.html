@@ -7,20 +7,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="max-image-preview:large">
 <title>The Road to Solos Gems: A Tiny AI-Tools Adventure | Solos Gems</title>
-<meta name="description" content="A choose-your-own-adventure with dice rolls, an inventory of real reviewed AI tools reimagined as items, and one dragon-shaped final boss. The goal: reach Solos Gems.">
+<meta name="description" content="A choose-your-own-adventure with dice rolls, minigames, an inventory of real reviewed AI tools reimagined as items, and one dragon-shaped final boss. The goal: reach Solos Gems.">
 <link rel="canonical" href="https://solosgems.com/game">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Solos Gems">
 <meta property="og:title" content="The Road to Solos Gems: A Tiny AI-Tools Adventure">
-<meta property="og:description" content="A choose-your-own-adventure with dice rolls, an inventory of real reviewed AI tools reimagined as items, and one dragon-shaped final boss. The goal: reach Solos Gems.">
+<meta property="og:description" content="A choose-your-own-adventure with dice rolls, minigames, real reviewed tools as items, and one dragon-shaped final boss. The goal: reach Solos Gems.">
 <meta property="og:url" content="https://solosgems.com/game">
 <meta property="og:image" content="https://solosgems.com/images/og-default.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The Road to Solos Gems: A Tiny AI-Tools Adventure">
-<meta name="twitter:description" content="A choose-your-own-adventure with dice rolls, real reviewed tools as items, and one dragon-shaped final boss.">
+<meta name="twitter:description" content="A choose-your-own-adventure with dice rolls, minigames, real reviewed tools as items, and one dragon-shaped final boss.">
 <meta name="twitter:image" content="https://solosgems.com/images/og-default.png">
 <meta name="theme-color" content="#1a1a18">
 <link rel="stylesheet" href="styles.css">
@@ -31,7 +31,7 @@
   "@type": "Game",
   "name": "The Road to Solos Gems",
   "url": "https://solosgems.com/game",
-  "description": "A choose-your-own-adventure with dice rolls and an inventory of real reviewed AI tools reimagined as fantasy items. The goal is to reach Solos Gems.",
+  "description": "A choose-your-own-adventure with dice rolls, minigames, and an inventory of real reviewed AI tools reimagined as fantasy items. The goal is to reach Solos Gems.",
   "isPartOf": { "@type": "WebSite", "name": "Solos Gems", "url": "https://solosgems.com/" }
 }
 </script>
@@ -68,7 +68,7 @@
 <main class="gq-wrap">
   <span class="kicker">A Tiny Adventure</span>
   <h1>The Road to Solos Gems</h1>
-  <p class="gq-lede">Pick your path, roll some dice, and try to reach the one shop in the realm that tells you the truth about a product before you buy it. Three real reviewed tools show up along the way as items. One very confident automaton shows up as the final boss.</p>
+  <p class="gq-lede">Pick your path, roll some dice, and try to reach the one shop in the realm that tells you the truth about a product before you buy it. Real reviewed tools show up along the way as items, three quick minigames test your luck, and one very confident automaton shows up as the final boss.</p>
 
   <section id="gq-title-screen" class="gq-panel">
     <h2>Choose your adventurer</h2>
@@ -89,15 +89,19 @@
     </div>
     <div id="gq-inventory"></div>
 
-    <div class="gq-scene-frame">
-      <img id="gq-scene-img" src="" alt="">
+    <div class="gq-stage">
+      <div class="gq-scene-frame">
+        <img id="gq-scene-img" src="" alt="">
+      </div>
+      <div class="gq-stage-text">
+        <div id="gq-win-banner" class="gq-win-banner" hidden>🏆 Quest Complete 🏆</div>
+        <h2 id="gq-scene-title"></h2>
+        <p id="gq-scene-text"></p>
+      </div>
     </div>
 
-    <h2 id="gq-scene-title"></h2>
-    <p id="gq-scene-text"></p>
-
     <div id="gq-dice-area" hidden>
-      <svg id="gq-dice-svg" viewBox="0 0 90 100" width="90" height="100" aria-hidden="true">
+      <svg id="gq-dice-svg" viewBox="0 0 90 100" width="70" height="78" aria-hidden="true">
         <polygon points="45,4 84,26 84,66 45,88 6,66 6,26" fill="#ece0c0" stroke="#2b1f14" stroke-width="5"/>
         <line x1="45" y1="4" x2="45" y2="88" stroke="#2b1f14" stroke-width="2.5"/>
         <line x1="6" y1="26" x2="84" y2="66" stroke="#2b1f14" stroke-width="2.5"/>
@@ -106,6 +110,8 @@
       </svg>
       <p id="gq-dice-result"></p>
     </div>
+
+    <div id="gq-minigame-area" hidden></div>
 
     <div id="gq-choices"></div>
   </section>
