@@ -1,0 +1,286 @@
+/* Incremental styles for the Road to Solos Gems mini game. Reuses the same
+   CSS variables defined in styles.css (--ink, --paper, --panel, --card,
+   --line, --rust, --rust-dark, --ok) so it stays visually part of the site. */
+
+.gq-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 8px 4px 60px;
+}
+
+.gq-lede {
+  color: var(--ink-soft);
+  margin-bottom: 26px;
+}
+
+/* ---- title / save screen ---- */
+.gq-panel {
+  background: var(--panel);
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  padding: 26px;
+}
+
+.gq-panel h2 {
+  margin-top: 0;
+}
+
+#gq-save-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 18px 0 24px;
+}
+
+.gq-empty {
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+.gq-save-row {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.gq-save-btn {
+  flex: 1;
+  text-align: left;
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.gq-save-btn:hover {
+  border-color: var(--rust-dark);
+}
+
+.gq-save-btn span {
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+}
+
+.gq-save-del {
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink-soft);
+  width: 42px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.gq-save-del:hover {
+  color: var(--rust-dark);
+  border-color: var(--rust-dark);
+}
+
+#gq-new-form {
+  display: flex;
+  gap: 10px;
+}
+
+#gq-new-name {
+  flex: 1;
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
+#gq-new-form button {
+  background: var(--rust);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#gq-new-form button:hover {
+  background: var(--rust-dark);
+}
+
+/* ---- in-game ---- */
+.gq-hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.gq-hud-left {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.gq-hud-left strong {
+  color: var(--ink);
+}
+
+.gq-hud-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.gq-hud-buttons button {
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 7px;
+  color: var(--ink-soft);
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.gq-hud-buttons button:hover {
+  color: var(--ink);
+  border-color: var(--rust-dark);
+}
+
+#gq-inventory {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+  min-height: 30px;
+}
+
+.gq-inv-label {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  align-self: center;
+}
+
+.gq-inv-empty {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  font-style: italic;
+  align-self: center;
+}
+
+.gq-item-chip {
+  background: var(--card);
+  border: 2px solid var(--rust);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.82rem;
+  cursor: default;
+}
+
+.gq-scene-frame {
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--card);
+  margin-bottom: 18px;
+  aspect-ratio: 1 / 1;
+}
+
+#gq-scene-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+#gq-scene-img.gq-loading {
+  opacity: 0.55;
+}
+
+#gq-scene-title {
+  margin: 0 0 8px;
+}
+
+#gq-scene-text {
+  color: var(--ink-soft);
+  margin: 0 0 22px;
+  line-height: 1.7;
+}
+
+#gq-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gq-choice-btn {
+  text-align: left;
+  background: var(--panel);
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  padding: 14px 18px;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 0.98rem;
+  cursor: pointer;
+}
+
+.gq-choice-btn:hover {
+  border-color: var(--rust-dark);
+  background: var(--card);
+}
+
+.gq-choice-again {
+  border-color: var(--rust);
+}
+
+.gq-cta {
+  display: block;
+  text-align: center;
+  background: var(--rust);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-weight: 700;
+}
+
+.gq-cta:hover {
+  background: var(--rust-dark);
+  color: #fff;
+}
+
+/* ---- dice roll ---- */
+#gq-dice-area {
+  text-align: center;
+  padding: 20px 0 6px;
+}
+
+.gq-dice-spin {
+  animation: gq-spin 0.75s cubic-bezier(0.2, 0.6, 0.3, 1);
+}
+
+@keyframes gq-spin {
+  0% { transform: rotate(0deg) scale(0.8); }
+  60% { transform: rotate(540deg) scale(1.08); }
+  100% { transform: rotate(720deg) scale(1); }
+}
+
+#gq-dice-result {
+  margin-top: 14px;
+  font-family: "IBM Plex Mono", monospace;
+  color: var(--ink-soft);
+  min-height: 1.4em;
+}
+
+@media (max-width: 480px) {
+  .gq-hud { flex-direction: column; align-items: flex-start; }
+}

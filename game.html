@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1475310308913553"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="max-image-preview:large">
+<title>The Road to Solos Gems: A Tiny AI-Tools Adventure | Solos Gems</title>
+<meta name="description" content="A choose-your-own-adventure with dice rolls, an inventory of real reviewed AI tools reimagined as items, and one dragon-shaped final boss. The goal: reach Solos Gems.">
+<link rel="canonical" href="https://solosgems.com/game">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Solos Gems">
+<meta property="og:title" content="The Road to Solos Gems: A Tiny AI-Tools Adventure">
+<meta property="og:description" content="A choose-your-own-adventure with dice rolls, an inventory of real reviewed AI tools reimagined as items, and one dragon-shaped final boss. The goal: reach Solos Gems.">
+<meta property="og:url" content="https://solosgems.com/game">
+<meta property="og:image" content="https://solosgems.com/images/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Road to Solos Gems: A Tiny AI-Tools Adventure">
+<meta name="twitter:description" content="A choose-your-own-adventure with dice rolls, real reviewed tools as items, and one dragon-shaped final boss.">
+<meta name="twitter:image" content="https://solosgems.com/images/og-default.png">
+<meta name="theme-color" content="#1a1a18">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="game.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Game",
+  "name": "The Road to Solos Gems",
+  "url": "https://solosgems.com/game",
+  "description": "A choose-your-own-adventure with dice rolls and an inventory of real reviewed AI tools reimagined as fantasy items. The goal is to reach Solos Gems.",
+  "isPartOf": { "@type": "WebSite", "name": "Solos Gems", "url": "https://solosgems.com/" }
+}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html"><svg class="gem-icon" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true">
+        <defs>
+          <linearGradient id="gemGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ffd76a"/>
+            <stop offset="100%" stop-color="#b8790f"/>
+          </linearGradient>
+        </defs>
+        <polygon points="16,2 27,12 16,30 5,12" fill="url(#gemGrad)" stroke="#1a1a18" stroke-width="1"/>
+        <polygon points="16,2 27,12 21,12" fill="#fff3cf"/>
+        <polygon points="16,2 5,12 11,12" fill="#ffe9a8"/>
+        <polygon points="5,12 11,12 16,30" fill="#c98a1f"/>
+        <polygon points="27,12 21,12 16,30" fill="#8a5a12"/>
+        <line x1="11" y1="12" x2="21" y2="12" stroke="#1a1a18" stroke-width="0.6"/>
+      </svg><span class="logo-word">SOLOS GEMS</span></a>
+    <a class="quest-badge" href="game.html" title="Play: The Road to Solos Gems">🎲 Quest</a>
+    <nav>
+      <a href="reviews.html">Reviews</a>
+      <a href="deathstack.html">DeathStack</a>
+      <a href="news.html">News</a>
+      <a href="submit.html">Submit</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="gq-wrap">
+  <span class="kicker">A Tiny Adventure</span>
+  <h1>The Road to Solos Gems</h1>
+  <p class="gq-lede">Pick your path, roll some dice, and try to reach the one shop in the realm that tells you the truth about a product before you buy it. Three real reviewed tools show up along the way as items. One very confident automaton shows up as the final boss.</p>
+
+  <section id="gq-title-screen" class="gq-panel">
+    <h2>Choose your adventurer</h2>
+    <div id="gq-save-list"></div>
+    <form id="gq-new-form">
+      <input id="gq-new-name" type="text" maxlength="24" placeholder="Enter a gamertag" required autocomplete="off">
+      <button type="submit">Begin</button>
+    </form>
+  </section>
+
+  <section id="gq-game" hidden>
+    <div class="gq-hud">
+      <div class="gq-hud-left">Adventuring as <strong id="gq-gamertag-label"></strong></div>
+      <div class="gq-hud-buttons">
+        <button type="button" id="gq-restart" hidden>Play again</button>
+        <button type="button" id="gq-switch">Switch adventurer</button>
+      </div>
+    </div>
+    <div id="gq-inventory"></div>
+
+    <div class="gq-scene-frame">
+      <img id="gq-scene-img" src="" alt="">
+    </div>
+
+    <h2 id="gq-scene-title"></h2>
+    <p id="gq-scene-text"></p>
+
+    <div id="gq-dice-area" hidden>
+      <svg id="gq-dice-svg" viewBox="0 0 90 100" width="90" height="100" aria-hidden="true">
+        <polygon points="45,4 84,26 84,66 45,88 6,66 6,26" fill="#ece0c0" stroke="#2b1f14" stroke-width="5"/>
+        <line x1="45" y1="4" x2="45" y2="88" stroke="#2b1f14" stroke-width="2.5"/>
+        <line x1="6" y1="26" x2="84" y2="66" stroke="#2b1f14" stroke-width="2.5"/>
+        <line x1="84" y1="26" x2="6" y2="66" stroke="#2b1f14" stroke-width="2.5"/>
+        <circle cx="45" cy="44" r="7" fill="#c98a2e"/>
+      </svg>
+      <p id="gq-dice-result"></p>
+    </div>
+
+    <div id="gq-choices"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Solos Gems is an independent site. Some links may be affiliate links; we only recommend tools we'd use ourselves. See <a href="about.html">About</a>, <a href="privacy.html">Privacy</a>, and <a href="terms.html">Terms</a>.</p>
+  </div>
+</footer>
+
+<script src="game.js" defer></script>
+</body>
+</html>

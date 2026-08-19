@@ -21,10 +21,10 @@
       "id": "36562e96bcdb41849da8d7a33f1d8407"
     }
   ],
-  "ai": {
-    "binding": "AI"
-  },
   "triggers": {
     "crons": ["0 */6 * * *"]
+  },
+  "ai": {
+    "binding": "AI"
   }
 }
