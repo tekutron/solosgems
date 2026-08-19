@@ -1,7 +1,7 @@
 {
   "source": "https://solosgems.com/",
   "generated": "2026-08-08",
-  "count": 210,
+  "count": 225,
   "license": "Free to use with attribution to Solos Gems (solosgems.com).",
   "tools": [
     {
@@ -90,7 +90,18 @@
       "url": "https://aws.amazon.com/q/developer/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-19"
+    },
+    {
+      "name": "Amazon Q Developer",
+      "domain": "aws.amazon.com",
+      "category": "Coding & Dev Tools",
+      "description": "AWS's AI coding assistant for writing, transforming, and security-scanning code inside supported IDEs, free for individuals with 50 agentic requests a month, Pro $19/user/month.",
+      "cool_fact": "AWS is retiring Q Developer's IDE plugins and paid subscriptions in favor of a successor tool called Kiro, new signups already closed as of mid-2026.",
+      "url": "https://aws.amazon.com/q/developer/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-08-19"
     },
     {
       "name": "Anara",
@@ -140,12 +151,12 @@
       "name": "Attio",
       "domain": "attio.com",
       "category": "CRM & Client Management",
-      "description": "A flexible, data-first CRM with AI features built into every plan, including a free tier for up to 3 users, or $29/seat/month for Plus.",
-      "cool_fact": "Unlike most CRMs that gate AI behind the priciest tier, Attio includes AI research and enrichment on its free plan too, just with lower usage limits.",
-      "url": "https://attio.com/",
-      "reviewed_on_solosgems": false,
+      "description": "A flexible, data-first CRM with AI research and enrichment built into every plan, including a free tier for up to 3 seats and 50,000 records, or $29/seat/month for Plus.",
+      "cool_fact": "Unlike most CRMs that gate AI behind the priciest tier, Attio ships AI enrichment on its free plan too, just metered by monthly credits instead of a seat count.",
+      "url": "https://solosgems.com/reviews/attio.html",
+      "reviewed_on_solosgems": true,
       "pricing": "free",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-19"
     },
     {
       "name": "Auphonic",
@@ -456,6 +467,17 @@
       "date_added": "2026-08-01"
     },
     {
+      "name": "Copyleaks",
+      "domain": "copyleaks.com",
+      "category": "AI Detection & Plagiarism",
+      "description": "Combines AI-text detection with traditional plagiarism checking and adds AI-image detection, individual plans from $13.99/month, team Pro from $74.99/month.",
+      "cool_fact": "The same credit pool covers both words and images, so a Personal plan's 1,200 credits stretch to 300,000 words or 1,200 scanned images, whichever runs out first.",
+      "url": "https://copyleaks.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "paid",
+      "date_added": "2026-08-01"
+    },
+    {
       "name": "Craft",
       "domain": "craft.do",
       "category": "Productivity & Notes",
@@ -753,6 +775,17 @@
       "date_added": "2026-08-01"
     },
     {
+      "name": "Gong",
+      "domain": "gong.io",
+      "category": "Sales & Prospecting",
+      "description": "Revenue intelligence software that records and analyzes sales calls to surface coaching insights and deal risk, enterprise-only with no public pricing page.",
+      "cool_fact": "Reported per-seat pricing runs around fourteen hundred dollars a year on top of a mandatory platform fee that alone can run into five figures.",
+      "url": "https://www.gong.io/",
+      "reviewed_on_solosgems": false,
+      "pricing": "unlisted",
+      "date_added": "2026-08-19"
+    },
+    {
       "name": "GPTZero",
       "domain": "gptzero.me",
       "category": "AI Detection & Plagiarism",
@@ -828,6 +861,17 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Harvey",
+      "domain": "harvey.ai",
+      "category": "Legal",
+      "description": "An AI platform built specifically for law firms, drafting, reviewing, and researching legal documents with models tuned on legal reasoning. Enterprise-only, quote-based pricing with contracts commonly starting around $1,000+ per seat per month.",
+      "cool_fact": "There's no public pricing page at all, firms report needing a minimum of roughly 20 seats on an annual contract just to get a quote.",
+      "url": "https://www.harvey.ai/",
+      "reviewed_on_solosgems": false,
+      "pricing": "paid",
+      "date_added": "2026-08-19"
     },
     {
       "name": "HeyGen",
@@ -910,12 +954,12 @@
       "name": "Instantly.ai",
       "domain": "instantly.ai",
       "category": "Sales & Prospecting",
-      "description": "Cold email outreach and deliverability tooling with AI-assisted copywriting.",
-      "cool_fact": "Built specifically to manage inbox rotation and warmup so outreach at volume doesn't land in spam.",
-      "url": "https://instantly.ai/",
-      "reviewed_on_solosgems": false,
-      "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "description": "Cold email outreach with AI-assisted copywriting and deliverability tooling across unlimited sending accounts, from $37.60/month with lead data and CRM sold as separate add-on modules.",
+      "cool_fact": "Every plan includes unlimited email accounts and inbox warmup, but the lead database and CRM ship as paid add-ons, so a fully wired setup usually costs more than the sticker price suggests.",
+      "url": "https://solosgems.com/reviews/instantly-ai.html",
+      "reviewed_on_solosgems": true,
+      "pricing": "paid",
+      "date_added": "2026-08-19"
     },
     {
       "name": "Intercom Fin",
@@ -993,6 +1037,17 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Julius",
+      "domain": "julius.ai",
+      "category": "Data & Analytics",
+      "description": "An AI data analyst you chat with, upload a spreadsheet or database and it writes and runs the code to clean, analyze, and chart it. Free plan available, Plus from $16/month annual.",
+      "cool_fact": "Every plan runs on a monthly credit grant instead of a message cap, so one complex multi-step analysis can burn through a lot more allowance than a single quick chart request.",
+      "url": "https://julius.ai/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-08-19"
     },
     {
       "name": "Julius AI",
@@ -1147,6 +1202,17 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-08"
+    },
+    {
+      "name": "Linear",
+      "domain": "linear.app",
+      "category": "Project Management",
+      "description": "A fast, keyboard-driven issue tracker for software teams with AI-assisted triage and summaries, genuinely free for small teams up to 250 issues, Basic $10/user/month.",
+      "cool_fact": "The free plan caps at 250 open issues rather than a time limit or seat count, so a small team can stay on it indefinitely as long as it keeps closing tickets.",
+      "url": "https://linear.app/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-08-19"
     },
     {
       "name": "Lokalise",
@@ -1312,6 +1378,17 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Missive",
+      "domain": "missive.app",
+      "category": "Email & Messaging",
+      "description": "A shared team inbox that merges email, chat, and tasks into one thread view, with an unadvertised free plan for up to 3 users and paid plans from $14/user/month.",
+      "cool_fact": "The free tier isn't listed on the pricing page at all, it only shows up in Missive's own billing documentation.",
+      "url": "https://missiveapp.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-08-19"
     },
     {
       "name": "Mistral Le Chat",
@@ -1589,6 +1666,17 @@
       "date_added": "2026-08-01"
     },
     {
+      "name": "Pitch",
+      "domain": "pitch.com",
+      "category": "Presentations & Design",
+      "description": "A collaborative presentation tool built for teams, with real-time multiplayer editing and AI slide generation, free to start with paid plans from around $11/seat/month.",
+      "cool_fact": "It was built by former Wunderlist founders specifically to fix the parts of pitch decks that get stuck in email attachments and version-numbered filenames.",
+      "url": "https://pitch.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "paid",
+      "date_added": "2026-08-19"
+    },
+    {
       "name": "PixVerse",
       "domain": "pixverse.ai",
       "category": "Video Generation",
@@ -1702,12 +1790,12 @@
       "name": "Reclaim.ai",
       "domain": "reclaim.ai",
       "category": "Scheduling & Time",
-      "description": "An AI calendar tool that auto-schedules habits, focus time, and tasks around your existing meetings.",
-      "cool_fact": "Automatically defends time for recurring habits like exercise or deep work, rescheduling them if a meeting collides.",
-      "url": "https://reclaim.ai/",
-      "reviewed_on_solosgems": false,
-      "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "description": "An AI calendar tool that auto-schedules habits, focus time, and tasks around your existing meetings, with a genuinely free tier for a single calendar.",
+      "cool_fact": "Automatically defends time for recurring habits like exercise or deep work, rescheduling them itself the moment a meeting collides.",
+      "url": "https://solosgems.com/reviews/reclaim-ai.html",
+      "reviewed_on_solosgems": true,
+      "pricing": "free",
+      "date_added": "2026-08-19"
     },
     {
       "name": "Recraft",
@@ -1752,6 +1840,17 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Replit",
+      "domain": "replit.com",
+      "category": "Coding & Dev Tools",
+      "description": "A browser-based coding environment where Replit Agent can build, run, and deploy a full app from a plain-language prompt, free to start with paid Core at $20/month plus usage-based credits.",
+      "cool_fact": "The subscription is really just the base fee, actively building with the Agent burns separate usage credits that can add another five to twenty dollars a day on top.",
+      "url": "https://replit.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "paid",
+      "date_added": "2026-08-19"
     },
     {
       "name": "Replit Agent",
@@ -1864,6 +1963,17 @@
       "date_added": "2026-08-01"
     },
     {
+      "name": "Sanebox",
+      "domain": "sanebox.com",
+      "category": "Email & Messaging",
+      "description": "An inbox filtering tool that quietly sorts newsletters, notifications, and noise out of your main inbox using folder rules instead of AI chat, from $7/month for one account.",
+      "cool_fact": "It's been running the same folder-based filtering approach since 2010, one of the few tools on this entire list that predates the AI boom by over a decade.",
+      "url": "https://www.sanebox.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "paid",
+      "date_added": "2026-08-19"
+    },
+    {
       "name": "Seeking Alpha Premium",
       "domain": "seekingalpha.com",
       "category": "Investing & Markets",
@@ -1930,6 +2040,17 @@
       "date_added": "2026-08-16"
     },
     {
+      "name": "Smartlead",
+      "domain": "smartlead.ai",
+      "category": "Sales & Prospecting",
+      "description": "Cold email sending software built for scale, with unlimited mailboxes and inbox warmup on every plan starting at $39/month.",
+      "cool_fact": "The subscription price is really just the sequencer, budget several times the plan cost for the mailboxes, domains, and verification credits that actually get the emails delivered.",
+      "url": "https://www.smartlead.ai/",
+      "reviewed_on_solosgems": false,
+      "pricing": "paid",
+      "date_added": "2026-08-19"
+    },
+    {
       "name": "Soundraw",
       "domain": "soundraw.io",
       "category": "Voice & Music",
@@ -1939,6 +2060,17 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Sourcegraph Cody",
+      "domain": "sourcegraph.com",
+      "category": "Coding & Dev Tools",
+      "description": "A code-search-powered AI assistant that answers questions and writes code with full awareness of your codebase, now positioned as an enterprise product after Sourcegraph dropped its free individual and Pro tiers.",
+      "cool_fact": "As of 2026 it's enterprise-only, contracts are reported to start around sixteen thousand dollars, a sharp turn from the free-and-cheap positioning it had a year earlier.",
+      "url": "https://sourcegraph.com/cody",
+      "reviewed_on_solosgems": false,
+      "pricing": "unlisted",
+      "date_added": "2026-08-19"
     },
     {
       "name": "Spellbook",
@@ -2084,6 +2216,17 @@
       "date_added": "2026-08-01"
     },
     {
+      "name": "tl;dv",
+      "domain": "tldv.io",
+      "category": "Meetings & Transcription",
+      "description": "An AI meeting recorder and transcription tool for Zoom, Meet, and Teams with unlimited free recordings and 10 free AI summaries a month before paid plans start at $18/user/month.",
+      "cool_fact": "The free plan's recording and transcription limits are genuinely unlimited, the only real cap is on AI-generated meeting summaries, most competitors throttle recording itself.",
+      "url": "https://solosgems.com/reviews/tldv.html",
+      "reviewed_on_solosgems": true,
+      "pricing": "free",
+      "date_added": "2026-08-19"
+    },
+    {
       "name": "Toggl Track",
       "domain": "toggl.com",
       "category": "Scheduling & Time",
@@ -2192,6 +2335,17 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Warmly",
+      "domain": "warmly.ai",
+      "category": "Sales & Prospecting",
+      "description": "Identifies anonymous website visitors and turns them into AI-qualified sales conversations, with pricing built entirely around annual enterprise contracts, no self-serve monthly plan.",
+      "cool_fact": "Reported starting prices run from ten to thirty thousand dollars a year depending on which agent (data, inbound, outbound) you license, all seats are unlimited once you're in.",
+      "url": "https://warmly.ai/",
+      "reviewed_on_solosgems": false,
+      "pricing": "unlisted",
+      "date_added": "2026-08-19"
     },
     {
       "name": "Warp",
@@ -2313,6 +2467,17 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Zed",
+      "domain": "zed.dev",
+      "category": "Coding & Dev Tools",
+      "description": "A fast, Rust-built code editor with real-time collaboration and optional AI features, the editor itself is free forever, Pro adds unlimited AI edit predictions for $10/month.",
+      "cool_fact": "The base editor never requires a subscription at all, you only pay if you want Zed's own hosted AI models instead of bringing your own API key.",
+      "url": "https://zed.dev/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-08-19"
     }
   ]
 }

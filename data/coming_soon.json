@@ -1,9 +1,10 @@
 {
   "note": "Placeholder queue for the next batch of reviews. Not researched, priced, or scored yet, do not add these to data/rankings.json until a real reviews/{slug}.html page exists with verified pricing.",
   "tools": [
-    {"slug": "instantly-ai", "name": "Instantly.ai", "category": "Email Outreach", "blurb": "Cold email outreach and deliverability tooling with AI-assisted copywriting, relevant if the business runs on outbound email prospecting."},
     {"slug": "podium", "name": "Podium", "category": "Local Business Messaging", "blurb": "AI-assisted text messaging, review requests, and lead follow-up built for local service businesses, not online-only solopreneurs."},
-    {"slug": "attio", "name": "Attio", "category": "CRM & Client Management", "blurb": "A flexible, data-first CRM with AI research and enrichment built into every plan, including the free tier, worth a look for anyone who's outgrown a spreadsheet but isn't ready for HubSpot's price tag."},
-    {"slug": "reclaim-ai", "name": "Reclaim.ai", "category": "Scheduling & Time", "blurb": "An AI calendar tool that auto-schedules habits, focus time, and tasks around your existing meetings, and reschedules them automatically when something collides."}
+    {"slug": "fellow", "name": "Fellow", "category": "Meetings & Transcription", "blurb": "An AI meeting assistant that transcribes, summarizes, and syncs action items straight into your CRM or project tracker, built more for teams running recurring standups and 1:1s than solo calls."},
+    {"slug": "sintra", "name": "Sintra", "category": "AI Assistants", "blurb": "A roster of 12 role-specific AI helpers for sales, marketing, SEO, and support, framed as hiring a small digital team instead of one general chatbot."},
+    {"slug": "relevance-ai", "name": "Relevance AI", "category": "Automation & Workflow", "blurb": "A no-code builder for custom AI agents and multi-agent \"Workforces\" that coordinate on research, outbound, and back-office tasks, aimed more at go-to-market teams than a single operator."},
+    {"slug": "salesloft", "name": "Salesloft", "category": "Sales & Prospecting", "blurb": "An enterprise sales engagement platform combining sequencing, call analytics, and AI deal diagnostics, built for sales teams with a pipeline to manage, not solo outreach."}
   ]
 }
