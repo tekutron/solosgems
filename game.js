@@ -1174,7 +1174,7 @@
     instructions.textContent = node.instructions || "Tap, click, or press space to flap. Thread the gaps.";
     wrap.appendChild(instructions);
 
-    var lives = 1 + (miniGameBonus ? 1 : 0);
+    var lives = 2 + (miniGameBonus ? 1 : 0);
     var livesEl = document.createElement("p");
     livesEl.className = "gq-mg-timer";
     wrap.appendChild(livesEl);
@@ -1195,8 +1195,8 @@
 
     var stageW, stageH;
     var playerY, vy;
-    var GRAVITY = 0.42;
-    var FLAP = -7.2;
+    var GRAVITY = 0.22;
+    var FLAP = -5.4;
     var PLAYER_X = 44;
     var PLAYER_R = 15;
     var SPEED = 2.6;
@@ -1322,10 +1322,10 @@
     window.requestAnimationFrame(function () {
       measure();
       playerY = stageH / 2;
-      vy = 0;
+      vy = FLAP * 0.45; // small starting lift so play doesn't begin mid-freefall
       player.style.top = playerY + "px";
       spawnHandle = window.setInterval(spawnObstacle, 1350);
-      spawnObstacle();
+      window.setTimeout(spawnObstacle, 900); // grace period before the first obstacle arrives
       frameHandle = window.requestAnimationFrame(tick);
     });
 
