@@ -1,6 +1,6 @@
 # Solos Gems
 
-> Independent, scored reviews of AI tools for solopreneurs, plus a categorized directory of 225+ AI tools across every major category. The homepage (https://solosgems.com/) is the full AI tools database, browsable by category. The 51 tools Solos Gems has fully tested get a priced, scored review and a rank on a single cross-category list (0-10, weighted across value for price, real-world capability, ease of use, and trial safety), listed at https://solosgems.com/reviews, not a per-category leaderboard. Nothing scores a 10. Reviews cover what a tool actually does, what it costs once the free tier runs out, and who it's a bad fit for. Some links are affiliate links (disclosed on the About page); that never changes which tools are covered or what the verdict says.
+> Independent, scored reviews of AI tools for solopreneurs, plus a categorized directory of 226+ AI tools across every major category. The homepage (https://solosgems.com/) is the full AI tools database, browsable by category. The 51 tools Solos Gems has fully tested get a priced, scored review and a rank on a single cross-category list (0-10, weighted across value for price, real-world capability, ease of use, and trial safety), listed at https://solosgems.com/reviews, not a per-category leaderboard. Nothing scores a 10. Reviews cover what a tool actually does, what it costs once the free tier runs out, and who it's a bad fit for. Some links are affiliate links (disclosed on the About page); that never changes which tools are covered or what the verdict says.
 
 Last updated: 2026-08-19.
 
@@ -60,7 +60,7 @@ Last updated: 2026-08-19.
 
 ## Other pages
 
-- [Homepage / full ranking](https://solosgems.com/index): All 225+ tools in a filterable, searchable database, plus a tool-finder quiz.
+- [Homepage / full ranking](https://solosgems.com/index): All 226+ tools in a filterable, searchable database, plus a tool-finder quiz.
 - [About / methodology](https://solosgems.com/about): How reviews are built, how the ranking/scoring works, and the affiliate disclosure.
 - [State of AI Tools for Solopreneurs 2026](https://solosgems.com/state-of-ai-tools): Original aggregate data pulled from the 51 scored reviews, median score, free-tier rate, category breadth, updated as new reviews are added.
 - [DeathStack](https://solosgems.com/deathstack): 25 real, sourced case studies of AI tools and services that shut down (ChatGPT Plugins, Neeva, Olive AI, Builder.ai, Tune AI, Woebot, Coqui AI, Yara AI, Ghost Autonomy, Forward Health, Humane AI Pin, Tome, Sora, ChatGPT Atlas, Yupp, theGist, Reforged Labs, Relay.app, Astra, Doppl, Cruise, IBM Watson Health, Amazon Halo, Meta Galactica, and the PDF-chat wrapper category), with cause of death and the lesson for solopreneurs relying on a single AI vendor.
