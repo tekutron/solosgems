@@ -1329,7 +1329,21 @@
       frameHandle = window.requestAnimationFrame(tick);
     });
 
-    stage.addEventListener("pointerdown", function (e) { e.preventDefault(); flap(); });
+    // Bind several input event types on both the stage and its wrapper so a
+    // flap registers regardless of pointer-event support in the visitor's
+    // browser (older WebViews and some mobile browsers only fire a subset).
+    var lastFlapAt = 0;
+    function onFlapInput(e) {
+      var now = Date.now();
+      if (now - lastFlapAt < 60) return; // de-dupe when multiple event types fire for one tap
+      lastFlapAt = now;
+      if (e.cancelable) e.preventDefault();
+      flap();
+    }
+    ["pointerdown", "mousedown", "touchstart", "click"].forEach(function (evt) {
+      stage.addEventListener(evt, onFlapInput, { passive: false });
+      wrap.addEventListener(evt, onFlapInput, { passive: false });
+    });
     var keyHandler = function (e) {
       if (e.code === "Space" || e.key === " ") { e.preventDefault(); flap(); }
     };
@@ -1337,6 +1351,10 @@
 
     miniGameCleanup = function () {
       document.removeEventListener("keydown", keyHandler);
+      ["pointerdown", "mousedown", "touchstart", "click"].forEach(function (evt) {
+        stage.removeEventListener(evt, onFlapInput);
+        wrap.removeEventListener(evt, onFlapInput);
+      });
       stopLoop();
     };
   }
