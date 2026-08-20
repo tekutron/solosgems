@@ -920,6 +920,7 @@
     els.winBanner.hidden = true;
 
     if (node.type === "minigame") {
+      miniGameFailCount = 0;
       var startBtn = document.createElement("button");
       startBtn.type = "button";
       startBtn.className = "gq-choice-btn gq-choice-start";
@@ -996,6 +997,11 @@
   }
 
   // ---------------- Minigames ----------------
+  // A losing run never dead-ends: the player can retry the same minigame
+  // freely, and after three losses on this visit a "roll instead" fallback
+  // appears so a skill-based minigame can never permanently block progress.
+  var miniGameFailCount = 0;
+
   function finishMiniGame(node, success, resultText) {
     if (miniGameTimer) {
       window.clearInterval(miniGameTimer);
@@ -1005,18 +1011,69 @@
       miniGameCleanup();
       miniGameCleanup = null;
     }
-    els.minigameArea.innerHTML = '<p class="gq-mg-result">' + escapeHtml(resultText) + "</p>";
+
     if (success) {
+      els.minigameArea.innerHTML = '<p class="gq-mg-result">' + escapeHtml(resultText) + "</p>";
       if (node.grantItemOnSuccess && state.inventory.indexOf(node.grantItemOnSuccess) === -1) {
         state.inventory.push(node.grantItemOnSuccess);
       }
       if (node.setFlagOnSuccess) {
         state.flags[node.setFlagOnSuccess] = true;
       }
+      window.setTimeout(function () { renderNode(node.success); }, 1300);
+      return;
     }
-    window.setTimeout(function () {
-      renderNode(success ? node.success : node.fail);
-    }, 1300);
+
+    miniGameFailCount += 1;
+    els.minigameArea.innerHTML = '<p class="gq-mg-result">' + escapeHtml(resultText) + "</p>";
+
+    var actions = document.createElement("div");
+    actions.className = "gq-mg-fail-actions";
+
+    var retryBtn = document.createElement("button");
+    retryBtn.type = "button";
+    retryBtn.className = "gq-choice-btn gq-choice-start";
+    retryBtn.textContent = "Try again";
+    retryBtn.addEventListener("click", function () { startMiniGame(node); });
+    actions.appendChild(retryBtn);
+
+    if (miniGameFailCount >= 3) {
+      var note = document.createElement("p");
+      note.className = "gq-mg-result";
+      note.textContent = "Third time's not the charm either. Skip the reflexes and just roll for it.";
+      actions.appendChild(note);
+
+      var rollBtn = document.createElement("button");
+      rollBtn.type = "button";
+      rollBtn.className = "gq-choice-btn gq-choice-start";
+      rollBtn.textContent = "Roll instead";
+      rollBtn.addEventListener("click", function () { offerRollInstead(node); });
+      actions.appendChild(rollBtn);
+    }
+
+    var giveUpBtn = document.createElement("button");
+    giveUpBtn.type = "button";
+    giveUpBtn.className = "gq-choice-btn";
+    giveUpBtn.textContent = "Leave it at that";
+    giveUpBtn.addEventListener("click", function () { renderNode(node.fail); });
+    actions.appendChild(giveUpBtn);
+
+    els.minigameArea.appendChild(actions);
+  }
+
+  // Emergency fallback once a minigame has been lost three times in a row:
+  // resolves the same encounter with a plain dice check instead, using the
+  // same primed-item logic as any other check.
+  function offerRollInstead(node) {
+    resetMiniGameArea();
+    els.diceArea.hidden = true;
+    var check = {
+      statLabel: node.rollLabel || "Nerve",
+      dc: node.rollDc != null ? node.rollDc : 11,
+      success: node.success,
+      fail: node.fail
+    };
+    runDiceCheck(check);
   }
 
   var miniGameBonus = null; // { itemId, effect } from a primed item, or null
@@ -1174,7 +1231,7 @@
     instructions.textContent = node.instructions || "Tap, click, or press space to flap. Thread the gaps.";
     wrap.appendChild(instructions);
 
-    var lives = 2 + (miniGameBonus ? 1 : 0);
+    var lives = 3 + (miniGameBonus ? 1 : 0);
     var livesEl = document.createElement("p");
     livesEl.className = "gq-mg-timer";
     wrap.appendChild(livesEl);
@@ -1200,8 +1257,8 @@
 
     var stageW, stageH;
     var playerY, vy;
-    var GRAVITY = 0.22;
-    var FLAP = -5.4;
+    var GRAVITY = 0.14;
+    var FLAP = -3.2;
     var PLAYER_X = 44;
     var PLAYER_R = 15;
     var SPEED = 2.6;

@@ -473,6 +473,13 @@
   margin: 0;
 }
 
+.gq-mg-fail-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
 /* ---- arcade (flap-and-dodge) minigame ---- */
 .gq-arcade {
   position: relative;
