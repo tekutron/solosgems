@@ -1190,6 +1190,11 @@
     player.textContent = node.playerEmoji || "🧙";
     stage.appendChild(player);
 
+    var startOverlay = document.createElement("div");
+    startOverlay.className = "gq-arcade-start";
+    startOverlay.innerHTML = '<span class="gq-arcade-start-btn">▶ Tap or click to start</span>';
+    stage.appendChild(startOverlay);
+
     function updateLives() { livesEl.textContent = "Lives: " + "❤️".repeat(Math.max(lives, 0)); }
     updateLives();
 
@@ -1206,7 +1211,9 @@
     var targetPasses = node.targetPasses || 5;
     var frameHandle = null;
     var spawnHandle = null;
+    var startTimeoutHandle = null;
     var running = true;
+    var started = false;
     var flavorPool = (node.flavorLabels || []).slice();
 
     function nextFlavor() {
@@ -1308,36 +1315,52 @@
     }
 
     function flap() {
-      if (!running) return;
+      if (!running || !started) return;
       vy = FLAP;
     }
 
     function stopLoop() {
       if (frameHandle) window.cancelAnimationFrame(frameHandle);
       if (spawnHandle) window.clearInterval(spawnHandle);
+      if (startTimeoutHandle) window.clearTimeout(startTimeoutHandle);
       frameHandle = null;
       spawnHandle = null;
+      startTimeoutHandle = null;
     }
 
+    // Rest the player at the vertical center while waiting for the player to
+    // actually start, no gravity applies and nothing spawns until they do.
     window.requestAnimationFrame(function () {
+      measure();
+      playerY = stageH / 2;
+      vy = 0;
+      player.style.top = playerY + "px";
+    });
+
+    function beginPlay() {
+      if (started) return;
+      started = true;
+      if (startOverlay.parentNode) startOverlay.parentNode.removeChild(startOverlay);
       measure();
       playerY = stageH / 2;
       vy = FLAP * 0.45; // small starting lift so play doesn't begin mid-freefall
       player.style.top = playerY + "px";
       spawnHandle = window.setInterval(spawnObstacle, 1350);
-      window.setTimeout(spawnObstacle, 900); // grace period before the first obstacle arrives
+      startTimeoutHandle = window.setTimeout(spawnObstacle, 900); // grace period before the first obstacle arrives
       frameHandle = window.requestAnimationFrame(tick);
-    });
+    }
 
     // Bind several input event types on both the stage and its wrapper so a
-    // flap registers regardless of pointer-event support in the visitor's
-    // browser (older WebViews and some mobile browsers only fire a subset).
+    // flap (or the initial start) registers regardless of pointer-event
+    // support in the visitor's browser (older WebViews and some mobile
+    // browsers only fire a subset).
     var lastFlapAt = 0;
     function onFlapInput(e) {
       var now = Date.now();
       if (now - lastFlapAt < 60) return; // de-dupe when multiple event types fire for one tap
       lastFlapAt = now;
       if (e.cancelable) e.preventDefault();
+      if (!started) { beginPlay(); return; }
       flap();
     }
     ["pointerdown", "mousedown", "touchstart", "click"].forEach(function (evt) {
@@ -1345,7 +1368,10 @@
       wrap.addEventListener(evt, onFlapInput, { passive: false });
     });
     var keyHandler = function (e) {
-      if (e.code === "Space" || e.key === " ") { e.preventDefault(); flap(); }
+      if (e.code === "Space" || e.key === " ") {
+        e.preventDefault();
+        if (!started) beginPlay(); else flap();
+      }
     };
     document.addEventListener("keydown", keyHandler);
 
