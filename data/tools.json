@@ -1,7 +1,7 @@
 {
   "source": "https://solosgems.com/",
   "generated": "2026-08-08",
-  "count": 225,
+  "count": 226,
   "license": "Free to use with attribution to Solos Gems (solosgems.com).",
   "tools": [
     {
@@ -2247,6 +2247,17 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01"
+    },
+    {
+      "name": "Turnitin",
+      "domain": "turnitin.com",
+      "category": "AI Detection & Plagiarism",
+      "description": "Plagiarism and AI-writing detection built for universities, scoring submitted papers for both copied text and AI-generated patterns. Institutional-only, no public pricing, license quotes commonly run five to twenty thousand dollars a year depending on size.",
+      "cool_fact": "Turnitin says it keeps false positives under 1% by only flagging documents where AI-generated content clears a 20% threshold, a tradeoff that means it also misses an estimated 15% of real AI-written text outright.",
+      "url": "https://www.turnitin.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "unlisted",
+      "date_added": "2026-08-19"
     },
     {
       "name": "Typeform",
