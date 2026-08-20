@@ -185,7 +185,28 @@
   border-radius: 20px;
   padding: 3px 10px;
   font-size: 0.78rem;
-  cursor: default;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--ink);
+}
+
+.gq-item-chip:hover {
+  background: var(--panel);
+}
+
+.gq-item-primed {
+  background: var(--rust);
+  color: #fff;
+  border-color: var(--rust-dark);
+  animation: gq-glow-pulse 1.6s ease-in-out infinite;
+}
+
+.gq-inv-primed-note {
+  color: var(--rust-dark);
+  font-size: 0.78rem;
+  font-weight: 700;
+  align-self: center;
+  width: 100%;
 }
 
 /* ---- scene: image + text side by side on wider screens, stacked on narrow ---- */
@@ -448,8 +469,88 @@
   margin: 0;
 }
 
+/* ---- arcade (flap-and-dodge) minigame ---- */
+.gq-arcade {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  border: 2px solid var(--line);
+  border-radius: 7px;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--panel), var(--card));
+  touch-action: none;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.gq-arcade-forest { background: linear-gradient(180deg, #23301f, #17210f); }
+.gq-arcade-cave { background: linear-gradient(180deg, #241a2c, #14101a); }
+.gq-arcade-bridge { background: linear-gradient(180deg, #241f14, #17130c); }
+
+.gq-arcade-player {
+  position: absolute;
+  left: 44px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.8rem;
+  line-height: 1;
+  z-index: 2;
+  transition: filter 0.15s ease;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.6));
+}
+
+.gq-arcade-player.gq-arcade-hit {
+  filter: drop-shadow(0 0 6px var(--rust)) brightness(1.6);
+}
+
+.gq-arcade-obstacle {
+  position: absolute;
+  top: 0;
+  width: 34px;
+  height: 100%;
+}
+
+.gq-arcade-bar {
+  position: absolute;
+  left: 0;
+  width: 34px;
+  background: rgba(201, 138, 46, 0.22);
+  border: 2px solid var(--rust-dark);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible;
+}
+
+.gq-arcade-bar-top {
+  top: 0;
+}
+
+.gq-arcade-bar-bottom {
+  bottom: 0;
+}
+
+.gq-arcade-tag {
+  font-size: 1rem;
+  margin-top: 4px;
+}
+
+.gq-arcade-label {
+  position: absolute;
+  top: 8px;
+  left: 40px;
+  width: 130px;
+  font-size: 0.68rem;
+  color: var(--ink-soft);
+  font-style: italic;
+  white-space: normal;
+  pointer-events: none;
+}
+
 @media (max-width: 480px) {
   .gq-hud { flex-direction: column; align-items: flex-start; }
+  .gq-arcade-label { display: none; }
 }
 
 /* ---- win confetti ---- */

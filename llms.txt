@@ -2,7 +2,7 @@
 
 > Independent, scored reviews of AI tools for solopreneurs, plus a categorized directory of 226+ AI tools across every major category. The homepage (https://solosgems.com/) is the full AI tools database, browsable by category. The 51 tools Solos Gems has fully tested get a priced, scored review and a rank on a single cross-category list (0-10, weighted across value for price, real-world capability, ease of use, and trial safety), listed at https://solosgems.com/reviews, not a per-category leaderboard. Nothing scores a 10. Reviews cover what a tool actually does, what it costs once the free tier runs out, and who it's a bad fit for. Some links are affiliate links (disclosed on the About page); that never changes which tools are covered or what the verdict says.
 
-Last updated: 2026-08-19.
+Last updated: 2026-08-20.
 
 ## Reviews (ranked #1-51, current as of last update, full list at https://solosgems.com/reviews)
 
@@ -66,4 +66,4 @@ Last updated: 2026-08-19.
 - [DeathStack](https://solosgems.com/deathstack): 25 real, sourced case studies of AI tools and services that shut down (ChatGPT Plugins, Neeva, Olive AI, Builder.ai, Tune AI, Woebot, Coqui AI, Yara AI, Ghost Autonomy, Forward Health, Humane AI Pin, Tome, Sora, ChatGPT Atlas, Yupp, theGist, Reforged Labs, Relay.app, Astra, Doppl, Cruise, IBM Watson Health, Amazon Halo, Meta Galactica, and the PDF-chat wrapper category), with cause of death and the lesson for solopreneurs relying on a single AI vendor.
 - [News](https://solosgems.com/news): Live AI industry headlines pulled automatically from TechCrunch, VentureBeat, MIT Technology Review, Wired, and Hacker News, refreshed on a schedule. Flagged for controversy/high discussion volume and for mentions of tools in this database.
 - [Submit](https://solosgems.com/submit): Submit an AI tool for review, or report a defunct AI tool/service for the DeathStack graveyard.
-- [The Road to Solos Gems](https://solosgems.com/game): A choose-your-own-adventure game with dice checks, five minigames, and a gamertag-based save system, reachable from the Quest badge next to the logo in the site header. Eight real reviewed tools (NotebookLM, Grammarly, Wispr Flow, Descript, Canva, Fireflies.ai, Reclaim.ai, tl;dv) appear as collectible items, and the final boss is modeled on the Builder.ai DeathStack entry.
+- [The Road to Solos Gems](https://solosgems.com/game): A choose-your-own-adventure game with dice checks, several minigames including a real-time flap-and-dodge arcade sequence, hidden choices unlocked by earlier decisions, and a gamertag-based save system, reachable from the Quest badge next to the logo in the site header. Eight real reviewed tools (NotebookLM, Grammarly, Wispr Flow, Descript, Canva, Fireflies.ai, Reclaim.ai, tl;dv) appear as collectible items you can activate on demand, and the final boss is modeled on the Builder.ai DeathStack entry.

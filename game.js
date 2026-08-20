@@ -1,8 +1,10 @@
-// The Road to Solos Gems: a choose-your-own-adventure with dice checks, three
-// small minigames, an inventory of six real reviewed tools reimagined as
-// fantasy items, a final boss with a two-stage fight, and gamertag-based save
-// slots stored in localStorage. No backend account system, no server state,
-// everything lives in the visitor's own browser.
+// The Road to Solos Gems: a choose-your-own-adventure with dice checks, a
+// real-time flap-and-dodge arcade minigame reused across several encounters,
+// two classic timed minigames, an inventory of real reviewed tools
+// reimagined as fantasy items you can prime and spend whenever you want, a
+// final boss, and gamertag-based save slots stored in localStorage. No
+// backend account system, no server state, everything lives in the
+// visitor's own browser.
 
 (function () {
   "use strict";
@@ -68,6 +70,38 @@
     }
   };
 
+  // Every item can also be used on demand: click it in your inventory to
+  // prime it, then it fires automatically on whatever check or trial you
+  // face next, no need to know in advance whether it would have applied.
+  // The effect type determines what "using it" actually does, matching
+  // what the real tool is good at, not what it costs.
+  //   auto      - skips the roll/minigame outright, immediate success
+  //   hint      - reveals the answer in a minigame, still requires the click
+  //   advantage - reroll a dice check and take the better result
+  //   time      - extra seconds on any timed trial
+  //   retry     - an extra guess in trials that penalize wrong guesses
+  var ITEM_EFFECT = {
+    notebooklm: "auto",
+    fireflies: "auto",
+    grammarly: "hint",
+    tldv: "hint",
+    descript: "retry",
+    canva: "advantage",
+    wispr: "time",
+    reclaim: "time"
+  };
+
+  var ITEM_USE_FLAVOR = {
+    notebooklm: "You hold up the Lantern. It only lights up for the truth, and right now it will not stop glowing.",
+    fireflies: "The Familiar chirps once and plays the moment back for you, word for word.",
+    grammarly: "The Owl blinks and the fine print rearranges itself, briefly, into something readable.",
+    tldv: "The Owl replays the exact clip you needed, no scrubbing required.",
+    descript: "One clean cut, and the part where you almost got it wrong never happened.",
+    canva: "You look extremely professional for exactly as long as this takes.",
+    wispr: "You move at the speed you actually think.",
+    reclaim: "The Whistle sounds once, and this moment, at least, is defended."
+  };
+
   // ---------------- Minigame content pools ----------------
   var TYPING_PHRASES = [
     "no credit card required results not guaranteed",
@@ -76,85 +110,10 @@
     "free forever forever ends next tuesday"
   ];
 
-  var FACTCHECK_SETS = [
-    [
-      { text: "NotebookLM's free tier includes 100 notebooks and 50 chats a day.", isFalse: false },
-      { text: "Grammarly can proofread absolutely any document with zero mistakes, guaranteed for life.", isFalse: true },
-      { text: "Wispr Flow turns spoken words into clean text without you touching a keyboard.", isFalse: false },
-      { text: "Descript lets you edit audio and video by editing the transcript instead.", isFalse: false }
-    ],
-    [
-      { text: "Canva Magic Studio bundles AI design tools like background removal into Canva Pro.", isFalse: false },
-      { text: "Fireflies.ai transcribes meetings with unlimited minutes on every plan, including free.", isFalse: false },
-      { text: "This one weird trick will make any AI tool ten times more powerful overnight.", isFalse: true },
-      { text: "Airtable's free plan covers most solo spreadsheet and database use cases outright.", isFalse: false }
-    ],
-    [
-      { text: "Perplexity Pro provides cited, sourced AI search results.", isFalse: false },
-      { text: "Every AI tool on this list has a satisfaction guarantee and never fails.", isFalse: true },
-      { text: "Otter.ai offers real-time meeting transcription and summaries.", isFalse: false },
-      { text: "Midjourney has no free plan.", isFalse: false }
-    ]
-  ];
-
   var PROOFREAD_SENTENCES = [
     { tokens: ["This", "tool", "is", "completely", "guaranteed", "to", "never", "ever", "fail", "you."], badIndex: 4 },
     { tokens: ["Cancel", "any", "time,", "no", "questions", "asked,", "results", "not", "typical."], badIndex: 8 },
     { tokens: ["Our", "pricing", "is", "totally", "transparent", "and", "will", "not", "change."], badIndex: 3 }
-  ];
-
-  var SCHEDULE_SETS = [
-    [
-      { text: "9:00 Standup (recurring, low priority)", protected: false },
-      { text: "9:30 Deep Work block (auto-defended)", protected: true },
-      { text: "10:00 Random sync someone just added", protected: false },
-      { text: "11:00 'Quick call' (never quick)", protected: false }
-    ],
-    [
-      { text: "2:00 Client call (real revenue)", protected: false },
-      { text: "2:30 Lunch (you keep skipping this)", protected: false },
-      { text: "3:00 Focus time (auto-defended)", protected: true },
-      { text: "3:30 'Sync to align on the sync'", protected: false }
-    ],
-    [
-      { text: "8:00 Gym block (auto-defended)", protected: true },
-      { text: "8:30 'Quick five minute favor'", protected: false },
-      { text: "9:00 Standup", protected: false },
-      { text: "9:15 A second standup, somehow", protected: false }
-    ]
-  ];
-
-  var EAVESDROP_SETS = [
-    {
-      lines: [
-        "so yeah I think we're aligned",
-        "can everyone see my screen",
-        "ACTION: ship the pricing page by Friday",
-        "sorry my dog is barking",
-        "let's circle back on that"
-      ],
-      correctIndex: 2
-    },
-    {
-      lines: [
-        "quick housekeeping before we start",
-        "DECISION: we're going with option B, final",
-        "can you send me that doc after",
-        "I have a hard stop at the top of the hour",
-        "no you're not on mute, we can hear you"
-      ],
-      correctIndex: 1
-    },
-    {
-      lines: [
-        "let's do a quick round of intros",
-        "sorry I'm two minutes late",
-        "FOLLOW-UP: reply to the client by end of day",
-        "can we push this a week",
-        "great, thanks everyone, bye"
-      ],
-      correctIndex: 2
-    }
   ];
 
   // ---------------- Story graph ----------------
@@ -187,7 +146,17 @@
         { label: "Follow the loudest guy, he seems confident", next: "scam" },
         { label: "Buy whatever the quiet cartographer is selling", next: "cartographer" },
         { label: "Check out the market stalls set up outside", next: "market" },
+        { label: "Ask if anyone remembers a tool that didn't make it", next: "tavern_lore" },
         { label: "Ignore all of them and just start walking", next: "road" }
+      ]
+    },
+    tavern_lore: {
+      title: "The Old Stories",
+      img: "game-tavern.svg",
+      text: "An old patron in the corner does not look up from his drink. 'Oh, you want the ones that didn't make it,' he says. 'There was an oracle who ran up four billion in debt chasing a cure and folded seven years in, right after winning a game show, of all things. And an amulet the smiths just quietly stopped making one day, no explanation, no warning, gone by the end of the season. You start to notice a shape to it after a while. The confident ones go first.'",
+      choices: [
+        { label: "Buy him a drink for the story", next: "tavern", setFlag: "heardWarning" },
+        { label: "Head back into the tavern", next: "tavern" }
       ]
     },
     market: {
@@ -313,7 +282,7 @@
       liveScene: "forest",
       text: "Every tree here is on fire with excitement and none of them are actually burning. Floating lanterns labeled REVOLUTIONARY and GAME-CHANGING drift between the branches, humming softly. It is beautiful. You have no idea where you are going.",
       choices: [
-        { label: "Follow the brightest lantern deeper in", next: "swamp" },
+        { label: "Follow the brightest lantern deeper in", next: "wisp_chase" },
         {
           label: "Climb a tree and get your bearings first",
           check: { statLabel: "Perception", dc: 12, success: "crossroads", fail: "swamp", itemAuto: ["notebooklm"] }
@@ -323,13 +292,52 @@
         { label: "Turn back to the road", next: "road" }
       ]
     },
+    wisp_chase: {
+      title: "The Brightest Lantern",
+      img: "game-forest.svg",
+      type: "minigame",
+      game: "arcade",
+      startLabel: "Chase it",
+      text: "The brightest lantern turns out to be attached to a small, fast, extremely pleased-with-itself wisp, and it takes off the second you reach for it, weaving between the other floating banners like it has done this a hundred times.",
+      instructions: "Tap, click, or press space to flap. Fly through the gap in each cluster of banners.",
+      playerEmoji: "🏃",
+      obstacleEmoji: "🏮",
+      arcadeBgClass: "gq-arcade-forest",
+      flavorLabels: ["REVOLUTIONARY", "GAME-CHANGING", "PARADIGM SHIFT", "10X YOUR WORKFLOW", "BLEEDING EDGE", "DISRUPTIVE"],
+      targetPasses: 4,
+      winText: "You catch up right as it slows to loop back around. Up close it looks a little tired of its own hype, honestly relieved someone finally kept pace.",
+      crashText: "You clip a banner reading PARADIGM SHIFT and go down in a heap of floating adjectives.",
+      setFlagOnSuccess: "wispFriend",
+      success: "wisp_chase_win",
+      fail: "wisp_chase_lose"
+    },
+    wisp_chase_win: {
+      title: "The Wisp Slows Down",
+      img: "game-forest.svg",
+      text: "It hovers at eye level, catching its breath, or whatever the wisp equivalent is. 'Nobody ever actually catches up,' it admits, dimming to a softer, more honest glow. 'Most people just believe whatever I say and wander off.' It seems to remember your face.",
+      choices: [{ label: "Continue into the swamp", next: "swamp" }]
+    },
+    wisp_chase_lose: {
+      title: "Lost the Trail",
+      img: "game-forest.svg",
+      text: "The lantern zips off deeper into the trees, still glowing REVOLUTIONARY, entirely unbothered by your loss. You catch your breath and keep moving in roughly the direction it went.",
+      choices: [{ label: "Continue into the swamp", next: "swamp" }]
+    },
     owl_nest: {
       title: "The Recording Owl",
       img: "game-owlnest.svg",
       type: "minigame",
-      game: "eavesdrop",
+      game: "arcade",
       startLabel: "Listen in",
-      text: "A small owl sits perfectly still on a low branch, one glass eye blinking steadily, clearly recording every word of a meeting happening somewhere just out of sight. It does not summarize. It does not chime in. It just remembers. Snippets drift past, most of them noise. One of them is the actual point.",
+      text: "A small owl sits perfectly still on a low branch, one glass eye blinking steadily, clearly recording every word of a meeting happening somewhere just out of sight. It launches after you the moment you get close, weaving between drifting speech bubbles of pure noise. Stay in the air and it lets you pass.",
+      instructions: "Tap, click, or press space to flap. Fly through the gap in each cluster of chatter.",
+      playerEmoji: "🪶",
+      obstacleEmoji: "💬",
+      arcadeBgClass: "gq-arcade-forest",
+      flavorLabels: ["can everyone see my screen", "sorry my dog is barking", "quick housekeeping first", "no you're not on mute", "let's circle back on that", "great, thanks everyone"],
+      targetPasses: 5,
+      winText: "You slip through the last cluster of noise clean. The owl blinks once, slowly, which you choose to take as approval.",
+      crashText: "You fly straight into a wall of small talk. The owl does not judge you, exactly, it just keeps recording, unbothered.",
       grantItemOnSuccess: "tldv",
       success: "owl_win",
       fail: "owl_fail"
@@ -350,9 +358,17 @@
       title: "The Cave of Reasonable Doubt",
       img: "game-oracle.svg",
       type: "minigame",
-      game: "factcheck",
+      game: "arcade",
       startLabel: "Step inside",
-      text: "A low hum leads you off the forest path to a small cave where something large, feathered, and stitched together out of old citations is blocking the way. It speaks in a voice like a footnote. 'I will tell you four things,' it says. 'Three are true. Find the lie and you may pass.'",
+      text: "A low hum leads you off the forest path to a small cave where something large, feathered, and stitched together out of old citations is blocking the way. It does not ask you a riddle. It simply takes off, and the cave fills with drifting footnotes you will need to fly straight through.",
+      instructions: "Tap, click, or press space to flap. Fly through the gap in each row of citations.",
+      playerEmoji: "🕯️",
+      obstacleEmoji: "📜",
+      arcadeBgClass: "gq-arcade-cave",
+      flavorLabels: ["citation needed", "peer review pending", "results not typical", "source: trust me", "footnote 47 of 200", "allegedly, according to a guy"],
+      targetPasses: 5,
+      winText: "You clear the last row of footnotes. The griffin makes a sound that might be a screech or might be applause, hard to tell with citations involved.",
+      crashText: "You fly straight into a wall of unverified claims. The griffin sighs, the specific sigh of something that has cited its sources and still watched you crash into them.",
       autoSuccessItems: ["notebooklm"],
       grantItemOnSuccess: "fireflies",
       success: "oracle_win",
@@ -380,7 +396,13 @@
           label: "No thanks, wade out on your own",
           check: { statLabel: "Willpower", dc: 12, success: "crossroads", fail: "end_swamp", itemAdvantage: ["wispr", "reclaim"] }
         },
-        { label: "Ask if there is a simpler wisp who just removes things", next: "crossroads" }
+        { label: "Ask if there is a simpler wisp who just removes things", next: "crossroads" },
+        {
+          label: "Ask if it remembers you from the forest",
+          requiresFlag: "wispFriend",
+          next: "crossroads",
+          grantItem: "reclaim"
+        }
       ]
     },
     crossroads: {
@@ -399,9 +421,17 @@
       title: "The Overbooked Bridge",
       img: "game-bridge.svg",
       type: "minigame",
-      game: "schedule",
+      game: "arcade",
       startLabel: "Approach the warden",
-      text: "A narrow rope bridge is guarded by a warden holding a ledger of the day's appointments. 'One of these is truly protected,' she says, tapping the page. 'The rest will get bumped the second something louder shows up. Point to the one that holds, and you may cross.'",
+      text: "A narrow rope bridge sways over a gorge stacked floor to ceiling with floating calendar blocks, all of them trying to bump into each other for the same slot. The warden does not offer to let you through. She just steps aside and watches to see if you can actually hold your line.",
+      instructions: "Tap, click, or press space to flap. Fly through the gap between each stack of meetings.",
+      playerEmoji: "🕰️",
+      obstacleEmoji: "📅",
+      arcadeBgClass: "gq-arcade-bridge",
+      flavorLabels: ["quick sync to align", "standup, again", "can this be an email", "quick five minute favor", "sync to align on the sync", "one more standup, somehow"],
+      targetPasses: 6,
+      winText: "You hold your line through the last stack without losing your slot once. The warden almost smiles and presses a small brass whistle into your hand.",
+      crashText: "You get bumped clean off your line. The warden shakes her head, unsurprised. Everything looks protected until something louder shows up.",
       success: "bridge_win",
       fail: "bridge_fail"
     },
@@ -433,6 +463,17 @@
             fail: "end_natasha",
             itemAuto: ["notebooklm"],
             itemAdvantage: ["grammarly"]
+          }
+        },
+        {
+          label: "Mention you've heard what happened to the last oracle who ran up four billion in debt",
+          requiresFlag: "heardWarning",
+          check: {
+            statLabel: "Insight",
+            dc: 10,
+            success: "gate",
+            fail: "ferryman",
+            itemAdvantage: ["grammarly", "notebooklm"]
           }
         },
         { label: "Decline and back away slowly", next: "ferryman" }
@@ -547,6 +588,16 @@
     return 1 + Math.floor(Math.random() * 20);
   }
 
+  // Returns a NEW check object with extra itemAuto/itemAdvantage ids merged
+  // in, never mutating the shared STORY node's original check object.
+  function mergeCheck(check, extra) {
+    var out = {};
+    for (var k in check) { if (check.hasOwnProperty(k)) out[k] = check[k]; }
+    if (extra.itemAuto) out.itemAuto = (check.itemAuto || []).concat(extra.itemAuto);
+    if (extra.itemAdvantage) out.itemAdvantage = (check.itemAdvantage || []).concat(extra.itemAdvantage);
+    return out;
+  }
+
   function resolveCheck(check, inventory) {
     var hasAuto = (check.itemAuto || []).some(function (id) { return inventory.indexOf(id) !== -1; });
     if (hasAuto) {
@@ -615,11 +666,13 @@
     gamertag: null,
     nodeId: "start",
     inventory: [],
-    flags: {}
+    flags: {},
+    primedItem: null
   };
 
   var els = {};
   var miniGameTimer = null;
+  var miniGameCleanup = null;
 
   function qs(sel) { return document.querySelector(sel); }
 
@@ -753,23 +806,50 @@
     }
     var label = document.createElement("span");
     label.className = "gq-inv-label";
-    label.textContent = "Inventory:";
+    label.textContent = "Inventory (click to use):";
     els.inventoryBar.appendChild(label);
     state.inventory.forEach(function (id) {
       var item = ITEMS[id];
       if (!item) return;
-      var chip = document.createElement("span");
+      var chip = document.createElement("button");
+      chip.type = "button";
       chip.className = "gq-item-chip";
+      if (state.primedItem === id) chip.classList.add("gq-item-primed");
       chip.title = item.name + ": " + item.desc;
       chip.textContent = item.icon + " " + item.name;
+      chip.addEventListener("click", function () { toggleItemPrime(id); });
       els.inventoryBar.appendChild(chip);
     });
+    if (state.primedItem && ITEMS[state.primedItem]) {
+      var status = document.createElement("span");
+      status.className = "gq-inv-primed-note";
+      status.textContent = "Ready: " + ITEMS[state.primedItem].icon + " " + ITEMS[state.primedItem].name + " will trigger on your next roll or trial.";
+      els.inventoryBar.appendChild(status);
+    }
+  }
+
+  function toggleItemPrime(id) {
+    state.primedItem = state.primedItem === id ? null : id;
+    renderInventory();
+  }
+
+  function consumePrimedItem() {
+    var id = state.primedItem;
+    if (!id) return null;
+    state.primedItem = null;
+    var idx = state.inventory.indexOf(id);
+    if (idx !== -1) state.inventory.splice(idx, 1);
+    return id;
   }
 
   function resetMiniGameArea() {
     if (miniGameTimer) {
       window.clearInterval(miniGameTimer);
       miniGameTimer = null;
+    }
+    if (miniGameCleanup) {
+      miniGameCleanup();
+      miniGameCleanup = null;
     }
     els.minigameArea.hidden = true;
     els.minigameArea.innerHTML = "";
@@ -850,6 +930,7 @@
     }
 
     node.choices.forEach(function (choice) {
+      if (choice.requiresFlag && !state.flags[choice.requiresFlag]) return;
       var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "gq-choice-btn";
@@ -863,6 +944,9 @@
     if (choice.grantItem && state.inventory.indexOf(choice.grantItem) === -1) {
       state.inventory.push(choice.grantItem);
     }
+    if (choice.setFlag) {
+      state.flags[choice.setFlag] = true;
+    }
     if (choice.check) {
       runDiceCheck(choice.check);
       return;
@@ -871,18 +955,28 @@
   }
 
   function runDiceCheck(check) {
-    var result = resolveCheck(check, state.inventory);
+    var usedItem = null;
+    var primedEffect = state.primedItem ? ITEM_EFFECT[state.primedItem] : null;
+    if (primedEffect === "auto" || primedEffect === "hint") {
+      usedItem = consumePrimedItem();
+      check = mergeCheck(check, { itemAuto: [usedItem] });
+    } else if (primedEffect) {
+      usedItem = consumePrimedItem();
+      check = mergeCheck(check, { itemAdvantage: [usedItem] });
+    }
+    var result = resolveCheck(check, usedItem ? state.inventory.concat([usedItem]) : state.inventory);
     els.choices.innerHTML = "";
     els.diceArea.hidden = false;
-    els.diceResult.textContent = "";
+    els.diceResult.textContent = usedItem ? ITEM_USE_FLAVOR[usedItem] || "" : "";
     els.diceSvg.classList.remove("gq-dice-spin");
     void els.diceSvg.offsetWidth; // restart animation
     els.diceSvg.classList.add("gq-dice-spin");
+    if (usedItem) renderInventory();
 
     window.setTimeout(function () {
       var text;
       if (result.auto) {
-        text = check.statLabel + " check: your item makes this automatic. Success.";
+        text = check.statLabel + " check: " + (usedItem ? "used " + ITEMS[usedItem].name + "." : "your item makes this automatic.") + " Success.";
       } else if (result.advantage) {
         text = check.statLabel + " check (advantage): rolled " + result.roll + " and " + result.roll2 +
           ", using " + Math.max(result.roll, result.roll2) + " vs DC " + check.dc +
@@ -907,6 +1001,10 @@
       window.clearInterval(miniGameTimer);
       miniGameTimer = null;
     }
+    if (miniGameCleanup) {
+      miniGameCleanup();
+      miniGameCleanup = null;
+    }
     els.minigameArea.innerHTML = '<p class="gq-mg-result">' + escapeHtml(resultText) + "</p>";
     if (success) {
       if (node.grantItemOnSuccess && state.inventory.indexOf(node.grantItemOnSuccess) === -1) {
@@ -921,27 +1019,47 @@
     }, 1300);
   }
 
+  var miniGameBonus = null; // { itemId, effect } from a primed item, or null
+
   function startMiniGame(node) {
     els.choices.innerHTML = "";
     els.diceArea.hidden = true;
     els.minigameArea.hidden = false;
     els.minigameArea.innerHTML = "";
+    miniGameBonus = null;
 
     if (node.autoSuccessItems && hasAny(node.autoSuccessItems)) {
       finishMiniGame(node, true, "Your item makes this automatic. The lantern lights up the truth before anyone finishes talking.");
       return;
     }
 
+    var primedEffect = state.primedItem ? ITEM_EFFECT[state.primedItem] : null;
+    if (primedEffect === "auto") {
+      var usedId = consumePrimedItem();
+      renderInventory();
+      finishMiniGame(node, true, ITEM_USE_FLAVOR[usedId] || "Your item handles this one for you.");
+      return;
+    }
+    if (primedEffect) {
+      var boostId = consumePrimedItem();
+      renderInventory();
+      miniGameBonus = { itemId: boostId, effect: primedEffect };
+      var flavor = document.createElement("p");
+      flavor.className = "gq-mg-result";
+      flavor.textContent = ITEM_USE_FLAVOR[boostId] || "";
+      els.minigameArea.appendChild(flavor);
+    }
+
     if (node.game === "typing") setupTyping(node);
-    else if (node.game === "factcheck") setupFactcheck(node);
     else if (node.game === "proofread") setupProofread(node);
-    else if (node.game === "schedule") setupSchedule(node);
-    else if (node.game === "eavesdrop") setupEavesdrop(node);
+    else if (node.game === "arcade") setupArcade(node);
   }
+
+  function primedBonusSeconds() { return miniGameBonus ? 6 : 0; }
 
   function setupTyping(node) {
     var phrase = pick(TYPING_PHRASES);
-    var timeLimit = 13 + (hasAny(node.bonusTimeItems) ? (node.bonusTimeSeconds || 0) : 0);
+    var timeLimit = 13 + (hasAny(node.bonusTimeItems) ? (node.bonusTimeSeconds || 0) : 0) + primedBonusSeconds();
     var remaining = timeLimit;
 
     var wrap = document.createElement("div");
@@ -984,59 +1102,12 @@
     function updateTimer() { timerEl.textContent = Math.max(remaining, 0) + "s"; }
   }
 
-  function setupFactcheck(node) {
-    var set = pick(FACTCHECK_SETS);
-    var remaining = 14;
-
-    var wrap = document.createElement("div");
-    wrap.className = "gq-mg";
-
-    var instructions = document.createElement("p");
-    instructions.className = "gq-mg-instructions";
-    instructions.textContent = "Click the one claim that is not true.";
-    wrap.appendChild(instructions);
-
-    var factsWrap = document.createElement("div");
-    factsWrap.className = "gq-mg-facts";
-    set.forEach(function (fact) {
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "gq-mg-fact-btn";
-      btn.textContent = fact.text;
-      btn.addEventListener("click", function () {
-        if (fact.isFalse) {
-          finishMiniGame(node, true, "Correct. That was the lie.");
-        } else {
-          finishMiniGame(node, false, "That one was true. The griffin sighs, a very citation-heavy sigh.");
-        }
-      });
-      factsWrap.appendChild(btn);
-    });
-    wrap.appendChild(factsWrap);
-
-    var timerEl = document.createElement("p");
-    timerEl.className = "gq-mg-timer";
-    wrap.appendChild(timerEl);
-
-    els.minigameArea.appendChild(wrap);
-    updateTimer();
-
-    miniGameTimer = window.setInterval(function () {
-      remaining -= 1;
-      updateTimer();
-      if (remaining <= 0) {
-        finishMiniGame(node, false, "Time's up. The griffin assumes you agreed with all of it.");
-      }
-    }, 1000);
-
-    function updateTimer() { timerEl.textContent = Math.max(remaining, 0) + "s"; }
-  }
-
   function setupProofread(node) {
     var sentence = pick(PROOFREAD_SENTENCES);
-    var hint = hasAny(node.hintItems);
-    var attemptsLeft = 2 + (hasAny(node.extraAttemptsItems) ? (node.extraAttempts || 1) : 0);
-    var remaining = 14 + (state.flags.recallHint ? 3 : 0);
+    var bonusEffect = miniGameBonus ? miniGameBonus.effect : null;
+    var hint = hasAny(node.hintItems) || bonusEffect === "hint" || bonusEffect === "auto";
+    var attemptsLeft = 2 + (hasAny(node.extraAttemptsItems) ? (node.extraAttempts || 1) : 0) + (bonusEffect === "retry" ? 1 : 0);
+    var remaining = 14 + (state.flags.recallHint ? 3 : 0) + (bonusEffect === "time" || bonusEffect === "advantage" ? 6 : 0);
 
     var wrap = document.createElement("div");
     wrap.className = "gq-mg";
@@ -1088,125 +1159,186 @@
     function updateTimer() { timerEl.textContent = Math.max(remaining, 0) + "s"; }
   }
 
-  function setupSchedule(node) {
-    var set = pick(SCHEDULE_SETS);
-    var remaining = 14;
-
+  // ---------------- Arcade minigame (Flappy-Bird-style) ----------------
+  // A single reusable real-time skill minigame: tap/click/space to flap
+  // against constant gravity and thread the gaps in a stream of obstacles
+  // moving toward you. Reskinned per node via playerEmoji/obstacleEmoji/
+  // bg class and a couple of cosmetic floating flavor labels. Success is
+  // about timing and nerve, not guessing which button is the "right" one.
+  function setupArcade(node) {
     var wrap = document.createElement("div");
     wrap.className = "gq-mg";
 
     var instructions = document.createElement("p");
     instructions.className = "gq-mg-instructions";
-    instructions.textContent = "Click the one block that is actually protected.";
+    instructions.textContent = node.instructions || "Tap, click, or press space to flap. Thread the gaps.";
     wrap.appendChild(instructions);
 
-    var slotsWrap = document.createElement("div");
-    slotsWrap.className = "gq-mg-facts";
-    set.forEach(function (slot) {
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "gq-mg-fact-btn";
-      btn.textContent = slot.text;
-      btn.addEventListener("click", function () {
-        if (slot.protected) {
-          finishMiniGame(node, true, "Correct. That block does not move for anyone.");
-        } else {
-          finishMiniGame(node, false, "That one gets bumped by lunchtime. The warden shakes her head.");
-        }
-      });
-      slotsWrap.appendChild(btn);
-    });
-    wrap.appendChild(slotsWrap);
+    var lives = 1 + (miniGameBonus ? 1 : 0);
+    var livesEl = document.createElement("p");
+    livesEl.className = "gq-mg-timer";
+    wrap.appendChild(livesEl);
 
-    var timerEl = document.createElement("p");
-    timerEl.className = "gq-mg-timer";
-    wrap.appendChild(timerEl);
+    var stage = document.createElement("div");
+    stage.className = "gq-arcade" + (node.arcadeBgClass ? " " + node.arcadeBgClass : "");
+    wrap.appendChild(stage);
 
     els.minigameArea.appendChild(wrap);
-    updateTimer();
 
-    miniGameTimer = window.setInterval(function () {
-      remaining -= 1;
-      updateTimer();
-      if (remaining <= 0) {
-        finishMiniGame(node, false, "Time's up. The warden assumes you have no opinion and turns you away.");
-      }
-    }, 1000);
+    var player = document.createElement("div");
+    player.className = "gq-arcade-player";
+    player.textContent = node.playerEmoji || "🧙";
+    stage.appendChild(player);
 
-    function updateTimer() { timerEl.textContent = Math.max(remaining, 0) + "s"; }
-  }
+    function updateLives() { livesEl.textContent = "Lives: " + "❤️".repeat(Math.max(lives, 0)); }
+    updateLives();
 
-  function setupEavesdrop(node) {
-    var set = pick(EAVESDROP_SETS);
-    var timeLimit = 16 + (hasAny(node.bonusTimeItems) ? (node.bonusTimeSeconds || 0) : 0);
-    var remaining = timeLimit;
-    var revealed = 0;
+    var stageW, stageH;
+    var playerY, vy;
+    var GRAVITY = 0.42;
+    var FLAP = -7.2;
+    var PLAYER_X = 44;
+    var PLAYER_R = 15;
+    var SPEED = 2.6;
+    var GAP = 108;
+    var obstacles = [];
+    var passed = 0;
+    var targetPasses = node.targetPasses || 5;
+    var frameHandle = null;
+    var spawnHandle = null;
+    var running = true;
+    var flavorPool = (node.flavorLabels || []).slice();
 
-    var wrap = document.createElement("div");
-    wrap.className = "gq-mg";
-
-    var instructions = document.createElement("p");
-    instructions.className = "gq-mg-instructions";
-    instructions.textContent = "Listen to the whole conversation, then click the line that actually mattered.";
-    wrap.appendChild(instructions);
-
-    var feed = document.createElement("div");
-    feed.className = "gq-mg-sentence";
-    wrap.appendChild(feed);
-
-    var choicesWrap = document.createElement("div");
-    choicesWrap.className = "gq-mg-facts";
-    choicesWrap.hidden = true;
-    wrap.appendChild(choicesWrap);
-
-    var timerEl = document.createElement("p");
-    timerEl.className = "gq-mg-timer";
-    wrap.appendChild(timerEl);
-
-    els.minigameArea.appendChild(wrap);
-    updateTimer();
-
-    var revealTimer = window.setInterval(function () {
-      if (revealed >= set.lines.length) {
-        window.clearInterval(revealTimer);
-        showChoices();
-        return;
-      }
-      var line = document.createElement("p");
-      line.className = "gq-mg-word";
-      line.textContent = '"' + set.lines[revealed] + '"';
-      feed.appendChild(line);
-      revealed += 1;
-    }, 1100);
-
-    miniGameTimer = window.setInterval(function () {
-      remaining -= 1;
-      updateTimer();
-      if (remaining <= 0) {
-        window.clearInterval(revealTimer);
-        finishMiniGame(node, false, "Time's up. The owl keeps recording. You do not catch the important part.");
-      }
-    }, 1000);
-
-    function showChoices() {
-      choicesWrap.hidden = false;
-      set.lines.forEach(function (lineText, i) {
-        var btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "gq-mg-fact-btn";
-        btn.textContent = lineText;
-        btn.addEventListener("click", function () {
-          if (i === set.correctIndex) {
-            finishMiniGame(node, true, "That was it. The owl blinks once, slowly.");
-          } else {
-            finishMiniGame(node, false, "That was just noise. The real point slides right past you.");
-          }
-        });
-        choicesWrap.appendChild(btn);
-      });
+    function nextFlavor() {
+      if (flavorPool.length === 0) flavorPool = (node.flavorLabels || []).slice();
+      var i = Math.floor(Math.random() * flavorPool.length);
+      return flavorPool.splice(i, 1)[0] || "";
     }
 
-    function updateTimer() { timerEl.textContent = Math.max(remaining, 0) + "s"; }
+    function measure() {
+      stageW = stage.clientWidth;
+      stageH = stage.clientHeight;
+    }
+
+    function spawnObstacle() {
+      if (!running) return;
+      var gapY = 30 + Math.random() * (stageH - GAP - 60);
+      var el = document.createElement("div");
+      el.className = "gq-arcade-obstacle";
+      el.style.left = stageW + "px";
+      var top = document.createElement("div");
+      top.className = "gq-arcade-bar gq-arcade-bar-top";
+      top.style.height = gapY + "px";
+      var bottom = document.createElement("div");
+      bottom.className = "gq-arcade-bar gq-arcade-bar-bottom";
+      bottom.style.height = (stageH - gapY - GAP) + "px";
+      var tag = document.createElement("span");
+      tag.className = "gq-arcade-tag";
+      tag.textContent = node.obstacleEmoji || "📄";
+      top.appendChild(tag.cloneNode(true));
+      if (node.flavorLabels && node.flavorLabels.length) {
+        var label = document.createElement("span");
+        label.className = "gq-arcade-label";
+        label.textContent = nextFlavor();
+        bottom.appendChild(label);
+      }
+      el.appendChild(top);
+      el.appendChild(bottom);
+      stage.appendChild(el);
+      obstacles.push({ el: el, x: stageW, gapY: gapY, passed: false });
+    }
+
+    function crash(reason) {
+      lives -= 1;
+      updateLives();
+      if (lives <= 0) {
+        running = false;
+        stopLoop();
+        finishMiniGame(node, false, reason);
+        return;
+      }
+      // brief invincible flash and knock the player back up, run continues
+      player.classList.add("gq-arcade-hit");
+      window.setTimeout(function () { player.classList.remove("gq-arcade-hit"); }, 260);
+      vy = FLAP * 0.7;
+    }
+
+    function tick() {
+      if (!running) return;
+      vy += GRAVITY;
+      playerY += vy;
+      if (playerY < PLAYER_R) { playerY = PLAYER_R; vy = 0; }
+      if (playerY > stageH - PLAYER_R) { crash("You dip out of frame entirely. That is, apparently, how you lose this one."); return; }
+      player.style.top = playerY + "px";
+
+      for (var i = obstacles.length - 1; i >= 0; i--) {
+        var o = obstacles[i];
+        o.x -= SPEED;
+        o.el.style.left = o.x + "px";
+
+        var playerLeft = PLAYER_X - PLAYER_R, playerRight = PLAYER_X + PLAYER_R;
+        var obstacleLeft = o.x, obstacleRight = o.x + 34;
+        var overlapsX = playerRight > obstacleLeft && playerLeft < obstacleRight;
+        if (overlapsX) {
+          var inGap = (playerY - PLAYER_R) > o.gapY && (playerY + PLAYER_R) < (o.gapY + GAP);
+          if (!inGap) {
+            stage.removeChild(o.el);
+            obstacles.splice(i, 1);
+            crash(node.crashText || "You clip the edge and go down.");
+            return;
+          }
+        }
+        if (!o.passed && o.x + 34 < PLAYER_X - PLAYER_R) {
+          o.passed = true;
+          passed += 1;
+          if (passed >= targetPasses) {
+            running = false;
+            stopLoop();
+            finishMiniGame(node, true, node.winText || "Clean run. You make it through without a scratch.");
+            return;
+          }
+        }
+        if (o.x < -40) {
+          stage.removeChild(o.el);
+          obstacles.splice(i, 1);
+        }
+      }
+
+      frameHandle = window.requestAnimationFrame(tick);
+    }
+
+    function flap() {
+      if (!running) return;
+      vy = FLAP;
+    }
+
+    function stopLoop() {
+      if (frameHandle) window.cancelAnimationFrame(frameHandle);
+      if (spawnHandle) window.clearInterval(spawnHandle);
+      frameHandle = null;
+      spawnHandle = null;
+    }
+
+    window.requestAnimationFrame(function () {
+      measure();
+      playerY = stageH / 2;
+      vy = 0;
+      player.style.top = playerY + "px";
+      spawnHandle = window.setInterval(spawnObstacle, 1350);
+      spawnObstacle();
+      frameHandle = window.requestAnimationFrame(tick);
+    });
+
+    stage.addEventListener("pointerdown", function (e) { e.preventDefault(); flap(); });
+    var keyHandler = function (e) {
+      if (e.code === "Space" || e.key === " ") { e.preventDefault(); flap(); }
+    };
+    document.addEventListener("keydown", keyHandler);
+
+    miniGameCleanup = function () {
+      document.removeEventListener("keydown", keyHandler);
+      stopLoop();
+    };
   }
 
   // ---------------- Win animation ----------------
