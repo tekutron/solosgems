@@ -393,6 +393,14 @@
   animation: gq-spin 0.75s cubic-bezier(0.2, 0.6, 0.3, 1);
 }
 
+#gq-dice-face {
+  transition: fill 0.15s ease;
+}
+
+#gq-dice-face.gq-dice-face-crit {
+  fill: var(--rust);
+}
+
 @keyframes gq-spin {
   0% { transform: rotate(0deg) scale(0.8); }
   60% { transform: rotate(540deg) scale(1.08); }
@@ -527,17 +535,6 @@
   min-height: 1.2em;
 }
 
-.gq-stack-slot.gq-stack-bonus {
-  border-color: #7bc4c4;
-  background: rgba(123, 196, 196, 0.25);
-  box-shadow: 0 0 10px rgba(123, 196, 196, 0.6);
-  animation: gq-glow-pulse 0.9s ease-in-out infinite;
-}
-
-.gq-stack-piece.gq-stack-piece-bonus {
-  filter: drop-shadow(0 0 6px rgba(123, 196, 196, 0.9));
-}
-
 .gq-mg-timer {
   font-family: "IBM Plex Mono", monospace;
   color: var(--rust-dark);
@@ -559,77 +556,72 @@
   margin-top: 12px;
 }
 
-/* ---- stack (tetris-style sorting) minigame ---- */
-.gq-stack {
+/* ---- runner (lane-dodge, Temple-Run-style) minigame ---- */
+.gq-runner {
   position: relative;
   display: flex;
   width: 100%;
-  height: 220px;
+  height: 240px;
   border: 2px solid var(--line);
   border-radius: 7px;
   overflow: hidden;
   background: linear-gradient(180deg, var(--panel), var(--card));
   margin-top: 8px;
+  touch-action: pan-y;
 }
 
 .gq-arcade-forest { background: linear-gradient(180deg, #23301f, #17210f); }
 .gq-arcade-cave { background: linear-gradient(180deg, #241a2c, #14101a); }
 .gq-arcade-bridge { background: linear-gradient(180deg, #241f14, #17130c); }
 
-.gq-stack-col {
+.gq-runner-lane {
   position: relative;
   flex: 1;
   height: 100%;
-  border-right: 1px dashed rgba(255, 255, 255, 0.08);
+  border-right: 1px dashed rgba(255, 255, 255, 0.1);
 }
 
-.gq-stack-col:last-child {
+.gq-runner-lane:last-child {
   border-right: none;
 }
 
-.gq-stack-slot {
+.gq-runner-player {
   position: absolute;
-  left: 4px;
-  right: 4px;
-  bottom: 6px;
-  height: 34px;
-  border: 2px solid var(--line);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.03);
-  transition: box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-}
-
-.gq-stack-slot.gq-stack-target {
-  border-color: var(--rust);
-  background: rgba(201, 138, 46, 0.18);
-  box-shadow: 0 0 10px rgba(201, 138, 46, 0.55);
-  animation: gq-glow-pulse 1.2s ease-in-out infinite;
-}
-
-.gq-stack-slot.gq-stack-hit {
-  border-color: #7bc47f;
-  background: rgba(123, 196, 127, 0.35);
-  box-shadow: 0 0 12px rgba(123, 196, 127, 0.7);
-}
-
-.gq-stack-slot.gq-stack-miss {
-  border-color: var(--rust-dark);
-  background: rgba(201, 90, 46, 0.35);
-  box-shadow: 0 0 12px rgba(201, 60, 46, 0.6);
-}
-
-.gq-stack-piece {
-  position: absolute;
+  bottom: 8px;
   width: 20%;
-  height: 16.6%;
+  height: 15%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.7rem;
+  font-size: 2rem;
   line-height: 1;
   z-index: 2;
-  transition: left 0.18s ease, top 0.18s ease;
+  transition: left 0.16s ease, filter 0.15s ease;
   filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.6));
+}
+
+.gq-runner-player.gq-runner-hit {
+  filter: drop-shadow(0 0 8px var(--rust)) brightness(1.7);
+}
+
+.gq-runner-obstacle,
+.gq-runner-coin {
+  position: absolute;
+  width: 20%;
+  height: 15%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  line-height: 1;
+  z-index: 1;
+  transition: top 0.16s linear;
+}
+
+.gq-runner-coin {
+  filter: drop-shadow(0 0 6px rgba(123, 196, 196, 0.9));
 }
 
 .gq-stack-controls {
