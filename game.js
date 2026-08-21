@@ -185,12 +185,18 @@
       title: "Here Lies: The Talking Pin",
       img: "game-graveyard.svg",
       text: "The last grave is small and shiny, and used to project a tiny glowing menu onto your palm whenever you spoke to it, whether you asked it to or not. A single laser flickers weakly from the headstone, still trying to show you the weather. 'It was going to replace the scroll entirely,' someone nearby says. 'It did not replace the scroll.' You leave the clearing a little wiser and mostly just tired.",
-      choices: [{ label: "Head back to the tavern", next: "tavern" }]
+      choices: [{ label: "Head back to the tavern", next: "tavern", setFlag: "raidedGraveyard" }]
     },
     market: {
       title: "The Bazaar of Extremely Legitimate Tools",
       img: "game-market.svg",
       text: "Just outside the tavern, a row of stalls has sprung up overnight, the way stalls do. Every vendor waves you over with the specific energy of someone who wants you to know their thing is not a scam, unlike that other guy's thing. Three stalls catch your eye. So does the exit.",
+      randomFlavor: [
+        "Just outside the tavern, a row of stalls has sprung up overnight, the way stalls do. Every vendor waves you over with the specific energy of someone who wants you to know their thing is not a scam, unlike that other guy's thing. Three stalls catch your eye. So does the exit.",
+        "The market has rearranged itself slightly since you last looked, the way markets do when nobody is watching closely. A vendor is mid-pitch to nobody in particular, rehearsing for whoever wanders by next. A few stalls still look worth a look.",
+        "Somehow the same three stalls are still here, still confident, still absolutely certain their thing is the one thing you actually need. You get the sense they will be here forever, in one form or another.",
+        "The stalls have shuffled their layout, but the energy is unmistakable, upbeat, slightly too enthusiastic, allergic to the phrase it does not work for everyone. A few things still look worth a closer look."
+      ],
       choices: [
         { label: "Visit the Auctioneer's stall", next: "market_auction" },
         { label: "Visit the Cloak Merchant", next: "market_cloak" },
@@ -281,6 +287,12 @@
       title: "The Subscription Road",
       img: "game-road.svg",
       text: "A long, well paved road lined with tiny tollbooths every few hundred feet. At the biggest one stands a troll wearing a name tag that says Rex, Billing Department. He wants payment to let you pass, and he has already added a processing fee.",
+      randomFlavor: [
+        "A long, well paved road lined with tiny tollbooths every few hundred feet. At the biggest one stands a troll wearing a name tag that says Rex, Billing Department. He wants payment to let you pass, and he has already added a processing fee.",
+        "The road is suspiciously smooth for a road nobody asked to be built. At the only tollbooth for miles, a troll in a name tag reading Rex, Billing Department clears his throat meaningfully and gestures at a sign that reads FIRST MONTH FREE in extremely small print.",
+        "A tidy little road, freshly paved, with a single tollbooth planted directly in the middle of it. The troll manning it, Rex according to the tag, is already pulling up what looks suspiciously like an invoice with your name on it.",
+        "The road forks briefly around a tollbooth that was definitely not here yesterday. Rex, Billing Department, waves cheerfully and mentions that the price went up again, nothing personal, just how the market works."
+      ],
       choices: [
         { label: "Pay whatever he asks", next: "crossroads", liveNext: "crossroads" },
         {
@@ -695,8 +707,47 @@
     nodeId: "start",
     inventory: [],
     flags: {},
-    primedItem: null
+    primedItem: null,
+    score: 0,
+    achievements: []
   };
+
+  // ---------------- Achievements ----------------
+  // Small, low-stakes badge list, all driven off signals the engine already
+  // tracks (flags, inventory, current node), checked after any state change.
+  // Purely a completionist layer, unlocking one never changes story logic.
+  var ACHIEVEMENTS = [
+    { id: "old_stories", label: "Old Stories", desc: "Heard the tavern warning about the tools that didn't make it.", check: function (s) { return !!s.flags.heardWarning; } },
+    { id: "grave_robber", label: "Grave Robber", desc: "Found the hidden graveyard behind the tavern.", check: function (s) { return !!s.flags.raidedGraveyard; } },
+    { id: "wisp_friend", label: "Made a Friend", desc: "Caught up to the wisp instead of losing it in the trees.", check: function (s) { return !!s.flags.wispFriend; } },
+    { id: "sharp_memory", label: "Sharp Memory", desc: "Remembered something useful right when it mattered.", check: function (s) { return !!s.flags.recallHint; } },
+    { id: "fully_loaded", label: "Fully Loaded", desc: "Carried 4 or more items at once.", check: function (s) { return s.inventory.length >= 4; } },
+    { id: "found_it", label: "Found Solos Gems", desc: "Reached the real, honest list.", check: function (s) { return s.nodeId === "end_win"; } },
+    { id: "learned_hard_way", label: "Learned The Hard Way", desc: "Reached an ending that was not exactly a win.", check: function (s) { var n = STORY[s.nodeId]; return !!(n && n.ending === "lose"); } }
+  ];
+
+  function checkAchievements() {
+    var unlocked = [];
+    ACHIEVEMENTS.forEach(function (a) {
+      if (state.achievements.indexOf(a.id) === -1 && a.check(state)) {
+        state.achievements.push(a.id);
+        unlocked.push(a);
+      }
+    });
+    if (unlocked.length) showAchievementToast(unlocked);
+  }
+
+  function showAchievementToast(unlocked) {
+    if (!els.achievementToast) return;
+    els.achievementToast.textContent = unlocked.map(function (a) { return "🏅 " + a.label; }).join("  ·  ");
+    els.achievementToast.hidden = false;
+    window.setTimeout(function () { els.achievementToast.hidden = true; }, 2600);
+  }
+
+  function addScore(n) {
+    state.score += n;
+    if (els.scoreEl) els.scoreEl.textContent = "Insight: " + state.score;
+  }
 
   var els = {};
   var miniGameTimer = null;
@@ -711,6 +762,8 @@
     els.newInput = qs("#gq-new-name");
     els.game = qs("#gq-game");
     els.gamertagLabel = qs("#gq-gamertag-label");
+    els.scoreEl = qs("#gq-score");
+    els.achievementToast = qs("#gq-achievement-toast");
     els.inventoryBar = qs("#gq-inventory");
     els.sceneFrame = qs(".gq-scene-frame");
     els.sceneImg = qs("#gq-scene-img");
@@ -795,12 +848,29 @@
     });
   }
 
-  function startNewGame(gamertag) {
+  // carryFlags: optional, used by the "start again, wiser" New Game+ style
+  // option on ending screens, seeds a couple of flags on a fresh run so a
+  // hidden path found on a previous run is immediately open this time, the
+  // rest of the run still starts clean (empty inventory, zero score).
+  function startNewGame(gamertag, carryFlags) {
+    // Achievements persist across a "Play again" / New Game+ on the same
+    // gamertag, everything else about the run (inventory, flags, score)
+    // resets clean. Pull from the existing save if one exists, otherwise
+    // fall back to whatever is already in memory for this same gamertag.
+    var existing = loadSaves().filter(function (s) { return s.gamertag === gamertag; })[0];
+    var priorAchievements = existing && existing.achievements ? existing.achievements
+      : (state.gamertag === gamertag ? state.achievements.slice() : []);
     state.gamertag = gamertag;
     state.nodeId = "start";
     state.inventory = [];
     state.flags = {};
-    upsertSave({ gamertag: gamertag, nodeId: state.nodeId, inventory: state.inventory, flags: state.flags, createdAt: Date.now() });
+    if (carryFlags) {
+      for (var fk in carryFlags) { if (carryFlags.hasOwnProperty(fk)) state.flags[fk] = carryFlags[fk]; }
+    }
+    state.score = 0;
+    state.achievements = priorAchievements;
+    if (els.scoreEl) els.scoreEl.textContent = "Insight: 0";
+    upsertSave({ gamertag: gamertag, nodeId: state.nodeId, inventory: state.inventory, flags: state.flags, score: state.score, achievements: state.achievements, createdAt: Date.now() });
     enterGame();
   }
 
@@ -809,6 +879,8 @@
     state.nodeId = save.nodeId && STORY[save.nodeId] ? save.nodeId : "start";
     state.inventory = save.inventory || [];
     state.flags = save.flags || {};
+    state.score = save.score || 0;
+    state.achievements = save.achievements || [];
     enterGame();
   }
 
@@ -816,11 +888,12 @@
     els.titleScreen.hidden = true;
     els.game.hidden = false;
     els.gamertagLabel.textContent = state.gamertag;
+    if (els.scoreEl) els.scoreEl.textContent = "Insight: " + state.score;
     renderNode(state.nodeId);
   }
 
   function persist() {
-    upsertSave({ gamertag: state.gamertag, nodeId: state.nodeId, inventory: state.inventory, flags: state.flags });
+    upsertSave({ gamertag: state.gamertag, nodeId: state.nodeId, inventory: state.inventory, flags: state.flags, score: state.score, achievements: state.achievements });
   }
 
   function renderInventory() {
@@ -888,12 +961,16 @@
     if (!node) { nodeId = "start"; node = STORY.start; }
     state.nodeId = nodeId;
     persist();
+    checkAchievements();
     renderInventory();
     resetMiniGameArea();
 
     els.diceArea.hidden = true;
     els.sceneTitle.textContent = node.title;
-    els.sceneText.textContent = node.text;
+    // A handful of hub nodes carry a pool of alternate flavor text so a
+    // replay does not read identically every time, picked fresh on each
+    // visit rather than baked into the node.
+    els.sceneText.textContent = node.randomFlavor ? pick(node.randomFlavor) : node.text;
     els.sceneImg.src = IMG_BASE + node.img;
     els.sceneImg.alt = node.title + ", retro fantasy illustration";
     els.sceneImg.classList.remove("gq-loading");
@@ -935,12 +1012,45 @@
         els.sceneFrame.classList.remove("gq-win-glow");
         els.winBanner.hidden = true;
       }
+
+      var scoreSummary = document.createElement("p");
+      scoreSummary.className = "gq-mg-result";
+      scoreSummary.textContent = "Final Insight: " + state.score + ". Achievements: " + state.achievements.length + " / " + ACHIEVEMENTS.length + ".";
+      els.choices.appendChild(scoreSummary);
+
+      if (state.achievements.length) {
+        var badgeList = document.createElement("div");
+        badgeList.className = "gq-achievement-list";
+        ACHIEVEMENTS.forEach(function (a) {
+          var got = state.achievements.indexOf(a.id) !== -1;
+          var b = document.createElement("span");
+          b.className = "gq-achievement-badge" + (got ? " gq-achievement-got" : "");
+          b.title = got ? a.desc : "Not yet unlocked: " + a.desc;
+          b.textContent = (got ? "🏅 " : "🔒 ") + a.label;
+          badgeList.appendChild(b);
+        });
+        els.choices.appendChild(badgeList);
+      }
+
       var again = document.createElement("button");
       again.type = "button";
       again.className = "gq-choice-btn gq-choice-again";
       again.textContent = "Play again";
       again.addEventListener("click", function () { startNewGame(state.gamertag); });
       els.choices.appendChild(again);
+
+      // New Game+ style incentive to replay: if this run ever heard the old
+      // patron's warning, offer to carry that flag into a fresh run so the
+      // hidden graveyard path is open immediately, nothing else carries over.
+      if (state.flags.heardWarning) {
+        var wiser = document.createElement("button");
+        wiser.type = "button";
+        wiser.className = "gq-choice-btn";
+        wiser.textContent = "Start again, wiser this time";
+        wiser.title = "New run, but you already know about the graveyard path.";
+        wiser.addEventListener("click", function () { startNewGame(state.gamertag, { heardWarning: true }); });
+        els.choices.appendChild(wiser);
+      }
       return;
     }
 
@@ -970,8 +1080,10 @@
   }
 
   function handleChoice(choice) {
+    if (choice.requiresFlag) addScore(3); // took a hidden, flag-gated path
     if (choice.grantItem && state.inventory.indexOf(choice.grantItem) === -1) {
       state.inventory.push(choice.grantItem);
+      addScore(1);
     }
     if (choice.setFlag) {
       state.flags[choice.setFlag] = true;
@@ -1015,8 +1127,9 @@
           ". " + (result.success ? "Success!" : "Failed.");
       }
       els.diceResult.textContent = text;
-      if (result.success && check.setFlagOnSuccess) {
-        state.flags[check.setFlagOnSuccess] = true;
+      if (result.success) {
+        addScore(1);
+        if (check.setFlagOnSuccess) state.flags[check.setFlagOnSuccess] = true;
       }
       window.setTimeout(function () {
         renderNode(result.success ? check.success : check.fail);
@@ -1041,6 +1154,7 @@
     }
 
     if (success) {
+      addScore(2);
       els.minigameArea.innerHTML = '<p class="gq-mg-result">' + escapeHtml(resultText) + "</p>";
       if (node.grantItemOnSuccess && state.inventory.indexOf(node.grantItemOnSuccess) === -1) {
         state.inventory.push(node.grantItemOnSuccess);

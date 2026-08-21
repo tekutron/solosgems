@@ -138,6 +138,45 @@
   color: var(--ink);
 }
 
+.gq-score {
+  color: var(--rust);
+  margin-left: 8px;
+  font-weight: 700;
+}
+
+.gq-achievement-toast {
+  background: rgba(201, 138, 46, 0.16);
+  border: 2px solid var(--rust);
+  border-radius: 7px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  color: var(--ink);
+  animation: gq-glow-pulse 1.4s ease-in-out infinite;
+}
+
+.gq-achievement-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 4px 0 6px;
+}
+
+.gq-achievement-badge {
+  font-size: 0.78rem;
+  padding: 4px 9px;
+  border-radius: 20px;
+  border: 2px solid var(--line);
+  color: var(--ink-soft);
+  background: var(--panel);
+}
+
+.gq-achievement-badge.gq-achievement-got {
+  color: var(--ink);
+  border-color: var(--rust);
+  background: rgba(201, 138, 46, 0.16);
+}
+
 .gq-hud-buttons {
   display: flex;
   gap: 8px;
