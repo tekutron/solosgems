@@ -1059,6 +1059,9 @@
     actions.appendChild(giveUpBtn);
 
     els.minigameArea.appendChild(actions);
+    if (retryBtn.scrollIntoView) {
+      retryBtn.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
   }
 
   // Emergency fallback once a minigame has been lost three times in a row:
@@ -1216,19 +1219,20 @@
     function updateTimer() { timerEl.textContent = Math.max(remaining, 0) + "s"; }
   }
 
-  // ---------------- Arcade minigame (Flappy-Bird-style) ----------------
-  // A single reusable real-time skill minigame: tap/click/space to flap
-  // against constant gravity and thread the gaps in a stream of obstacles
-  // moving toward you. Reskinned per node via playerEmoji/obstacleEmoji/
-  // bg class and a couple of cosmetic floating flavor labels. Success is
-  // about timing and nerve, not guessing which button is the "right" one.
+  // ---------------- Arcade minigame (hold-to-rise, release-to-fall) ----------------
+  // A single reusable real-time skill minigame: hold down (mouse, touch, or
+  // space) to rise, let go to fall, and thread the gaps in a stream of
+  // obstacles moving toward you. Deliberately a hold, not a tap, so there is
+  // no precise timing to miss, just "am I pressing right now or not."
+  // Reskinned per node via playerEmoji/obstacleEmoji/bg class and a couple
+  // of cosmetic floating flavor labels.
   function setupArcade(node) {
     var wrap = document.createElement("div");
     wrap.className = "gq-mg";
 
     var instructions = document.createElement("p");
     instructions.className = "gq-mg-instructions";
-    instructions.textContent = node.instructions || "Tap, click, or press space to flap. Thread the gaps.";
+    instructions.textContent = node.instructions || "Press and hold to rise, let go to fall. Thread the gaps.";
     wrap.appendChild(instructions);
 
     var lives = 3 + (miniGameBonus ? 1 : 0);
@@ -1249,7 +1253,7 @@
 
     var startOverlay = document.createElement("div");
     startOverlay.className = "gq-arcade-start";
-    startOverlay.innerHTML = '<span class="gq-arcade-start-btn">▶ Tap or click to start</span>';
+    startOverlay.innerHTML = '<span class="gq-arcade-start-btn">▶ Press and hold to start</span>';
     stage.appendChild(startOverlay);
 
     function updateLives() { livesEl.textContent = "Lives: " + "❤️".repeat(Math.max(lives, 0)); }
@@ -1257,12 +1261,15 @@
 
     var stageW, stageH;
     var playerY, vy;
-    var GRAVITY = 0.14;
-    var FLAP = -3.2;
+    var GRAVITY = 0.22; // downward accel while not holding
+    var THRUST = -0.34; // upward accel while holding
+    var MAX_FALL = 4.2;
+    var MAX_RISE = -4.2;
+    var KNOCKBACK = -3;
     var PLAYER_X = 44;
-    var PLAYER_R = 15;
-    var SPEED = 2.6;
-    var GAP = 108;
+    var PLAYER_R = 17;
+    var SPEED = 2.1;
+    var GAP = 130;
     var obstacles = [];
     var passed = 0;
     var targetPasses = node.targetPasses || 5;
@@ -1324,12 +1331,14 @@
       // brief invincible flash and knock the player back up, run continues
       player.classList.add("gq-arcade-hit");
       window.setTimeout(function () { player.classList.remove("gq-arcade-hit"); }, 260);
-      vy = FLAP * 0.7;
+      vy = KNOCKBACK;
     }
 
     function tick() {
       if (!running) return;
-      vy += GRAVITY;
+      vy += holding ? THRUST : GRAVITY;
+      if (vy > MAX_FALL) vy = MAX_FALL;
+      if (vy < MAX_RISE) vy = MAX_RISE;
       playerY += vy;
       if (playerY < PLAYER_R) { playerY = PLAYER_R; vy = 0; }
       if (playerY > stageH - PLAYER_R) { crash("You dip out of frame entirely. That is, apparently, how you lose this one."); return; }
@@ -1371,11 +1380,6 @@
       frameHandle = window.requestAnimationFrame(tick);
     }
 
-    function flap() {
-      if (!running || !started) return;
-      vy = FLAP;
-    }
-
     function stopLoop() {
       if (frameHandle) window.cancelAnimationFrame(frameHandle);
       if (spawnHandle) window.clearInterval(spawnHandle);
@@ -1400,43 +1404,62 @@
       if (startOverlay.parentNode) startOverlay.parentNode.removeChild(startOverlay);
       measure();
       playerY = stageH / 2;
-      vy = FLAP * 0.45; // small starting lift so play doesn't begin mid-freefall
+      vy = 0;
       player.style.top = playerY + "px";
-      spawnHandle = window.setInterval(spawnObstacle, 1350);
-      startTimeoutHandle = window.setTimeout(spawnObstacle, 900); // grace period before the first obstacle arrives
+      spawnHandle = window.setInterval(spawnObstacle, 1500);
+      startTimeoutHandle = window.setTimeout(spawnObstacle, 1000); // grace period before the first obstacle arrives
       frameHandle = window.requestAnimationFrame(tick);
     }
 
-    // Bind several input event types on both the stage and its wrapper so a
-    // flap (or the initial start) registers regardless of pointer-event
-    // support in the visitor's browser (older WebViews and some mobile
-    // browsers only fire a subset).
-    var lastFlapAt = 0;
-    function onFlapInput(e) {
-      var now = Date.now();
-      if (now - lastFlapAt < 60) return; // de-dupe when multiple event types fire for one tap
-      lastFlapAt = now;
+    // Hold-to-rise controls: pressing down (mouse, touch, or space) starts
+    // the round on first contact and holds "rise" true for as long as the
+    // input stays down, released listens on the whole document so letting
+    // go still registers even if the pointer drifted off the box first.
+    var holding = false;
+
+    function onPressStart(e) {
       if (e.cancelable) e.preventDefault();
-      if (!started) { beginPlay(); return; }
-      flap();
+      if (!started) beginPlay();
+      holding = true;
     }
-    ["pointerdown", "mousedown", "touchstart", "click"].forEach(function (evt) {
-      stage.addEventListener(evt, onFlapInput, { passive: false });
-      wrap.addEventListener(evt, onFlapInput, { passive: false });
+    function onPressEnd(e) {
+      if (e.cancelable) e.preventDefault();
+      holding = false;
+    }
+
+    ["pointerdown", "mousedown", "touchstart"].forEach(function (evt) {
+      stage.addEventListener(evt, onPressStart, { passive: false });
+      wrap.addEventListener(evt, onPressStart, { passive: false });
     });
-    var keyHandler = function (e) {
+    ["pointerup", "pointercancel", "mouseup", "touchend", "touchcancel"].forEach(function (evt) {
+      document.addEventListener(evt, onPressEnd, { passive: false });
+    });
+
+    var keyDownHandler = function (e) {
       if (e.code === "Space" || e.key === " ") {
         e.preventDefault();
-        if (!started) beginPlay(); else flap();
+        if (!started) beginPlay();
+        holding = true;
       }
     };
-    document.addEventListener("keydown", keyHandler);
+    var keyUpHandler = function (e) {
+      if (e.code === "Space" || e.key === " ") {
+        e.preventDefault();
+        holding = false;
+      }
+    };
+    document.addEventListener("keydown", keyDownHandler);
+    document.addEventListener("keyup", keyUpHandler);
 
     miniGameCleanup = function () {
-      document.removeEventListener("keydown", keyHandler);
-      ["pointerdown", "mousedown", "touchstart", "click"].forEach(function (evt) {
-        stage.removeEventListener(evt, onFlapInput);
-        wrap.removeEventListener(evt, onFlapInput);
+      document.removeEventListener("keydown", keyDownHandler);
+      document.removeEventListener("keyup", keyUpHandler);
+      ["pointerdown", "mousedown", "touchstart"].forEach(function (evt) {
+        stage.removeEventListener(evt, onPressStart);
+        wrap.removeEventListener(evt, onPressStart);
+      });
+      ["pointerup", "pointercancel", "mouseup", "touchend", "touchcancel"].forEach(function (evt) {
+        document.removeEventListener(evt, onPressEnd);
       });
       stopLoop();
     };
