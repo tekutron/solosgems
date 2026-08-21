@@ -296,10 +296,10 @@
       title: "The Brightest Lantern",
       img: "game-forest.svg",
       type: "minigame",
-      game: "arcade",
+      game: "stack",
       startLabel: "Chase it",
       text: "The brightest lantern turns out to be attached to a small, fast, extremely pleased-with-itself wisp, and it takes off the second you reach for it, weaving between the other floating banners like it has done this a hundred times.",
-      instructions: "Tap, click, or press space to flap. Fly through the gap in each cluster of banners.",
+      instructions: "Tap the arrows to steer the lantern's glow into the open slot before it settles.",
       playerEmoji: "🏃",
       obstacleEmoji: "🏮",
       arcadeBgClass: "gq-arcade-forest",
@@ -327,17 +327,17 @@
       title: "The Recording Owl",
       img: "game-owlnest.svg",
       type: "minigame",
-      game: "arcade",
+      game: "stack",
       startLabel: "Listen in",
       text: "A small owl sits perfectly still on a low branch, one glass eye blinking steadily, clearly recording every word of a meeting happening somewhere just out of sight. It launches after you the moment you get close, weaving between drifting speech bubbles of pure noise. Stay in the air and it lets you pass.",
-      instructions: "Tap, click, or press space to flap. Fly through the gap in each cluster of chatter.",
+      instructions: "Tap the arrows to steer each burst of chatter into the slot where it belongs.",
       playerEmoji: "🪶",
       obstacleEmoji: "💬",
       arcadeBgClass: "gq-arcade-forest",
       flavorLabels: ["can everyone see my screen", "sorry my dog is barking", "quick housekeeping first", "no you're not on mute", "let's circle back on that", "great, thanks everyone"],
       targetPasses: 5,
-      winText: "You slip through the last cluster of noise clean. The owl blinks once, slowly, which you choose to take as approval.",
-      crashText: "You fly straight into a wall of small talk. The owl does not judge you, exactly, it just keeps recording, unbothered.",
+      winText: "You sort the last cluster of noise clean. The owl blinks once, slowly, which you choose to take as approval.",
+      crashText: "That one lands in entirely the wrong pile of small talk. The owl does not judge you, exactly, it just keeps recording, unbothered.",
       grantItemOnSuccess: "tldv",
       success: "owl_win",
       fail: "owl_fail"
@@ -358,17 +358,17 @@
       title: "The Cave of Reasonable Doubt",
       img: "game-oracle.svg",
       type: "minigame",
-      game: "arcade",
+      game: "stack",
       startLabel: "Step inside",
       text: "A low hum leads you off the forest path to a small cave where something large, feathered, and stitched together out of old citations is blocking the way. It does not ask you a riddle. It simply takes off, and the cave fills with drifting footnotes you will need to fly straight through.",
-      instructions: "Tap, click, or press space to flap. Fly through the gap in each row of citations.",
+      instructions: "Tap the arrows to file each footnote into the slot the griffin is watching.",
       playerEmoji: "🕯️",
       obstacleEmoji: "📜",
       arcadeBgClass: "gq-arcade-cave",
       flavorLabels: ["citation needed", "peer review pending", "results not typical", "source: trust me", "footnote 47 of 200", "allegedly, according to a guy"],
       targetPasses: 5,
-      winText: "You clear the last row of footnotes. The griffin makes a sound that might be a screech or might be applause, hard to tell with citations involved.",
-      crashText: "You fly straight into a wall of unverified claims. The griffin sighs, the specific sigh of something that has cited its sources and still watched you crash into them.",
+      winText: "You file the last footnote exactly where it belongs. The griffin makes a sound that might be a screech or might be applause, hard to tell with citations involved.",
+      crashText: "That one lands in entirely the wrong stack of unverified claims. The griffin sighs, the specific sigh of something that has cited its sources and still watched you get it wrong.",
       autoSuccessItems: ["notebooklm"],
       grantItemOnSuccess: "fireflies",
       success: "oracle_win",
@@ -421,10 +421,10 @@
       title: "The Overbooked Bridge",
       img: "game-bridge.svg",
       type: "minigame",
-      game: "arcade",
+      game: "stack",
       startLabel: "Approach the warden",
       text: "A narrow rope bridge sways over a gorge stacked floor to ceiling with floating calendar blocks, all of them trying to bump into each other for the same slot. The warden does not offer to let you through. She just steps aside and watches to see if you can actually hold your line.",
-      instructions: "Tap, click, or press space to flap. Fly through the gap between each stack of meetings.",
+      instructions: "Tap the arrows to slot each meeting block into the one open spot before it lands.",
       playerEmoji: "🕰️",
       obstacleEmoji: "📅",
       arcadeBgClass: "gq-arcade-bridge",
@@ -1112,7 +1112,7 @@
 
     if (node.game === "typing") setupTyping(node);
     else if (node.game === "proofread") setupProofread(node);
-    else if (node.game === "arcade") setupArcade(node);
+    else if (node.game === "stack") setupStack(node);
   }
 
   function primedBonusSeconds() { return miniGameBonus ? 6 : 0; }
@@ -1226,241 +1226,181 @@
   // no precise timing to miss, just "am I pressing right now or not."
   // Reskinned per node via playerEmoji/obstacleEmoji/bg class and a couple
   // of cosmetic floating flavor labels.
-  function setupArcade(node) {
+  // ---------------- Stacking minigame (Tetris-style, replaces the old
+  // real-time flappy arcade sequence) ----------------
+  // A single piece falls one grid row at a time on a fixed interval (no
+  // requestAnimationFrame, no physics, no hold gestures). The player just
+  // taps left/right to line the piece up over the glowing target column
+  // before it reaches the bottom row. Deliberately simple and forgiving:
+  // discrete steps instead of continuous motion, plain click/tap buttons
+  // instead of press-and-hold, arrow keys for desktop.
+  function setupStack(node) {
     var wrap = document.createElement("div");
     wrap.className = "gq-mg";
 
     var instructions = document.createElement("p");
     instructions.className = "gq-mg-instructions";
-    instructions.textContent = node.instructions || "Press and hold to rise, let go to fall. Thread the gaps.";
+    instructions.textContent = node.instructions || "Tap the arrows to line the piece up with the glowing slot before it lands.";
     wrap.appendChild(instructions);
 
     var lives = 3 + (miniGameBonus ? 1 : 0);
     var livesEl = document.createElement("p");
     livesEl.className = "gq-mg-timer";
     wrap.appendChild(livesEl);
-
-    var stage = document.createElement("div");
-    stage.className = "gq-arcade" + (node.arcadeBgClass ? " " + node.arcadeBgClass : "");
-    wrap.appendChild(stage);
-
-    els.minigameArea.appendChild(wrap);
-
-    var player = document.createElement("div");
-    player.className = "gq-arcade-player";
-    player.textContent = node.playerEmoji || "🧙";
-    stage.appendChild(player);
-
-    var startOverlay = document.createElement("div");
-    startOverlay.className = "gq-arcade-start";
-    startOverlay.innerHTML = '<span class="gq-arcade-start-btn">▶ Press and hold to start</span>';
-    stage.appendChild(startOverlay);
-
     function updateLives() { livesEl.textContent = "Lives: " + "❤️".repeat(Math.max(lives, 0)); }
     updateLives();
 
-    var stageW, stageH;
-    var playerY, vy;
-    var GRAVITY = 0.22; // downward accel while not holding
-    var THRUST = -0.34; // upward accel while holding
-    var MAX_FALL = 4.2;
-    var MAX_RISE = -4.2;
-    var KNOCKBACK = -3;
-    var PLAYER_X = 44;
-    var PLAYER_R = 17;
-    var SPEED = 2.1;
-    var GAP = 130;
-    var obstacles = [];
-    var passed = 0;
     var targetPasses = node.targetPasses || 5;
-    var frameHandle = null;
-    var spawnHandle = null;
-    var startTimeoutHandle = null;
-    var running = true;
-    var started = false;
-    var flavorPool = (node.flavorLabels || []).slice();
+    var progressEl = document.createElement("p");
+    progressEl.className = "gq-mg-timer";
+    wrap.appendChild(progressEl);
 
-    function nextFlavor() {
-      if (flavorPool.length === 0) flavorPool = (node.flavorLabels || []).slice();
-      var i = Math.floor(Math.random() * flavorPool.length);
-      return flavorPool.splice(i, 1)[0] || "";
+    var stage = document.createElement("div");
+    stage.className = "gq-stack" + (node.arcadeBgClass ? " " + node.arcadeBgClass : "");
+    wrap.appendChild(stage);
+
+    var COLS = 5;
+    var ROWS = 6;
+    var slots = [];
+    for (var c = 0; c < COLS; c++) {
+      var col = document.createElement("div");
+      col.className = "gq-stack-col";
+      var slot = document.createElement("div");
+      slot.className = "gq-stack-slot";
+      col.appendChild(slot);
+      stage.appendChild(col);
+      slots.push(slot);
     }
 
-    function measure() {
-      stageW = stage.clientWidth;
-      stageH = stage.clientHeight;
+    var piece = document.createElement("div");
+    piece.className = "gq-stack-piece";
+    piece.textContent = node.playerEmoji || "🧙";
+    stage.appendChild(piece);
+
+    els.minigameArea.appendChild(wrap);
+
+    var curCol = 0, curRow = 0, targetCol = 0, passed = 0;
+    var running = true, resolving = false;
+    var tickHandle = null;
+    var TICK_MS = 650;
+
+    function updateProgress() { progressEl.textContent = "Sorted: " + passed + " / " + targetPasses; }
+    updateProgress();
+
+    function pickTargetCol(excludeCol) {
+      var c;
+      do { c = Math.floor(Math.random() * COLS); } while (COLS > 1 && c === excludeCol);
+      return c;
     }
 
-    function spawnObstacle() {
-      if (!running) return;
-      var gapY = 30 + Math.random() * (stageH - GAP - 60);
-      var el = document.createElement("div");
-      el.className = "gq-arcade-obstacle";
-      el.style.left = stageW + "px";
-      var top = document.createElement("div");
-      top.className = "gq-arcade-bar gq-arcade-bar-top";
-      top.style.height = gapY + "px";
-      var bottom = document.createElement("div");
-      bottom.className = "gq-arcade-bar gq-arcade-bar-bottom";
-      bottom.style.height = (stageH - gapY - GAP) + "px";
-      var tag = document.createElement("span");
-      tag.className = "gq-arcade-tag";
-      tag.textContent = node.obstacleEmoji || "📄";
-      top.appendChild(tag.cloneNode(true));
-      if (node.flavorLabels && node.flavorLabels.length) {
-        var label = document.createElement("span");
-        label.className = "gq-arcade-label";
-        label.textContent = nextFlavor();
-        bottom.appendChild(label);
+    function paintTarget() {
+      slots.forEach(function (s, i) { s.classList.toggle("gq-stack-target", i === targetCol); });
+    }
+
+    function paintPiece() {
+      piece.style.left = (curCol * (100 / COLS)) + "%";
+      piece.style.top = (curRow * (100 / ROWS)) + "%";
+    }
+
+    function spawnPiece() {
+      curCol = Math.floor(Math.random() * COLS);
+      curRow = 0;
+      targetCol = pickTargetCol(curCol);
+      paintTarget();
+      paintPiece();
+    }
+
+    function moveLeft() { if (resolving) return; if (curCol > 0) { curCol -= 1; paintPiece(); } }
+    function moveRight() { if (resolving) return; if (curCol < COLS - 1) { curCol += 1; paintPiece(); } }
+
+    function stopLoop() {
+      if (tickHandle) window.clearInterval(tickHandle);
+      tickHandle = null;
+    }
+
+    function land() {
+      var slot = slots[curCol];
+      if (curCol === targetCol) {
+        slot.classList.add("gq-stack-hit");
+        window.setTimeout(function () { slot.classList.remove("gq-stack-hit"); }, 300);
+        passed += 1;
+        updateProgress();
+        if (passed >= targetPasses) {
+          running = false;
+          stopLoop();
+          finishMiniGame(node, true, node.winText || "Every piece lands exactly where it should. Tidy work.");
+          return;
+        }
+      } else {
+        slot.classList.add("gq-stack-miss");
+        window.setTimeout(function () { slot.classList.remove("gq-stack-miss"); }, 300);
+        lives -= 1;
+        updateLives();
+        if (lives <= 0) {
+          running = false;
+          stopLoop();
+          finishMiniGame(node, false, node.crashText || "That one lands in entirely the wrong pile.");
+          return;
+        }
       }
-      el.appendChild(top);
-      el.appendChild(bottom);
-      stage.appendChild(el);
-      obstacles.push({ el: el, x: stageW, gapY: gapY, passed: false });
-    }
-
-    function crash(reason) {
-      lives -= 1;
-      updateLives();
-      if (lives <= 0) {
-        running = false;
-        stopLoop();
-        finishMiniGame(node, false, reason);
-        return;
-      }
-      // brief invincible flash and knock the player back up, run continues
-      player.classList.add("gq-arcade-hit");
-      window.setTimeout(function () { player.classList.remove("gq-arcade-hit"); }, 260);
-      vy = KNOCKBACK;
+      window.setTimeout(function () {
+        if (!running) return;
+        resolving = false;
+        spawnPiece();
+      }, 300);
     }
 
     function tick() {
-      if (!running) return;
-      vy += holding ? THRUST : GRAVITY;
-      if (vy > MAX_FALL) vy = MAX_FALL;
-      if (vy < MAX_RISE) vy = MAX_RISE;
-      playerY += vy;
-      if (playerY < PLAYER_R) { playerY = PLAYER_R; vy = 0; }
-      if (playerY > stageH - PLAYER_R) { crash("You dip out of frame entirely. That is, apparently, how you lose this one."); return; }
-      player.style.top = playerY + "px";
-
-      for (var i = obstacles.length - 1; i >= 0; i--) {
-        var o = obstacles[i];
-        o.x -= SPEED;
-        o.el.style.left = o.x + "px";
-
-        var playerLeft = PLAYER_X - PLAYER_R, playerRight = PLAYER_X + PLAYER_R;
-        var obstacleLeft = o.x, obstacleRight = o.x + 34;
-        var overlapsX = playerRight > obstacleLeft && playerLeft < obstacleRight;
-        if (overlapsX) {
-          var inGap = (playerY - PLAYER_R) > o.gapY && (playerY + PLAYER_R) < (o.gapY + GAP);
-          if (!inGap) {
-            stage.removeChild(o.el);
-            obstacles.splice(i, 1);
-            crash(node.crashText || "You clip the edge and go down.");
-            return;
-          }
-        }
-        if (!o.passed && o.x + 34 < PLAYER_X - PLAYER_R) {
-          o.passed = true;
-          passed += 1;
-          if (passed >= targetPasses) {
-            running = false;
-            stopLoop();
-            finishMiniGame(node, true, node.winText || "Clean run. You make it through without a scratch.");
-            return;
-          }
-        }
-        if (o.x < -40) {
-          stage.removeChild(o.el);
-          obstacles.splice(i, 1);
-        }
+      if (!running || resolving) return;
+      curRow += 1;
+      if (curRow >= ROWS - 1) {
+        curRow = ROWS - 1;
+        paintPiece();
+        resolving = true;
+        land();
+        return;
       }
-
-      frameHandle = window.requestAnimationFrame(tick);
+      paintPiece();
     }
 
-    function stopLoop() {
-      if (frameHandle) window.cancelAnimationFrame(frameHandle);
-      if (spawnHandle) window.clearInterval(spawnHandle);
-      if (startTimeoutHandle) window.clearTimeout(startTimeoutHandle);
-      frameHandle = null;
-      spawnHandle = null;
-      startTimeoutHandle = null;
-    }
+    spawnPiece();
+    tickHandle = window.setInterval(tick, TICK_MS);
 
-    // Rest the player at the vertical center while waiting for the player to
-    // actually start, no gravity applies and nothing spawns until they do.
-    window.requestAnimationFrame(function () {
-      measure();
-      playerY = stageH / 2;
-      vy = 0;
-      player.style.top = playerY + "px";
-    });
+    var controls = document.createElement("div");
+    controls.className = "gq-stack-controls";
+    var leftBtn = document.createElement("button");
+    leftBtn.type = "button";
+    leftBtn.className = "gq-stack-btn";
+    leftBtn.textContent = "◀";
+    leftBtn.setAttribute("aria-label", "Move left");
+    var rightBtn = document.createElement("button");
+    rightBtn.type = "button";
+    rightBtn.className = "gq-stack-btn";
+    rightBtn.textContent = "▶";
+    rightBtn.setAttribute("aria-label", "Move right");
+    controls.appendChild(leftBtn);
+    controls.appendChild(rightBtn);
+    wrap.appendChild(controls);
 
-    function beginPlay() {
-      if (started) return;
-      started = true;
-      if (startOverlay.parentNode) startOverlay.parentNode.removeChild(startOverlay);
-      measure();
-      playerY = stageH / 2;
-      vy = 0;
-      player.style.top = playerY + "px";
-      spawnHandle = window.setInterval(spawnObstacle, 1500);
-      startTimeoutHandle = window.setTimeout(spawnObstacle, 1000); // grace period before the first obstacle arrives
-      frameHandle = window.requestAnimationFrame(tick);
-    }
-
-    // Hold-to-rise controls: pressing down (mouse, touch, or space) starts
-    // the round on first contact and holds "rise" true for as long as the
-    // input stays down, released listens on the whole document so letting
-    // go still registers even if the pointer drifted off the box first.
-    var holding = false;
-
-    function onPressStart(e) {
-      if (e.cancelable) e.preventDefault();
-      if (!started) beginPlay();
-      holding = true;
-    }
-    function onPressEnd(e) {
-      if (e.cancelable) e.preventDefault();
-      holding = false;
-    }
-
-    ["pointerdown", "mousedown", "touchstart"].forEach(function (evt) {
-      stage.addEventListener(evt, onPressStart, { passive: false });
-      wrap.addEventListener(evt, onPressStart, { passive: false });
-    });
-    ["pointerup", "pointercancel", "mouseup", "touchend", "touchcancel"].forEach(function (evt) {
-      document.addEventListener(evt, onPressEnd, { passive: false });
-    });
+    function onLeftAction(e) { if (e.cancelable) e.preventDefault(); moveLeft(); }
+    function onRightAction(e) { if (e.cancelable) e.preventDefault(); moveRight(); }
+    leftBtn.addEventListener("click", onLeftAction);
+    rightBtn.addEventListener("click", onRightAction);
+    leftBtn.addEventListener("touchstart", onLeftAction, { passive: false });
+    rightBtn.addEventListener("touchstart", onRightAction, { passive: false });
 
     var keyDownHandler = function (e) {
-      if (e.code === "Space" || e.key === " ") {
-        e.preventDefault();
-        if (!started) beginPlay();
-        holding = true;
-      }
-    };
-    var keyUpHandler = function (e) {
-      if (e.code === "Space" || e.key === " ") {
-        e.preventDefault();
-        holding = false;
-      }
+      if (e.key === "ArrowLeft") { e.preventDefault(); moveLeft(); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); moveRight(); }
     };
     document.addEventListener("keydown", keyDownHandler);
-    document.addEventListener("keyup", keyUpHandler);
 
     miniGameCleanup = function () {
       document.removeEventListener("keydown", keyDownHandler);
-      document.removeEventListener("keyup", keyUpHandler);
-      ["pointerdown", "mousedown", "touchstart"].forEach(function (evt) {
-        stage.removeEventListener(evt, onPressStart);
-        wrap.removeEventListener(evt, onPressStart);
-      });
-      ["pointerup", "pointercancel", "mouseup", "touchend", "touchcancel"].forEach(function (evt) {
-        document.removeEventListener(evt, onPressEnd);
-      });
+      leftBtn.removeEventListener("click", onLeftAction);
+      rightBtn.removeEventListener("click", onRightAction);
+      leftBtn.removeEventListener("touchstart", onLeftAction);
+      rightBtn.removeEventListener("touchstart", onRightAction);
       stopLoop();
     };
   }
