@@ -147,17 +147,45 @@
         { label: "Buy whatever the quiet cartographer is selling", next: "cartographer" },
         { label: "Check out the market stalls set up outside", next: "market" },
         { label: "Ask if anyone remembers a tool that didn't make it", next: "tavern_lore" },
+        { label: "Follow the rumor about a path out back", next: "deathstack_gate", requiresFlag: "heardWarning" },
         { label: "Ignore all of them and just start walking", next: "road" }
       ]
     },
     tavern_lore: {
       title: "The Old Stories",
       img: "game-tavern.svg",
-      text: "An old patron in the corner does not look up from his drink. 'Oh, you want the ones that didn't make it,' he says. 'There was an oracle who ran up four billion in debt chasing a cure and folded seven years in, right after winning a game show, of all things. And an amulet the smiths just quietly stopped making one day, no explanation, no warning, gone by the end of the season. You start to notice a shape to it after a while. The confident ones go first.'",
+      text: "An old patron in the corner does not look up from his drink. 'Oh, you want the ones that didn't make it,' he says. 'There was an oracle who ran up four billion in debt chasing a cure and folded seven years in, right after winning a game show, of all things. And an amulet the smiths just quietly stopped making one day, no explanation, no warning, gone by the end of the season. You start to notice a shape to it after a while. The confident ones go first. There's a path out back, if you want to see for yourself.'",
       choices: [
         { label: "Buy him a drink for the story", next: "tavern", setFlag: "heardWarning" },
         { label: "Head back into the tavern", next: "tavern" }
       ]
+    },
+    deathstack_gate: {
+      title: "The Overgrown Path",
+      img: "game-graveyard.svg",
+      text: "The old patron's directions turn out to be real. A narrow trail behind the tavern, choked with weeds nobody bothered to enchant away, leads to a small clearing full of modest headstones. Somebody has clearly been maintaining this place out of spite.",
+      choices: [
+        { label: "Read the headstones", next: "deathstack_plugins" },
+        { label: "This feels like a waste of time, head back", next: "tavern" }
+      ]
+    },
+    deathstack_plugins: {
+      title: "Here Lies: The Landlord's Plugins",
+      img: "game-graveyard.svg",
+      text: "The first headstone belongs to a small marketplace that briefly let you bolt anything onto anything. A translucent shopkeeper still haunts the plot, muttering about a rug pull. 'One day the landlord just added everything I sold into the base building. For free. Didn't even give me a saving throw,' he says, and fades a little more before your eyes.",
+      choices: [{ label: "Offer a moment of silence and move on", next: "deathstack_neeva" }]
+    },
+    deathstack_neeva: {
+      title: "Here Lies: The Perfect Search Oracle",
+      img: "game-graveyard.svg",
+      text: "The next grave belongs to a search oracle built by the very people who used to run search ads for the empire down the road. Its ghost still charges a toll, out of habit, for a road a free alternative runs right past. 'We had the smartest party in the realm,' it sighs. 'Turns out free is also a strategy, and it plays dirty.'",
+      choices: [{ label: "Pay the phantom toll out of respect, then move on", next: "deathstack_humane" }]
+    },
+    deathstack_humane: {
+      title: "Here Lies: The Talking Pin",
+      img: "game-graveyard.svg",
+      text: "The last grave is small and shiny, and used to project a tiny glowing menu onto your palm whenever you spoke to it, whether you asked it to or not. A single laser flickers weakly from the headstone, still trying to show you the weather. 'It was going to replace the scroll entirely,' someone nearby says. 'It did not replace the scroll.' You leave the clearing a little wiser and mostly just tired.",
+      choices: [{ label: "Head back to the tavern", next: "tavern" }]
     },
     market: {
       title: "The Bazaar of Extremely Legitimate Tools",
@@ -1145,9 +1173,24 @@
     updateTimer();
     input.focus();
 
+    var startedAt = Date.now();
+
     input.addEventListener("input", function () {
-      if (normalize(input.value) === normalize(phrase)) {
-        finishMiniGame(node, true, "You repeated it back word for word. The auctioneer looks personally offended.");
+      var typed = normalize(input.value);
+      var target = normalize(phrase);
+      // Live feedback: green border while what you've typed so far is still
+      // on track, red the moment it drifts off course, so mistakes are
+      // obvious immediately instead of only at submit time.
+      if (target.indexOf(typed) === 0) {
+        input.classList.remove("gq-mg-input-off");
+        input.classList.add("gq-mg-input-on");
+      } else {
+        input.classList.remove("gq-mg-input-on");
+        input.classList.add("gq-mg-input-off");
+      }
+      if (typed === target) {
+        var seconds = ((Date.now() - startedAt) / 1000).toFixed(1);
+        finishMiniGame(node, true, "You repeated it back word for word in " + seconds + "s flat. The auctioneer looks personally offended.");
       }
     });
 
@@ -1177,6 +1220,12 @@
     instructions.textContent = "Click the word doing all the heavy lifting.";
     wrap.appendChild(instructions);
 
+    var guessesEl = document.createElement("p");
+    guessesEl.className = "gq-mg-timer";
+    wrap.appendChild(guessesEl);
+    function updateGuesses() { guessesEl.textContent = "Guesses left: " + Math.max(attemptsLeft, 0); }
+    updateGuesses();
+
     var sentenceEl = document.createElement("p");
     sentenceEl.className = "gq-mg-sentence";
     sentence.tokens.forEach(function (word, i) {
@@ -1187,10 +1236,14 @@
       span.addEventListener("click", function () {
         if (span.classList.contains("gq-mg-wrong")) return;
         if (i === sentence.badIndex) {
+          span.classList.add("gq-mg-right");
           finishMiniGame(node, true, "Found it. The golem makes a sound like a dial-up modem giving up.");
         } else {
           attemptsLeft -= 1;
+          updateGuesses();
           span.classList.add("gq-mg-wrong");
+          window.setTimeout(function () { span.classList.remove("gq-mg-shake"); }, 260);
+          span.classList.add("gq-mg-shake");
           if (attemptsLeft <= 0) {
             finishMiniGame(node, false, "Out of guesses. The golem finishes its pitch, uninterrupted and deeply satisfied.");
           }
@@ -1277,12 +1330,20 @@
     piece.textContent = node.playerEmoji || "🧙";
     stage.appendChild(piece);
 
+    var streakEl = document.createElement("p");
+    streakEl.className = "gq-mg-result gq-stack-streak";
+    streakEl.hidden = true;
+    wrap.appendChild(streakEl);
+
     els.minigameArea.appendChild(wrap);
 
-    var curCol = 0, curRow = 0, targetCol = 0, passed = 0;
+    var curCol = 0, curRow = 0, targetCol = 0, passed = 0, streak = 0, isBonus = false;
     var running = true, resolving = false;
     var tickHandle = null;
-    var TICK_MS = 650;
+
+    // Difficulty ramps up a little with every successful sort, and eases
+    // back down after a miss, so a rough patch never spirals.
+    function currentTickMs() { return Math.max(360, 650 - passed * 45); }
 
     function updateProgress() { progressEl.textContent = "Sorted: " + passed + " / " + targetPasses; }
     updateProgress();
@@ -1294,20 +1355,30 @@
     }
 
     function paintTarget() {
-      slots.forEach(function (s, i) { s.classList.toggle("gq-stack-target", i === targetCol); });
+      slots.forEach(function (s, i) {
+        s.classList.toggle("gq-stack-target", !isBonus && i === targetCol);
+        s.classList.toggle("gq-stack-bonus", isBonus);
+      });
     }
 
     function paintPiece() {
       piece.style.left = (curCol * (100 / COLS)) + "%";
       piece.style.top = (curRow * (100 / ROWS)) + "%";
+      piece.classList.toggle("gq-stack-piece-bonus", isBonus);
     }
 
     function spawnPiece() {
       curCol = Math.floor(Math.random() * COLS);
       curRow = 0;
       targetCol = pickTargetCol(curCol);
+      // Every so often a bonus piece drops, any column catches it, a small
+      // break from precision that mirrors the "special tile" trick used in
+      // whack-a-mole style games to keep runs from feeling punishing.
+      isBonus = passed > 0 && passed % 3 === 0 && Math.random() < 0.6;
+      piece.textContent = isBonus ? "💎" : (node.playerEmoji || "🧙");
       paintTarget();
       paintPiece();
+      restartTick();
     }
 
     function moveLeft() { if (resolving) return; if (curCol > 0) { curCol -= 1; paintPiece(); } }
@@ -1318,13 +1389,29 @@
       tickHandle = null;
     }
 
+    function restartTick() {
+      stopLoop();
+      tickHandle = window.setInterval(tick, currentTickMs());
+    }
+
+    function showStreak(text) {
+      streakEl.textContent = text;
+      streakEl.hidden = false;
+      window.setTimeout(function () { streakEl.hidden = true; }, 900);
+    }
+
     function land() {
       var slot = slots[curCol];
-      if (curCol === targetCol) {
+      var hit = isBonus || curCol === targetCol;
+      if (hit) {
         slot.classList.add("gq-stack-hit");
         window.setTimeout(function () { slot.classList.remove("gq-stack-hit"); }, 300);
         passed += 1;
+        streak += 1;
         updateProgress();
+        if (streak === 3) showStreak("Nice run! 🔥");
+        else if (streak >= 5) showStreak("On fire! " + streak + " in a row!");
+        else if (isBonus) showStreak("Bonus catch!");
         if (passed >= targetPasses) {
           running = false;
           stopLoop();
@@ -1334,6 +1421,7 @@
       } else {
         slot.classList.add("gq-stack-miss");
         window.setTimeout(function () { slot.classList.remove("gq-stack-miss"); }, 300);
+        streak = 0;
         lives -= 1;
         updateLives();
         if (lives <= 0) {
@@ -1364,7 +1452,6 @@
     }
 
     spawnPiece();
-    tickHandle = window.setInterval(tick, TICK_MS);
 
     var controls = document.createElement("div");
     controls.className = "gq-stack-controls";
