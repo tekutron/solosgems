@@ -1284,7 +1284,7 @@ article li { margin: 6px 0; }
   margin-top: 2px;
 }
 
-.db-row-body { min-width: 0; }
+.db-row-body { min-width: 0; flex: 1 1 auto; }
 .db-row-body h3 {
   margin: 0 0 3px;
   font-size: 0.95rem;
@@ -1301,6 +1301,24 @@ article li { margin: 6px 0; }
   color: var(--ink-soft);
 }
 .db-cool strong { color: var(--rust-dark); }
+.db-row-caption {
+  margin: 4px 0 0 !important;
+  font-size: 0.8rem;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--rust);
+}
+.db-row-comic {
+  flex: none;
+  width: 74px;
+  height: 74px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  object-fit: cover;
+  margin-left: auto;
+  align-self: center;
+}
 
 @media (max-width: 900px) {
   .db-layout { grid-template-columns: 1fr; }
@@ -1311,6 +1329,7 @@ article li { margin: 6px 0; }
 
 @media (max-width: 600px) {
   .db-row { flex-direction: column; }
+  .db-row-comic { width: 100%; height: auto; max-width: 220px; margin: 8px 0 0; align-self: flex-start; }
 }
 
 /* ---------- Subscribe box ---------- */
