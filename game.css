@@ -424,6 +424,10 @@
   margin-bottom: 12px;
 }
 
+.gq-mg {
+  position: relative;
+}
+
 .gq-mg-instructions {
   margin: 0 0 12px;
   color: var(--ink-soft);
@@ -747,4 +751,169 @@
 @keyframes gq-fall {
   0% { transform: translateY(0) rotate(0deg); opacity: 1; }
   100% { transform: translateY(260px) rotate(340deg); opacity: 0; }
+}
+
+/* =====================================================================
+   Juice toolkit: screen shake, flash, particle bursts, punchier feedback
+   on hits, wins, crits, and level-ups. Reused across every minigame and
+   the dice/achievement/score HUD instead of one-off effects per feature,
+   so the whole game reads as one consistent, higher-impact style. All
+   effects are short (under 500ms) and additive to existing layout, never
+   changing element size, so they never cause reflow jank.
+   ===================================================================== */
+
+.gq-shake {
+  animation: gq-shake-kf 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes gq-shake-kf {
+  10%, 90% { transform: translate3d(-2px, 0, 0); }
+  20%, 80% { transform: translate3d(4px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-7px, 0, 0); }
+  40%, 60% { transform: translate3d(7px, 0, 0); }
+}
+
+.gq-flash-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+  border-radius: inherit;
+}
+
+.gq-flash-red { background: rgba(196, 60, 42, 0.55); animation: gq-flash-kf 0.35s ease-out; }
+.gq-flash-green { background: rgba(90, 148, 80, 0.5); animation: gq-flash-kf 0.35s ease-out; }
+.gq-flash-gold { background: rgba(201, 138, 46, 0.5); animation: gq-flash-kf 0.4s ease-out; }
+
+@keyframes gq-flash-kf {
+  0% { opacity: 0.9; }
+  100% { opacity: 0; }
+}
+
+.gq-burst {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.gq-burst-piece {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 1.1rem;
+  animation-name: gq-burst-kf;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+  animation-fill-mode: forwards;
+}
+
+@keyframes gq-burst-kf {
+  0% { transform: translate(-50%, -50%) scale(0.4); opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--bx, 0px)), calc(-50% + var(--by, -60px))) scale(1.1); opacity: 0; }
+}
+
+/* button/tap press feedback, applied to every clickable game control */
+.gq-choice-btn:active,
+.gq-stack-btn:active,
+.gq-item-chip:active,
+#gq-new-form button:active {
+  transform: scale(0.96);
+}
+.gq-choice-btn, .gq-item-chip { transition: transform 0.08s ease, border-color 0.15s ease, background 0.15s ease; }
+
+/* scene fade, triggered on every node change so moving down the road
+   feels like a cut between shots instead of a text swap */
+.gq-scene-fade {
+  animation: gq-scene-fade-kf 0.28s ease;
+}
+
+@keyframes gq-scene-fade-kf {
+  0% { opacity: 0; transform: translateY(4px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* score HUD pulse on every point gained */
+.gq-score-pulse {
+  animation: gq-score-pulse-kf 0.45s ease;
+}
+
+@keyframes gq-score-pulse-kf {
+  0% { transform: scale(1); color: var(--rust); }
+  40% { transform: scale(1.35); color: #ffcf6e; }
+  100% { transform: scale(1); color: var(--rust); }
+}
+
+/* achievement toast entrance, replacing the plain hidden/visible swap */
+.gq-achievement-toast {
+  animation: gq-toast-in-kf 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.3), gq-glow-pulse 1.4s ease-in-out infinite 0.35s;
+}
+
+@keyframes gq-toast-in-kf {
+  0% { transform: scale(0.7) translateY(-10px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* dice crit burst ring, layered behind the die on a nat 20 */
+.gq-dice-crit-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 3px solid var(--rust);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: gq-dice-ring-kf 0.55s ease-out forwards;
+}
+
+@keyframes gq-dice-ring-kf {
+  0% { width: 10px; height: 10px; opacity: 0.9; }
+  100% { width: 140px; height: 140px; opacity: 0; }
+}
+
+/* ---- Doom-style rising danger on the real-time minigame stages: the
+   background reddens and the vignette tightens as the run gets harder,
+   instead of a flat panel the whole way through. Toggled via a danger
+   level class (0 to 3) that JS sets based on progress/lives remaining. */
+.gq-runner, .gq-tetris-stage, .gq-gauntlet-stage {
+  position: relative;
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+.gq-danger-1 { box-shadow: inset 0 0 40px 0 rgba(196, 60, 42, 0.12); }
+.gq-danger-2 { box-shadow: inset 0 0 60px 6px rgba(196, 60, 42, 0.28); }
+.gq-danger-3 {
+  box-shadow: inset 0 0 80px 12px rgba(196, 60, 42, 0.48);
+  animation: gq-danger-pulse-kf 1.1s ease-in-out infinite;
+}
+
+@keyframes gq-danger-pulse-kf {
+  0%, 100% { box-shadow: inset 0 0 80px 12px rgba(196, 60, 42, 0.48); }
+  50% { box-shadow: inset 0 0 100px 20px rgba(196, 60, 42, 0.7); }
+}
+
+/* trailing afterimage behind the runner player, on by default, gives the
+   sprite a sense of speed instead of just teleporting between lanes */
+.gq-runner-player::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+}
+
+.gq-runner-trail {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  animation: gq-trail-kf 0.4s ease-out forwards;
+}
+
+@keyframes gq-trail-kf {
+  0% { opacity: 0.5; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.6); }
 }

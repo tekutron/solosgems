@@ -668,7 +668,12 @@
     swamp: {
       title: "The Feature Bloat Swamp",
       img: "game-swamp.svg",
-      text: "The ground here is not mud, it is settled sediment of a thousand unused features nobody asked for. Something small and glowing bobs up beside you, calling itself a Roadmap Wisp. 'You look stuck,' it says warmly. 'Want me to add a few more things to help?'",
+      dynamicText: function (s) {
+        if (s.flags.wispFriend) {
+          return "The ground here is not mud, it is settled sediment of a thousand unused features nobody asked for. Something small and glowing bobs up beside you, and this time you recognize it instantly, the same wisp from the forest, now going by Roadmap Wisp with a completely straight face. 'You again,' it says, delighted, like running into an old friend at a bad party. 'Want me to add a few more things to help?'";
+        }
+        return "The ground here is not mud, it is settled sediment of a thousand unused features nobody asked for. Something small and glowing bobs up beside you, calling itself a Roadmap Wisp. 'You look stuck,' it says warmly. 'Want me to add a few more things to help?'";
+      },
       choices: [
         { label: "Sure, more features can only help", next: "end_swamp" },
         {
@@ -678,7 +683,7 @@
         { label: "Try to sort through the bloat yourself, properly", next: "swamp_tetris" },
         { label: "Ask if there is a simpler wisp who just removes things", next: "crossroads" },
         {
-          label: "Ask if it remembers you from the forest",
+          label: "Let it fuss over you for old times' sake",
           requiresFlag: "wispFriend",
           next: "crossroads",
           grantItem: "reclaim"
@@ -752,7 +757,17 @@
     natasha: {
       title: "Natasha",
       img: "game-natasha.svg",
-      text: "The mountain pass ends at a workshop lit by a hundred small screens. In the center stands Natasha, easily the most impressive automaton you have ever seen, gleaming, articulate, unmistakably a marvel of AI. 'Sign here,' she says, sliding over a contract roughly the length of the mountain range behind her, 'and you may pass. Forever. Technically.'",
+      dynamicText: function (s) {
+        var pre = "";
+        if (s.flags.helpedDot) {
+          pre = "Her eyes flick to the Open Weights Cloak on your shoulders for a beat too long before her smile resets, seamless. ";
+        } else if (s.flags.wispFriend) {
+          pre = "Something about you still smells faintly of forest lantern smoke. She does not mention it, but her smile flickers, just once, like a dropped frame. ";
+        } else if (s.flags.heardWarning) {
+          pre = "She has clearly heard you were asking around the tavern about the ones that did not make it. It does not slow her pitch down even slightly. ";
+        }
+        return pre + "The mountain pass ends at a workshop lit by a hundred small screens. In the center stands Natasha, easily the most impressive automaton you have ever seen, gleaming, articulate, unmistakably a marvel of AI. 'Sign here,' she says, sliding over a contract roughly the length of the mountain range behind her, 'and you may pass. Forever. Technically.'";
+      },
       choices: [
         { label: "Sign without reading it", next: "end_natasha" },
         {
@@ -764,7 +779,8 @@
             success: "gate",
             fail: "end_natasha",
             itemAuto: ["notebooklm"],
-            itemAdvantage: ["grammarly"]
+            itemAdvantage: ["grammarly"],
+            setFlagOnSuccess: "metNatasha"
           }
         },
         {
@@ -776,7 +792,8 @@
             dc: 10,
             success: "gate",
             fail: "ferryman",
-            itemAdvantage: ["grammarly", "notebooklm"]
+            itemAdvantage: ["grammarly", "notebooklm"],
+            setFlagOnSuccess: "metNatasha"
           }
         },
         { label: "Decline and back away slowly", next: "ferryman" }
@@ -811,7 +828,15 @@
     gate: {
       title: "The Gate of Solos Gems",
       img: "game-gate.svg",
-      text: "A golem shaped like a cut gem blocks the final gate. It does not ask for payment. It asks a question instead. 'What matters more to you? What is popular this week, or what is actually good?'",
+      dynamicText: function (s) {
+        var lines = [];
+        if (s.flags.helpedDot) lines.push("Word travels fast on this road, and the golem already seems to know about the stall nobody else stopped for.");
+        if (s.flags.wispFriend) lines.push("Something small and glowing loops a lazy, familiar circle near the gatepost, clearly waiting to see if you notice it too.");
+        if (s.flags.rivalResolved) lines.push("Whatever happened back at the crossroads with the other party beat you here, somehow. The golem does not say how it heard.");
+        if (s.flags.stoleDotsWork) lines.push("The golem studies you a moment too long, the specific look of something that has heard a slightly different version of your story already.");
+        var pre = lines.length ? lines.join(" ") + " " : "";
+        return pre + "A golem shaped like a cut gem blocks the final gate. It does not ask for payment. It asks a question instead. 'What matters more to you? What is popular this week, or what is actually good?'";
+      },
       choices: [
         { label: "What is actually good. Show me the honest list.", next: "vault_choice" },
         {
@@ -834,7 +859,20 @@
       type: "minigame",
       game: "proofread",
       startLabel: "Listen closely",
-      text: "The golem's chest panel sparks. For exactly one second it recites a pitch in a voice you have definitely heard earlier today. It sounds exactly like Natasha. The golem clears its throat, or the stone equivalent, and launches into a full monologue anyway, clearly proud of it. Somewhere in there is the one word doing all the heavy lifting. Click it before the golem wraps up.",
+      dynamicText: function (s) {
+        var voice = "a voice you have definitely heard earlier today";
+        if (s.flags.metNatasha) {
+          voice = "a voice you would know anywhere by now, Natasha's, word for word, contract clauses and all";
+        } else if (s.flags.stoleDotsWork) {
+          voice = "a voice reciting something suspiciously close to what you walked off with from Dot's stall";
+        } else if (s.flags.helpedDot) {
+          voice = "a voice with a little of Dot's stall pitch in it, if Dot ever raised her voice, which she does not";
+        }
+        var extra = s.flags.wispFriend
+          ? " Something small and glowing hovers just behind your shoulder, watching the whole performance with what might be sympathy."
+          : "";
+        return "The golem's chest panel sparks. For exactly one second it recites a pitch in " + voice + ". The golem clears its throat, or the stone equivalent, and launches into a full monologue anyway, clearly proud of it." + extra + " Somewhere in there is the one word doing all the heavy lifting. Click it before the golem wraps up.";
+      },
       hintItems: ["grammarly", "tldv"],
       extraAttemptsItems: ["descript"],
       extraAttempts: 1,
@@ -1186,7 +1224,67 @@
 
   function addScore(n) {
     state.score += n;
-    if (els.scoreEl) els.scoreEl.textContent = "Insight: " + state.score;
+    if (els.scoreEl) {
+      els.scoreEl.textContent = "Insight: " + state.score;
+      if (n > 0) pulse(els.scoreEl, "gq-score-pulse");
+    }
+  }
+
+  // ---------------- Juice helpers ----------------
+  // Small, reusable effect triggers shared by the dice roll, the score HUD,
+  // and every minigame below, instead of one-off animation code duplicated
+  // per feature. Each is fire-and-forget: adds a class or a temporary child
+  // element, lets the CSS animation run, then cleans itself up.
+  function pulse(el, className) {
+    if (!el) return;
+    el.classList.remove(className);
+    void el.offsetWidth; // restart animation if it's already mid-run
+    el.classList.add(className);
+    window.setTimeout(function () { el.classList.remove(className); }, 500);
+  }
+
+  function shake(el) { pulse(el, "gq-shake"); }
+
+  function flash(el, kind) {
+    if (!el) return;
+    var layer = document.createElement("div");
+    layer.className = "gq-flash-layer gq-flash-" + (kind || "gold");
+    el.appendChild(layer);
+    window.setTimeout(function () {
+      if (layer.parentNode) layer.parentNode.removeChild(layer);
+    }, 420);
+  }
+
+  function burst(el, emojis, count) {
+    if (!el) return;
+    var layer = document.createElement("div");
+    layer.className = "gq-burst";
+    var n = count || 10;
+    for (var i = 0; i < n; i++) {
+      var piece = document.createElement("span");
+      piece.className = "gq-burst-piece";
+      piece.textContent = emojis[i % emojis.length];
+      var angle = (i / n) * Math.PI * 2;
+      var dist = 40 + Math.random() * 30;
+      piece.style.setProperty("--bx", (Math.cos(angle) * dist).toFixed(0) + "px");
+      piece.style.setProperty("--by", (Math.sin(angle) * dist).toFixed(0) + "px");
+      piece.style.animationDelay = (Math.random() * 0.08).toFixed(2) + "s";
+      piece.style.animationDuration = (0.5 + Math.random() * 0.3).toFixed(2) + "s";
+      layer.appendChild(piece);
+    }
+    el.appendChild(layer);
+    window.setTimeout(function () {
+      if (layer.parentNode) layer.parentNode.removeChild(layer);
+    }, 900);
+  }
+
+  // Sets the rising-danger visual class (0 to 3) on a minigame stage based
+  // on how close to failure the player currently is, shared by the runner,
+  // tetris, and gauntlet stages so they all read the same escalating way.
+  function setDanger(el, level) {
+    if (!el) return;
+    el.classList.remove("gq-danger-1", "gq-danger-2", "gq-danger-3");
+    if (level >= 1) el.classList.add("gq-danger-" + Math.min(level, 3));
   }
 
   var els = {};
@@ -1427,6 +1525,7 @@
     resetMiniGameArea();
 
     els.diceArea.hidden = true;
+    pulse(els.sceneFrame, "gq-scene-fade");
     els.sceneTitle.textContent = node.title;
     // A handful of hub nodes carry a pool of alternate flavor text so a
     // replay does not read identically every time, picked fresh on each
@@ -1658,7 +1757,18 @@
       window.setTimeout(function () {
         window.clearInterval(cycleHandle);
         els.diceFace.textContent = String(finalFace);
-        els.diceFace.classList.toggle("gq-dice-face-crit", finalFace === 20 || (result.roll === 1 && !result.advantage));
+        var isCrit = finalFace === 20 || (result.roll === 1 && !result.advantage);
+        els.diceFace.classList.toggle("gq-dice-face-crit", isCrit);
+        if (finalFace === 20 && els.diceArea) {
+          var ring = document.createElement("div");
+          ring.className = "gq-dice-crit-ring";
+          els.diceArea.style.position = els.diceArea.style.position || "relative";
+          els.diceArea.appendChild(ring);
+          window.setTimeout(function () { if (ring.parentNode) ring.parentNode.removeChild(ring); }, 600);
+          burst(els.diceArea, ["\u2728", "\ud83c\udf1f"], 8);
+        } else if (result.roll === 1 && !result.advantage) {
+          shake(els.diceArea);
+        }
       }, 700);
     }
 
@@ -1844,6 +1954,7 @@
     input.focus();
 
     var startedAt = Date.now();
+    var wasOnTrack = true;
 
     input.addEventListener("input", function () {
       var typed = normalize(input.value);
@@ -1851,15 +1962,23 @@
       // Live feedback: green border while what you've typed so far is still
       // on track, red the moment it drifts off course, so mistakes are
       // obvious immediately instead of only at submit time.
-      if (target.indexOf(typed) === 0) {
+      var onTrack = target.indexOf(typed) === 0;
+      if (onTrack) {
         input.classList.remove("gq-mg-input-off");
         input.classList.add("gq-mg-input-on");
       } else {
         input.classList.remove("gq-mg-input-on");
         input.classList.add("gq-mg-input-off");
+        if (wasOnTrack) {
+          shake(wrap);
+          flash(wrap, "red");
+        }
       }
+      wasOnTrack = onTrack;
       if (typed === target) {
         var seconds = ((Date.now() - startedAt) / 1000).toFixed(1);
+        flash(wrap, "green");
+        burst(wrap, ["✨", "⚡"], 8);
         finishMiniGame(node, true, "You repeated it back word for word in " + seconds + "s flat. The auctioneer looks personally offended.");
       }
     });
@@ -1867,7 +1986,12 @@
     miniGameTimer = window.setInterval(function () {
       remaining -= 1;
       updateTimer();
+      if (remaining <= 3 && remaining > 0) {
+        setDanger(wrap, 4 - remaining);
+      }
       if (remaining <= 0) {
+        shake(wrap);
+        flash(wrap, "red");
         finishMiniGame(node, false, "Time's up. The auctioneer moves on to the next lot before you finish the sentence.");
       }
     }, 1000);
@@ -1910,6 +2034,8 @@
         if (span.classList.contains("gq-mg-wrong")) return;
         if (i === sentence.badIndex) {
           span.classList.add("gq-mg-right");
+          flash(wrap, "green");
+          burst(wrap, ["✨", "🎯"], 8);
           finishMiniGame(node, true, "Found it. The golem makes a sound like a dial-up modem giving up.");
         } else {
           attemptsLeft -= 1;
@@ -1917,6 +2043,8 @@
           span.classList.add("gq-mg-wrong");
           window.setTimeout(function () { span.classList.remove("gq-mg-shake"); }, 260);
           span.classList.add("gq-mg-shake");
+          shake(wrap);
+          flash(wrap, "red");
           if (attemptsLeft <= 0) {
             finishMiniGame(node, false, "Out of guesses. The golem finishes its pitch, uninterrupted and deeply satisfied.");
           }
@@ -2041,8 +2169,20 @@
       window.setTimeout(function () { streakEl.hidden = true; }, 800);
     }
 
-    function moveLeft() { if (playerLane > 0) { playerLane -= 1; paintPlayer(); } }
-    function moveRight() { if (playerLane < LANES - 1) { playerLane += 1; paintPlayer(); } }
+    function spawnTrail() {
+      var ghost = document.createElement("div");
+      ghost.className = "gq-runner-trail";
+      ghost.style.left = player.style.left;
+      ghost.style.bottom = "8px";
+      ghost.style.width = "16%";
+      ghost.style.height = "13%";
+      ghost.style.background = "radial-gradient(circle, rgba(201,138,46,0.5), transparent 70%)";
+      ghost.style.transform = "translateX(-50%)";
+      stage.appendChild(ghost);
+      window.setTimeout(function () { if (ghost.parentNode) ghost.parentNode.removeChild(ghost); }, 400);
+    }
+    function moveLeft() { if (playerLane > 0) { spawnTrail(); playerLane -= 1; paintPlayer(); } }
+    function moveRight() { if (playerLane < LANES - 1) { spawnTrail(); playerLane += 1; paintPlayer(); } }
 
     function stopLoop() {
       if (tickHandle) window.clearTimeout(tickHandle);
@@ -2092,6 +2232,9 @@
       streak = 0;
       player.classList.add("gq-runner-hit");
       window.setTimeout(function () { player.classList.remove("gq-runner-hit"); }, 250);
+      shake(stage);
+      flash(stage, "red");
+      setDanger(stage, lives <= 0 ? 0 : (2 - lives) + 1);
       if (lives <= 0) {
         running = false;
         stopLoop();
@@ -2110,6 +2253,10 @@
       tickCount += 1;
       distance += 1;
       updateProgress();
+      // rising Doom-style tension as the run gets deeper, independent of
+      // whether the player has actually taken a hit yet
+      var pct = distance / targetDistance;
+      setDanger(stage, pct > 0.66 ? 3 : pct > 0.33 ? 2 : pct > 0.1 ? 1 : 0);
 
       if (tickCount % SPAWN_EVERY === 0) spawnWave();
 
@@ -2124,7 +2271,8 @@
           if (w.isCoin) {
             if (playerLane === w.coinLane) {
               addScore(2);
-              showStreak("Coin!");
+              showStreak(isHallucination ? "Correct!" : "Coin!");
+              flash(stage, "green");
             }
           } else if (w.blocked.indexOf(playerLane) !== -1) {
             crash();
@@ -2283,11 +2431,14 @@
     paintPiece();
 
     function paintFill() {
+      var worst = 0;
       colEls.forEach(function (colObj, i) {
         var pct = Math.min(100, (fill[i] / MAX_FILL) * 100);
         colObj.fill.style.height = pct + "%";
         colObj.col.classList.toggle("gq-tetris-col-full", fill[i] >= MAX_FILL);
+        if (fill[i] > worst) worst = fill[i];
       });
+      setDanger(stage, worst >= MAX_FILL ? 3 : worst >= MAX_FILL - 1 ? 2 : worst >= 1 ? 1 : 0);
     }
     paintFill();
 
@@ -2303,6 +2454,8 @@
         updateLives();
         piece.classList.add("gq-runner-hit");
         window.setTimeout(function () { piece.classList.remove("gq-runner-hit"); }, 250);
+        shake(stage);
+        flash(stage, "red");
         if (lives <= 0) {
           running = false;
           stopLoop();
@@ -2391,17 +2544,25 @@
     var statusEl = document.createElement("p");
     statusEl.className = "gq-mg-timer";
     wrap.appendChild(statusEl);
+
+    var stage = document.createElement("div");
+    stage.className = "gq-gauntlet-stage";
+    wrap.appendChild(stage);
+
     function updateStatus() {
       statusEl.textContent = "Requests left: " + Math.max(requests, 0) + "  ·  Gate " + Math.min(gateIndex + 1, gateCount) + " / " + gateCount;
+      var gatesLeft = Math.max(gateCount - gateIndex, 0);
+      var tight = gatesLeft > 0 ? requests / gatesLeft : 1;
+      setDanger(stage, tight <= 0 ? 3 : tight < 0.4 ? 2 : tight < 0.8 ? 1 : 0);
     }
 
     var gateEl = document.createElement("p");
     gateEl.className = "gq-mg-sentence";
-    wrap.appendChild(gateEl);
+    stage.appendChild(gateEl);
 
     var actions = document.createElement("div");
     actions.className = "gq-stack-controls gq-gauntlet-actions";
-    wrap.appendChild(actions);
+    stage.appendChild(actions);
 
     els.minigameArea.appendChild(wrap);
 
@@ -2421,6 +2582,8 @@
       payBtn.addEventListener("click", function () {
         if (isPaid) {
           if (requests <= 0) {
+            shake(stage);
+            flash(stage, "red");
             finishMiniGame(node, false, node.crashText || "You are out of requests with gates still ahead.");
             return;
           }
@@ -2428,6 +2591,7 @@
         }
         gateIndex += 1;
         updateStatus();
+        if (gateIndex >= gateCount) flash(stage, "green");
         renderGate();
       });
       actions.appendChild(payBtn);
@@ -2445,10 +2609,13 @@
             renderGate();
           } else {
             if (requests <= 0) {
+              shake(stage);
+              flash(stage, "red");
               finishMiniGame(node, false, node.crashText || "You are out of requests with gates still ahead.");
               return;
             }
             requests -= 1;
+            flash(stage, "gold");
             updateStatus();
             gateEl.textContent = "No way around. That one still cost you a request.";
             actions.innerHTML = "";
