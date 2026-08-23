@@ -7,20 +7,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="max-image-preview:large">
 <title>The Road to Solos Gems: A Storygame | Solos Gems</title>
-<meta name="description" content="A page-by-page choose-your-own-adventure storygame. Real reviewed AI tools show up along the way as things you find and sometimes need later. The goal: reach Solos Gems.">
+<meta name="description" content="A choose-your-own-adventure storygame with a small real ability system. Build a character across eight AI-flavored abilities, then watch your build change what story you get to read. The goal: reach Solos Gems.">
 <link rel="canonical" href="https://solosgems.com/game">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Solos Gems">
 <meta property="og:title" content="The Road to Solos Gems: A Storygame">
-<meta property="og:description" content="A page-by-page choose-your-own-adventure storygame. Real reviewed tools show up along the way. The goal: reach Solos Gems.">
+<meta property="og:description" content="A choose-your-own-adventure with a real ability system underneath. Build your character, then watch your build change the story. The goal: reach Solos Gems.">
 <meta property="og:url" content="https://solosgems.com/game">
 <meta property="og:image" content="https://solosgems.com/images/og-default.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The Road to Solos Gems: A Storygame">
-<meta name="twitter:description" content="A page-by-page choose-your-own-adventure storygame with real reviewed AI tools woven into the road.">
+<meta name="twitter:description" content="A choose-your-own-adventure storygame with a small real ability system, real branching, and an Exit Interview at the end.">
 <meta name="twitter:image" content="https://solosgems.com/images/og-default.png">
 <meta name="theme-color" content="#1a1a18">
 <link rel="stylesheet" href="styles.css">
@@ -31,7 +31,7 @@
   "@type": "Game",
   "name": "The Road to Solos Gems",
   "url": "https://solosgems.com/game",
-  "description": "A page-by-page choose-your-own-adventure storygame with real reviewed AI tools reimagined as things you find along the road. The goal is to reach Solos Gems.",
+  "description": "A choose-your-own-adventure storygame with a small real ability system: eight AI-flavored abilities, point-buy character creation, and a build that meaningfully changes the story. The goal is to reach Solos Gems.",
   "isPartOf": { "@type": "WebSite", "name": "Solos Gems", "url": "https://solosgems.com/" }
 }
 </script>
@@ -54,7 +54,7 @@
         <polygon points="27,12 21,12 16,30" fill="#8a5a12"/>
         <line x1="11" y1="12" x2="21" y2="12" stroke="#1a1a18" stroke-width="0.6"/>
       </svg><span class="logo-word">SOLOS GEMS</span></a>
-    <a class="quest-badge" href="game.html" title="Read: The Road to Solos Gems">📖 Storygame</a>
+    <a class="quest-badge" href="game.html" title="Play: The Road to Solos Gems">🎲 Storygame</a>
     <nav>
       <a href="reviews.html">Reviews</a>
       <a href="deathstack.html">DeathStack</a>
@@ -68,7 +68,7 @@
 <main class="gq-wrap">
   <span class="kicker">A Storygame</span>
   <h1>The Road to Solos Gems</h1>
-  <p class="gq-lede">A page-by-page story about trying to reach the one shop in the realm that tells you the truth about a product before you buy it. Every page ends with a short list of choices. Real reviewed tools show up along the way as things you find and sometimes need again later. Pick a page, see where it leads.</p>
+  <p class="gq-lede">A choose-your-own-adventure about trying to reach the one shop in the realm that tells you the truth about a product before you buy it. Build a character across eight AI-flavored abilities first, then watch that build quietly change what choices open up, what you get away with, and which of twelve endings you land on. Every run closes with an Exit Interview.</p>
 
   <section id="gq-title-screen" class="gq-panel">
     <h2>Start reading</h2>
@@ -76,14 +76,26 @@
     <form id="gq-new-form">
       <label for="gq-new-name">Your name, for the record</label>
       <input id="gq-new-name" type="text" maxlength="24" placeholder="Enter a name" required autocomplete="off">
-      <button type="submit">Begin the story</button>
+      <button type="submit">Build a character</button>
     </form>
+  </section>
+
+  <section id="gq-charcreate" class="gq-panel" hidden>
+    <h2>Build Your Character</h2>
+    <p class="gq-creation-intro">Every ability starts at 1. You have 7 points to spend, 4 maximum in any one ability. Spend all 7 to begin. This is the only version of you the road will ever meet, so choose accordingly.</p>
+    <div id="gq-ability-rows"></div>
+    <p id="gq-points-remaining" class="gq-points-remaining">Points remaining: 7</p>
+    <button type="button" id="gq-creation-begin" disabled>Begin the story</button>
   </section>
 
   <section id="gq-game" hidden>
     <div class="gq-hud">
-      <span>Reading as <strong id="gq-gamertag-label"></strong></span>
-      <button type="button" id="gq-switch">Switch reader</button>
+      <div class="gq-hud-top">
+        <span>Reading as <strong id="gq-gamertag-label"></strong></span>
+        <button type="button" id="gq-switch">Switch reader</button>
+      </div>
+      <div id="gq-hud-route" class="gq-hud-route"></div>
+      <div id="gq-hud-abilities" class="gq-hud-abilities"></div>
     </div>
 
     <article class="gq-page">
@@ -94,6 +106,7 @@
       <div id="gq-ending-banner" class="gq-ending-banner" hidden></div>
       <h2 id="gq-scene-title"></h2>
       <p id="gq-scene-text"></p>
+      <div id="gq-exit-interview" class="gq-exit-interview" hidden></div>
       <nav id="gq-choices" class="gq-choices" aria-label="What do you do next"></nav>
     </article>
   </section>

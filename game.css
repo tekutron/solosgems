@@ -1,6 +1,7 @@
-/* The Road to Solos Gems: a plain, page-and-link storygame.
-   Deliberately bare-bones: a title, some story text, and a short list
-   of link choices. No HUD, no animation, no game chrome. */
+/* The Road to Solos Gems: a page-and-link storygame with a small real
+   ability system. Deliberately restrained: a title, some story text, a
+   caption under the picture, a slim route/ability HUD, and a short list
+   of link choices. No dice animation, no minigame chrome, no juice. */
 
 .gq-wrap {
   max-width: 720px;
@@ -96,7 +97,8 @@
   font-size: 1rem;
 }
 
-#gq-new-form button {
+#gq-new-form button,
+#gq-creation-begin {
   padding: 9px 18px;
   background: var(--rust);
   color: #fff;
@@ -106,21 +108,107 @@
   cursor: pointer;
 }
 
-#gq-new-form button:hover {
+#gq-new-form button:hover,
+#gq-creation-begin:hover:not(:disabled) {
   background: var(--rust-dark);
 }
 
-/* -------- The reading page itself -------- */
+#gq-creation-begin:disabled {
+  background: var(--card);
+  color: var(--ink-soft);
+  cursor: not-allowed;
+  border: 1px solid var(--line);
+}
+
+/* -------- Character creation -------- */
+
+.gq-creation-intro {
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin: 0 0 18px;
+  max-width: 60ch;
+}
+
+#gq-ability-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.gq-ability-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--card);
+}
+
+.gq-ability-label {
+  font-size: 0.95rem;
+}
+
+.gq-ability-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gq-ability-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.gq-ability-btn:hover:not(:disabled) {
+  border-color: var(--rust-dark);
+  color: var(--rust-dark);
+}
+
+.gq-ability-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.gq-ability-value {
+  min-width: 1.4em;
+  text-align: center;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+}
+
+.gq-points-remaining {
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+/* -------- HUD -------- */
 
 .gq-hud {
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.gq-hud-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 18px;
   font-size: 0.85rem;
   color: var(--ink-soft);
+  margin-bottom: 8px;
 }
 
 #gq-switch {
@@ -137,6 +225,38 @@
   border-color: var(--rust-dark);
   color: var(--rust-dark);
 }
+
+.gq-hud-route {
+  font-size: 0.78rem;
+  font-family: "IBM Plex Mono", monospace;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+  overflow-wrap: break-word;
+}
+
+.gq-hud-abilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.gq-ability-chip {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  background: var(--card);
+}
+
+.gq-ability-chip-high {
+  color: var(--rust-dark);
+  border-color: var(--rust-dark);
+  font-weight: 600;
+}
+
+/* -------- The reading page itself -------- */
 
 .gq-page {
   border-top: 1px solid var(--line);
@@ -201,6 +321,47 @@
   max-width: 62ch;
 }
 
+/* -------- Exit Interview -------- */
+
+.gq-exit-interview {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+  padding: 18px 20px;
+  margin: 0 0 26px;
+  max-width: 62ch;
+}
+
+.gq-exit-interview h3 {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.gq-exit-list {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.gq-exit-list dt {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--rust-dark);
+  margin: 0 0 2px;
+}
+
+.gq-exit-list dd {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+/* -------- Choices -------- */
+
 .gq-choices {
   border-top: 1px dashed var(--line);
   padding-top: 18px;
@@ -246,4 +407,5 @@
   .gq-wrap h1 { font-size: 1.6rem; }
   #gq-scene-title { font-size: 1.25rem; }
   #gq-scene-text { font-size: 1rem; }
+  .gq-ability-row { flex-wrap: wrap; gap: 6px; }
 }

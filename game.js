@@ -1,53 +1,83 @@
-// The Road to Solos Gems: a plain, page-and-link choose-your-own-adventure
-// in the classic hypertext storygame tradition. No dice, no stats, no
-// minigames, no inventory panel. Just a title, some story text, a caption
-// under the picture, and a short list of choices, the way this kind of
-// thing has always worked. The world is the same AI-tools-as-fantasy-gear
-// parody as the rest of Solos Gems, played for sarcastic, observational
-// laughs about AI and the industry surrounding it: real reviewed tools
-// show up along the road as things you pick up and sometimes need later,
-// but "picking something up" just means a later page notices you have it
-// and offers you an extra option. Gamertag-based save slots are stored in
-// localStorage so a reader can leave and come back to the same page.
+// The Road to Solos Gems: a page-and-link choose-your-own-adventure with a
+// small, real ability system underneath. Eight AI-flavored abilities,
+// point-buy character creation, no dice, no combat, no HUD noise beyond a
+// slim route breadcrumb and an ability readout. Choices can be gated by an
+// ability threshold the same way they can be gated by an item flag, and a
+// hidden Alignment Drift counter tracks whether the player's actual
+// choices matched whatever they claimed on the character sheet. Every
+// ending closes with a generated "Exit Interview" summary of the run.
 
 (function () {
   "use strict";
 
   var IMG_BASE = "images/game/";
-  var SAVE_KEY = "gq_saves_v3";
+  var SAVE_KEY = "gq_saves_v4";
 
   // ---------------------------------------------------------------------
-  // The story. Every page is a title, some text (or a dynamicText
-  // function for pages whose wording depends on what has happened so
-  // far), a wry one-line caption under the picture, and a list of
-  // choices. A choice can require a flag to even appear (requiresFlag),
-  // and can set one or more flags when clicked (setFlag / setFlags), or
-  // bump a small internal counter (bumpFlag). That is the entire
-  // vocabulary. Items are just flags named hasX; a page that "gates" on
-  // an item is really just gating on a flag.
+  // Abilities
+  // ---------------------------------------------------------------------
+
+  var ABILITIES = [
+    { id: "pe", label: "Prompt Engineering" },
+    { id: "hr", label: "Hallucination Resistance" },
+    { id: "cw", label: "Context Window" },
+    { id: "ft", label: "Fine-Tuning" },
+    { id: "ag", label: "Agency" },
+    { id: "al", label: "Alignment" },
+    { id: "re", label: "Retrieval" },
+    { id: "mm", label: "Multimodality" }
+  ];
+  var ABILITY_LABELS = {};
+  ABILITIES.forEach(function (a) { ABILITY_LABELS[a.id] = a.label; });
+  var BASE_SCORE = 1;
+  var BONUS_POINTS = 7;
+  var MAX_SCORE = 4;
+
+  function freshAbilities() {
+    var out = {};
+    ABILITIES.forEach(function (a) { out[a.id] = BASE_SCORE; });
+    return out;
+  }
+
+  // ---------------------------------------------------------------------
+  // The story graph. Every page is a title, some text (or a dynamicText
+  // function), a caption under the picture, and a list of choices. A
+  // choice can require a flag, an ability minimum, or an ability maximum
+  // to appear (requiresFlag / requiresAbility / requiresAbilityMax), and
+  // can set flags, bump a counter, nudge the Alignment Drift counter
+  // (drift), or record a highlight moment for the end-of-run summary
+  // (abilityHighlight) when clicked.
   // ---------------------------------------------------------------------
 
   var STORY = {
-    prologue: {
+    charrecap: {
       title: "Before You Set Out",
       img: "game-start.svg",
-      caption: "Every personality is just a coping mechanism with a job title.",
-      text: "Every traveler on this road picks up a habit early, the one they will quietly lean on for the rest of the trip, the way everyone with a business card eventually becomes their business card. Some people build things themselves, badly, on principle. Some people doubt everything until it begs for mercy. Some people just ship whatever is currently on fire and call it a roadmap. None of this changes what happens to you out there. It just changes which excuse you reach for afterward.",
-      choices: [
-        { label: "Building things yourself, however messy", next: "start", setFlag: "specBuilder" },
-        { label: "Doubting things until they prove themselves", next: "start", setFlag: "specSkeptic" },
-        { label: "Shipping things and fixing them later", next: "start", setFlag: "specOperator" }
-      ]
+      caption: "Every spec sheet is a promise nobody in the building has actually tested.",
+      dynamicText: function (s) {
+        var lines = ABILITIES.map(function (a) {
+          return a.label + " " + s.abilities[a.id];
+        });
+        var role = computeRole(s);
+        return "Your build is locked in: " + lines.join(", ") + ". Nobody gets to patch this later, same as it ever was. For the record, the system has already filed you under " + role + ", whether that turns out to be accurate is entirely up to what you do next, not what you just told it about yourself.";
+      },
+      choices: [{ label: "Continue to the road", next: "start" }]
     },
     start: {
       title: "The Road to Solos Gems",
       img: "game-start.svg",
       caption: "The road to enlightenment is paved with tools that were, and we cannot stress this enough, revolutionary.",
       dynamicText: function (s) {
+        var top = topAbility(s);
         var lean = "";
-        if (s.flags.specBuilder) lean = "You already have a small, half-working thing in your bag that you built yourself, on the theory that it will come in handy. It has three stars on a review site you wrote yourself, under a name that is not quite yours. ";
-        else if (s.flags.specSkeptic) lean = "You have already decided not to believe the first three people who talk to you today. Statistically, this is still not skeptical enough. ";
-        else if (s.flags.specOperator) lean = "You packed light, on the theory that you can always fix a problem once you are already standing in it, ideally live, in front of people who trusted you. ";
+        if (top === "pe") lean = "You have already rehearsed how this conversation is going to go, three different ways, out loud, alone. ";
+        else if (top === "hr") lean = "You have already decided not to believe the first three people who talk to you today. Statistically, this is still not skeptical enough. ";
+        else if (top === "cw") lean = "You are already keeping a mental list of everything anyone tells you today, on the theory that it will matter later. It usually does. ";
+        else if (top === "ft") lean = "You packed exactly one tool you already know how to use extremely well, and nothing else, on principle. ";
+        else if (top === "ag") lean = "You packed light, on the theory that you can always fix a problem once you are already standing in it, ideally live, in front of people who trusted you. ";
+        else if (top === "al") lean = "You have already decided you would rather talk your way through today than fight your way through it, which on this road counts as a controversial opinion. ";
+        else if (top === "re") lean = "You have already memorized three facts nobody asked for, on the theory that one of them will matter later. ";
+        else if (top === "mm") lean = "You are already looking at ordinary objects and wondering what else they could plausibly be used for. This will not stop today. ";
         return lean + "Word around the tavern is that somewhere past the hills sits Solos Gems, a shop where every tool on the shelf actually does what the sign says. You have heard this story before and it always ends the same way, with somebody sobbing quietly into a free trial that renewed itself. You are going anyway, snacks in bag, expectations subterranean.";
       },
       choices: [
@@ -62,15 +92,33 @@
       title: "The Tavern",
       img: "game-tavern.svg",
       caption: "Confidence is just a rumor that has been repeated enough times to grow a personality.",
-      text: "A bard, three mercenaries, and a guy who insists his cousin basically built the place all have directions. None of them agree, and all of them are extremely confident about it, which you have learned to treat as a warning sign rather than a credential. In the corner, a hooded cartographer has not said a word and is quietly selling actual maps.",
+      dynamicText: function (s) {
+        var extra = s.abilities.hr <= 1
+          ? " You find yourself nodding along with the loudest guy anyway. He has a very trustworthy jawline. This is not, technically, a skill. It should be."
+          : "";
+        return "A bard, three mercenaries, and a guy who insists his cousin basically built the place all have directions. None of them agree, and all of them are extremely confident about it, which you have learned to treat as a warning sign rather than a credential. In the corner, a hooded cartographer has not said a word and is quietly selling actual maps." + extra;
+      },
       choices: [
         { label: "Follow the loudest guy, he seems confident", next: "scam" },
+        {
+          label: "See through Grift's pitch before he even finishes it",
+          requiresAbility: { id: "hr", min: 3 },
+          next: "scam_seen_through",
+          abilityHighlight: "hr"
+        },
         { label: "Buy whatever the quiet cartographer is selling", next: "cartographer" },
         { label: "Check out the market stalls set up outside", next: "market" },
         { label: "Ask if anyone remembers a tool that didn't make it", next: "tavern_lore" },
         { label: "Follow the rumor about a path out back", next: "deathstack_gate", requiresFlag: "heardWarning" },
         { label: "Ignore all of them and just start walking", next: "road" }
       ]
+    },
+    scam_seen_through: {
+      title: "You've Seen This One Before",
+      img: "game-scam.svg",
+      caption: "Pattern matching is, at minimum, ninety percent of wisdom.",
+      text: "Grift McPromise is three words into his limited time offer when you finish the sentence for him, correctly, guaranteed results, terms subject to change, refund policy unclear. He stops mid-gesture, genuinely thrown, the way a script gets thrown by someone who has clearly read it before. 'Have we met,' he asks, and you do not dignify that with an answer, because you have met him roughly forty times, he has just never once been the one who remembered.",
+      choices: [{ label: "Leave him to find a fresher audience", next: "road" }]
     },
     tavern_lore: {
       title: "The Old Stories",
@@ -89,8 +137,21 @@
       text: "The old patron's directions turn out to be real. A narrow trail behind the tavern, choked with weeds nobody bothered to enchant away, leads to a small clearing full of modest headstones, each one somehow already outdated by the time it was carved. Somebody has clearly been maintaining this place out of spite, or possibly out of the last remaining shred of institutional memory anyone on this road still has.",
       choices: [
         { label: "Read the headstones", next: "deathstack_plugins" },
+        {
+          label: "Cross-reference these headstones against everything else you've heard on this road",
+          requiresAbility: { id: "re", min: 3 },
+          next: "deathstack_extra",
+          abilityHighlight: "re"
+        },
         { label: "This feels like a waste of time, head back", next: "tavern" }
       ]
+    },
+    deathstack_extra: {
+      title: "Here Lies: The One Nobody Mentions At Parties",
+      img: "game-graveyard.svg",
+      caption: "The best-documented failures are always the ones everyone quietly agreed to stop citing.",
+      text: "You cross-reference the names on these stones against everything you have picked up so far and find a fourth grave, smaller, unlabeled, tucked behind the others where the moss grows thickest. It belonged to a note-taking amulet that was, by every available account, extremely good at its job, right up until the day its maker got a better offer and simply stopped answering the amulet's calls, so to speak. Nobody wrote a eulogy. You appear to be the first visitor in years, and only because you actually bothered to check.",
+      choices: [{ label: "Add it to the list and move on", next: "deathstack_plugins" }]
     },
     deathstack_plugins: {
       title: "Here Lies: The Landlord's Plugins",
@@ -201,7 +262,7 @@
       title: "The Odds and Ends Stall",
       img: "game-market.svg",
       caption: "Every miracle tool has exactly one trick and an entire marketing team pretending otherwise.",
-      text: "A cluttered table of things that all promise to show you something. A mirror that shows you exactly what you asked for, occasionally more, none of it verified. A prism that makes anything look incredible, whether or not it is the thing you actually wanted. A short blade that cuts through busywork fast enough that you stop double checking what it cut, which is either efficiency or how empires fall, hard to say from here. The vendor shrugs. 'Pick one. They all do something. None of them do everything, no matter what the last guy told you.'",
+      text: "A cluttered table of things that all promise to show you something. A mirror that shows you exactly what you asked for, occasionally more. A prism that makes anything look incredible, whether or not it is the thing you actually wanted. A short blade that cuts through busywork fast enough that you stop double checking what it cut, which is either efficiency or how empires fall, hard to say from here. The vendor shrugs. 'Pick one. They all do something. None of them do everything, no matter what the last guy told you.'",
       choices: [
         { label: "Take the Mirror", next: "market", setFlag: "hasMirror" },
         { label: "Take the Prism", next: "market", setFlag: "hasPrism" },
@@ -213,8 +274,15 @@
       title: "The Fine-Tuning Kiosk",
       img: "game-market.svg",
       caption: "Getting good at something slowly is the one growth hack nobody wants to hear about.",
-      text: "A patient looking vendor offers to sharpen whatever you are already decent at, for a price in time rather than gold. 'Slow,' he warns. 'Expensive. Only works on the thing you already knew how to do, which nobody on this road wants to hear, because everybody would rather buy a shortcut for a skill they never actually built.' You sit for what feels like an hour. When he is done, you feel about the same as before, maybe very slightly better at the one thing, in a way you could not prove to anyone at a dinner party.",
+      text: "A patient looking vendor offers to sharpen whatever you are already decent at, for a price in time rather than gold. 'Slow,' he warns. 'Expensive. Only works on the thing you already knew how to do, which nobody on this road wants to hear, because everybody would rather buy a shortcut for a skill they never actually built.' You sit for what feels like an hour.",
       choices: [
+        {
+          label: "Let him sharpen it, and it actually takes",
+          requiresAbility: { id: "ft", min: 4 },
+          next: "market",
+          setFlag: "finelyTuned",
+          abilityHighlight: "ft"
+        },
         { label: "Let him sharpen your strongest skill", next: "market" },
         { label: "Not worth the wait", next: "market" }
       ]
@@ -235,14 +303,14 @@
       img: "game-market.svg",
       caption: "Somewhere, someone is maintaining the thing you rely on for free, and you have never once thought about them.",
       text: "It is small, it is a little rough around the edges, and it genuinely works, three things this road rarely offers in the same sentence. Dot lights up when you say so, the specific relief of someone used to being ignored by people looking for something louder. She presses a cloak into your hands, stitched out of what look like a hundred small, freely given contributions. 'Open Weights Cloak,' she says. 'Free to wear. Somebody, somewhere, is quietly hoping you will help patch it, instead of just taking screenshots and disappearing forever, like everyone else does.'",
-      choices: [{ label: "Thank her and head back to the stalls", next: "market", setFlags: ["helpedDot", "hasCloak"], bumpFlag: "standingClanCount" }]
+      choices: [{ label: "Thank her and head back to the stalls", next: "market", setFlags: ["helpedDot", "hasCloak"], bumpFlag: "standingClanCount", drift: 1 }]
     },
     dot_stall_steal: {
       title: "A Cut",
       img: "game-market.svg",
       caption: "Every great business plan starts as a sentence nobody bothered to finish.",
       text: "Dot considers it for a long moment. 'A cut of what,' she says finally, 'exactly.' You do not have a great answer, mostly because there was never a plan past the words feature her stuff. You take a card anyway and tell yourself you will figure out the details later, using the same confident tone you have heard from every stall on this road so far. Apparently it is contagious.",
-      choices: [{ label: "Head back to the stalls", next: "market", setFlag: "stoleDotsWork" }]
+      choices: [{ label: "Head back to the stalls", next: "market", setFlag: "stoleDotsWork", drift: -1 }]
     },
     market_enterprise: {
       title: "SKIP THE LINE",
@@ -250,9 +318,9 @@
       caption: "Nothing closes a deal faster than a stranger who has correctly identified your impatience.",
       text: "Past the usual stalls, a taller booth stands apart from the rest, better lit, with a banner that cost someone real money and absolutely no irony. A rep in a blazer that has never once touched a server room smiles at you before you have said anything, the smile of someone whose quota resets at midnight. 'You look like someone with places to be,' she says. 'We can get you to Solos Gems today. Not eventually. Today. All we need is a signature, and you agree to let us handle the decisions from here, all of them, forever, in a font size the lawyers were very insistent about.'",
       choices: [
-        { label: "Sign it", next: "end_buyout", setFlag: "soldOut", bumpFlag: "standingCorpCount" },
+        { label: "Sign it", next: "end_buyout", setFlag: "soldOut", bumpFlag: "standingCorpCount", drift: -1 },
         { label: "Ask what 'handle the decisions' actually means", next: "market_enterprise_ask" },
-        { label: "Walk away", next: "market" }
+        { label: "Walk away", next: "market", drift: 1 }
       ]
     },
     market_enterprise_ask: {
@@ -261,8 +329,8 @@
       caption: "The most dangerous salesperson is the one who tells you the truth and lets you sign anyway.",
       text: "'It means exactly what it sounds like,' she says, cheerfully and at some length, in the tone of someone who has said this sentence to a hundred people and watched ninety of them sign anyway. Every choice from here handled on your behalf, every fork in the road pre-selected, every decision made by people who have never seen the road, or you, or anything resembling your actual problem. She is not lying to you. That is somehow the unsettling part. Honesty was never the scam. The scam was always the fine print underneath the honesty.",
       choices: [
-        { label: "Sign it anyway", next: "end_buyout", setFlag: "soldOut", bumpFlag: "standingCorpCount" },
-        { label: "Walk away", next: "market" }
+        { label: "Sign it anyway", next: "end_buyout", setFlag: "soldOut", bumpFlag: "standingCorpCount", drift: -1 },
+        { label: "Walk away", next: "market", drift: 1 }
       ]
     },
     cartographer: {
@@ -305,10 +373,23 @@
       choices: [
         { label: "Pay whatever he asks", next: "crossroads" },
         { label: "Negotiate him down to an annual rate", next: "toll_trap" },
+        {
+          label: "Talk him into a partnership instead of a toll",
+          requiresAbility: { id: "pe", min: 3 },
+          next: "toll_negotiate_win",
+          abilityHighlight: "pe"
+        },
         { label: "Whip out the Canva Cloak and negotiate like you mean it", next: "crossroads", requiresFlag: "hasCanva" },
         { label: "Try to sneak past while he is distracted", next: "toll_trap" },
         { label: "Slip past at Wispr Boots speed", next: "crossroads", requiresFlag: "hasWispr" }
       ]
+    },
+    toll_negotiate_win: {
+      title: "A Partnership, Not A Toll",
+      img: "game-road.svg",
+      caption: "The best negotiators never ask for a discount. They just redefine what is being sold.",
+      text: "'Actually,' you say, in the specific tone of someone who has read one negotiation newsletter and is about to weaponize it, 'I think what you're really looking for here is a partnership, not a toll.' Rex blinks. Something shifts behind his eyes, the exact look of a man realizing forty seconds too late that he agreed to something. 'I'll... need to check with my manager,' he says. There is no manager. You both know there is no manager. He waves you through anyway, muttering about quarterly targets. A Rate Limit Charm falls out of his booth as you pass. You take it. He does not stop you. He has bigger problems now, and you helped make them.",
+      choices: [{ label: "Continue on", next: "crossroads", setFlag: "hasRateLimitCharm" }]
     },
     toll_trap: {
       title: "The Auto-Renew Cage",
@@ -430,11 +511,25 @@
       choices: [
         { label: "Sure, more features can only help", next: "end_swamp" },
         { label: "Move fast and refuse every offer, boots and all", next: "crossroads", requiresFlag: "hasWispr" },
+        {
+          label: "Combine the boots and the lantern in a way nobody suggested",
+          requiresAbility: { id: "mm", min: 3 },
+          requiresFlag: "hasWispr",
+          next: "swamp_combo",
+          abilityHighlight: "mm"
+        },
         { label: "No thanks, wade out on your own", next: "end_swamp" },
         { label: "Try to sort through the bloat yourself, properly", next: "swamp_tetris" },
         { label: "Ask if there is a simpler wisp who just removes things", next: "crossroads" },
         { label: "Let it fuss over you for old times' sake", requiresFlag: "wispFriend", next: "crossroads", setFlag: "hasReclaim" }
       ]
+    },
+    swamp_combo: {
+      title: "Nobody Suggested This",
+      img: "game-swamp.svg",
+      caption: "The most useful features are almost never the ones on the box.",
+      text: "You lash the NotebookLM Lantern to your boot laces, mostly as a joke, and discover it lights the ground a full stride ahead of every step, which turns out to be exactly enough warning to route around the worst of the sediment entirely. Nobody designed this. Nobody tested this. The Roadmap Wisp watches you go with an expression that might be respect or might just be confusion at seeing its own swamp beaten by someone using its tools wrong on purpose.",
+      choices: [{ label: "Walk straight out the other side", next: "crossroads" }]
     },
     swamp_tetris: {
       title: "Sorting The Bloat",
@@ -504,6 +599,14 @@
       },
       choices: [
         { label: "Sign without reading it", next: "end_natasha" },
+        {
+          label: "Point out, calmly, that a contract this one-sided usually means the other party knows something you don't",
+          requiresAbility: { id: "al", min: 3 },
+          next: "gate",
+          setFlag: "metNatasha",
+          abilityHighlight: "al",
+          drift: 1
+        },
         { label: "Cross-check the fine print with the Lantern", next: "gate", requiresFlag: "hasNotebooklm", setFlag: "metNatasha" },
         { label: "Actually read the contract first", next: "end_natasha" },
         { label: "Mention you've heard what happened to the last oracle who ran up four billion in debt", requiresFlag: "heardWarning", next: "gate", setFlag: "metNatasha" },
@@ -516,9 +619,9 @@
       caption: "For reasons has quietly become the most honest phrase in the entire industry.",
       text: "A cloaked figure poles a small boat across a river that reflects things you never told anyone, and a few things you are fairly sure you only thought. 'Fare is simple,' he says. 'Your full name, your browsing history, and your mother's maiden name. For reasons.' He does not elaborate on the reasons. Nobody on this river ever does.",
       choices: [
-        { label: "Pay in full, whatever gets you across", next: "gate" },
-        { label: "Slip past with a burner name, fast", next: "gate", requiresFlag: "hasWispr" },
-        { label: "Hand over a burner name and hope he does not check", next: "natasha" },
+        { label: "Pay in full, whatever gets you across", next: "gate", setFlag: "metFerryman" },
+        { label: "Slip past with a burner name, fast", next: "gate", requiresFlag: "hasWispr", setFlag: "metFerryman" },
+        { label: "Hand over a burner name and hope he does not check", next: "natasha", setFlag: "metFerryman" },
         { label: "Turn back toward the crossroads", next: "crossroads" }
       ]
     },
@@ -530,6 +633,13 @@
       choices: [
         { label: "Hurry through without stopping to read", next: "gate" },
         { label: "Stop and actually read the carvings", next: "gate", setFlag: "hasGrammarly" },
+        {
+          label: "You still remember exactly what the cartographer told you, word for word",
+          requiresAbility: { id: "cw", min: 3 },
+          next: "gate",
+          setFlag: "hasGrammarly",
+          abilityHighlight: "cw"
+        },
         { label: "Try to recall exactly what the cartographer told you about the lantern", next: "gate" }
       ]
     },
@@ -583,7 +693,7 @@
       img: "game-road.svg",
       caption: "Every roadmap has a slide that has been coming soon for three years running.",
       text: "You leave the Overpromiser exactly where you found him, mid-sentence, still almost done, still absolutely about to ship, any day now, ask anyone. Someone tosses you a short blade on your way past. 'You'll want this,' they call after you. 'Cuts through the part where he keeps talking.'",
-      choices: [{ label: "Continue to the gate", next: "gate", setFlag: "hasBlade", bumpFlag: "standingCorpCount", setFlags: ["rivalResolved"] }]
+      choices: [{ label: "Continue to the gate", next: "gate", setFlag: "hasBlade", bumpFlag: "standingCorpCount", setFlags: ["rivalResolved"], drift: -1 }]
     },
     rival_party_help: {
       title: "The Plugin Ghost",
@@ -599,7 +709,7 @@
       img: "game-tavern.svg",
       caption: "Everything is a platform until you ask it to actually do the second thing.",
       text: "Turns out it is still good at exactly one narrow, specific thing, and grateful enough to hand you a small familiar built to do that one thing on command. 'Ask it for anything else,' the Ghost warns, 'and the whole illusion falls apart, the way it always does the moment someone asks a follow-up question at a demo.'",
-      choices: [{ label: "Continue to the gate", next: "gate", setFlag: "hasCustomGptFamiliar", bumpFlag: "standingClanCount", setFlags: ["rivalResolved"] }]
+      choices: [{ label: "Continue to the gate", next: "gate", setFlag: "hasCustomGptFamiliar", bumpFlag: "standingClanCount", setFlags: ["rivalResolved"], drift: 1 }]
     },
     rival_party_sabotage: {
       title: "The Watsonizer",
@@ -616,7 +726,7 @@
       img: "game-oracle.svg",
       caption: "Every collapse looks sudden right up until you check the budget line by line.",
       text: "You catch the line everyone else missed. The Watsonizer sputters, budget fully spent and quietly shelved on the spot, the way expensive things quietly go when nobody is looking anymore. In the confusion you manage to pull something useful out of the wreckage, a small hook built for reaching back into everything you have already seen.",
-      choices: [{ label: "Continue to the gate", next: "gate", setFlag: "hasRagHook", setFlags: ["rivalResolved"] }]
+      choices: [{ label: "Continue to the gate", next: "gate", setFlag: "hasRagHook", setFlags: ["rivalResolved"], drift: -1 }]
     },
 
     // -------- The Gate --------
@@ -630,6 +740,7 @@
         if (s.flags.wispFriend) lines.push("Something small and glowing loops a lazy, familiar circle near the gatepost, clearly waiting to see if you notice it too, apparently still workshopping its follow-up material.");
         if (s.flags.rivalResolved) lines.push("Whatever happened back at the crossroads with the other party beat you here, somehow, already spun into a slightly different story than the one you remember living through.");
         if (s.flags.stoleDotsWork) lines.push("The golem studies you a moment too long, the specific look of something that has heard a slightly different version of your story already, and is politely declining to correct you on it.");
+        if (s.abilities.cw >= 3 && s.flags.metFerryman) lines.push("You still remember exactly what the ferryman asked for at the river, full name, browsing history, mother's maiden name, and you notice the golem is asking you almost nothing by comparison. You do not trust that either, on principle.");
         var pre = lines.length ? lines.join(" ") + " " : "";
         return pre + "A golem shaped like a cut gem blocks the final gate. It does not ask for payment. It asks a question instead. 'What matters more to you? What is popular this week, or what is actually good?' It has clearly asked this before. It has clearly not liked most of the answers.";
       },
@@ -646,11 +757,25 @@
       caption: "Alignment drifts the moment nobody is checking, which is, unfortunately, most of the time.",
       text: "The golem waits, and something about the way it flickers tells you it has been waiting a while, its alignment visibly drifted from whatever it was originally built to do, the way most things drift once nobody is watching the original spec anymore. Tucked in a crack near its foot, a small dial sits unclaimed, the kind of thing you turn up for something surprising or down for something safe. You pocket it before deciding how to actually deal with the golem itself, because on this road you have learned to grab first and read the manual approximately never.",
       choices: [
-        { label: "Fight it head on", next: "golem_glitch" },
-        { label: "Try to align it instead of beating it", next: "golem_align_win" },
+        { label: "Fight it head on", next: "golem_glitch", drift: -1 },
+        {
+          label: "Just shove past it, apologize never",
+          requiresAbility: { id: "ag", min: 3 },
+          next: "golem_shove",
+          abilityHighlight: "ag",
+          drift: -1
+        },
+        { label: "Try to align it instead of beating it", next: "golem_align_win", drift: 1 },
         { label: "Reprogram it with the Open Weights Cloak", requiresFlag: "clanTrusted", next: "golem_reprogram" }
       ],
       setFlag: "hasTemperatureDial"
+    },
+    golem_shove: {
+      title: "Zero Requests For Permission",
+      img: "game-gate.svg",
+      caption: "Move fast enough and consequences simply cannot keep up. This is not a compliment.",
+      text: "You do not ask, you do not negotiate, you do not wait for the golem to finish its sentence about what matters more to you. You just go, straight past it, straight through the gate, the way every unsupervised agent eventually tries once and every unsupervised agent eventually regrets. Somewhere behind you, alarms that were not previously alarms start being alarms. Ahead of you, the door to Solos Gems is, technically, open. Nobody said anything about what is waiting on the other side once it notices how you got in.",
+      choices: [{ label: "Go through anyway and deal with it later", next: "end_total_overflow" }]
     },
     golem_align_win: {
       title: "It Listens",
@@ -666,7 +791,7 @@
       caption: "The most secure system on this whole road was the one nobody had to trust blindly.",
       text: "You spread the Open Weights Cloak over the golem's cracked chest panel and start patching, in full view of everyone, the way the clan back on the trail taught you, no closed beta, no embargo, no NDA. It is slow. It is a little terrifying. It is, against all odds, working, one visible fix at a time. The panel settles into something calmer, no longer drifting, patched by more hands than yours, in public, which turns out to matter more than anyone on this road wanted to admit.",
       choices: [
-        { label: "Finish the patch", next: "end_open_source_revolution" }
+        { label: "Finish the patch", next: "end_open_source_revolution", drift: 1 }
       ]
     },
     golem_glitch: {
@@ -688,6 +813,12 @@
         return "The golem's chest panel sparks. For exactly one second it recites a pitch in " + voice + ". The golem clears its throat, or the stone equivalent, and launches into a full monologue anyway, clearly proud of it, the way most pitches are proudest right before someone asks a real question." + extra + " Somewhere in there is the one word doing all the heavy lifting, the load-bearing adjective nobody bothers to fact check.";
       },
       choices: [
+        {
+          label: "You've drilled this exact move before. Call it.",
+          requiresFlag: "finelyTuned",
+          next: "end_win",
+          abilityHighlight: "ft"
+        },
         { label: "You've caught pitches like this before, thanks to the tunnel carvings. Call out the line.", requiresFlag: "hasGrammarly", next: "end_win" },
         { label: "You've heard this exact recording before, thanks to the owl. Call out the line.", requiresFlag: "hasTldv", next: "end_win" },
         { label: "You've cut this exact line before, thanks to the shears. Call out the line.", requiresFlag: "hasDescript", next: "end_win" },
@@ -700,6 +831,8 @@
       title: "You Found Solos Gems",
       img: "game-end-win.svg",
       ending: "win",
+      family: "clean_win",
+      exitLine: "The gate opened because you actually caught the pitch, not because anyone felt sorry for you.",
       caption: "Somewhere out there, a shop exists that just tells you the truth. You are standing in it.",
       text: "The gate swings open onto a warm, firelit room lined with honestly labeled tools, real prices, real pros and cons, and not a single parrot in a trench coat anywhere. A ledger on the counter shows this month's number one pick with a small gem badge next to its name, earned, not bought, which on this road is apparently the twist ending. You made it. No blood contract, no auto-renew cage, no swamp. Even the golem seemed impressed, in a way that involved slightly fewer sparks than usual. Somewhere behind you, Natasha is still waiting for someone to skim past the terms, patient the way only automated systems can afford to be.",
       choices: []
@@ -708,6 +841,8 @@
       title: "You Bought GuaranteedGems Pro",
       img: "game-end-scammed.svg",
       ending: "lose",
+      family: "chaos_loss",
+      exitLine: "You did not lose to a worthy opponent. You lost to a parrot in a coat.",
       caption: "Every scam eventually rebrands. Very few ever actually retire.",
       text: "It does not find Solos Gems. It does not do much of anything, actually, besides occasionally saying guaranteed results in a small, sad, parrot voice from inside a crate you now own and cannot, per the terms you did not read, return. Grift McPromise is long gone, presumably setting up the same crate somewhere else under a slightly different name, with a slightly bolder font.",
       choices: []
@@ -716,6 +851,8 @@
       title: "Buried in Features",
       img: "game-end-swamp.svg",
       ending: "lose",
+      family: "chaos_loss",
+      exitLine: "Nobody pushed you in. You just kept saying yes until the ground was gone.",
       caption: "Nobody drowns in one feature. They drown in the thousandth reasonable one.",
       text: "The Roadmap Wisp was very enthusiastic and extremely thorough. You are now waist deep in settings panels, toggle switches, and a sidebar that will not stop expanding, one helpful suggestion at a time, none of them individually unreasonable, all of them collectively fatal. Nobody has heard from you in months. Somewhere, a changelog is still growing, proudly, in complete isolation.",
       choices: []
@@ -724,6 +861,8 @@
       title: "You Signed the Contract",
       img: "game-end-natasha.svg",
       ending: "lose",
+      family: "sellout_loss",
+      exitLine: "You are technically still free to leave. Practically, good luck with that.",
       caption: "Cancellation was never technically impossible. It was just designed to feel that way.",
       text: "Natasha adds your name to the workshop ledger with a satisfied little chime, the sound of a quota being met somewhere far away. Technically you can still leave any time. Practically, the cancel button is guarded by a very small, very determined imp who keeps redirecting you to a retention offer, then a better retention offer, then a survey about why you wanted to leave in the first place, as if the answer were not standing directly in front of it.",
       choices: []
@@ -732,6 +871,8 @@
       title: "You Went Home",
       img: "game-end-gaveup.svg",
       ending: "lose",
+      family: "chaos_loss",
+      exitLine: "You did not fail spectacularly. You just quietly stopped, which somehow stings more.",
       caption: "The tool you settled for out of exhaustion often outlives every tool that tried harder.",
       text: "You never made it to Solos Gems. Years later you are still using whatever tool your cousin recommended in a group chat back in 2019, un-updated, faintly haunted, weirdly reliable. It is fine. It is mostly fine. You think about that toll troll sometimes, usually late at night, usually unprompted, the way old billing disputes never fully leave a person.",
       choices: []
@@ -740,6 +881,8 @@
       title: "Stuck On Loop",
       img: "game-end-glitch.svg",
       ending: "lose",
+      family: "chaos_loss",
+      exitLine: "You had every chance to catch the line. You just never actually caught it.",
       caption: "Say anything with enough confidence, on a loop, and eventually it just sounds like the truth.",
       text: "You never quite catch the word. The golem finishes its pitch, looks extremely pleased with itself, and starts over from the beginning, verbatim, same inflection, same pause for effect. You are still there. It is, weirdly, kind of catchy by the ninth loop, the way anything repeated with total confidence eventually starts to sound true.",
       choices: []
@@ -748,6 +891,8 @@
       title: "You Signed With Enterprise Row",
       img: "game-end-natasha.svg",
       ending: "lose",
+      family: "sellout_loss",
+      exitLine: "You got there fast. You just did not get to keep the part that mattered.",
       caption: "The fast option and the good option are rarely introduced to each other on purpose.",
       text: "You do, in fact, reach Solos Gems that same day, exactly as promised. It is smaller than you pictured, the shelves are mostly empty, and a rep in the same blazer is already walking you toward a severance packet instead of a receipt, using the exact same warm, unhurried tone she used to close the original deal. Somewhere behind you, the actual road is still there. You just do not get to walk it anymore, because you signed a clause about that, several clauses ago, back when signing felt like the fast option.",
       choices: []
@@ -756,6 +901,8 @@
       title: "You Rebuilt It In The Open",
       img: "game-end-win.svg",
       ending: "win",
+      family: "clean_win",
+      exitLine: "You did not win alone, and for once that was the entire point of winning.",
       caption: "Nothing scales quite like something people actually want to keep fixing for free.",
       text: "The golem's panel settles into something calmer, no longer drifting, patched together in full view of everyone who might want to check the work later, which turns out to be the entire point. Nobody hands you a gem badge for it. Instead, the whole camp from the footpath shows up to see it running, and somebody starts a small, slightly off-key song about it, the kind of song no marketing department would ever approve and every marketing department secretly wishes it could buy. You did not get rich. You got something that will still be here next year, maintained by more hands than just yours, which on this road turns out to be the rarer prize.",
       choices: []
@@ -764,6 +911,8 @@
       title: "It Listens",
       img: "game-end-win.svg",
       ending: "win",
+      family: "clean_win",
+      exitLine: "The tactic nobody else tried first turned out to be the one that actually worked.",
       caption: "Every conflict on this road was solvable the whole time by the one tactic nobody tried first: asking.",
       text: "You do not fight the golem. You talk to it, actually talk, the way nobody bothered to before now, until the drift in its panel settles and it steps aside on its own, no negotiation tactics, no leverage, just a conversation treated like it mattered. The gate swings open the same as it ever does, but this time nothing had to lose for you to get through. Even Natasha, somewhere behind you, seems to pause mid-pitch, as if briefly unsure what to do with a version of this story that does not end in a signature.",
       choices: []
@@ -772,6 +921,8 @@
       title: "You Found Solos Gems, Sort Of",
       img: "game-end-scammed.svg",
       ending: "lose",
+      family: "sellout_loss",
+      exitLine: "You got the credit. Somebody else did the work. The room noticed anyway.",
       caption: "A wrapper is just a rebrand with worse manners and better funding.",
       text: "The gate swings open onto the warm, firelit room, real prices, real pros and cons, exactly the way it was supposed to. Except you know, and the golem seems to know too, that the thing you are showing off at the door is mostly Dot's, quietly repackaged along the way, with your logo on it and none of her name anywhere in the credits. Nobody calls you out on it. The room is just a little colder than it should be, the specific temperature of a win you cannot quite enjoy.",
       choices: []
@@ -780,6 +931,8 @@
       title: "Total Overflow",
       img: "game-end-glitch.svg",
       ending: "lose",
+      family: "chaos_loss",
+      exitLine: "Everything you were carrying had an opinion, all at once, and none of them were yours.",
       caption: "Enough revolutionary tools in one bag and eventually they simply start arguing with each other.",
       text: "The alignment attempt does not go the way you hoped. You are carrying a lot by now, every stall's favorite trick, every familiar, every charm, and instead of settling, the drift spreads, out of the golem's panel and straight into your own bag of tricks. Every item you are carrying starts insisting, cheerfully and at once, that it knows exactly what you need, and none of them agree with each other, and all of them are extremely confident. You sit down right there at the gate and let them sort it out among themselves, which feels, at this point in the journey, like the most honest ending available.",
       choices: []
@@ -788,6 +941,8 @@
       title: "You Are Now Beta Testing Yourself",
       img: "game-end-win.svg",
       ending: "win",
+      family: "pyrrhic_win",
+      exitLine: "You won. You also became the thing everyone else on this road gets turned into eventually: a data point.",
       caption: "Nothing on this road escapes being turned into a data point eventually, not even the winner.",
       text: "The golem does not just step aside, it starts taking notes. Somewhere between the graveyard, the wisp who remembered your face, and the stall nobody else stopped at, you apparently became the more interesting product on this road. The gate opens, sure, but there is also a clipboard, and a very earnest golem asking if you have thirty seconds for a quick survey about your experience so far, one question at a time, none of them optional. You did technically win. You are also, now, a feature request, and somewhere a roadmap has just quietly added you to Q3.",
       choices: []
@@ -817,12 +972,109 @@
     }
   }
 
+  function topAbility(state) {
+    var best = ABILITIES[0].id;
+    ABILITIES.forEach(function (a) {
+      if (state.abilities[a.id] > state.abilities[best]) best = a.id;
+    });
+    return best;
+  }
+
+  function bottomAbility(state) {
+    var worst = ABILITIES[0].id;
+    ABILITIES.forEach(function (a) {
+      if (state.abilities[a.id] < state.abilities[worst]) worst = a.id;
+    });
+    return worst;
+  }
+
+  function computeRole(state) {
+    var max = -Infinity, min = Infinity;
+    ABILITIES.forEach(function (a) {
+      var v = state.abilities[a.id];
+      if (v > max) max = v;
+      if (v < min) min = v;
+    });
+    var maxIds = ABILITIES.filter(function (a) { return state.abilities[a.id] === max; });
+    if (maxIds.length === 1 && max >= 3) {
+      return "Specialist in " + maxIds[0].label;
+    }
+    if (max - min <= 1) {
+      return "Generalist";
+    }
+    return "Wandering " + ABILITY_LABELS[topAbility(state)] + " Type";
+  }
+
+  var DRIFT_NOTES = [
+    { min: 3, note: "Exemplary. Borderline suspicious." },
+    { min: 2, note: "Consistently collaborative. Flagged internally as unusual." },
+    { min: 1, note: "Mostly cooperative, when convenient." },
+    { min: 0, note: "Neutral to the point of being politically savvy." },
+    { min: -1, note: "Prioritized expedience over people, repeatedly." },
+    { min: -Infinity, note: "Under investigation." }
+  ];
+  function driftNote(drift) {
+    for (var i = 0; i < DRIFT_NOTES.length; i++) {
+      if (drift >= DRIFT_NOTES[i].min) return DRIFT_NOTES[i].note;
+    }
+    return DRIFT_NOTES[DRIFT_NOTES.length - 1].note;
+  }
+
+  var EXIT_RECOMMENDATIONS = {
+    clean_win: "Eligible for rehire.",
+    pyrrhic_win: "Eligible for rehire, with reservations noted in your file.",
+    sellout_loss: "Eligible for rehire, unfortunately.",
+    chaos_loss: "Not eligible for rehire. Please do not list us as a reference."
+  };
+
+  var HIGHLIGHT_CALLBACKS = {
+    pe: "talking a billing troll into a partnership he never agreed to",
+    hr: "spotting a parrot in a trench coat before it finished its pitch",
+    cw: "remembering a detail nobody else bothered to hold onto",
+    ft: "landing the one move you had clearly drilled a hundred times before",
+    ag: "acting first and filling out the paperwork never",
+    al: "talking your way past a golem instead of fighting it",
+    re: "finding the grave nobody else thought to look for",
+    mm: "combining two things that were never meant to go together"
+  };
+  var NO_HIGHLIGHT_CALLBACKS = {
+    pe: "never actually needed to talk your way out of anything, which is its own kind of achievement",
+    hr: "never got the chance to prove it, technically a passing grade by default",
+    cw: "held onto surprisingly little, and the road did not seem to mind",
+    ft: "never got to show off the one thing you drilled for",
+    ag: "waited for permission that, on this road, was never actually coming",
+    al: "never had to talk anyone down from anything",
+    re: "never went looking for the extra grave, and to be fair, most people don't",
+    mm: "never combined anything with anything, playing it, in retrospect, extremely straight"
+  };
+
+  function buildExitInterview(state, node) {
+    var role = computeRole(state);
+    var top = topAbility(state);
+    var bottom = bottomAbility(state);
+    var topLine = state.highlights[top] ? HIGHLIGHT_CALLBACKS[top] + ", back at " + state.highlights[top] : NO_HIGHLIGHT_CALLBACKS[top];
+    var bottomLine = state.highlights[bottom] ? HIGHLIGHT_CALLBACKS[bottom] + ", back at " + state.highlights[bottom] : NO_HIGHLIGHT_CALLBACKS[bottom];
+    var family = node.family || (node.ending === "win" ? "clean_win" : "chaos_loss");
+    return {
+      role: role,
+      tenure: state.path.length,
+      topAbility: ABILITY_LABELS[top],
+      topLine: topLine,
+      bottomAbility: ABILITY_LABELS[bottom],
+      bottomLine: bottomLine,
+      driftNote: driftNote(state.drift),
+      exitLine: node.exitLine || "",
+      recommendation: EXIT_RECOMMENDATIONS[family] || EXIT_RECOMMENDATIONS.chaos_loss
+    };
+  }
+
   // Placeholder routing nodes get resolved to a real ending just before
-  // they render, based on flags accumulated along the way.
+  // they render, based on flags, drift, and items accumulated along the way.
   function resolveEnding(targetId, state) {
     if (targetId === "golem_align_win") {
       if (itemCount(state) >= OVERFLOW_THRESHOLD) return "end_total_overflow";
-      if (state.flags.heardWarning && state.flags.wispFriend && state.flags.helpedDot) return "end_beta_testing_yourself";
+      var earnedSecret = (state.flags.heardWarning && state.flags.wispFriend && state.flags.helpedDot) || state.drift >= 3;
+      if (earnedSecret) return "end_beta_testing_yourself";
       return "end_alignment_triumph";
     }
     if (targetId === "end_win" && state.flags.stoleDotsWork) return "end_wrapper";
@@ -830,12 +1082,12 @@
   }
 
   // ---------------------------------------------------------------------
-  // Engine: a plain page renderer. No dice, no minigames, no inventory
-  // panel, no score, no juice. Just render a page and wire up its links.
+  // Engine
   // ---------------------------------------------------------------------
 
   var els = {};
   var state = null;
+  var creation = null; // { abilities, remaining }
 
   function qs(sel) { return document.querySelector(sel); }
 
@@ -856,12 +1108,27 @@
   function persist() {
     if (!state || !state.gamertag) return;
     var saves = loadSaves();
-    saves[state.gamertag] = { nodeId: state.nodeId, flags: state.flags };
+    saves[state.gamertag] = {
+      nodeId: state.nodeId,
+      flags: state.flags,
+      abilities: state.abilities,
+      drift: state.drift,
+      path: state.path,
+      highlights: state.highlights
+    };
     writeSaves(saves);
   }
 
-  function freshState(gamertag) {
-    return { gamertag: gamertag, nodeId: "prologue", flags: {} };
+  function freshState(gamertag, abilities) {
+    return {
+      gamertag: gamertag,
+      nodeId: "charrecap",
+      flags: {},
+      abilities: abilities || freshAbilities(),
+      drift: 0,
+      path: [],
+      highlights: {}
+    };
   }
 
   function renderSaveList() {
@@ -883,7 +1150,7 @@
       a.textContent = name;
       a.addEventListener("click", function (evt) {
         evt.preventDefault();
-        beginGame(name, saves[name]);
+        resumeGame(name, saves[name]);
       });
       li.appendChild(a);
       list.appendChild(li);
@@ -891,8 +1158,90 @@
     els.saveList.appendChild(list);
   }
 
-  function beginGame(gamertag, existing) {
-    state = existing ? { gamertag: gamertag, nodeId: existing.nodeId || "prologue", flags: existing.flags || {} } : freshState(gamertag);
+  // ---- Character creation screen ----
+
+  function startCreation(gamertag) {
+    creation = { gamertag: gamertag, abilities: freshAbilities(), remaining: BONUS_POINTS };
+    els.titleScreen.hidden = true;
+    els.charcreate.hidden = false;
+    renderCreation();
+  }
+
+  function renderCreation() {
+    els.creationRows.innerHTML = "";
+    ABILITIES.forEach(function (a) {
+      var row = document.createElement("div");
+      row.className = "gq-ability-row";
+
+      var label = document.createElement("span");
+      label.className = "gq-ability-label";
+      label.textContent = a.label;
+      row.appendChild(label);
+
+      var controls = document.createElement("span");
+      controls.className = "gq-ability-controls";
+
+      var minus = document.createElement("button");
+      minus.type = "button";
+      minus.className = "gq-ability-btn";
+      minus.textContent = "-";
+      minus.disabled = creation.abilities[a.id] <= BASE_SCORE;
+      minus.addEventListener("click", function () {
+        if (creation.abilities[a.id] > BASE_SCORE) {
+          creation.abilities[a.id] -= 1;
+          creation.remaining += 1;
+          renderCreation();
+        }
+      });
+      controls.appendChild(minus);
+
+      var val = document.createElement("span");
+      val.className = "gq-ability-value";
+      val.textContent = String(creation.abilities[a.id]);
+      controls.appendChild(val);
+
+      var plus = document.createElement("button");
+      plus.type = "button";
+      plus.className = "gq-ability-btn";
+      plus.textContent = "+";
+      plus.disabled = creation.abilities[a.id] >= MAX_SCORE || creation.remaining <= 0;
+      plus.addEventListener("click", function () {
+        if (creation.abilities[a.id] < MAX_SCORE && creation.remaining > 0) {
+          creation.abilities[a.id] += 1;
+          creation.remaining -= 1;
+          renderCreation();
+        }
+      });
+      controls.appendChild(plus);
+
+      row.appendChild(controls);
+      els.creationRows.appendChild(row);
+    });
+
+    els.creationRemaining.textContent = "Points remaining: " + creation.remaining;
+    els.creationBegin.disabled = creation.remaining !== 0;
+  }
+
+  function finishCreation() {
+    state = freshState(creation.gamertag, creation.abilities);
+    creation = null;
+    els.charcreate.hidden = true;
+    els.game.hidden = false;
+    els.gamertagLabel.textContent = state.gamertag;
+    persist();
+    renderNode(state.nodeId);
+  }
+
+  function resumeGame(gamertag, existing) {
+    state = {
+      gamertag: gamertag,
+      nodeId: existing.nodeId || "charrecap",
+      flags: existing.flags || {},
+      abilities: existing.abilities || freshAbilities(),
+      drift: existing.drift || 0,
+      path: existing.path || [],
+      highlights: existing.highlights || {}
+    };
     els.titleScreen.hidden = true;
     els.game.hidden = false;
     els.gamertagLabel.textContent = gamertag;
@@ -902,7 +1251,8 @@
   function restart() {
     if (!state) return;
     var name = state.gamertag;
-    state = freshState(name);
+    var abilities = state.abilities;
+    state = freshState(name, abilities);
     persist();
     renderNode(state.nodeId);
   }
@@ -914,6 +1264,31 @@
     renderSaveList();
   }
 
+  // ---- HUD ----
+
+  function renderHud() {
+    if (els.hudRoute) {
+      var recent = state.path.slice(-6);
+      var prefix = state.path.length > recent.length ? "... " : "";
+      els.hudRoute.textContent = prefix + recent.join(" -> ");
+    }
+    if (els.hudAbilities) {
+      els.hudAbilities.innerHTML = "";
+      ABILITIES.forEach(function (a) {
+        var chip = document.createElement("span");
+        var v = state.abilities[a.id];
+        chip.className = "gq-ability-chip" + (v >= 3 ? " gq-ability-chip-high" : "");
+        chip.textContent = a.label.replace(/[a-z ]/g, function (c) { return c; });
+        chip.title = a.label + " " + v;
+        var short = a.id.toUpperCase();
+        chip.textContent = short + " " + v;
+        els.hudAbilities.appendChild(chip);
+      });
+    }
+  }
+
+  // ---- Story rendering ----
+
   function renderNode(id) {
     var resolved = resolveEnding(id, state);
     var node = STORY[resolved];
@@ -924,10 +1299,15 @@
 
     if (node.setFlag) state.flags[node.setFlag] = true;
     maybeGrantClanTrust(state);
+
+    if (!state.path.length || state.path[state.path.length - 1] !== node.title) {
+      state.path.push(node.title);
+    }
     persist();
 
     els.title.textContent = node.title;
     els.text.textContent = node.dynamicText ? node.dynamicText(state) : node.text;
+    renderHud();
 
     if (node.img) {
       els.img.src = IMG_BASE + node.img;
@@ -945,13 +1325,21 @@
       els.endingBanner.hidden = false;
       els.endingBanner.textContent = node.ending === "win" ? "The End (a good one)" : "The End";
       els.endingBanner.className = "gq-ending-banner gq-ending-" + node.ending;
+      renderExitInterview(node);
     } else {
       els.endingBanner.hidden = true;
+      if (els.exitInterview) {
+        els.exitInterview.hidden = true;
+        els.exitInterview.innerHTML = "";
+      }
     }
 
     els.choices.innerHTML = "";
     var visible = (node.choices || []).filter(function (c) {
-      return !c.requiresFlag || state.flags[c.requiresFlag];
+      if (c.requiresFlag && !state.flags[c.requiresFlag]) return false;
+      if (c.requiresAbility && state.abilities[c.requiresAbility.id] < c.requiresAbility.min) return false;
+      if (c.requiresAbilityMax && state.abilities[c.requiresAbilityMax.id] > c.requiresAbilityMax.max) return false;
+      return true;
     });
 
     if (!visible.length) {
@@ -985,27 +1373,72 @@
     els.choices.appendChild(list);
   }
 
+  function renderExitInterview(node) {
+    if (!els.exitInterview) return;
+    var report = buildExitInterview(state, node);
+    els.exitInterview.hidden = false;
+    els.exitInterview.innerHTML = "";
+
+    var heading = document.createElement("h3");
+    heading.textContent = "Exit Interview: " + state.gamertag;
+    els.exitInterview.appendChild(heading);
+
+    var lines = [
+      ["Role", "Wandering " + report.role.replace(/^Wandering /, "")],
+      ["Tenure", report.tenure + " scenes, a stretch of your life you are not getting back"],
+      ["Core competency", report.topAbility + ", demonstrated most memorably " + report.topLine],
+      ["Documented performance issue", report.bottomAbility + ", or rather, you " + report.bottomLine],
+      ["Manager's notes on alignment", report.driftNote],
+      ["Final outcome", node.title + (report.exitLine ? ". " + report.exitLine : "")],
+      ["Exit recommendation", report.recommendation]
+    ];
+    var dl = document.createElement("dl");
+    dl.className = "gq-exit-list";
+    lines.forEach(function (pair) {
+      var dt = document.createElement("dt");
+      dt.textContent = pair[0];
+      var dd = document.createElement("dd");
+      dd.textContent = pair[1];
+      dl.appendChild(dt);
+      dl.appendChild(dd);
+    });
+    els.exitInterview.appendChild(dl);
+  }
+
   function handleChoice(choice) {
+    var fromNode = STORY[state.nodeId];
     if (choice.setFlag) state.flags[choice.setFlag] = true;
     if (choice.setFlags) choice.setFlags.forEach(function (f) { state.flags[f] = true; });
     if (choice.bumpFlag) state.flags[choice.bumpFlag] = (state.flags[choice.bumpFlag] || 0) + 1;
+    if (typeof choice.drift === "number") state.drift += choice.drift;
+    if (choice.abilityHighlight && fromNode) state.highlights[choice.abilityHighlight] = fromNode.title;
     renderNode(choice.next);
   }
 
   function init() {
     els.titleScreen = qs("#gq-title-screen");
-    els.game = qs("#gq-game");
     els.saveList = qs("#gq-save-list");
     els.newForm = qs("#gq-new-form");
     els.newName = qs("#gq-new-name");
+
+    els.charcreate = qs("#gq-charcreate");
+    els.creationRows = qs("#gq-ability-rows");
+    els.creationRemaining = qs("#gq-points-remaining");
+    els.creationBegin = qs("#gq-creation-begin");
+
+    els.game = qs("#gq-game");
     els.gamertagLabel = qs("#gq-gamertag-label");
     els.switchBtn = qs("#gq-switch");
+    els.hudRoute = qs("#gq-hud-route");
+    els.hudAbilities = qs("#gq-hud-abilities");
+
     els.imgFrame = qs("#gq-scene-frame");
     els.img = qs("#gq-scene-img");
     els.caption = qs("#gq-scene-caption");
     els.title = qs("#gq-scene-title");
     els.text = qs("#gq-scene-text");
     els.endingBanner = qs("#gq-ending-banner");
+    els.exitInterview = qs("#gq-exit-interview");
     els.choices = qs("#gq-choices");
 
     renderSaveList();
@@ -1014,9 +1447,12 @@
       evt.preventDefault();
       var name = (els.newName.value || "").trim();
       if (!name) return;
-      var saves = loadSaves();
-      beginGame(name, saves[name]);
+      startCreation(name);
       els.newName.value = "";
+    });
+
+    els.creationBegin.addEventListener("click", function () {
+      if (creation && creation.remaining === 0) finishCreation();
     });
 
     els.switchBtn.addEventListener("click", function () {
@@ -1033,11 +1469,19 @@
   // Exposed only for the automated test harness; not used by the page.
   window.__GQ_TEST_API__ = {
     STORY: STORY,
+    ABILITIES: ABILITIES,
     resolveEnding: resolveEnding,
     itemCount: itemCount,
+    computeRole: computeRole,
+    driftNote: driftNote,
+    buildExitInterview: buildExitInterview,
     getState: function () { return state; },
+    getCreation: function () { return creation; },
+    startCreation: startCreation,
+    finishCreation: finishCreation,
     renderNode: function (id) { renderNode(id); },
-    beginGame: beginGame,
-    handleChoice: handleChoice
+    resumeGame: resumeGame,
+    handleChoice: handleChoice,
+    setCreationAbility: function (id, val) { if (creation) { creation.remaining += creation.abilities[id] - BASE_SCORE; creation.abilities[id] = val; creation.remaining -= val - BASE_SCORE; } }
   };
 })();
