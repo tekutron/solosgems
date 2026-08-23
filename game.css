@@ -1,919 +1,241 @@
-/* Incremental styles for the Road to Solos Gems mini game. Reuses the same
-   CSS variables defined in styles.css (--ink, --paper, --panel, --card,
-   --line, --rust, --rust-dark, --ok) so it stays visually part of the site. */
+/* The Road to Solos Gems: a plain, page-and-link storygame.
+   Deliberately bare-bones: a title, some story text, and a short list
+   of link choices. No HUD, no animation, no game chrome. */
 
 .gq-wrap {
   max-width: 720px;
   margin: 0 auto;
-  padding: 8px 4px 60px;
+  padding: 32px 20px 64px;
+}
+
+.gq-wrap .kicker {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  color: var(--rust-dark);
+  margin-bottom: 6px;
+}
+
+.gq-wrap h1 {
+  margin: 0 0 10px;
+  font-size: 2rem;
 }
 
 .gq-lede {
   color: var(--ink-soft);
-  margin-bottom: 20px;
+  line-height: 1.6;
+  margin-bottom: 28px;
 }
 
-/* ---- title / save screen ---- */
 .gq-panel {
+  border: 1px solid var(--line);
   background: var(--panel);
-  border: 2px solid var(--line);
-  border-radius: 10px;
-  padding: 22px;
+  border-radius: 6px;
+  padding: 22px 24px;
 }
 
 .gq-panel h2 {
-  margin-top: 0;
+  margin: 0 0 14px;
+  font-size: 1.2rem;
 }
 
-#gq-save-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 16px 0 20px;
-}
-
-.gq-empty {
+.gq-continue-label {
+  margin: 0 0 6px;
   color: var(--ink-soft);
-  font-style: italic;
+  font-size: 0.9rem;
 }
 
-.gq-save-row {
+.gq-continue-list {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
   display: flex;
-  align-items: stretch;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
-.gq-save-btn {
-  flex: 1;
-  text-align: left;
-  background: var(--card);
-  border: 2px solid var(--line);
-  border-radius: 8px;
-  padding: 12px 16px;
+.gq-continue-list a {
+  display: inline-block;
+  padding: 5px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
   color: var(--ink);
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-family: inherit;
-  font-size: 0.95rem;
+  text-decoration: none;
+  font-size: 0.9rem;
 }
 
-.gq-save-btn:hover {
+.gq-continue-list a:hover {
   border-color: var(--rust-dark);
-}
-
-.gq-save-btn span {
-  color: var(--ink-soft);
-  font-size: 0.82rem;
-}
-
-.gq-save-del {
-  background: var(--card);
-  border: 2px solid var(--line);
-  border-radius: 8px;
-  color: var(--ink-soft);
-  width: 42px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  line-height: 1;
-}
-
-.gq-save-del:hover {
   color: var(--rust-dark);
-  border-color: var(--rust-dark);
 }
 
 #gq-new-form {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
 }
 
-#gq-new-name {
+#gq-new-form label {
+  display: block;
+  width: 100%;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+}
+
+#gq-new-form input {
   flex: 1;
+  min-width: 180px;
+  padding: 9px 12px;
   background: var(--card);
-  border: 2px solid var(--line);
-  border-radius: 8px;
-  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
   color: var(--ink);
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 #gq-new-form button {
+  padding: 9px 18px;
   background: var(--rust);
   color: #fff;
   border: none;
-  border-radius: 8px;
-  padding: 12px 20px;
-  font-weight: 700;
+  border-radius: 4px;
+  font-size: 1rem;
   cursor: pointer;
-  white-space: nowrap;
 }
 
 #gq-new-form button:hover {
   background: var(--rust-dark);
 }
 
-/* ---- in-game ---- */
-#gq-game {
-  position: relative;
-}
+/* -------- The reading page itself -------- */
 
 .gq-hud {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
+  align-items: center;
   flex-wrap: wrap;
-}
-
-.gq-hud-left {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 0.88rem;
-  color: var(--ink-soft);
-}
-
-.gq-hud-left strong {
-  color: var(--ink);
-}
-
-.gq-score {
-  color: var(--rust);
-  margin-left: 8px;
-  font-weight: 700;
-}
-
-.gq-achievement-toast {
-  background: rgba(201, 138, 46, 0.16);
-  border: 2px solid var(--rust);
-  border-radius: 7px;
-  padding: 8px 12px;
-  margin-bottom: 10px;
+  gap: 10px;
+  margin-bottom: 18px;
   font-size: 0.85rem;
-  color: var(--ink);
-  animation: gq-glow-pulse 1.4s ease-in-out infinite;
-}
-
-.gq-achievement-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin: 4px 0 6px;
-}
-
-.gq-achievement-badge {
-  font-size: 0.78rem;
-  padding: 4px 9px;
-  border-radius: 20px;
-  border: 2px solid var(--line);
   color: var(--ink-soft);
-  background: var(--panel);
 }
 
-.gq-achievement-badge.gq-achievement-got {
-  color: var(--ink);
-  border-color: var(--rust);
-  background: rgba(201, 138, 46, 0.16);
-}
-
-.gq-hud-buttons {
-  display: flex;
-  gap: 8px;
-}
-
-.gq-hud-buttons button {
-  background: var(--card);
-  border: 2px solid var(--line);
-  border-radius: 7px;
+#gq-switch {
+  background: none;
+  border: 1px solid var(--line);
   color: var(--ink-soft);
-  padding: 6px 12px;
-  font-size: 0.8rem;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 0.82rem;
   cursor: pointer;
 }
 
-.gq-hud-buttons button:hover {
-  color: var(--ink);
+#gq-switch:hover {
   border-color: var(--rust-dark);
-}
-
-#gq-inventory {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 12px;
-  min-height: 26px;
-}
-
-.gq-inv-label {
-  color: var(--ink-soft);
-  font-size: 0.82rem;
-  align-self: center;
-}
-
-.gq-inv-empty {
-  color: var(--ink-soft);
-  font-size: 0.82rem;
-  font-style: italic;
-  align-self: center;
-}
-
-.gq-item-chip {
-  background: var(--card);
-  border: 2px solid var(--rust);
-  border-radius: 20px;
-  padding: 3px 10px;
-  font-size: 0.78rem;
-  cursor: pointer;
-  font-family: inherit;
-  color: var(--ink);
-}
-
-.gq-item-chip:hover {
-  background: var(--panel);
-}
-
-.gq-item-primed {
-  background: var(--rust);
-  color: #fff;
-  border-color: var(--rust-dark);
-  animation: gq-glow-pulse 1.6s ease-in-out infinite;
-}
-
-.gq-inv-primed-note {
   color: var(--rust-dark);
-  font-size: 0.78rem;
-  font-weight: 700;
-  align-self: center;
-  width: 100%;
 }
 
-/* ---- scene: image + text side by side on wider screens, stacked on narrow ---- */
-.gq-stage {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  margin-bottom: 14px;
+.gq-page {
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
 }
 
 .gq-scene-frame {
-  position: relative;
-  flex: 0 0 230px;
-  width: 230px;
-  height: 230px;
-  border: 3px solid var(--ink);
-  border-radius: 10px;
-  overflow: hidden;
-  background: var(--card);
-  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+  margin: 0 0 18px;
+  max-width: 220px;
 }
 
-.gq-scene-frame.gq-win-glow {
-  border-color: var(--rust);
-  animation: gq-glow-pulse 1.6s ease-in-out infinite;
-}
-
-@keyframes gq-glow-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 138, 46, 0.55); }
-  50% { box-shadow: 0 0 22px 6px rgba(201, 138, 46, 0.55); }
-}
-
-#gq-scene-img {
+.gq-scene-frame img {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: block;
-  object-fit: cover;
-  transition: opacity 0.3s ease;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--card);
 }
 
-#gq-scene-img.gq-loading {
-  opacity: 0.55;
+.gq-ending-banner {
+  display: inline-block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 10px;
+  border-radius: 3px;
+  margin-bottom: 10px;
 }
 
-.gq-stage-text {
-  flex: 1;
-  min-width: 0;
+.gq-ending-win {
+  background: rgba(95, 179, 108, 0.16);
+  color: var(--ok);
+  border: 1px solid rgba(95, 179, 108, 0.4);
+}
+
+.gq-ending-lose {
+  background: rgba(177, 69, 14, 0.16);
+  color: var(--rust-dark);
+  border: 1px solid rgba(177, 69, 14, 0.4);
 }
 
 #gq-scene-title {
-  margin: 0 0 6px;
-  font-size: 1.15rem;
+  margin: 0 0 14px;
+  font-size: 1.5rem;
+  line-height: 1.3;
 }
 
 #gq-scene-text {
-  color: var(--ink-soft);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--ink);
+  margin: 0 0 26px;
+  max-width: 62ch;
+}
+
+.gq-choices {
+  border-top: 1px dashed var(--line);
+  padding-top: 18px;
+}
+
+.gq-choice-list {
+  list-style: none;
   margin: 0;
-  line-height: 1.6;
-  font-size: 0.93rem;
+  padding: 0;
 }
 
-.gq-win-banner[hidden] {
-  display: none;
-}
-
-.gq-win-banner {
-  display: inline-block;
-  background: var(--rust);
-  color: #fff;
-  font-weight: 700;
-  font-size: 0.82rem;
-  padding: 4px 12px;
-  border-radius: 20px;
-  margin-bottom: 8px;
-  animation: gq-banner-bounce 0.5s ease;
-}
-
-@keyframes gq-banner-bounce {
-  0% { transform: scale(0.4); opacity: 0; }
-  60% { transform: scale(1.12); opacity: 1; }
-  100% { transform: scale(1); }
-}
-
-@media (max-width: 620px) {
-  .gq-stage { flex-direction: column; }
-  .gq-scene-frame { width: 100%; height: 190px; flex-basis: auto; }
-}
-
-#gq-choices {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.gq-choice-btn {
-  text-align: left;
-  background: var(--panel);
-  border: 2px solid var(--line);
-  border-radius: 8px;
-  padding: 11px 16px;
-  color: var(--ink);
-  font-family: inherit;
-  font-size: 0.94rem;
-  cursor: pointer;
-}
-
-.gq-choice-btn:hover {
-  border-color: var(--rust-dark);
-  background: var(--card);
-}
-
-.gq-choice-again {
-  border-color: var(--rust);
-}
-
-.gq-choice-start {
-  border-color: var(--rust);
-  font-weight: 700;
-}
-
-.gq-cta {
-  display: block;
-  text-align: center;
-  background: var(--rust);
-  color: #fff;
-  text-decoration: none;
-  border-radius: 8px;
-  padding: 13px 18px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.gq-cta:hover {
-  background: var(--rust-dark);
-  color: #fff;
-}
-
-/* ---- dice roll ---- */
-#gq-dice-area {
-  text-align: center;
-  padding: 10px 0 4px;
-}
-
-.gq-dice-spin {
-  animation: gq-spin 0.75s cubic-bezier(0.2, 0.6, 0.3, 1);
-}
-
-#gq-dice-face {
-  transition: fill 0.15s ease;
-}
-
-#gq-dice-face.gq-dice-face-crit {
-  fill: var(--rust);
-}
-
-@keyframes gq-spin {
-  0% { transform: rotate(0deg) scale(0.8); }
-  60% { transform: rotate(540deg) scale(1.08); }
-  100% { transform: rotate(720deg) scale(1); }
-}
-
-#gq-dice-result {
-  margin-top: 10px;
-  font-family: "IBM Plex Mono", monospace;
-  color: var(--ink-soft);
-  min-height: 1.4em;
-  font-size: 0.88rem;
-}
-
-/* ---- minigames ---- */
-#gq-minigame-area {
-  background: var(--card);
-  border: 2px solid var(--line);
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 12px;
-}
-
-.gq-mg {
-  position: relative;
-}
-
-.gq-mg-instructions {
-  margin: 0 0 12px;
-  color: var(--ink-soft);
-  font-size: 0.88rem;
-}
-
-.gq-mg-target {
-  font-family: "IBM Plex Mono", monospace;
-  font-style: italic;
-  color: var(--ink);
+.gq-choice-list li {
   margin: 0 0 10px;
-  font-size: 0.95rem;
 }
 
-#gq-minigame-area input[type="text"] {
-  width: 100%;
-  background: var(--panel);
-  border: 2px solid var(--line);
-  border-radius: 7px;
-  padding: 10px 12px;
-  color: var(--ink);
-  font-size: 0.95rem;
-  box-sizing: border-box;
-}
-
-#gq-minigame-area input[type="text"]:focus {
-  outline: none;
-  border-color: var(--rust-dark);
-}
-
-.gq-mg-facts {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.gq-mg-fact-btn {
-  text-align: left;
-  background: var(--panel);
-  border: 2px solid var(--line);
-  border-radius: 7px;
+.gq-choice-link {
+  display: block;
   padding: 10px 14px;
-  color: var(--ink);
-  font-family: inherit;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-
-.gq-mg-fact-btn:hover {
-  border-color: var(--rust-dark);
-}
-
-.gq-mg-sentence {
-  line-height: 2.2;
-  margin: 0;
-}
-
-.gq-mg-word {
-  display: inline-block;
-  cursor: pointer;
-  padding: 2px 4px;
+  border: 1px solid var(--line);
   border-radius: 4px;
   color: var(--ink);
-}
-
-.gq-mg-word:hover {
+  text-decoration: none;
+  line-height: 1.4;
   background: var(--panel);
-  text-decoration: underline;
 }
 
-.gq-mg-word.gq-mg-wrong {
-  color: var(--ink-soft);
-  text-decoration: line-through;
-  cursor: default;
-  background: none;
-}
-
-.gq-mg-glow {
-  background: rgba(201, 138, 46, 0.28);
-  box-shadow: 0 0 0 2px rgba(201, 138, 46, 0.5);
-}
-
-.gq-mg-word.gq-mg-right {
-  color: #7bc47f;
-  font-weight: 700;
-}
-
-.gq-mg-word.gq-mg-shake {
-  animation: gq-mg-shake-kf 0.24s ease;
-}
-
-@keyframes gq-mg-shake-kf {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  75% { transform: translateX(4px); }
-}
-
-#gq-minigame-area input[type="text"].gq-mg-input-on {
-  border-color: #7bc47f;
-}
-
-#gq-minigame-area input[type="text"].gq-mg-input-off {
-  border-color: var(--rust);
-}
-
-.gq-stack-streak {
-  color: var(--rust);
-  font-weight: 700;
-  min-height: 1.2em;
-}
-
-.gq-mg-timer {
-  font-family: "IBM Plex Mono", monospace;
+.gq-choice-link::before {
+  content: "\2192  ";
   color: var(--rust-dark);
-  font-weight: 700;
-  margin: 10px 0 0;
-  font-size: 0.85rem;
 }
 
-.gq-mg-result {
-  color: var(--ink);
-  font-size: 0.9rem;
-  margin: 0;
+.gq-choice-link:hover {
+  border-color: var(--rust-dark);
+  background: var(--card);
 }
 
-.gq-mg-fail-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 12px;
+.gq-restart-link {
+  display: inline-block;
+  width: auto;
 }
 
-/* ---- runner (lane-dodge, Temple-Run-style) minigame ---- */
-.gq-runner {
-  position: relative;
-  display: flex;
-  width: 100%;
-  height: 240px;
-  border: 2px solid var(--line);
-  border-radius: 7px;
-  overflow: hidden;
-  background: linear-gradient(180deg, var(--panel), var(--card));
-  margin-top: 8px;
-  touch-action: pan-y;
-}
-
-.gq-arcade-forest { background: linear-gradient(180deg, #23301f, #17210f); }
-.gq-arcade-cave { background: linear-gradient(180deg, #241a2c, #14101a); }
-.gq-arcade-bridge { background: linear-gradient(180deg, #241f14, #17130c); }
-
-.gq-runner-lane {
-  position: relative;
-  flex: 1;
-  height: 100%;
-  border-right: 1px dashed rgba(255, 255, 255, 0.1);
-}
-
-.gq-runner-lane:last-child {
-  border-right: none;
-}
-
-.gq-runner-player {
-  position: absolute;
-  bottom: 8px;
-  width: 20%;
-  height: 15%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  line-height: 1;
-  z-index: 2;
-  transition: left 0.16s ease, filter 0.15s ease;
-  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.6));
-}
-
-.gq-runner-player.gq-runner-hit {
-  filter: drop-shadow(0 0 8px var(--rust)) brightness(1.7);
-}
-
-.gq-runner-obstacle,
-.gq-runner-coin {
-  position: absolute;
-  width: 20%;
-  height: 15%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  line-height: 1;
-  z-index: 1;
-  transition: top 0.16s linear;
-}
-
-.gq-runner-coin {
-  filter: drop-shadow(0 0 6px rgba(123, 196, 196, 0.9));
-}
-
-.gq-stack-controls {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.gq-stack-btn {
-  flex: 1;
-  font-size: 1.4rem;
-  padding: 14px 0;
-  border: 2px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
-  color: var(--ink);
-  cursor: pointer;
-  touch-action: manipulation;
-}
-
-.gq-stack-btn:active {
-  background: var(--rust);
-  color: #fff;
-  border-color: var(--rust);
-}
-
-/* ---- hallucination-dodge label markers (wisp chase variant) ---- */
-.gq-runner-label-marker {
-  width: 30%;
-  font-size: 0.62rem;
-  font-weight: 700;
-  text-align: center;
-  line-height: 1.15;
-  padding: 2px 3px;
-  border-radius: 5px;
-  border: 1.5px solid var(--line);
-  background: var(--panel);
-  color: var(--ink);
-}
-
-.gq-runner-coin.gq-runner-label-marker {
-  border-color: var(--ok, #5a9450);
-  color: var(--ok, #5a9450);
-}
-
-.gq-runner-obstacle.gq-runner-label-marker {
-  border-color: var(--rust);
-  color: var(--rust);
-}
-
-/* ---- Context Window Tetris ---- */
-.gq-tetris-stage {
-  position: relative;
-  display: flex;
-  gap: 8px;
-  width: 100%;
-  height: 200px;
-  margin-top: 8px;
-}
-
-.gq-tetris-col {
-  position: relative;
-  flex: 1;
-  height: 100%;
-  border: 2px solid var(--line);
-  border-radius: 7px;
-  background: linear-gradient(180deg, var(--panel), var(--card));
-  overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-}
-
-.gq-tetris-col-full {
-  border-color: var(--rust);
-}
-
-.gq-tetris-fill {
-  width: 100%;
-  height: 0%;
-  background: linear-gradient(0deg, var(--rust-dark), var(--rust));
-  transition: height 0.25s ease;
-}
-
-.gq-tetris-piece {
-  position: absolute;
-  top: 6px;
-  width: calc(33.33% - 5px);
-  text-align: center;
-  font-size: 1.6rem;
-  line-height: 1;
-  transform: translateX(-50%);
-  left: 16.66%;
-  transition: left 0.16s ease, filter 0.15s ease;
-  z-index: 2;
-}
-
-/* ---- Rate-Limit Gauntlet ---- */
-.gq-gauntlet-actions {
-  flex-wrap: wrap;
-}
-
-@media (max-width: 480px) {
-  .gq-hud { flex-direction: column; align-items: flex-start; }
-}
-
-/* ---- win confetti ---- */
-.gq-winfx {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 3;
-}
-
-.gq-winfx-piece {
-  position: absolute;
-  top: -30px;
-  animation-name: gq-fall;
-  animation-timing-function: ease-in;
-  animation-fill-mode: forwards;
-}
-
-@keyframes gq-fall {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(260px) rotate(340deg); opacity: 0; }
-}
-
-/* =====================================================================
-   Juice toolkit: screen shake, flash, particle bursts, punchier feedback
-   on hits, wins, crits, and level-ups. Reused across every minigame and
-   the dice/achievement/score HUD instead of one-off effects per feature,
-   so the whole game reads as one consistent, higher-impact style. All
-   effects are short (under 500ms) and additive to existing layout, never
-   changing element size, so they never cause reflow jank.
-   ===================================================================== */
-
-.gq-shake {
-  animation: gq-shake-kf 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97);
-}
-
-@keyframes gq-shake-kf {
-  10%, 90% { transform: translate3d(-2px, 0, 0); }
-  20%, 80% { transform: translate3d(4px, 0, 0); }
-  30%, 50%, 70% { transform: translate3d(-7px, 0, 0); }
-  40%, 60% { transform: translate3d(7px, 0, 0); }
-}
-
-.gq-flash-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 4;
-  opacity: 0;
-  border-radius: inherit;
-}
-
-.gq-flash-red { background: rgba(196, 60, 42, 0.55); animation: gq-flash-kf 0.35s ease-out; }
-.gq-flash-green { background: rgba(90, 148, 80, 0.5); animation: gq-flash-kf 0.35s ease-out; }
-.gq-flash-gold { background: rgba(201, 138, 46, 0.5); animation: gq-flash-kf 0.4s ease-out; }
-
-@keyframes gq-flash-kf {
-  0% { opacity: 0.9; }
-  100% { opacity: 0; }
-}
-
-.gq-burst {
-  position: absolute;
-  inset: 0;
-  overflow: visible;
-  pointer-events: none;
-  z-index: 5;
-}
-
-.gq-burst-piece {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 1.1rem;
-  animation-name: gq-burst-kf;
-  animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
-  animation-fill-mode: forwards;
-}
-
-@keyframes gq-burst-kf {
-  0% { transform: translate(-50%, -50%) scale(0.4); opacity: 1; }
-  100% { transform: translate(calc(-50% + var(--bx, 0px)), calc(-50% + var(--by, -60px))) scale(1.1); opacity: 0; }
-}
-
-/* button/tap press feedback, applied to every clickable game control */
-.gq-choice-btn:active,
-.gq-stack-btn:active,
-.gq-item-chip:active,
-#gq-new-form button:active {
-  transform: scale(0.96);
-}
-.gq-choice-btn, .gq-item-chip { transition: transform 0.08s ease, border-color 0.15s ease, background 0.15s ease; }
-
-/* scene fade, triggered on every node change so moving down the road
-   feels like a cut between shots instead of a text swap */
-.gq-scene-fade {
-  animation: gq-scene-fade-kf 0.28s ease;
-}
-
-@keyframes gq-scene-fade-kf {
-  0% { opacity: 0; transform: translateY(4px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-/* score HUD pulse on every point gained */
-.gq-score-pulse {
-  animation: gq-score-pulse-kf 0.45s ease;
-}
-
-@keyframes gq-score-pulse-kf {
-  0% { transform: scale(1); color: var(--rust); }
-  40% { transform: scale(1.35); color: #ffcf6e; }
-  100% { transform: scale(1); color: var(--rust); }
-}
-
-/* achievement toast entrance, replacing the plain hidden/visible swap */
-.gq-achievement-toast {
-  animation: gq-toast-in-kf 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.3), gq-glow-pulse 1.4s ease-in-out infinite 0.35s;
-}
-
-@keyframes gq-toast-in-kf {
-  0% { transform: scale(0.7) translateY(-10px); opacity: 0; }
-  100% { transform: scale(1) translateY(0); opacity: 1; }
-}
-
-/* dice crit burst ring, layered behind the die on a nat 20 */
-.gq-dice-crit-ring {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 3px solid var(--rust);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  animation: gq-dice-ring-kf 0.55s ease-out forwards;
-}
-
-@keyframes gq-dice-ring-kf {
-  0% { width: 10px; height: 10px; opacity: 0.9; }
-  100% { width: 140px; height: 140px; opacity: 0; }
-}
-
-/* ---- Doom-style rising danger on the real-time minigame stages: the
-   background reddens and the vignette tightens as the run gets harder,
-   instead of a flat panel the whole way through. Toggled via a danger
-   level class (0 to 3) that JS sets based on progress/lives remaining. */
-.gq-runner, .gq-tetris-stage, .gq-gauntlet-stage {
-  position: relative;
-  transition: background 0.5s ease, box-shadow 0.5s ease;
-}
-
-.gq-danger-1 { box-shadow: inset 0 0 40px 0 rgba(196, 60, 42, 0.12); }
-.gq-danger-2 { box-shadow: inset 0 0 60px 6px rgba(196, 60, 42, 0.28); }
-.gq-danger-3 {
-  box-shadow: inset 0 0 80px 12px rgba(196, 60, 42, 0.48);
-  animation: gq-danger-pulse-kf 1.1s ease-in-out infinite;
-}
-
-@keyframes gq-danger-pulse-kf {
-  0%, 100% { box-shadow: inset 0 0 80px 12px rgba(196, 60, 42, 0.48); }
-  50% { box-shadow: inset 0 0 100px 20px rgba(196, 60, 42, 0.7); }
-}
-
-/* trailing afterimage behind the runner player, on by default, gives the
-   sprite a sense of speed instead of just teleporting between lanes */
-.gq-runner-player::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: currentColor;
-  opacity: 0;
-}
-
-.gq-runner-trail {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 1;
-  animation: gq-trail-kf 0.4s ease-out forwards;
-}
-
-@keyframes gq-trail-kf {
-  0% { opacity: 0.5; transform: scale(1); }
-  100% { opacity: 0; transform: scale(1.6); }
+@media (max-width: 560px) {
+  .gq-wrap h1 { font-size: 1.6rem; }
+  #gq-scene-title { font-size: 1.25rem; }
+  #gq-scene-text { font-size: 1rem; }
 }
