@@ -1,0 +1,106 @@
+/* The Vault: a small password-gated page for one video. Client-side check
+   only, this is a speed bump, not real security, since anyone can read
+   the JS source of a static site. */
+
+.vault-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+.vault-wrap .kicker {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  color: var(--rust-dark);
+  margin-bottom: 6px;
+}
+
+.vault-wrap h1 {
+  margin: 0 0 10px;
+  font-size: 2rem;
+}
+
+.vault-lede {
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.vault-panel {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 6px;
+  padding: 22px 24px;
+}
+
+.vault-panel h2 {
+  margin: 0 0 14px;
+  font-size: 1.2rem;
+}
+
+#vault-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
+}
+
+#vault-form label {
+  display: block;
+  width: 100%;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+}
+
+#vault-form input {
+  flex: 1;
+  min-width: 180px;
+  padding: 9px 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+#vault-form button {
+  padding: 9px 18px;
+  background: var(--rust);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#vault-form button:hover {
+  background: var(--rust-dark);
+}
+
+.vault-error {
+  margin: 12px 0 0;
+  font-size: 0.9rem;
+  color: var(--rust-dark);
+}
+
+.vault-note {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  margin: 0 0 16px;
+}
+
+#vault-video {
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #000;
+}
+
+@media (max-width: 560px) {
+  .vault-wrap h1 { font-size: 1.6rem; }
+}

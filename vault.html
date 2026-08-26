@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>The Vault | Solos Gems</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="vault.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html"><svg class="gem-icon" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true">
+        <defs>
+          <linearGradient id="gemGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ffd76a"/>
+            <stop offset="100%" stop-color="#b8790f"/>
+          </linearGradient>
+        </defs>
+        <polygon points="16,2 27,12 16,30 5,12" fill="url(#gemGrad)" stroke="#1a1a18" stroke-width="1"/>
+        <polygon points="16,2 27,12 21,12" fill="#fff3cf"/>
+        <polygon points="16,2 5,12 11,12" fill="#ffe9a8"/>
+        <polygon points="5,12 11,12 16,30" fill="#c98a1f"/>
+        <polygon points="27,12 21,12 16,30" fill="#8a5a12"/>
+        <line x1="11" y1="12" x2="21" y2="12" stroke="#1a1a18" stroke-width="0.6"/>
+      </svg><span class="logo-word">SOLOS GEMS</span></a>
+    <nav>
+      <a href="reviews.html">Reviews</a>
+      <a href="deathstack.html">DeathStack</a>
+      <a href="news.html">News</a>
+      <a href="submit.html">Submit</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="vault-wrap">
+  <span class="kicker">Members Only</span>
+  <h1>🌻 The Vault</h1>
+  <p class="vault-lede">You found the sunflower. That is most of the puzzle solved already. The rest requires a password.</p>
+
+  <section id="vault-gate" class="vault-panel">
+    <h2>Enter the password</h2>
+    <form id="vault-form">
+      <label for="vault-password">Password</label>
+      <input id="vault-password" type="password" autocomplete="off" required>
+      <button type="submit">Unlock</button>
+    </form>
+    <p id="vault-error" class="vault-error" hidden>Wrong password. Try again.</p>
+  </section>
+
+  <section id="vault-content" class="vault-panel" hidden>
+    <h2>Welcome in</h2>
+    <p class="vault-note">This is a plain HTML5 video player. If the file below does not load, the video has not been uploaded to this location yet.</p>
+    <video id="vault-video" controls preload="none">
+      <source src="videos/vault.mp4" type="video/mp4">
+      Your browser does not support embedded video. <a href="videos/vault.mp4">Download it directly</a> instead.
+    </video>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Solos Gems is an independent site. Some links may be affiliate links; we only recommend tools we'd use ourselves. See <a href="about.html">About</a> for details.</p>
+  </div>
+</footer>
+
+<script src="vault.js" defer></script>
+</body>
+</html>
