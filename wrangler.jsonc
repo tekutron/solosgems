@@ -1,30 +1,31 @@
 {
-  "$schema": "https://developers.cloudflare.com/workers/wrangler/config-schema.json",
-  "name": "throbbing-mode-5ef2",
-  "main": "worker.js",
-  "compatibility_date": "2026-08-05",
-  "assets": {
-    "directory": "./",
-    "binding": "ASSETS"
-  },
-  "kv_namespaces": [
-    {
-      "binding": "SUBSCRIBERS",
-      "id": "d3a0828b34be497aa2a264631373be7b"
-    },
-    {
-      "binding": "SUBMISSIONS",
-      "id": "55764449171e450e93d688b4485fc7a9"
-    },
-    {
-      "binding": "NEWS",
-      "id": "36562e96bcdb41849da8d7a33f1d8407"
-    }
-  ],
-  "triggers": {
-    "crons": ["0 */6 * * *"]
-  },
-  "ai": {
-    "binding": "AI"
-  }
+"$schema": "https://developers.cloudflare.com/workers/wrangler/config-schema.json",
+"name": "throbbing-mode-5ef2",
+"main": "worker.js",
+"compatibility_date": "2026-08-05",
+"assets": {
+"directory": "./",
+"binding": "ASSETS",
+"html_handling": "none"
+},
+"kv_namespaces": [
+{
+"binding": "SUBSCRIBERS",
+"id": "d3a0828b34be497aa2a264631373be7b"
+},
+{
+"binding": "SUBMISSIONS",
+"id": "55764449171e450e93d688b4485fc7a9"
+},
+{
+"binding": "NEWS",
+"id": "36562e96bcdb41849da8d7a33f1d8407"
+}
+],
+"triggers": {
+"crons": ["0 */6 * * *"]
+},
+"ai": {
+"binding": "AI"
+}
 }
