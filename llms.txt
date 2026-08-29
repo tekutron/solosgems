@@ -6,64 +6,64 @@ Last updated: 2026-08-20.
 
 ## Reviews (ranked #1-51, current as of last update, full list at https://solosgems.com/reviews)
 
-- [Canva Magic Studio](https://solosgems.com/reviews/canva-magic-studio): #1, 8.7/10. AI design tools (background removal, resizing, on-brand generation) bundled into Canva Pro.
-- [NotebookLM](https://solosgems.com/reviews/notebooklm): #2, 8.6/10. Google's source-grounded AI notebook; free tier covers 100 notebooks and 50 chats a day. Best Free Tier.
-- [Fireflies.ai](https://solosgems.com/reviews/fireflies-ai): #3, 8.4/10. Meeting transcription with unlimited minutes on every tier, including free. Best Value.
-- [Beehiiv](https://solosgems.com/reviews/beehiiv): #4, 8.2/10. Newsletter platform built for monetization from day one; 0% commission on paid subscriptions. Safest Free Trial.
-- [Grammarly](https://solosgems.com/reviews/grammarly): #5, 8.1/10. Grammar, tone, and clarity checking everywhere you write; annual Pro billing is far cheaper than monthly.
-- [Otter.ai](https://solosgems.com/reviews/otter-ai): #6, 8.0/10. Real-time meeting transcription and summaries; Business tier bills a 5-seat minimum.
-- [Photoroom](https://solosgems.com/reviews/photoroom): #7, 7.9/10. AI background removal and product photo editing for solo sellers, from $7.50/month billed yearly.
-- [Granola](https://solosgems.com/reviews/granola): #8, 7.9/10. Desktop AI notetaker with no visible bot on the call, blends its transcript with your own typed notes, free to start or $14/user/month for unlimited history.
-- [Descript](https://solosgems.com/reviews/descript): #9, 7.8/10. Edit audio/video by editing a text transcript. Most Powerful.
-- [Reclaim.ai](https://solosgems.com/reviews/reclaim-ai): #10, 7.8/10. An AI calendar that auto-schedules habits and focus time around your meetings, and defends the block itself the moment something collides. Genuinely free tier, Starter from $10/seat/month.
-- [Koala AI](https://solosgems.com/reviews/koala-ai): #11, 7.7/10. AI writer built for SEO-optimized articles, from $9/month.
-- [Airtable](https://solosgems.com/reviews/airtable): #12, 7.6/10. Spreadsheet-database hybrid with AI credits; free plan covers most solo use cases outright.
-- [tl;dv](https://solosgems.com/reviews/tldv): #13, 7.6/10. AI meeting recorder with unlimited free recording and transcription; free plan caps AI summaries at 10/month, Pro from $18/user/month.
-- [Wispr Flow](https://solosgems.com/reviews/wispr-flow): #14, 7.55/10. Voice dictation that turns speech into clean writing in any app, free up to 2,000 words/week or $12/user/month for unlimited.
-- [ClickUp Brain](https://solosgems.com/reviews/clickup-ai): #15, 7.5/10. AI layer on ClickUp's project management platform, sold as a paid add-on.
-- [Attio](https://solosgems.com/reviews/attio): #16, 7.5/10. Flexible, data-first CRM with AI enrichment on every plan, including free (3 seats, 50,000 records); Plus from $29/seat/month.
-- [Toggl Track](https://solosgems.com/reviews/toggl-track): #17, 7.4/10. Time tracking with AI-assisted categorization; free for up to 5 users.
-- [Calendly](https://solosgems.com/reviews/calendly): #18, 7.3/10. Scheduling with AI-assisted call routing and no-show reduction. Easiest Start.
-- [Craft](https://solosgems.com/reviews/craft): #19, 7.3/10. Visually polished notes and docs app with AI writing help, free up to 1,500 blocks or $8/month for unlimited content.
-- [Bonsai](https://solosgems.com/reviews/bonsai): #20, 7.2/10. Contracts, invoicing, and scheduling for freelancers; Essentials tier is the sweet spot.
-- [Durable](https://solosgems.com/reviews/durable): #21, 7.2/10. AI website builder with a full CRM and booking calendar, free to start or from $25/month for a custom domain.
-- [HubSpot Free CRM](https://solosgems.com/reviews/hubspot-free-crm): #22, 7.1/10. Free CRM tier is genuinely solid; AI features (Breeze) are rate-limited or paid.
-- [Loom](https://solosgems.com/reviews/loom): #23, 7.0/10. Async video messaging with AI transcripts and summaries; free tier caps videos at 5 minutes.
-- [Numerous.ai](https://solosgems.com/reviews/numerous-ai): #24, 6.95/10. AI formula that runs a plain-language instruction inside Google Sheets and Excel, from $8/month billed yearly.
-- [Gamma](https://solosgems.com/reviews/gamma): #25, 6.9/10. Turns a prompt into a formatted slide deck, document, or webpage.
-- [Make](https://solosgems.com/reviews/make): #26, 6.8/10. Visual automation platform and a direct alternative to Zapier; credit-based pricing.
-- [Midjourney](https://solosgems.com/reviews/midjourney): #27, 6.7/10. Distinctive AI image generation; no free plan.
-- [Shortwave](https://solosgems.com/reviews/shortwave): #28, 6.6/10. AI email client that triages and summarizes your inbox; $18/seat/month for Pro.
-- [Anara](https://solosgems.com/reviews/anara): #29, 6.6/10. AI research assistant that cites the exact passage in your own documents an answer came from, free to try or $20/month Pro for unlimited use.
-- [Copy.ai vs. Jasper](https://solosgems.com/reviews/copyai-vs-jasper): #30, 6.5/10. Head-to-head AI copywriting comparison for solo operators.
-- [Framer](https://solosgems.com/reviews/framer): #31, 6.4/10. AI-assisted website builder; generate and publish a real site from a prompt, then edit visually.
-- [Zapier AI Actions](https://solosgems.com/reviews/zapier-ai): #32, 6.3/10. AI decision-making steps inside Zapier automations; new pricing model is easy to overspend on.
-- [Instantly.ai](https://solosgems.com/reviews/instantly-ai): #33, 6.3/10. Cold email at scale with unlimited mailboxes and warmup, from $37.60/month, though a fully wired setup with the lead database and CRM add-ons costs more.
-- [Riverside.fm](https://solosgems.com/reviews/riverside): #34, 6.2/10. Studio-quality remote podcast and video recording with local-device recording.
-- [Suno](https://solosgems.com/reviews/suno): #35, 6.15/10. AI music generation from a text prompt, full songs with vocals, free or from $8/month billed yearly for commercial use.
-- [ElevenLabs](https://solosgems.com/reviews/elevenlabs): #36, 6.1/10. AI voice generation and cloning; free tier is watermarked and non-commercial.
-- [Chatbase](https://solosgems.com/reviews/chatbase): #37, 6.0/10. Custom AI chatbot trained on your own site or docs, from $32/month.
-- [Cursor](https://solosgems.com/reviews/cursor): #38, 5.9/10. AI-native code editor for solopreneurs building their own product.
-- [QuickBooks Solopreneur](https://solosgems.com/reviews/quickbooks-solopreneur): #39, 5.8/10. Bookkeeping built for one-person Schedule-C businesses, not a scaled-down QuickBooks Online.
-- [OpusClip](https://solosgems.com/reviews/opusclip): #40, 5.7/10. Turns long-form video into short social clips automatically, from $15/month.
-- [v0](https://solosgems.com/reviews/vercel-v0): #41, 5.65/10. Generates real, working frontend UI code from a prompt, free or from $30/user/month.
-- [Runway](https://solosgems.com/reviews/runway): #42, 5.6/10. AI video generation and editing for solo creators, from $15/month.
-- [Notion AI](https://solosgems.com/reviews/notion-ai): #43, 5.5/10. Notion's AI layer now requires the $20/user/month Business plan.
-- [Motion](https://solosgems.com/reviews/motion): #44, 5.4/10. AI calendar that auto-schedules your tasks around meetings; no free plan.
-- [Typeform](https://solosgems.com/reviews/typeform): #45, 5.3/10. Conversational forms and surveys with AI-assisted question generation, from $28/month.
-- [Semrush](https://solosgems.com/reviews/semrush): #46, 5.2/10. SEO research with AI-assisted content and keyword tools, from $139.95/month.
-- [Apollo.io](https://solosgems.com/reviews/apollo-io): #47, 5.1/10. AI-assisted lead sourcing and outreach sequencing, from $49/user/month.
-- [Perplexity Pro](https://solosgems.com/reviews/perplexity-pro): #48, 5.0/10. Cited, sourced AI search; a nice-to-have if you already pay for another AI assistant.
-- [Synthesia](https://solosgems.com/reviews/synthesia): #49, 4.9/10. Turns a script into a talking-avatar video, from $14/month.
-- [Bland AI](https://solosgems.com/reviews/bland-ai): #50, 4.8/10. Programmable AI voice agents billed per minute, from $0.14/min.
-- [Lovable](https://solosgems.com/reviews/lovable): #51, 4.7/10. Describe an app in plain English and get a working frontend and backend, from $25/month.
+- [Canva Magic Studio](https://solosgems.com/reviews/canva-magic-studio.html): #1, 8.7/10. AI design tools (background removal, resizing, on-brand generation) bundled into Canva Pro.
+- [NotebookLM](https://solosgems.com/reviews/notebooklm.html): #2, 8.6/10. Google's source-grounded AI notebook; free tier covers 100 notebooks and 50 chats a day. Best Free Tier.
+- [Fireflies.ai](https://solosgems.com/reviews/fireflies-ai.html): #3, 8.4/10. Meeting transcription with unlimited minutes on every tier, including free. Best Value.
+- [Beehiiv](https://solosgems.com/reviews/beehiiv.html): #4, 8.2/10. Newsletter platform built for monetization from day one; 0% commission on paid subscriptions. Safest Free Trial.
+- [Grammarly](https://solosgems.com/reviews/grammarly.html): #5, 8.1/10. Grammar, tone, and clarity checking everywhere you write; annual Pro billing is far cheaper than monthly.
+- [Otter.ai](https://solosgems.com/reviews/otter-ai.html): #6, 8.0/10. Real-time meeting transcription and summaries; Business tier bills a 5-seat minimum.
+- [Photoroom](https://solosgems.com/reviews/photoroom.html): #7, 7.9/10. AI background removal and product photo editing for solo sellers, from $7.50/month billed yearly.
+- [Granola](https://solosgems.com/reviews/granola.html): #8, 7.9/10. Desktop AI notetaker with no visible bot on the call, blends its transcript with your own typed notes, free to start or $14/user/month for unlimited history.
+- [Descript](https://solosgems.com/reviews/descript.html): #9, 7.8/10. Edit audio/video by editing a text transcript. Most Powerful.
+- [Reclaim.ai](https://solosgems.com/reviews/reclaim-ai.html): #10, 7.8/10. An AI calendar that auto-schedules habits and focus time around your meetings, and defends the block itself the moment something collides. Genuinely free tier, Starter from $10/seat/month.
+- [Koala AI](https://solosgems.com/reviews/koala-ai.html): #11, 7.7/10. AI writer built for SEO-optimized articles, from $9/month.
+- [Airtable](https://solosgems.com/reviews/airtable.html): #12, 7.6/10. Spreadsheet-database hybrid with AI credits; free plan covers most solo use cases outright.
+- [tl;dv](https://solosgems.com/reviews/tldv.html): #13, 7.6/10. AI meeting recorder with unlimited free recording and transcription; free plan caps AI summaries at 10/month, Pro from $18/user/month.
+- [Wispr Flow](https://solosgems.com/reviews/wispr-flow.html): #14, 7.55/10. Voice dictation that turns speech into clean writing in any app, free up to 2,000 words/week or $12/user/month for unlimited.
+- [ClickUp Brain](https://solosgems.com/reviews/clickup-ai.html): #15, 7.5/10. AI layer on ClickUp's project management platform, sold as a paid add-on.
+- [Attio](https://solosgems.com/reviews/attio.html): #16, 7.5/10. Flexible, data-first CRM with AI enrichment on every plan, including free (3 seats, 50,000 records); Plus from $29/seat/month.
+- [Toggl Track](https://solosgems.com/reviews/toggl-track.html): #17, 7.4/10. Time tracking with AI-assisted categorization; free for up to 5 users.
+- [Calendly](https://solosgems.com/reviews/calendly.html): #18, 7.3/10. Scheduling with AI-assisted call routing and no-show reduction. Easiest Start.
+- [Craft](https://solosgems.com/reviews/craft.html): #19, 7.3/10. Visually polished notes and docs app with AI writing help, free up to 1,500 blocks or $8/month for unlimited content.
+- [Bonsai](https://solosgems.com/reviews/bonsai.html): #20, 7.2/10. Contracts, invoicing, and scheduling for freelancers; Essentials tier is the sweet spot.
+- [Durable](https://solosgems.com/reviews/durable.html): #21, 7.2/10. AI website builder with a full CRM and booking calendar, free to start or from $25/month for a custom domain.
+- [HubSpot Free CRM](https://solosgems.com/reviews/hubspot-free-crm.html): #22, 7.1/10. Free CRM tier is genuinely solid; AI features (Breeze) are rate-limited or paid.
+- [Loom](https://solosgems.com/reviews/loom.html): #23, 7.0/10. Async video messaging with AI transcripts and summaries; free tier caps videos at 5 minutes.
+- [Numerous.ai](https://solosgems.com/reviews/numerous-ai.html): #24, 6.95/10. AI formula that runs a plain-language instruction inside Google Sheets and Excel, from $8/month billed yearly.
+- [Gamma](https://solosgems.com/reviews/gamma.html): #25, 6.9/10. Turns a prompt into a formatted slide deck, document, or webpage.
+- [Make](https://solosgems.com/reviews/make.html): #26, 6.8/10. Visual automation platform and a direct alternative to Zapier; credit-based pricing.
+- [Midjourney](https://solosgems.com/reviews/midjourney.html): #27, 6.7/10. Distinctive AI image generation; no free plan.
+- [Shortwave](https://solosgems.com/reviews/shortwave.html): #28, 6.6/10. AI email client that triages and summarizes your inbox; $18/seat/month for Pro.
+- [Anara](https://solosgems.com/reviews/anara.html): #29, 6.6/10. AI research assistant that cites the exact passage in your own documents an answer came from, free to try or $20/month Pro for unlimited use.
+- [Copy.ai vs. Jasper](https://solosgems.com/reviews/copyai-vs-jasper.html): #30, 6.5/10. Head-to-head AI copywriting comparison for solo operators.
+- [Framer](https://solosgems.com/reviews/framer.html): #31, 6.4/10. AI-assisted website builder; generate and publish a real site from a prompt, then edit visually.
+- [Zapier AI Actions](https://solosgems.com/reviews/zapier-ai.html): #32, 6.3/10. AI decision-making steps inside Zapier automations; new pricing model is easy to overspend on.
+- [Instantly.ai](https://solosgems.com/reviews/instantly-ai.html): #33, 6.3/10. Cold email at scale with unlimited mailboxes and warmup, from $37.60/month, though a fully wired setup with the lead database and CRM add-ons costs more.
+- [Riverside.fm](https://solosgems.com/reviews/riverside.html): #34, 6.2/10. Studio-quality remote podcast and video recording with local-device recording.
+- [Suno](https://solosgems.com/reviews/suno.html): #35, 6.15/10. AI music generation from a text prompt, full songs with vocals, free or from $8/month billed yearly for commercial use.
+- [ElevenLabs](https://solosgems.com/reviews/elevenlabs.html): #36, 6.1/10. AI voice generation and cloning; free tier is watermarked and non-commercial.
+- [Chatbase](https://solosgems.com/reviews/chatbase.html): #37, 6.0/10. Custom AI chatbot trained on your own site or docs, from $32/month.
+- [Cursor](https://solosgems.com/reviews/cursor.html): #38, 5.9/10. AI-native code editor for solopreneurs building their own product.
+- [QuickBooks Solopreneur](https://solosgems.com/reviews/quickbooks-solopreneur.html): #39, 5.8/10. Bookkeeping built for one-person Schedule-C businesses, not a scaled-down QuickBooks Online.
+- [OpusClip](https://solosgems.com/reviews/opusclip.html): #40, 5.7/10. Turns long-form video into short social clips automatically, from $15/month.
+- [v0](https://solosgems.com/reviews/vercel-v0.html): #41, 5.65/10. Generates real, working frontend UI code from a prompt, free or from $30/user/month.
+- [Runway](https://solosgems.com/reviews/runway.html): #42, 5.6/10. AI video generation and editing for solo creators, from $15/month.
+- [Notion AI](https://solosgems.com/reviews/notion-ai.html): #43, 5.5/10. Notion's AI layer now requires the $20/user/month Business plan.
+- [Motion](https://solosgems.com/reviews/motion.html): #44, 5.4/10. AI calendar that auto-schedules your tasks around meetings; no free plan.
+- [Typeform](https://solosgems.com/reviews/typeform.html): #45, 5.3/10. Conversational forms and surveys with AI-assisted question generation, from $28/month.
+- [Semrush](https://solosgems.com/reviews/semrush.html): #46, 5.2/10. SEO research with AI-assisted content and keyword tools, from $139.95/month.
+- [Apollo.io](https://solosgems.com/reviews/apollo-io.html): #47, 5.1/10. AI-assisted lead sourcing and outreach sequencing, from $49/user/month.
+- [Perplexity Pro](https://solosgems.com/reviews/perplexity-pro.html): #48, 5.0/10. Cited, sourced AI search; a nice-to-have if you already pay for another AI assistant.
+- [Synthesia](https://solosgems.com/reviews/synthesia.html): #49, 4.9/10. Turns a script into a talking-avatar video, from $14/month.
+- [Bland AI](https://solosgems.com/reviews/bland-ai.html): #50, 4.8/10. Programmable AI voice agents billed per minute, from $0.14/min.
+- [Lovable](https://solosgems.com/reviews/lovable.html): #51, 4.7/10. Describe an app in plain English and get a working frontend and backend, from $25/month.
 
 ## Other pages
 
-- [Homepage / full ranking](https://solosgems.com/index): All 226+ tools in a filterable, searchable database, plus a tool-finder quiz.
-- [About / methodology](https://solosgems.com/about): How reviews are built, how the ranking/scoring works, and the affiliate disclosure.
-- [State of AI Tools for Solopreneurs 2026](https://solosgems.com/state-of-ai-tools): Original aggregate data pulled from the 51 scored reviews, median score, free-tier rate, category breadth, updated as new reviews are added.
-- [DeathStack](https://solosgems.com/deathstack): 25 real, sourced case studies of AI tools and services that shut down (ChatGPT Plugins, Neeva, Olive AI, Builder.ai, Tune AI, Woebot, Coqui AI, Yara AI, Ghost Autonomy, Forward Health, Humane AI Pin, Tome, Sora, ChatGPT Atlas, Yupp, theGist, Reforged Labs, Relay.app, Astra, Doppl, Cruise, IBM Watson Health, Amazon Halo, Meta Galactica, and the PDF-chat wrapper category), with cause of death and the lesson for solopreneurs relying on a single AI vendor.
-- [News](https://solosgems.com/news): Live AI industry headlines pulled automatically from TechCrunch, VentureBeat, MIT Technology Review, Wired, and Hacker News, refreshed on a schedule. Flagged for controversy/high discussion volume and for mentions of tools in this database.
-- [Submit](https://solosgems.com/submit): Submit an AI tool for review, or report a defunct AI tool/service for the DeathStack graveyard.
-- [The Road to Solos Gems](https://solosgems.com/game): A choose-your-own-adventure game with dice checks, several minigames including a couple of fast, escalating lane-dodge runner sequences, hidden choices unlocked by earlier decisions, and a gamertag-based save system, reachable from the Quest badge next to the logo in the site header. Eight real reviewed tools (NotebookLM, Grammarly, Wispr Flow, Descript, Canva, Fireflies.ai, Reclaim.ai, tl;dv) appear as collectible items you can activate on demand, a hidden graveyard detour features ghost cameos of real defunct AI products pulled from the DeathStack, and the final boss is modeled on the Builder.ai DeathStack entry.
+- [Homepage / full ranking](https://solosgems.com/index.html): All 226+ tools in a filterable, searchable database, plus a tool-finder quiz.
+- [About / methodology](https://solosgems.com/about.html): How reviews are built, how the ranking/scoring works, and the affiliate disclosure.
+- [State of AI Tools for Solopreneurs 2026](https://solosgems.com/state-of-ai-tools.html): Original aggregate data pulled from the 51 scored reviews, median score, free-tier rate, category breadth, updated as new reviews are added.
+- [DeathStack](https://solosgems.com/deathstack.html): 25 real, sourced case studies of AI tools and services that shut down (ChatGPT Plugins, Neeva, Olive AI, Builder.ai, Tune AI, Woebot, Coqui AI, Yara AI, Ghost Autonomy, Forward Health, Humane AI Pin, Tome, Sora, ChatGPT Atlas, Yupp, theGist, Reforged Labs, Relay.app, Astra, Doppl, Cruise, IBM Watson Health, Amazon Halo, Meta Galactica, and the PDF-chat wrapper category), with cause of death and the lesson for solopreneurs relying on a single AI vendor.
+- [News](https://solosgems.com/news.html): Live AI industry headlines pulled automatically from TechCrunch, VentureBeat, MIT Technology Review, Wired, and Hacker News, refreshed on a schedule. Flagged for controversy/high discussion volume and for mentions of tools in this database.
+- [Submit](https://solosgems.com/submit.html): Submit an AI tool for review, or report a defunct AI tool/service for the DeathStack graveyard.
+- [The Road to Solos Gems](https://solosgems.com/game.html): A choose-your-own-adventure game with dice checks, several minigames including a couple of fast, escalating lane-dodge runner sequences, hidden choices unlocked by earlier decisions, and a gamertag-based save system, reachable from the Quest badge next to the logo in the site header. Eight real reviewed tools (NotebookLM, Grammarly, Wispr Flow, Descript, Canva, Fireflies.ai, Reclaim.ai, tl;dv) appear as collectible items you can activate on demand, a hidden graveyard detour features ghost cameos of real defunct AI products pulled from the DeathStack, and the final boss is modeled on the Builder.ai DeathStack entry.
