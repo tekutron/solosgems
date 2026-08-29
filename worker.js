@@ -8,6 +8,17 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    // html_handling is set to "none" in wrangler.jsonc (so /foo.html doesn't
+    // auto-redirect to /foo). That also turns off the default "/" -> index.html
+    // mapping, so a bare root request falls through to this handler instead of
+    // being served as a static asset. Rewrite it explicitly so the homepage
+    // still loads at https://solosgems.com/.
+    if (url.pathname === "/") {
+      const assetUrl = new URL(request.url);
+      assetUrl.pathname = "/index.html";
+      return env.ASSETS.fetch(new Request(assetUrl, request));
+    }
+
     if (url.pathname === "/api/subscribe") {
       if (request.method === "POST") {
         return handleSubscribe(request, env);
