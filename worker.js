@@ -764,14 +764,22 @@ async function generateRealmImage(countryName, hotTool, env) {
 }
 
 async function gatherRealms(env) {
+  let prevPayload = null;
   if (env.REALMS) {
     const prevRaw = await env.REALMS.get("latest");
     if (prevRaw) {
       try {
-        const prev = JSON.parse(prevRaw);
-        if (prev.generated_at) {
-          const age = Date.now() - new Date(prev.generated_at).getTime();
-          if (age < 6 * 60 * 60 * 1000) return prev; // self-throttle, refreshed less than 6h ago
+        prevPayload = JSON.parse(prevRaw);
+        if (prevPayload.generated_at) {
+          const age = Date.now() - new Date(prevPayload.generated_at).getTime();
+          const hadCountries = Array.isArray(prevPayload.countries) && prevPayload.countries.length > 0;
+          // Normal self-throttle is 6h. But if the last run came back with zero
+          // countries (almost always GDELT's shared-IP rate limit, confirmed live -
+          // see gatherGlobalCountryMentions comment), only hold that empty result
+          // for 10 minutes so the next request/cron tick gets a real retry instead
+          // of being stuck showing an empty map for hours.
+          const throttleMs = hadCountries ? 6 * 60 * 60 * 1000 : 10 * 60 * 1000;
+          if (age < throttleMs) return prevPayload;
         }
       } catch (err) {
         // fall through and regenerate if stored value is malformed
@@ -780,19 +788,26 @@ async function gatherRealms(env) {
   }
 
   const globalCountries = await gatherGlobalCountryMentions();
-  const topGlobal = globalCountries.slice(0, 12);
+  let topGlobal = globalCountries.slice(0, 12);
 
   let previousByCountry = new Map();
-  if (env.REALMS) {
-    const prevRaw = await env.REALMS.get("latest");
-    if (prevRaw) {
-      try {
-        const prev = JSON.parse(prevRaw);
-        for (const c of prev.countries || []) previousByCountry.set(c.name, c);
-      } catch (err) {
-        // ignore malformed previous payload
-      }
-    }
+  if (prevPayload) {
+    for (const c of prevPayload.countries || []) previousByCountry.set(c.name, c);
+  }
+
+  // GDELT came back empty this run (rate-limited or transient outage). Rather
+  // than wipe the map to nothing, carry forward the last known-good country
+  // data so the page keeps showing real (if slightly stale) mentions until
+  // the next successful gather.
+  let carriedOverCountries = false;
+  if (topGlobal.length === 0 && prevPayload && Array.isArray(prevPayload.countries) && prevPayload.countries.length > 0) {
+    carriedOverCountries = true;
+    topGlobal = prevPayload.countries.map((c) => ({
+      country: c.name,
+      value: c.mentions,
+      headlines: c.headlines || [],
+      hotTool: c.hotTool || null,
+    }));
   }
 
   let flavorBudget = MAX_REALM_FLAVOR_PER_RUN;
@@ -849,6 +864,7 @@ async function gatherRealms(env) {
   const payload = {
     generated_at: new Date().toISOString(),
     countries,
+    countriesStale: carriedOverCountries,
     categories: {
       newsMentions: countries.map((c) => ({
         name: c.name,
