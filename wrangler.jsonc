@@ -20,6 +20,10 @@
 {
 "binding": "NEWS",
 "id": "36562e96bcdb41849da8d7a33f1d8407"
+},
+{
+"binding": "REALMS",
+"id": "3e81a86717124477b2695139999b4799"
 }
 ],
 "triggers": {

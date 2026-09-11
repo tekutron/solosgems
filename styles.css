@@ -1715,3 +1715,283 @@ footer .wrap { max-width: var(--max-width); margin: 0 auto; }
   .pros-cons { grid-template-columns: 1fr; }
   nav a { margin-left: 12px; font-size: 0.85rem; }
 }
+
+/* ---------- Realm map (realms.html) ---------- */
+.realm-map-wrap {
+  margin: 28px 0 12px;
+}
+
+.realm-map {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  border: 3px solid #7a6440;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #221d16;
+}
+
+.realm-map-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.realm-markers {
+  position: absolute;
+  inset: 0;
+}
+
+.realm-marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.realm-marker-glow {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffd76a 0%, #e0692a 55%, rgba(177,69,14,0) 75%);
+  box-shadow: 0 0 10px 2px rgba(224, 105, 42, 0.65);
+  animation: realm-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes realm-pulse {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+.realm-marker-label {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 3px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.62rem;
+  color: #ffe9a8;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  opacity: 0;
+  transition: opacity 0.12s;
+  pointer-events: none;
+}
+
+.realm-marker:hover .realm-marker-label,
+.realm-marker:focus .realm-marker-label {
+  opacity: 1;
+}
+
+.realm-map-caption {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  text-align: center;
+  margin: 10px 0 0;
+}
+
+.realm-popover-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 9, 7, 0.72);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.realm-popover-backdrop[hidden] { display: none; }
+
+.realm-popover {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  background: var(--panel);
+  border: 2px solid var(--rust);
+  border-radius: 8px;
+  padding: 26px 26px 22px;
+}
+
+.realm-popover-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.realm-popover-close:hover { color: var(--rust-dark); }
+
+.realm-popover-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1.5px solid var(--line);
+  margin: 0 0 14px;
+}
+.realm-popover-img[hidden] { display: none; }
+
+.realm-popover-kicker {
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--rust-dark);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.realm-popover-name {
+  margin: 0 0 8px;
+  font-size: 1.3rem;
+}
+
+.realm-popover-caption {
+  font-style: italic;
+  color: var(--ink-soft);
+  border-left: 3px solid var(--rust);
+  padding-left: 12px;
+  margin: 0 0 14px;
+  font-size: 0.92rem;
+}
+.realm-popover-caption:empty { display: none; }
+
+.realm-popover-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+  font-family: "IBM Plex Mono", monospace;
+}
+.realm-popover-stats strong { color: var(--ink); }
+
+.realm-popover-block {
+  font-size: 0.9rem;
+  margin: 0 0 12px;
+  line-height: 1.5;
+}
+.realm-popover-block:empty { display: none; }
+.realm-popover-block strong { color: var(--rust-dark); }
+.realm-popover-block.alt { color: var(--ink-soft); }
+.realm-popover-block.fact {
+  border-left: 4px solid var(--rust-dark);
+  background: var(--card);
+  padding: 10px 14px;
+}
+
+.realm-popover-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.82rem;
+}
+.realm-popover-links a { text-decoration: none; }
+.realm-popover-links a:hover { text-decoration: underline; }
+
+.realm-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.realm-column {
+  border: 1.5px solid var(--line);
+  background: var(--card);
+  padding: 18px 18px 8px;
+  scroll-margin-top: 100px;
+}
+
+.realm-column h3 {
+  margin: 0 0 4px;
+  font-size: 0.95rem;
+}
+
+.realm-column-tag {
+  display: block;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.realm-column-list { margin-top: 12px; }
+
+.realm-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+.realm-column-list .realm-row:first-child { border-top: none; }
+
+.realm-row-rank {
+  flex: none;
+  width: 26px;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 700;
+  font-size: 0.74rem;
+  color: var(--ink-soft);
+}
+
+.realm-row-body { min-width: 0; flex: 1 1 auto; }
+.realm-row-body h4 {
+  margin: 0 0 3px;
+  font-size: 0.86rem;
+  font-family: "IBM Plex Mono", monospace;
+}
+.realm-row-body p {
+  margin: 0 0 3px;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+.realm-row-headline {
+  font-size: 0.76rem;
+}
+.realm-row-headline a { text-decoration: none; }
+.realm-row-headline a:hover { text-decoration: underline; }
+
+.realm-trend-up { color: var(--ok); }
+.realm-trend-down { color: var(--rust-dark); }
+
+.realm-loading {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  padding: 8px 0 16px;
+}
+
+@media (max-width: 900px) {
+  .realm-columns { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .realm-marker-label { display: none; }
+}
+</content>

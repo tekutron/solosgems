@@ -47,6 +47,20 @@ export default {
       return new Response("Method not allowed", { status: 405 });
     }
 
+    if (url.pathname === "/api/realms") {
+      if (request.method === "GET") {
+        return handleGetRealms(env);
+      }
+      return new Response("Method not allowed", { status: 405 });
+    }
+
+    if (url.pathname === "/api/realms/refresh") {
+      if (request.method === "GET" || request.method === "POST") {
+        return handleRefreshRealms(env);
+      }
+      return new Response("Method not allowed", { status: 405 });
+    }
+
     // Temporary, manually-keyed endpoint used to batch-regenerate the D&D-style
     // review hero images via Workers AI. Not linked anywhere on the site.
     // Remove this route once the one-time image batch is regenerated.
@@ -62,6 +76,7 @@ export default {
 
   async scheduled(event, env, ctx) {
     ctx.waitUntil(gatherNews(env));
+    ctx.waitUntil(gatherRealms(env));
   },
 };
 
@@ -488,4 +503,435 @@ async function handleGenImage(request, env) {
       headers: { "Content-Type": "application/json" },
     });
   }
+}
+
+// ---------------- Realm map (AI activity by region) ----------------
+// Powers /realms.html. Three real, free, no-key data sources, each doing a
+// different honest job rather than pretending to be one unified "usage"
+// number:
+//   1. GDELT (api.gdeltproject.org) - a free, no-auth global news-monitoring
+//      API. mode=timelinesourcecountry gives a same-request breakdown of
+//      which countries are publishing the most news mentioning AI tools
+//      right now. This drives the map markers.
+//   2. Wikipedia's official Pageviews REST API (wikimedia.org) - real daily
+//      article view counts, no key required. Used as a "what people are
+//      reading about" interest signal per tool. It is NOT a per-country
+//      breakdown (Wikipedia doesn't expose that), so it is presented as a
+//      global interest ranking, not mapped to the globe.
+//   3. GitHub's public search API - real repo data. GitHub does not expose
+//      contributor location at any usable scale for free, so this is a
+//      global "what's being built" trending list, not a per-country map
+//      layer either.
+// NOTE: GDELT's exact TimelineSourceCountry JSON shape could not be
+// confirmed against a live response while building this (this sandbox's
+// outbound network allowlist blocks api.gdeltproject.org, so this was
+// written against GDELT's published docs/examples, not a live test).
+// Parsing below is defensive and degrades to an empty list rather than
+// throwing if the shape doesn't match. Worth spot-checking /api/realms
+// once deployed and adjusting parseGdeltTimelineCountries() if needed.
+
+// A curated set of countries GDELT commonly attributes AI-related coverage
+// to, with approximate centroids (lat, lon) used to place map markers via
+// an equirectangular projection, and the FIPS 10-4 two-letter code GDELT's
+// sourcecountry: filter expects (used only for the follow-up per-country
+// and per-tool queries below, not for the initial global breakdown).
+const REALM_COUNTRIES = {
+  "United States": { fips: "US", lat: 39.8, lon: -98.6 },
+  "United Kingdom": { fips: "UK", lat: 54.0, lon: -2.0 },
+  "Canada": { fips: "CA", lat: 56.1, lon: -106.3 },
+  "Germany": { fips: "GM", lat: 51.2, lon: 10.4 },
+  "France": { fips: "FR", lat: 46.6, lon: 2.2 },
+  "Japan": { fips: "JA", lat: 36.2, lon: 138.3 },
+  "China": { fips: "CH", lat: 35.9, lon: 104.2 },
+  "India": { fips: "IN", lat: 22.0, lon: 79.0 },
+  "Brazil": { fips: "BR", lat: -10.3, lon: -53.2 },
+  "Australia": { fips: "AS", lat: -25.3, lon: 133.8 },
+  "South Korea": { fips: "KS", lat: 36.5, lon: 127.8 },
+  "Russia": { fips: "RS", lat: 61.5, lon: 100.0 },
+  "South Africa": { fips: "SF", lat: -30.6, lon: 22.9 },
+  "Mexico": { fips: "MX", lat: 23.6, lon: -102.5 },
+  "Italy": { fips: "IT", lat: 41.9, lon: 12.6 },
+  "Spain": { fips: "SP", lat: 40.5, lon: -3.7 },
+  "Netherlands": { fips: "NL", lat: 52.1, lon: 5.3 },
+  "Singapore": { fips: "SN", lat: 1.35, lon: 103.8 },
+  "Indonesia": { fips: "ID", lat: -0.8, lon: 113.9 },
+  "Israel": { fips: "IS", lat: 31.0, lon: 34.8 },
+  "Nigeria": { fips: "NI", lat: 9.1, lon: 8.7 },
+  "Poland": { fips: "PL", lat: 51.9, lon: 19.1 },
+  "Sweden": { fips: "SW", lat: 60.1, lon: 18.6 },
+  "Ukraine": { fips: "UP", lat: 48.4, lon: 31.2 },
+  "Taiwan": { fips: "TW", lat: 23.7, lon: 121.0 },
+};
+
+// Tools probed individually to figure out which one is driving coverage in
+// each hot country. Kept short (not the full 150+ TOOL_NAMES list) to stay
+// well inside Cloudflare Workers' per-invocation subrequest budget.
+const REALM_PROBE_TOOLS = [
+  "ChatGPT", "Claude", "Gemini", "Midjourney", "Perplexity",
+  "GitHub Copilot", "Grok", "DeepSeek", "Cursor", "ElevenLabs", "Notion AI",
+];
+
+// Same idea, used for the Wikipedia pageviews "search interest" column.
+// Article titles must match Wikipedia's exact page title.
+const REALM_WIKI_TOOLS = [
+  { tool: "ChatGPT", article: "ChatGPT" },
+  { tool: "Claude", article: "Claude_(language_model)" },
+  { tool: "Gemini", article: "Gemini_(chatbot)" },
+  { tool: "Midjourney", article: "Midjourney" },
+  { tool: "Perplexity", article: "Perplexity_AI" },
+  { tool: "GitHub Copilot", article: "GitHub_Copilot" },
+  { tool: "Grok", article: "Grok_(chatbot)" },
+  { tool: "DeepSeek", article: "DeepSeek" },
+  { tool: "Runway", article: "Runway_(company)" },
+  { tool: "Notion AI", article: "Notion_(productivity_software)" },
+];
+
+const GDELT_BASE = "https://api.gdeltproject.org/api/v2/doc/doc";
+const MAX_REALM_FLAVOR_PER_RUN = 6; // caption+image generation is the expensive part
+
+function slugifyToolName(name) {
+  return name.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
+async function fetchJsonSafe(url, options) {
+  try {
+    const res = await fetch(url, options);
+    if (!res.ok) return null;
+    const text = await res.text();
+    if (!text) return null;
+    try {
+      return JSON.parse(text);
+    } catch (err) {
+      return null;
+    }
+  } catch (err) {
+    return null;
+  }
+}
+
+// GDELT's timeline modes return { timeline: [ { series, data: [{date, value}, ...] }, ... ] }
+// with "series" holding a human-readable label (for TimelineSourceCountry,
+// a country name). Defensive because this was written against GDELT's
+// documented examples, not a confirmed live response (see note above).
+function parseGdeltTimelineCountries(json) {
+  const out = [];
+  if (!json || !Array.isArray(json.timeline)) return out;
+  for (const series of json.timeline) {
+    const label = (series && (series.series || series.name)) || "";
+    const points = (series && series.data) || [];
+    if (!label || !points.length) continue;
+    const last = points[points.length - 1];
+    const value = Number(last && (last.value ?? last.Value ?? last.count));
+    if (!Number.isFinite(value)) continue;
+    out.push({ country: label.trim(), value });
+  }
+  return out.sort((a, b) => b.value - a.value);
+}
+
+async function gatherGlobalCountryMentions() {
+  const query = encodeURIComponent(
+    '"artificial intelligence" OR "AI tool" OR "AI chatbot" OR chatgpt OR claude'
+  );
+  const url = `${GDELT_BASE}?query=${query}&mode=timelinesourcecountry&format=json&timespan=3d`;
+  const json = await fetchJsonSafe(url, {
+    headers: { "User-Agent": "SolosGemsRealmBot/1.0 (+https://solosgems.com)" },
+  });
+  return parseGdeltTimelineCountries(json);
+}
+
+async function gatherToolCountryHotness(toolName) {
+  const query = encodeURIComponent(`"${toolName}"`);
+  const url = `${GDELT_BASE}?query=${query}&mode=timelinesourcecountry&format=json&timespan=3d`;
+  const json = await fetchJsonSafe(url, {
+    headers: { "User-Agent": "SolosGemsRealmBot/1.0 (+https://solosgems.com)" },
+  });
+  return parseGdeltTimelineCountries(json);
+}
+
+async function gatherCountryHeadlines(fipsCode) {
+  const query = encodeURIComponent('"artificial intelligence" OR AI');
+  const url = `${GDELT_BASE}?query=${query}%20sourcecountry:${fipsCode}&mode=artlist&maxrecords=3&format=json&timespan=3d`;
+  const json = await fetchJsonSafe(url, {
+    headers: { "User-Agent": "SolosGemsRealmBot/1.0 (+https://solosgems.com)" },
+  });
+  const articles = (json && (json.articles || json.Articles)) || [];
+  return articles.slice(0, 3).map((a) => ({
+    title: cleanText(a.title || a.Title || ""),
+    link: a.url || a.URL || "",
+    source: a.domain || a.Domain || "",
+  })).filter((a) => a.title && a.link);
+}
+
+async function gatherGithubTrending(env) {
+  const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  const url = `https://api.github.com/search/repositories?q=${encodeURIComponent(
+    `topic:ai created:>${since}`
+  )}&sort=stars&order=desc&per_page=10`;
+  const headers = {
+    "User-Agent": "SolosGemsRealmBot/1.0 (+https://solosgems.com)",
+    Accept: "application/vnd.github+json",
+  };
+  if (env.GITHUB_TOKEN) headers.Authorization = `Bearer ${env.GITHUB_TOKEN}`;
+  const json = await fetchJsonSafe(url, { headers });
+  const items = (json && json.items) || [];
+  return items.slice(0, 10).map((r) => ({
+    name: r.full_name,
+    url: r.html_url,
+    description: cleanText(r.description || "").slice(0, 160),
+    stars: r.stargazers_count || 0,
+    language: r.language || null,
+    createdAt: r.created_at || null,
+  }));
+}
+
+async function gatherWikiInterest() {
+  const end = new Date();
+  const start = new Date(end.getTime() - 7 * 24 * 60 * 60 * 1000);
+  const fmt = (d) => d.toISOString().slice(0, 10).replace(/-/g, "");
+  const results = await Promise.allSettled(
+    REALM_WIKI_TOOLS.map(async ({ tool, article }) => {
+      const url = `https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/${article}/daily/${fmt(
+        start
+      )}/${fmt(end)}`;
+      const json = await fetchJsonSafe(url, {
+        headers: { "User-Agent": "SolosGemsRealmBot/1.0 (+https://solosgems.com)" },
+      });
+      const items = (json && json.items) || [];
+      if (!items.length) return null;
+      const totalViews = items.reduce((sum, it) => sum + (it.views || 0), 0);
+      const half = Math.ceil(items.length / 2);
+      const firstHalf = items.slice(0, half).reduce((s, it) => s + (it.views || 0), 0);
+      const secondHalf = items.slice(half).reduce((s, it) => s + (it.views || 0), 0);
+      const trendPct = firstHalf > 0 ? Math.round(((secondHalf - firstHalf) / firstHalf) * 100) : null;
+      return {
+        tool,
+        article,
+        views7d: totalViews,
+        trendPct,
+        wikipediaUrl: `https://en.wikipedia.org/wiki/${article}`,
+      };
+    })
+  );
+  return results
+    .filter((r) => r.status === "fulfilled" && r.value)
+    .map((r) => r.value)
+    .sort((a, b) => b.views7d - a.views7d);
+}
+
+const REALM_CAPTION_SYSTEM_PROMPT =
+  "You are a snarky, nerdy Dungeon Master narrating real-world AI adoption data as a " +
+  "region on a fantasy campaign map. You will be given real numbers about one country's " +
+  "AI-related news coverage. Use ONLY the facts given to you, do not invent any statistic, " +
+  "date, or claim not present in the input. Respond with ONLY a JSON object, no markdown " +
+  "fencing, no commentary, with exactly these keys: " +
+  '{"dndCaption": "one sarcastic D&D-flavored sentence, max 22 words, using quest/loot/dice/NPC ' +
+  'style language, about this region", "meaning": "1-2 plain sentences on what this region\'s ' +
+  'AI coverage volume and top tool could mean, grounded only in the given numbers", ' +
+  '"whyInteresting": "1 sentence on why this specific data point is interesting", ' +
+  '"coolFact": "1 short sentence restating or contextualizing one of the given numbers in a ' +
+  'fun way, not a new invented fact"}';
+
+async function generateRealmCaption(countryName, stats, env) {
+  if (!env.AI) return null;
+  const input = `Country: ${countryName}\nAI news mentions (3-day GDELT volume score): ${stats.mentions}\nRank among tracked countries: ${stats.rank}\nMost-mentioned AI tool in this country's coverage: ${stats.hotTool || "unclear"}\nSample headline: ${stats.sampleHeadline || "none available"}`;
+  try {
+    const result = await env.AI.run("@cf/meta/llama-3.2-3b-instruct", {
+      messages: [
+        { role: "system", content: REALM_CAPTION_SYSTEM_PROMPT },
+        { role: "user", content: input },
+      ],
+      max_tokens: 220,
+    });
+    let text = (result && (result.response || result.result || "")).toString().trim();
+    text = text.replace(/^```(json)?/i, "").replace(/```$/, "").trim();
+    const parsed = JSON.parse(text);
+    if (!parsed.dndCaption || !parsed.meaning) return null;
+    return {
+      dndCaption: String(parsed.dndCaption).slice(0, 240),
+      meaning: String(parsed.meaning).slice(0, 400),
+      whyInteresting: String(parsed.whyInteresting || "").slice(0, 240),
+      coolFact: String(parsed.coolFact || "").slice(0, 240),
+    };
+  } catch (err) {
+    return null;
+  }
+}
+
+async function generateRealmImage(countryName, hotTool, env) {
+  if (!env.AI) return null;
+  const prompt =
+    `Retro pixel-art fantasy video game illustration representing the AI-adoption region of ` +
+    `${countryName} as a glowing rune tower or adventurer's camp on a fantasy world map, ` +
+    `subtly nodding to ${hotTool || "artificial intelligence"}, warm amber and rust color ` +
+    `palette, no readable text, no logos, no real brand marks`;
+  try {
+    const result = await env.AI.run("@cf/black-forest-labs/flux-1-schnell", {
+      prompt: prompt.slice(0, 2048),
+      steps: 6,
+    });
+    return result && result.image ? `data:image/jpeg;base64,${result.image}` : null;
+  } catch (err) {
+    return null;
+  }
+}
+
+async function gatherRealms(env) {
+  if (env.REALMS) {
+    const prevRaw = await env.REALMS.get("latest");
+    if (prevRaw) {
+      try {
+        const prev = JSON.parse(prevRaw);
+        if (prev.generated_at) {
+          const age = Date.now() - new Date(prev.generated_at).getTime();
+          if (age < 6 * 60 * 60 * 1000) return prev; // self-throttle, refreshed less than 6h ago
+        }
+      } catch (err) {
+        // fall through and regenerate if stored value is malformed
+      }
+    }
+  }
+
+  const globalCountries = await gatherGlobalCountryMentions();
+  const topGlobal = globalCountries.filter((c) => REALM_COUNTRIES[c.country]).slice(0, 12);
+
+  const toolHotnessResults = await Promise.allSettled(
+    REALM_PROBE_TOOLS.map((tool) => gatherToolCountryHotness(tool))
+  );
+  const toolHotnessByCountry = new Map(); // country name -> { tool, value }
+  REALM_PROBE_TOOLS.forEach((tool, i) => {
+    const r = toolHotnessResults[i];
+    if (r.status !== "fulfilled") return;
+    for (const entry of r.value) {
+      const existing = toolHotnessByCountry.get(entry.country);
+      if (!existing || entry.value > existing.value) {
+        toolHotnessByCountry.set(entry.country, { tool, value: entry.value });
+      }
+    }
+  });
+
+  const headlineResults = await Promise.allSettled(
+    topGlobal.slice(0, 8).map((c) => gatherCountryHeadlines(REALM_COUNTRIES[c.country].fips))
+  );
+
+  let previousByCountry = new Map();
+  if (env.REALMS) {
+    const prevRaw = await env.REALMS.get("latest");
+    if (prevRaw) {
+      try {
+        const prev = JSON.parse(prevRaw);
+        for (const c of prev.countries || []) previousByCountry.set(c.name, c);
+      } catch (err) {
+        // ignore malformed previous payload
+      }
+    }
+  }
+
+  let flavorBudget = MAX_REALM_FLAVOR_PER_RUN;
+  const countries = [];
+  for (let i = 0; i < topGlobal.length; i++) {
+    const entry = topGlobal[i];
+    const meta = REALM_COUNTRIES[entry.country];
+    const hotToolEntry = toolHotnessByCountry.get(entry.country);
+    const headlines = i < 8 && headlineResults[i] && headlineResults[i].status === "fulfilled" ? headlineResults[i].value : [];
+    const stats = {
+      mentions: Math.round(entry.value * 10) / 10,
+      rank: i + 1,
+      hotTool: hotToolEntry ? hotToolEntry.tool : null,
+      sampleHeadline: headlines[0] ? headlines[0].title : null,
+    };
+
+    const prev = previousByCountry.get(entry.country);
+    let caption = null;
+    let image = null;
+    const sameHotTool = prev && prev.hotTool === stats.hotTool;
+    if (prev && sameHotTool && prev.caption) {
+      caption = prev.caption;
+      image = prev.image || null;
+    } else if (flavorBudget > 0) {
+      flavorBudget -= 1;
+      caption = await generateRealmCaption(entry.country, stats, env);
+      image = await generateRealmImage(entry.country, stats.hotTool, env);
+    } else if (prev) {
+      caption = prev.caption || null;
+      image = prev.image || null;
+    }
+
+    const reviewLink = stats.hotTool ? `reviews/${slugifyToolName(stats.hotTool)}.html` : null;
+
+    countries.push({
+      name: entry.country,
+      fips: meta.fips,
+      lat: meta.lat,
+      lon: meta.lon,
+      mentions: stats.mentions,
+      rank: stats.rank,
+      hotTool: stats.hotTool,
+      reviewLink,
+      headlines,
+      caption,
+      image,
+    });
+  }
+
+  const [githubTrending, wikiInterest] = await Promise.all([
+    gatherGithubTrending(env),
+    gatherWikiInterest(),
+  ]);
+
+  const payload = {
+    generated_at: new Date().toISOString(),
+    countries,
+    categories: {
+      newsMentions: countries.map((c) => ({
+        name: c.name,
+        mentions: c.mentions,
+        rank: c.rank,
+        hotTool: c.hotTool,
+        headlines: c.headlines,
+      })),
+      searchInterest: wikiInterest,
+      buildActivity: githubTrending,
+    },
+  };
+
+  if (env.REALMS) {
+    await env.REALMS.put("latest", JSON.stringify(payload));
+  }
+  return payload;
+}
+
+async function handleGetRealms(env) {
+  if (!env.REALMS) {
+    return new Response(
+      JSON.stringify({ generated_at: null, countries: [], categories: {} }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+      }
+    );
+  }
+  const stored = await env.REALMS.get("latest");
+  const body = stored || JSON.stringify({ generated_at: null, countries: [], categories: {} });
+  return new Response(body, {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Cache-Control": "public, max-age=300",
+    },
+  });
+}
+
+async function handleRefreshRealms(env) {
+  if (!env.REALMS) {
+    return new Response(JSON.stringify({ ok: false, error: "REALMS KV not bound" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  const payload = await gatherRealms(env);
+  return new Response(JSON.stringify({ ok: true, ...payload }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
 }

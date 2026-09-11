@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1475310308913553"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="max-image-preview:large">
+<title>The Realm Map: Live AI Activity by Region | Solos Gems</title>
+<meta name="description" content="A live, D&D-styled world map of real AI activity: news coverage by country from GDELT, search interest from Wikipedia pageviews, and build activity from GitHub. Click a region for the full quest log.">
+<link rel="canonical" href="https://solosgems.com/realms">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Solos Gems">
+<meta property="og:title" content="The Realm Map: Live AI Activity by Region | Solos Gems">
+<meta property="og:description" content="A live, D&D-styled world map of real AI activity: news coverage by country, search interest, and build activity, all real data.">
+<meta property="og:url" content="https://solosgems.com/realms">
+<meta property="og:image" content="https://solosgems.com/images/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Realm Map: Live AI Activity by Region | Solos Gems">
+<meta name="twitter:description" content="A live, D&D-styled world map of real AI activity: news coverage by country, search interest, and build activity, all real data.">
+<meta name="twitter:image" content="https://solosgems.com/images/og-default.png">
+<meta name="theme-color" content="#1a1a18">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "The Realm Map",
+  "description": "A live, D&D-styled world map of real AI activity by region, sourced from GDELT news data, Wikipedia pageviews, and GitHub.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Solos Gems",
+    "logo": { "@type": "ImageObject", "url": "https://solosgems.com/images/og-default.png" }
+  },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://solosgems.com/realms" }
+}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html"><svg class="gem-icon" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true">
+        <defs>
+          <linearGradient id="gemGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ffd76a"/>
+            <stop offset="100%" stop-color="#b8790f"/>
+          </linearGradient>
+        </defs>
+        <polygon points="16,2 27,12 16,30 5,12" fill="url(#gemGrad)" stroke="#1a1a18" stroke-width="1"/>
+        <polygon points="16,2 27,12 21,12" fill="#fff3cf"/>
+        <polygon points="16,2 5,12 11,12" fill="#ffe9a8"/>
+        <polygon points="5,12 11,12 16,30" fill="#c98a1f"/>
+        <polygon points="27,12 21,12 16,30" fill="#8a5a12"/>
+        <line x1="11" y1="12" x2="21" y2="12" stroke="#1a1a18" stroke-width="0.6"/>
+      </svg><span class="logo-word">SOLOS GEMS</span></a>
+    <nav>
+      <a href="reviews.html">Reviews</a>
+      <a href="realms.html">Realms</a>
+      <a href="deathstack.html">DeathStack</a>
+      <a href="news.html">News</a>
+      <a href="submit.html">Submit</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wide">
+  <article>
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">/</span> <span>Realms</span></nav>
+    <span class="kicker">Live World Data, D&amp;D Style</span>
+    <h1>The Realm Map</h1>
+    <p class="byline">Updated automatically every few hours &middot; real news, search, and build data, no invented numbers</p>
+
+    <div class="ds-intro">
+      <p>Every marker on this map is a real country, sized by real AI-related news coverage volume pulled live from <a href="https://www.gdeltproject.org/" target="_blank" rel="noopener">GDELT</a>, a free global news-monitoring database. Click a glowing region to open its quest log: a D&amp;D-flavored caption, a generated illustration, and a plain read of what the numbers actually mean.</p>
+      <p>Three data layers feed this page. News mentions are geographic and drive the map. Search interest and build activity are not tied to a single country (neither Wikipedia nor GitHub expose that), so they run as global rankings in the columns below instead of pretending to be something they're not.</p>
+    </div>
+
+    <div class="realm-map-wrap">
+      <div class="realm-map" id="realmMap" aria-label="World map of AI news activity by country">
+        <svg class="realm-map-bg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <defs>
+            <radialGradient id="realmOcean" cx="50%" cy="35%" r="75%">
+              <stop offset="0%" stop-color="#3a3226"/>
+              <stop offset="100%" stop-color="#221d16"/>
+            </radialGradient>
+            <filter id="realmGrain">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="noise"/>
+              <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0"/>
+              <feComposite operator="over" in2="SourceGraphic"/>
+            </filter>
+          </defs>
+          <rect x="0" y="0" width="1000" height="500" fill="url(#realmOcean)"/>
+          <g stroke="#4a4030" stroke-width="0.6" opacity="0.5">
+            <line x1="0" y1="83" x2="1000" y2="83"/>
+            <line x1="0" y1="167" x2="1000" y2="167"/>
+            <line x1="0" y1="250" x2="1000" y2="250"/>
+            <line x1="0" y1="333" x2="1000" y2="333"/>
+            <line x1="0" y1="417" x2="1000" y2="417"/>
+            <line x1="166" y1="0" x2="166" y2="500"/>
+            <line x1="333" y1="0" x2="333" y2="500"/>
+            <line x1="500" y1="0" x2="500" y2="500"/>
+            <line x1="666" y1="0" x2="666" y2="500"/>
+            <line x1="833" y1="0" x2="833" y2="500"/>
+          </g>
+          <g fill="#5a4a30" stroke="#3a2f1e" stroke-width="2" opacity="0.9">
+            <path d="M40,90 C20,110 25,150 45,175 C40,200 60,215 90,205 C130,220 170,200 190,175 C220,165 230,130 205,105 C210,80 175,55 140,60 C110,45 65,60 40,90 Z"/>
+            <path d="M270,225 C255,250 260,290 280,320 C270,360 290,400 310,410 C325,395 340,360 335,325 C355,290 350,250 330,225 C310,210 285,210 270,225 Z"/>
+            <path d="M480,60 C470,80 480,100 505,105 C520,120 555,115 570,95 C595,90 600,65 580,55 C560,40 500,40 480,60 Z"/>
+            <path d="M455,150 C440,175 445,220 460,255 C455,290 470,325 495,335 C520,320 545,290 555,250 C575,215 565,175 540,155 C510,135 475,130 455,150 Z"/>
+            <path d="M615,50 C600,75 610,110 630,120 C625,150 650,180 690,175 C730,195 790,180 815,150 C840,130 830,95 800,85 C805,60 760,40 715,45 C670,25 635,30 615,50 Z"/>
+            <path d="M815,265 C805,280 810,305 830,315 C850,330 875,320 875,300 C885,280 865,260 840,262 C830,258 820,258 815,265 Z"/>
+          </g>
+          <rect x="0" y="0" width="1000" height="500" fill="transparent" filter="url(#realmGrain)"/>
+          <rect x="4" y="4" width="992" height="492" fill="none" stroke="#7a6440" stroke-width="3"/>
+          <rect x="10" y="10" width="980" height="480" fill="none" stroke="#7a6440" stroke-width="1"/>
+          <g fill="#7a6440" font-family="Georgia, serif" font-size="11" opacity="0.8">
+            <text x="24" y="34">Here Be Untested APIs</text>
+            <text x="800" y="480" text-anchor="end">Terra Incognita, Unranked</text>
+          </g>
+          <g transform="translate(935,55)" fill="#8a7450" opacity="0.85">
+            <circle r="26" fill="none" stroke="#8a7450" stroke-width="1.5"/>
+            <line x1="0" y1="-26" x2="0" y2="26" stroke="#8a7450" stroke-width="1"/>
+            <line x1="-26" y1="0" x2="26" y2="0" stroke="#8a7450" stroke-width="1"/>
+            <polygon points="0,-20 5,0 0,20 -5,0" fill="#8a7450"/>
+            <text x="0" y="-32" text-anchor="middle" font-family="Georgia, serif" font-size="10">N</text>
+          </g>
+        </svg>
+        <div id="realmMarkers" class="realm-markers"></div>
+      </div>
+      <p class="realm-map-caption" id="realmMapCaption">Loading live realm data&hellip;</p>
+    </div>
+
+    <div class="realm-popover-backdrop" id="realmBackdrop" hidden>
+      <div class="realm-popover" id="realmPopover" role="dialog" aria-modal="true">
+        <button class="realm-popover-close" id="realmPopoverClose" aria-label="Close">&times;</button>
+        <img class="realm-popover-img" id="realmPopoverImg" alt="" hidden>
+        <div class="realm-popover-kicker" id="realmPopoverKicker"></div>
+        <h3 class="realm-popover-name" id="realmPopoverName"></h3>
+        <p class="realm-popover-caption" id="realmPopoverCaption"></p>
+        <div class="realm-popover-stats" id="realmPopoverStats"></div>
+        <div class="realm-popover-block" id="realmPopoverMeaning"></div>
+        <div class="realm-popover-block alt" id="realmPopoverWhy"></div>
+        <div class="realm-popover-block fact" id="realmPopoverFact"></div>
+        <div class="realm-popover-links" id="realmPopoverLinks"></div>
+      </div>
+    </div>
+
+    <h2 class="section-heading spaced">The Three Realms of Data</h2>
+    <p class="section-sub">Same three sources, more detail. News mentions are geographic and match the map above. Search interest and build activity are global rankings, not tied to a single region.</p>
+
+    <div class="realm-columns">
+      <section class="realm-column" id="news-mentions">
+        <h3>News Mentions <span class="realm-column-tag">GDELT, live</span></h3>
+        <div class="realm-column-list" id="realmNewsList"><p class="realm-loading">Loading&hellip;</p></div>
+      </section>
+      <section class="realm-column" id="search-interest">
+        <h3>Search Interest <span class="realm-column-tag">Wikipedia pageviews, 7-day</span></h3>
+        <div class="realm-column-list" id="realmWikiList"><p class="realm-loading">Loading&hellip;</p></div>
+      </section>
+      <section class="realm-column" id="build-activity">
+        <h3>Build Activity <span class="realm-column-tag">GitHub, live</span></h3>
+        <div class="realm-column-list" id="realmGithubList"><p class="realm-loading">Loading&hellip;</p></div>
+      </section>
+    </div>
+
+    <p class="news-footnote">News mention volume comes from <a href="https://www.gdeltproject.org/" target="_blank" rel="noopener">GDELT</a>'s free public API, a 3-day rolling window of global news coverage. Search interest comes from the <a href="https://wikimedia.org/api/rest_v1/" target="_blank" rel="noopener">Wikimedia Pageviews API</a>. Build activity comes from GitHub's public search API, filtered to repos tagged "ai" created in the last 30 days. None of this is simulated, all of it can shift as the underlying data does, and low or missing numbers for a region reflect the data source, not a judgment about that region.</p>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Solos Gems is an independent site. Some links may be affiliate links; we only recommend tools we'd use ourselves. See <a href="about.html">About</a>, <a href="privacy.html">Privacy</a>, and <a href="terms.html">Terms</a>.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var mapEl = document.getElementById('realmMarkers');
+  var captionEl = document.getElementById('realmMapCaption');
+  var backdrop = document.getElementById('realmBackdrop');
+  var popover = document.getElementById('realmPopover');
+
+  function projX(lon) { return ((lon + 180) / 360) * 100; }
+  function projY(lat) { return ((90 - lat) / 180) * 100; }
+
+  function escapeHtml(s) {
+    return String(s || '').replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function openPopover(country) {
+    document.getElementById('realmPopoverKicker').textContent = 'Rank #' + country.rank + ' realm';
+    document.getElementById('realmPopoverName').textContent = country.name;
+    var img = document.getElementById('realmPopoverImg');
+    if (country.image) {
+      img.src = country.image;
+      img.alt = country.name + ' region illustration';
+      img.hidden = false;
+    } else {
+      img.hidden = true;
+    }
+    var caption = country.caption || {};
+    document.getElementById('realmPopoverCaption').textContent = caption.dndCaption || '';
+    document.getElementById('realmPopoverStats').innerHTML =
+      '<span><strong>' + escapeHtml(country.mentions) + '</strong> mention score (3d)</span>' +
+      (country.hotTool ? '<span>Top tool: <strong>' + escapeHtml(country.hotTool) + '</strong></span>' : '');
+    var meaningEl = document.getElementById('realmPopoverMeaning');
+    meaningEl.innerHTML = caption.meaning ? '<strong>What this could mean:</strong> ' + escapeHtml(caption.meaning) : '';
+    var whyEl = document.getElementById('realmPopoverWhy');
+    whyEl.innerHTML = caption.whyInteresting ? '<strong>Why it\'s interesting:</strong> ' + escapeHtml(caption.whyInteresting) : '';
+    var factEl = document.getElementById('realmPopoverFact');
+    factEl.innerHTML = caption.coolFact ? '<strong>Cool fact:</strong> ' + escapeHtml(caption.coolFact) : '';
+
+    var links = [];
+    if (country.reviewLink && country.hotTool) {
+      links.push('<a href="' + escapeHtml(country.reviewLink) + '">Read the ' + escapeHtml(country.hotTool) + ' review &rarr;</a>');
+    }
+    links.push('<a href="#news-mentions">See all news mentions &rarr;</a>');
+    links.push('<a href="#search-interest">See search interest &rarr;</a>');
+    links.push('<a href="#build-activity">See build activity &rarr;</a>');
+    document.getElementById('realmPopoverLinks').innerHTML = links.join('');
+
+    backdrop.hidden = false;
+  }
+
+  document.getElementById('realmPopoverClose').addEventListener('click', function () {
+    backdrop.hidden = true;
+  });
+  backdrop.addEventListener('click', function (e) {
+    if (e.target === backdrop) backdrop.hidden = true;
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') backdrop.hidden = true;
+  });
+
+  function renderMap(countries) {
+    mapEl.innerHTML = '';
+    var maxMentions = Math.max.apply(null, countries.map(function (c) { return c.mentions || 0; }).concat([1]));
+    countries.forEach(function (country) {
+      var marker = document.createElement('button');
+      marker.type = 'button';
+      marker.className = 'realm-marker';
+      var size = 14 + Math.round(((country.mentions || 0) / maxMentions) * 22);
+      marker.style.left = projX(country.lon) + '%';
+      marker.style.top = projY(country.lat) + '%';
+      marker.style.width = size + 'px';
+      marker.style.height = size + 'px';
+      marker.title = country.name + ' (rank #' + country.rank + ')';
+      marker.innerHTML = '<span class="realm-marker-glow"></span><span class="realm-marker-label">' + escapeHtml(country.name) + '</span>';
+      marker.addEventListener('click', function () { openPopover(country); });
+      mapEl.appendChild(marker);
+    });
+  }
+
+  function renderNews(list) {
+    var el = document.getElementById('realmNewsList');
+    if (!list || !list.length) { el.innerHTML = '<p class="realm-loading">No fresh data yet, check back after the next refresh.</p>'; return; }
+    el.innerHTML = list.map(function (c) {
+      var headline = c.headlines && c.headlines[0];
+      return '<div class="realm-row">' +
+        '<div class="realm-row-rank">#' + c.rank + '</div>' +
+        '<div class="realm-row-body">' +
+          '<h4>' + escapeHtml(c.name) + '</h4>' +
+          '<p>Mention score: <strong>' + escapeHtml(c.mentions) + '</strong>' + (c.hotTool ? ' &middot; top tool: <strong>' + escapeHtml(c.hotTool) + '</strong>' : '') + '</p>' +
+          (headline ? '<p class="realm-row-headline"><a href="' + escapeHtml(headline.link) + '" target="_blank" rel="noopener">' + escapeHtml(headline.title) + '</a></p>' : '') +
+        '</div></div>';
+    }).join('');
+  }
+
+  function renderWiki(list) {
+    var el = document.getElementById('realmWikiList');
+    if (!list || !list.length) { el.innerHTML = '<p class="realm-loading">No fresh data yet, check back after the next refresh.</p>'; return; }
+    el.innerHTML = list.map(function (w, i) {
+      var trend = w.trendPct == null ? '' : (w.trendPct >= 0 ? ' &middot; <span class="realm-trend-up">+' + w.trendPct + '%</span>' : ' &middot; <span class="realm-trend-down">' + w.trendPct + '%</span>');
+      return '<div class="realm-row">' +
+        '<div class="realm-row-rank">#' + (i + 1) + '</div>' +
+        '<div class="realm-row-body">' +
+          '<h4>' + escapeHtml(w.tool) + '</h4>' +
+          '<p>' + escapeHtml(w.views7d.toLocaleString()) + ' Wikipedia views, last 7 days' + trend + '</p>' +
+          '<p class="realm-row-headline"><a href="' + escapeHtml(w.wikipediaUrl) + '" target="_blank" rel="noopener">View on Wikipedia &rarr;</a></p>' +
+        '</div></div>';
+    }).join('');
+  }
+
+  function renderGithub(list) {
+    var el = document.getElementById('realmGithubList');
+    if (!list || !list.length) { el.innerHTML = '<p class="realm-loading">No fresh data yet, check back after the next refresh.</p>'; return; }
+    el.innerHTML = list.map(function (r, i) {
+      return '<div class="realm-row">' +
+        '<div class="realm-row-rank">#' + (i + 1) + '</div>' +
+        '<div class="realm-row-body">' +
+          '<h4>' + escapeHtml(r.name) + '</h4>' +
+          '<p>' + escapeHtml(r.stars.toLocaleString()) + ' stars' + (r.language ? ' &middot; ' + escapeHtml(r.language) : '') + '</p>' +
+          (r.description ? '<p class="realm-row-headline">' + escapeHtml(r.description) + '</p>' : '') +
+          '<p class="realm-row-headline"><a href="' + escapeHtml(r.url) + '" target="_blank" rel="noopener">View on GitHub &rarr;</a></p>' +
+        '</div></div>';
+    }).join('');
+  }
+
+  fetch('/api/realms')
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      var countries = data.countries || [];
+      if (!countries.length) {
+        captionEl.textContent = 'The realm map is still being surveyed, check back soon.';
+      } else {
+        captionEl.textContent = countries.length + ' regions charted, updated ' + (data.generated_at ? new Date(data.generated_at).toLocaleString() : 'recently') + '.';
+        renderMap(countries);
+      }
+      var cats = data.categories || {};
+      renderNews(cats.newsMentions);
+      renderWiki(cats.searchInterest);
+      renderGithub(cats.buildActivity);
+    })
+    .catch(function () {
+      captionEl.textContent = 'Could not load live realm data right now, check back soon.';
+    });
+})();
+</script>
+
+</body>
+</html>
