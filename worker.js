@@ -522,13 +522,14 @@ async function handleGenImage(request, env) {
 //      contributor location at any usable scale for free, so this is a
 //      global "what's being built" trending list, not a per-country map
 //      layer either.
-// NOTE: GDELT's exact TimelineSourceCountry JSON shape could not be
-// confirmed against a live response while building this (this sandbox's
-// outbound network allowlist blocks api.gdeltproject.org, so this was
-// written against GDELT's published docs/examples, not a live test).
-// Parsing below is defensive and degrades to an empty list rather than
-// throwing if the shape doesn't match. Worth spot-checking /api/realms
-// once deployed and adjusting parseGdeltTimelineCountries() if needed.
+// NOTE: an earlier version of this fired ~20 separate GDELT requests per
+// run (one global timeline query plus one per probe tool plus one per top
+// country for headlines). GDELT's API explicitly asks for one request every
+// 5 seconds; confirmed live that hitting it faster returns a plain-text
+// rate-limit notice instead of JSON, which silently produced empty country
+// data. gatherGlobalCountryMentions() below makes exactly one GDELT call
+// per run and derives everything else (counts, headlines, hot tool) from
+// that single response.
 
 // A curated set of countries GDELT commonly attributes AI-related coverage
 // to, with approximate centroids (lat, lon) used to place map markers via
@@ -563,15 +564,7 @@ const REALM_COUNTRIES = {
   "Taiwan": { fips: "TW", lat: 23.7, lon: 121.0 },
 };
 
-// Tools probed individually to figure out which one is driving coverage in
-// each hot country. Kept short (not the full 150+ TOOL_NAMES list) to stay
-// well inside Cloudflare Workers' per-invocation subrequest budget.
-const REALM_PROBE_TOOLS = [
-  "ChatGPT", "Claude", "Gemini", "Midjourney", "Perplexity",
-  "GitHub Copilot", "Grok", "DeepSeek", "Cursor", "ElevenLabs", "Notion AI",
-];
-
-// Same idea, used for the Wikipedia pageviews "search interest" column.
+// Used for the Wikipedia pageviews "search interest" column.
 // Article titles must match Wikipedia's exact page title.
 const REALM_WIKI_TOOLS = [
   { tool: "ChatGPT", article: "ChatGPT" },
@@ -609,57 +602,52 @@ async function fetchJsonSafe(url, options) {
   }
 }
 
-// GDELT's timeline modes return { timeline: [ { series, data: [{date, value}, ...] }, ... ] }
-// with "series" holding a human-readable label (for TimelineSourceCountry,
-// a country name). Defensive because this was written against GDELT's
-// documented examples, not a confirmed live response (see note above).
-function parseGdeltTimelineCountries(json) {
-  const out = [];
-  if (!json || !Array.isArray(json.timeline)) return out;
-  for (const series of json.timeline) {
-    const label = (series && (series.series || series.name)) || "";
-    const points = (series && series.data) || [];
-    if (!label || !points.length) continue;
-    const last = points[points.length - 1];
-    const value = Number(last && (last.value ?? last.Value ?? last.count));
-    if (!Number.isFinite(value)) continue;
-    out.push({ country: label.trim(), value });
-  }
-  return out.sort((a, b) => b.value - a.value);
-}
-
+// A single GDELT ArtList call, grouped locally by each article's documented
+// "sourcecountry" field. This replaces an earlier design that fired off
+// roughly 20 separate GDELT requests per run (one global + one per probe
+// tool + one per top country for headlines) - GDELT's API explicitly asks
+// for one request every 5 seconds, so that design got silently rate-limited
+// (confirmed live: GDELT returns a plain-text "Please limit requests to one
+// every 5 seconds..." message instead of JSON when hit too fast, which
+// fetchJsonSafe correctly treats as unparseable and returns null for,
+// resulting in empty countries). One call avoids the problem entirely and
+// gets mention counts, sample headlines, and hot-tool detection (via the
+// existing matchTools() used by the news pipeline) all from the same
+// response.
 async function gatherGlobalCountryMentions() {
   const query = encodeURIComponent(
     '"artificial intelligence" OR "AI tool" OR "AI chatbot" OR chatgpt OR claude'
   );
-  const url = `${GDELT_BASE}?query=${query}&mode=timelinesourcecountry&format=json&timespan=3d`;
-  const json = await fetchJsonSafe(url, {
-    headers: { "User-Agent": "SolosGemsRealmBot/1.0 (+https://solosgems.com)" },
-  });
-  return parseGdeltTimelineCountries(json);
-}
-
-async function gatherToolCountryHotness(toolName) {
-  const query = encodeURIComponent(`"${toolName}"`);
-  const url = `${GDELT_BASE}?query=${query}&mode=timelinesourcecountry&format=json&timespan=3d`;
-  const json = await fetchJsonSafe(url, {
-    headers: { "User-Agent": "SolosGemsRealmBot/1.0 (+https://solosgems.com)" },
-  });
-  return parseGdeltTimelineCountries(json);
-}
-
-async function gatherCountryHeadlines(fipsCode) {
-  const query = encodeURIComponent('"artificial intelligence" OR AI');
-  const url = `${GDELT_BASE}?query=${query}%20sourcecountry:${fipsCode}&mode=artlist&maxrecords=3&format=json&timespan=3d`;
+  const url = `${GDELT_BASE}?query=${query}&mode=artlist&maxrecords=250&format=json&timespan=3d&sort=hybridrel`;
   const json = await fetchJsonSafe(url, {
     headers: { "User-Agent": "SolosGemsRealmBot/1.0 (+https://solosgems.com)" },
   });
   const articles = (json && (json.articles || json.Articles)) || [];
-  return articles.slice(0, 3).map((a) => ({
-    title: cleanText(a.title || a.Title || ""),
-    link: a.url || a.URL || "",
-    source: a.domain || a.Domain || "",
-  })).filter((a) => a.title && a.link);
+
+  const byCountry = new Map();
+  for (const a of articles) {
+    const country = ((a.sourcecountry || a.SourceCountry || a.sourceCountry || "") + "").trim();
+    if (!country || !REALM_COUNTRIES[country]) continue;
+    const title = cleanText(a.title || a.Title || "");
+    const link = a.url || a.URL || "";
+    const domain = a.domain || a.Domain || "";
+    if (!byCountry.has(country)) byCountry.set(country, { count: 0, headlines: [], titles: [] });
+    const entry = byCountry.get(country);
+    entry.count += 1;
+    if (title) entry.titles.push(title);
+    if (entry.headlines.length < 3 && title && link) {
+      entry.headlines.push({ title, link, source: domain });
+    }
+  }
+
+  return Array.from(byCountry.entries())
+    .map(([country, data]) => ({
+      country,
+      value: data.count,
+      headlines: data.headlines,
+      hotTool: matchTools(data.titles.join(" . "))[0] || null,
+    }))
+    .sort((a, b) => b.value - a.value);
 }
 
 async function gatherGithubTrending(env) {
@@ -792,26 +780,7 @@ async function gatherRealms(env) {
   }
 
   const globalCountries = await gatherGlobalCountryMentions();
-  const topGlobal = globalCountries.filter((c) => REALM_COUNTRIES[c.country]).slice(0, 12);
-
-  const toolHotnessResults = await Promise.allSettled(
-    REALM_PROBE_TOOLS.map((tool) => gatherToolCountryHotness(tool))
-  );
-  const toolHotnessByCountry = new Map(); // country name -> { tool, value }
-  REALM_PROBE_TOOLS.forEach((tool, i) => {
-    const r = toolHotnessResults[i];
-    if (r.status !== "fulfilled") return;
-    for (const entry of r.value) {
-      const existing = toolHotnessByCountry.get(entry.country);
-      if (!existing || entry.value > existing.value) {
-        toolHotnessByCountry.set(entry.country, { tool, value: entry.value });
-      }
-    }
-  });
-
-  const headlineResults = await Promise.allSettled(
-    topGlobal.slice(0, 8).map((c) => gatherCountryHeadlines(REALM_COUNTRIES[c.country].fips))
-  );
+  const topGlobal = globalCountries.slice(0, 12);
 
   let previousByCountry = new Map();
   if (env.REALMS) {
@@ -831,12 +800,11 @@ async function gatherRealms(env) {
   for (let i = 0; i < topGlobal.length; i++) {
     const entry = topGlobal[i];
     const meta = REALM_COUNTRIES[entry.country];
-    const hotToolEntry = toolHotnessByCountry.get(entry.country);
-    const headlines = i < 8 && headlineResults[i] && headlineResults[i].status === "fulfilled" ? headlineResults[i].value : [];
+    const headlines = entry.headlines || [];
     const stats = {
-      mentions: Math.round(entry.value * 10) / 10,
+      mentions: entry.value,
       rank: i + 1,
-      hotTool: hotToolEntry ? hotToolEntry.tool : null,
+      hotTool: entry.hotTool || null,
       sampleHeadline: headlines[0] ? headlines[0].title : null,
     };
 
