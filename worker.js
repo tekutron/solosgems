@@ -847,18 +847,27 @@ if (stats.hotTool) lines.push(`Notable AI tool tied to this region: ${stats.hotT
 if (stats.originFact) lines.push(`Verified real fact: ${stats.originFact}`);
 if (stats.sampleHeadline) lines.push(`Sample real headline: ${stats.sampleHeadline}`);
 const input = lines.join("\n");
+
+// Small instruct models don't always emit clean, complete JSON on the
+// first try (truncation, stray commentary, code fences). Try twice with a
+// generous token budget, and extract the {...} span rather than requiring
+// the whole response to be valid JSON on its own.
+for (let attempt = 0; attempt < 2; attempt++) {
 try {
 const result = await env.AI.run("@cf/meta/llama-3.2-3b-instruct", {
 messages: [
 { role: "system", content: REALM_CAPTION_SYSTEM_PROMPT },
 { role: "user", content: input },
 ],
-max_tokens: 220,
+max_tokens: 400,
 });
 let text = (result && (result.response || result.result || "")).toString().trim();
-text = text.replace(/^```(json)?/i, "").replace(/```$/, "").trim();
+const start = text.indexOf("{");
+const end = text.lastIndexOf("}");
+if (start === -1 || end === -1 || end <= start) continue;
+text = text.slice(start, end + 1);
 const parsed = JSON.parse(text);
-if (!parsed.dndCaption || !parsed.meaning) return null;
+if (!parsed.dndCaption || !parsed.meaning) continue;
 return {
 dndCaption: String(parsed.dndCaption).slice(0, 240),
 meaning: String(parsed.meaning).slice(0, 400),
@@ -866,8 +875,10 @@ whyInteresting: String(parsed.whyInteresting || "").slice(0, 240),
 coolFact: String(parsed.coolFact || "").slice(0, 240),
 };
 } catch (err) {
-return null;
+// try again on the second loop iteration, otherwise fall through to null
 }
+}
+return null;
 }
 
 async function generateRealmImage(countryName, hotTool, env) {
@@ -888,14 +899,15 @@ return null;
 }
 }
 
-async function gatherRealms(env) {
+async function gatherRealms(env, options) {
+const force = !!(options && options.force);
 let prevPayload = null;
 if (env.REALMS) {
 const prevRaw = await env.REALMS.get("latest");
 if (prevRaw) {
 try {
 prevPayload = JSON.parse(prevRaw);
-if (prevPayload.generated_at) {
+if (prevPayload.generated_at && !force) {
 const age = Date.now() - new Date(prevPayload.generated_at).getTime();
 const hadCountries = Array.isArray(prevPayload.countries) && prevPayload.countries.length > 0;
 // Normal self-throttle is 6h. But if the last run came back with zero
@@ -1070,7 +1082,10 @@ status: 500,
 headers: { "Content-Type": "application/json" },
 });
 }
-const payload = await gatherRealms(env);
+// This manual endpoint always forces a fresh gather (bypassing the normal
+// throttle), since the whole point of calling it directly is to check the
+// pipeline right now rather than to wait out the cache window.
+const payload = await gatherRealms(env, { force: true });
 return new Response(JSON.stringify({ ok: true, ...payload }), {
 status: 200,
 headers: { "Content-Type": "application/json" },
