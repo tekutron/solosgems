@@ -71,6 +71,17 @@ return handleGenImage(request, env);
 return new Response("Method not allowed", { status: 405 });
 }
 
+// Temporary debug endpoint: returns the raw Workers AI text output for a
+// single realm-caption prompt, so caption generation failures can be
+// diagnosed without touching the live REALMS payload. Remove once the
+// caption pipeline is confirmed working.
+if (url.pathname === "/api/realm-caption-debug") {
+if (request.method === "GET") {
+return handleRealmCaptionDebug(request, env);
+}
+return new Response("Method not allowed", { status: 405 });
+}
+
 return new Response("Not found", { status: 404 });
 },
 
@@ -499,6 +510,57 @@ headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*
 });
 } catch (err) {
 return new Response(JSON.stringify({ ok: false, error: String(err) }), {
+status: 500,
+headers: { "Content-Type": "application/json" },
+});
+}
+}
+
+async function handleRealmCaptionDebug(request, env) {
+if (!env.AI) {
+return new Response(JSON.stringify({ ok: false, error: "AI binding not configured" }), {
+status: 500,
+headers: { "Content-Type": "application/json" },
+});
+}
+const url = new URL(request.url);
+const key = url.searchParams.get("key");
+if (key !== GEN_IMAGE_KEY) {
+return new Response(JSON.stringify({ ok: false, error: "unauthorized" }), {
+status: 401,
+headers: { "Content-Type": "application/json" },
+});
+}
+const input =
+"Country or region: United States\n" +
+"Live Wikipedia views (7-day) for ChatGPT: 303226\n" +
+"Notable AI tool tied to this region: ChatGPT\n" +
+"Verified real fact: Home to OpenAI, Anthropic, Google DeepMind, based in San Francisco and Mountain View.";
+try {
+const result = await env.AI.run("@cf/meta/llama-3.2-3b-instruct", {
+messages: [
+{ role: "system", content: REALM_CAPTION_SYSTEM_PROMPT },
+{ role: "user", content: input },
+],
+max_tokens: 400,
+});
+const rawText = (result && (result.response || result.result || "")).toString();
+let parseError = null;
+let parsed = null;
+try {
+const start = rawText.indexOf("{");
+const end = rawText.lastIndexOf("}");
+if (start === -1 || end === -1 || end <= start) throw new Error("no braces found in response");
+parsed = JSON.parse(rawText.slice(start, end + 1));
+} catch (e) {
+parseError = String(e);
+}
+return new Response(
+JSON.stringify({ ok: true, rawResult: result, rawText, parsed, parseError }, null, 2),
+{ status: 200, headers: { "Content-Type": "application/json" } }
+);
+} catch (err) {
+return new Response(JSON.stringify({ ok: false, error: String(err), stack: err && err.stack }), {
 status: 500,
 headers: { "Content-Type": "application/json" },
 });
