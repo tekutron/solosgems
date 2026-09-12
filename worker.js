@@ -71,17 +71,6 @@ return handleGenImage(request, env);
 return new Response("Method not allowed", { status: 405 });
 }
 
-// Temporary debug endpoint: runs the real caption-generation attempt loop
-// and reports the raw success/error of each attempt, to distinguish a code
-// bug from a Workers AI quota/rate-limit failure under real load. Remove
-// once the caption pipeline is confirmed working end to end.
-if (url.pathname === "/api/realm-caption-debug2") {
-if (request.method === "GET") {
-return handleRealmCaptionDebug2(request, env);
-}
-return new Response("Method not allowed", { status: 405 });
-}
-
 return new Response("Not found", { status: 404 });
 },
 
@@ -537,49 +526,6 @@ headers: { "Content-Type": "application/json" },
 }
 }
 
-async function handleRealmCaptionDebug2(request, env) {
-if (!env.AI) {
-return new Response(JSON.stringify({ ok: false, error: "AI binding not configured" }), {
-status: 500,
-headers: { "Content-Type": "application/json" },
-});
-}
-const url = new URL(request.url);
-const key = url.searchParams.get("key");
-if (key !== GEN_IMAGE_KEY) {
-return new Response(JSON.stringify({ ok: false, error: "unauthorized" }), {
-status: 401,
-headers: { "Content-Type": "application/json" },
-});
-}
-const n = parseInt(url.searchParams.get("n") || "1", 10);
-const input =
-"Country or region: United States\n" +
-"Live Wikipedia views (7-day) for ChatGPT: 303226\n" +
-"Notable AI tool tied to this region: ChatGPT\n" +
-"Verified real fact: Home to OpenAI, Anthropic, Google DeepMind, based in San Francisco and Mountain View.";
-const attempts = [];
-for (let i = 0; i < n; i++) {
-try {
-const result = await env.AI.run("@cf/meta/llama-3.2-3b-instruct", {
-messages: [
-{ role: "system", content: REALM_CAPTION_SYSTEM_PROMPT },
-{ role: "user", content: input },
-],
-max_tokens: 400,
-});
-const text = extractAIText(result).toString().trim();
-attempts.push({ i, ok: true, textLength: text.length, textPreview: text.slice(0, 120) });
-} catch (err) {
-attempts.push({ i, ok: false, error: String(err), name: err && err.name, stack: err && err.stack });
-}
-}
-return new Response(JSON.stringify({ ok: true, attempts }, null, 2), {
-status: 200,
-headers: { "Content-Type": "application/json" },
-});
-}
-
 // ---------------- Realm map (AI activity by region) ----------------
 // Powers /realms.html. Three real, free, no-key data sources, each doing a
 // different honest job rather than pretending to be one unified "usage"
@@ -956,6 +902,30 @@ coolFact: String(parsed.coolFact || "").slice(0, 240),
 return null;
 }
 
+// Deterministic, no-AI-call fallback caption. Used only when the model
+// call fails or is skipped, so a country never shows an empty popover.
+// Built from the same verified fields as the AI prompt, no invented facts.
+function buildStaticCaptionFallback(countryName, stats) {
+const dndCaption =
+`Behold, the realm of ${countryName}` +
+(stats.hotTool ? `, home turf of ${stats.hotTool}` : "") +
+`, rolls initiative on the campaign map.`;
+const meaningBits = [];
+if (stats.metricLabel && stats.metricValue != null) {
+meaningBits.push(`${stats.metricLabel}: ${stats.metricValue}.`);
+}
+if (stats.originFact) meaningBits.push(stats.originFact);
+if (!meaningBits.length) meaningBits.push(`Tracked on this map for its real, verified AI activity.`);
+return {
+dndCaption: dndCaption.slice(0, 240),
+meaning: meaningBits.join(" ").slice(0, 400),
+whyInteresting: stats.rank
+? `Currently ranked ${stats.rank} among tracked countries and regions on this page.`.slice(0, 240)
+: "",
+coolFact: stats.originFact ? String(stats.originFact).slice(0, 240) : "",
+};
+}
+
 async function generateRealmImage(countryName, hotTool, env) {
 if (!env.AI) return null;
 const prompt =
@@ -1073,6 +1043,13 @@ image = await generateRealmImage(entry.country, stats.hotTool, env);
 } else if (prev) {
 caption = prev.caption || null;
 image = prev.image || null;
+}
+// Workers AI occasionally drops a call under load (observed roughly 1 in
+// 12 during real batch runs). Rather than leave a country with an empty
+// popover, fall back to a simple, non-AI caption built from the same
+// verified facts, so every marker always has something to click into.
+if (!caption) {
+caption = buildStaticCaptionFallback(entry.country, stats);
 }
 
 // Only link out to one of our own reviews when we're confident the slug
