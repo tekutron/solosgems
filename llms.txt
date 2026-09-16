@@ -1,10 +1,10 @@
 # Solos Gems
 
-> Independent, scored reviews of AI tools for solopreneurs, plus a categorized directory of 226+ AI tools across every major category. The homepage (https://solosgems.com/) is the full AI tools database, browsable by category. The 51 tools Solos Gems has fully tested get a priced, scored review and a rank on a single cross-category list (0-10, weighted across value for price, real-world capability, ease of use, and trial safety), listed at https://solosgems.com/reviews, not a per-category leaderboard. Nothing scores a 10. Reviews cover what a tool actually does, what it costs once the free tier runs out, and who it's a bad fit for. Some links are affiliate links (disclosed on the About page); that never changes which tools are covered or what the verdict says.
+> Independent, scored reviews of AI tools for solopreneurs, plus a categorized directory of 226+ AI tools across every major category. The homepage (https://solosgems.com/) is the full AI tools database, browsable by category. The 51 tools Solos Gems has fully tested get a priced, scored review and a rank on a single cross-category list (0-10, weighted across value for price, real-world capability, ease of use, and trial safety), listed at https://solosgems.com/reviews.html, not a per-category leaderboard. Nothing scores a 10. Reviews cover what a tool actually does, what it costs once the free tier runs out, and who it's a bad fit for. Some links are affiliate links (disclosed on the About page); that never changes which tools are covered or what the verdict says.
 
 Last updated: 2026-08-20.
 
-## Reviews (ranked #1-51, current as of last update, full list at https://solosgems.com/reviews)
+## Reviews (ranked #1-51, current as of last update, full list at https://solosgems.com/reviews.html)
 
 - [Canva Magic Studio](https://solosgems.com/reviews/canva-magic-studio.html): #1, 8.7/10. AI design tools (background removal, resizing, on-brand generation) bundled into Canva Pro.
 - [NotebookLM](https://solosgems.com/reviews/notebooklm.html): #2, 8.6/10. Google's source-grounded AI notebook; free tier covers 100 notebooks and 50 chats a day. Best Free Tier.
