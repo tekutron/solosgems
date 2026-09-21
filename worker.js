@@ -71,6 +71,34 @@ return handleGenImage(request, env);
 return new Response("Method not allowed", { status: 405 });
 }
 
+// Fallback for extensionless URLs (e.g. /about, /reviews/notion-ai,
+// /realms). Because html_handling is "none", Cloudflare's static asset
+// serving never auto-resolves these to their real "*.html" file, so a
+// request for the bare path used to fall straight through to the 404
+// below. That's exactly why Google Search Console kept flagging dozens of
+// extensionless URLs as "Not found (404)": every internal link and the
+// sitemap were already fixed to use ".html", but any URL Google had
+// previously seen or crawled without the extension (old sitemap
+// snapshots, external backlinks, direct hits) still hit a hard 404
+// instead of landing somewhere real. Redirect it to the ".html" version
+// when that file actually exists, so both old links and Google's re-crawl
+// resolve to the canonical page instead of dying.
+if (
+request.method === "GET" &&
+!url.pathname.startsWith("/api/") &&
+!/\.[a-zA-Z0-9]+$/.test(url.pathname)
+) {
+const htmlPath = url.pathname.replace(/\/+$/, "") + ".html";
+const assetUrl = new URL(request.url);
+assetUrl.pathname = htmlPath;
+const assetRes = await env.ASSETS.fetch(new Request(assetUrl, request));
+if (assetRes.status === 200) {
+const redirectUrl = new URL(request.url);
+redirectUrl.pathname = htmlPath;
+return Response.redirect(redirectUrl.toString(), 301);
+}
+}
+
 return new Response("Not found", { status: 404 });
 },
 
