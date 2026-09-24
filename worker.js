@@ -19,6 +19,27 @@ assetUrl.pathname = "/index.html";
 return env.ASSETS.fetch(new Request(assetUrl, request));
 }
 
+// The Herald's Hub merge folded every individual review page
+// (reviews/{slug}.html) and the reviews.html hub itself into the main
+// database on index.html, and those files were removed from the repo.
+// Google still has all of them indexed, so redirect every shape of the
+// old URL (with or without a trailing slash, with or without ".html",
+// any individual slug under /reviews/) straight to the new home instead
+// of letting them 404. This has to run before the generic extensionless
+// fallback below, since /reviews/{slug} has no file to resolve to anymore.
+if (
+request.method === "GET" &&
+(url.pathname === "/reviews" ||
+url.pathname === "/reviews.html" ||
+url.pathname === "/reviews/" ||
+url.pathname.startsWith("/reviews/"))
+) {
+const redirectUrl = new URL(request.url);
+redirectUrl.pathname = "/index.html";
+redirectUrl.search = "";
+return Response.redirect(redirectUrl.toString(), 301);
+}
+
 if (url.pathname === "/api/subscribe") {
 if (request.method === "POST") {
 return handleSubscribe(request, env);
@@ -1081,13 +1102,16 @@ caption = buildStaticCaptionFallback(entry.country, stats);
 }
 
 // Only link out to one of our own reviews when we're confident the slug
-// matches a real page (GDELT-mode hotTool names come from the same
-// canonical TOOL_NAMES list the review pages are built from). The
+// matches a real, ranked tool (GDELT-mode hotTool names come from the same
+// canonical TOOL_NAMES list the database rows are built from). The
 // headquarters fallback's hotTool names are real companies, but several
 // of them (Mistral AI, DeepSeek, Kling AI, and so on) aren't yet in our
 // own review set, so skip the link there rather than risk a dead one.
+// Individual reviews/{slug}.html pages no longer exist (merged into the
+// Herald's Hub database on index.html), so link to that tool's own row
+// there instead of a standalone page.
 const reviewLink =
-!usingOriginFallback && stats.hotTool ? `reviews/${slugifyToolName(stats.hotTool)}.html` : null;
+!usingOriginFallback && stats.hotTool ? `index.html#tool-${slugifyToolName(stats.hotTool)}` : null;
 
 countries.push({
 name: entry.country,
