@@ -1,6 +1,6 @@
 {
   "source": "https://solosgems.com/",
-  "generated": "2026-08-08",
+  "generated": "2026-09-30",
   "count": 226,
   "license": "Free to use with attribution to Solos Gems (solosgems.com).",
   "tools": [
@@ -13,7 +13,9 @@
       "url": "https://10web.io/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Adobe Firefly",
@@ -24,7 +26,9 @@
       "url": "https://firefly.adobe.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Ahrefs",
@@ -35,7 +39,9 @@
       "url": "https://ahrefs.com/",
       "reviewed_on_solosgems": false,
       "pricing": "paid",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "AI2SQL",
@@ -46,7 +52,9 @@
       "url": "https://ai2sql.io/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Airtable",
@@ -55,9 +63,11 @@
       "description": "A spreadsheet-database hybrid with AI credits for generating interfaces and automations from your own data.",
       "cool_fact": "The free tier (1,000 records/base, 500 AI credits/editor) genuinely covers most solo use cases before you'd need to upgrade.",
       "url": "https://www.airtable.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 12,
+      "score": 7.6
     },
     {
       "name": "AIVA",
@@ -68,7 +78,9 @@
       "url": "https://www.aiva.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "AltText.ai",
@@ -79,7 +91,9 @@
       "url": "https://alttext.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Amazon Q Developer",
@@ -90,7 +104,9 @@
       "url": "https://aws.amazon.com/q/developer/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Amazon Q Developer",
@@ -101,7 +117,9 @@
       "url": "https://aws.amazon.com/q/developer/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Anara",
@@ -110,9 +128,11 @@
       "description": "An AI research assistant for reading, summarizing, and citing academic papers, with direct search across PubMed, arXiv, and JSTOR.",
       "cool_fact": "Rebranded from Unriddle AI in 2025 and is now used by more than 3 million researchers, including people at Stanford, MIT, and Johns Hopkins.",
       "url": "https://anara.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-16"
+      "date_added": "2026-08-16",
+      "rank": 29,
+      "score": 6.6
     },
     {
       "name": "Apollo.io",
@@ -121,9 +141,11 @@
       "description": "AI-assisted lead sourcing and outreach sequencing, from $49/user/month.",
       "cool_fact": "Combines a large contact database and outreach automation in one platform.",
       "url": "https://www.apollo.io/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 35,
+      "score": 5.1
     },
     {
       "name": "Astra Security",
@@ -134,7 +156,9 @@
       "url": "https://www.getastra.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Async",
@@ -145,7 +169,9 @@
       "url": "https://async.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-16"
+      "date_added": "2026-08-16",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Attio",
@@ -154,9 +180,11 @@
       "description": "A flexible, data-first CRM with AI research and enrichment built into every plan, including a free tier for up to 3 seats and 50,000 records, or $29/seat/month for Plus.",
       "cool_fact": "Unlike most CRMs that gate AI behind the priciest tier, Attio ships AI enrichment on its free plan too, just metered by monthly credits instead of a seat count.",
       "url": "https://attio.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "free",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": 16,
+      "score": 7.5
     },
     {
       "name": "Auphonic",
@@ -167,7 +195,9 @@
       "url": "https://auphonic.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Beautiful.ai",
@@ -178,7 +208,9 @@
       "url": "https://www.beautiful.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Beehiiv",
@@ -187,9 +219,11 @@
       "description": "Newsletter platform built for monetization from day one; 0% commission on paid subscriptions.",
       "cool_fact": "Takes 0% commission on paid subscriptions, unlike most newsletter platforms.",
       "url": "https://www.beehiiv.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 4,
+      "score": 8.2
     },
     {
       "name": "Birdeye",
@@ -200,7 +234,9 @@
       "url": "https://birdeye.com/",
       "reviewed_on_solosgems": false,
       "pricing": "paid",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Bland AI",
@@ -209,9 +245,11 @@
       "description": "Programmable AI voice agents billed per minute, from $0.14/min.",
       "cool_fact": "Has resolved hundreds of millions of real phone calls to date.",
       "url": "https://www.bland.ai/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 50,
+      "score": 4.8
     },
     {
       "name": "Bolt.new",
@@ -222,7 +260,9 @@
       "url": "https://bolt.new/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Bonsai",
@@ -231,9 +271,11 @@
       "description": "Contracts, invoicing, and scheduling for freelancers; Essentials tier is the sweet spot.",
       "cool_fact": "Bundles contracts, invoicing, and scheduling into one dashboard built specifically for freelancers.",
       "url": "https://www.hellobonsai.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 20,
+      "score": 7.2
     },
     {
       "name": "Buffer",
@@ -244,7 +286,9 @@
       "url": "https://buffer.com/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Cal.com",
@@ -255,7 +299,9 @@
       "url": "https://cal.com/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-16"
+      "date_added": "2026-08-16",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Calendly",
@@ -264,9 +310,11 @@
       "description": "Scheduling with AI-assisted call routing and no-show reduction.",
       "cool_fact": "Can route a booking to the right team member automatically based on the meeting type.",
       "url": "https://calendly.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 17,
+      "score": 7.3
     },
     {
       "name": "Calm",
@@ -277,7 +325,9 @@
       "url": "https://www.calm.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Canva Magic Studio",
@@ -286,9 +336,11 @@
       "description": "AI design tools bundled into Canva Pro, from ~$10-15/month.",
       "cool_fact": "The current #1-ranked tool on Solos Gems, across all 51 tools reviewed.",
       "url": "https://www.canva.com/magic-studio/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 1,
+      "score": 8.7
     },
     {
       "name": "CapCut",
@@ -299,7 +351,9 @@
       "url": "https://www.capcut.com/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Cashflowy",
@@ -310,7 +364,9 @@
       "url": "https://www.cashflowy.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Chatbase",
@@ -319,9 +375,11 @@
       "description": "Custom AI chatbot trained on your own site or docs, from $32/month.",
       "cool_fact": "Trains exclusively on your own content, so answers stay consistent with your actual policies.",
       "url": "https://www.chatbase.co/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 26,
+      "score": 6.0
     },
     {
       "name": "ChatGPT",
@@ -332,7 +390,9 @@
       "url": "https://chatgpt.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "ChatGPT Atlas",
@@ -343,7 +403,9 @@
       "url": "https://chatgpt.com/atlas",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Chattermill",
@@ -354,7 +416,9 @@
       "url": "https://chattermill.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Claude",
@@ -365,7 +429,9 @@
       "url": "https://claude.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Clay",
@@ -376,7 +442,9 @@
       "url": "https://www.clay.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Cleanvoice",
@@ -387,7 +455,9 @@
       "url": "https://cleanvoice.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Cleo",
@@ -398,7 +468,9 @@
       "url": "https://www.meetcleo.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "ClickUp Brain",
@@ -407,9 +479,11 @@
       "description": "AI layer on ClickUp's project management platform, sold as a paid add-on ($7-9/month) on top of a base plan.",
       "cool_fact": "Best for solopreneurs already using ClickUp for task tracking, since per-seat AI pricing math favors a team of one.",
       "url": "https://clickup.com/ai",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 15,
+      "score": 7.5
     },
     {
       "name": "CodeRabbit",
@@ -420,7 +494,9 @@
       "url": "https://www.coderabbit.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Composer",
@@ -431,7 +507,9 @@
       "url": "https://www.composer.trade/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Consensus",
@@ -442,7 +520,9 @@
       "url": "https://consensus.app/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Copilot Money",
@@ -453,7 +533,9 @@
       "url": "https://copilot.money/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Copy.ai",
@@ -462,9 +544,11 @@
       "description": "AI copywriting with a real free tier and workflow automation beyond straight copywriting.",
       "cool_fact": "Expanded past content generation into full go-to-market workflow automation.",
       "url": "https://www.copy.ai/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 30,
+      "score": 6.5
     },
     {
       "name": "Copyleaks",
@@ -475,7 +559,9 @@
       "url": "https://copyleaks.com/",
       "reviewed_on_solosgems": false,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Craft",
@@ -484,9 +570,11 @@
       "description": "A visually polished notes and document app with AI writing assistance.",
       "cool_fact": "Positioned as a more design-forward, visual alternative to Notion.",
       "url": "https://www.craft.do/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 19,
+      "score": 7.3
     },
     {
       "name": "Creatify",
@@ -497,7 +585,9 @@
       "url": "https://creatify.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Cursor",
@@ -506,9 +596,11 @@
       "description": "AI-native code editor for solopreneurs building their own product.",
       "cool_fact": "It's a fork of VS Code, so most existing extensions and workflows carry over.",
       "url": "https://cursor.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 27,
+      "score": 5.9
     },
     {
       "name": "D-ID",
@@ -519,7 +611,9 @@
       "url": "https://www.d-id.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Danelfin",
@@ -530,7 +624,9 @@
       "url": "https://danelfin.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "DeepL",
@@ -541,7 +637,9 @@
       "url": "https://www.deepl.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "DeepSeek",
@@ -552,7 +650,9 @@
       "url": "https://www.deepseek.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Descript",
@@ -561,9 +661,11 @@
       "description": "Edit audio/video by editing a text transcript.",
       "cool_fact": "Deleting a word from the transcript deletes it from the actual audio and video too.",
       "url": "https://www.descript.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 9,
+      "score": 7.8
     },
     {
       "name": "Devin",
@@ -574,7 +676,9 @@
       "url": "https://devin.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "DocuSign",
@@ -585,7 +689,9 @@
       "url": "https://www.docusign.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Dovetail",
@@ -596,7 +702,9 @@
       "url": "https://dovetail.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Durable",
@@ -605,9 +713,11 @@
       "description": "Generates a full small-business website, copy, images, and booking, in under a minute.",
       "cool_fact": "Also auto-generates basic business tools like invoices and a CRM alongside the website itself.",
       "url": "https://durable.co/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 39,
+      "score": 7.2
     },
     {
       "name": "eesel AI",
@@ -618,7 +728,9 @@
       "url": "https://www.eesel.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "paid",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "ElevenLabs",
@@ -627,9 +739,11 @@
       "description": "AI voice generation and cloning; free tier is watermarked and non-commercial.",
       "cool_fact": "Can clone a convincing voice from just a short audio sample.",
       "url": "https://elevenlabs.io/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 37,
+      "score": 6.1
     },
     {
       "name": "Elicit",
@@ -640,7 +754,9 @@
       "url": "https://elicit.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Epique AI",
@@ -651,7 +767,9 @@
       "url": "https://www.epique.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Fathom",
@@ -662,7 +780,9 @@
       "url": "https://fathom.video/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Fireflies.ai",
@@ -671,9 +791,11 @@
       "description": "Meeting transcription with unlimited minutes on every tier, including free.",
       "cool_fact": "Unlimited transcription minutes even on its free plan, unusual for the category.",
       "url": "https://fireflies.ai/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 3,
+      "score": 8.4
     },
     {
       "name": "Fitbod",
@@ -684,7 +806,9 @@
       "url": "https://www.fitbod.me/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Flux",
@@ -695,7 +819,9 @@
       "url": "https://bfl.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Framer",
@@ -704,9 +830,11 @@
       "description": "AI-assisted website builder; generate and publish a real site from a prompt, then edit visually.",
       "cool_fact": "The free plan is genuinely usable to launch a real, live site, not a crippled demo.",
       "url": "https://www.framer.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 22,
+      "score": 6.4
     },
     {
       "name": "Freepik AI",
@@ -717,7 +845,9 @@
       "url": "https://www.freepik.com/ai",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Fyxer AI",
@@ -728,7 +858,9 @@
       "url": "https://fyxer.com/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-16"
+      "date_added": "2026-08-16",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Gamma",
@@ -737,9 +869,11 @@
       "description": "Turns a prompt into a formatted slide deck, document, or webpage.",
       "cool_fact": "The same prompt can output a slide deck, a one-page doc, or a simple website.",
       "url": "https://gamma.app/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 25,
+      "score": 6.9
     },
     {
       "name": "Gemini",
@@ -750,7 +884,9 @@
       "url": "https://gemini.google.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Genspark",
@@ -761,7 +897,9 @@
       "url": "https://www.genspark.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-16"
+      "date_added": "2026-08-16",
+      "rank": null,
+      "score": null
     },
     {
       "name": "GitHub Copilot",
@@ -772,7 +910,9 @@
       "url": "https://github.com/features/copilot",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Gong",
@@ -783,7 +923,9 @@
       "url": "https://www.gong.io/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": null,
+      "score": null
     },
     {
       "name": "GPTZero",
@@ -794,7 +936,9 @@
       "url": "https://gptzero.me/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Grain",
@@ -805,7 +949,9 @@
       "url": "https://grain.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Grammarly",
@@ -814,9 +960,11 @@
       "description": "Grammar, tone, and clarity checking everywhere you write.",
       "cool_fact": "Checks writing inside almost any app on your device, not just its own editor.",
       "url": "https://www.grammarly.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 5,
+      "score": 8.1
     },
     {
       "name": "Granola",
@@ -825,9 +973,11 @@
       "description": "An AI notetaker that runs on your desktop and never joins the call as a visible bot.",
       "cool_fact": "Builds its notes from your own rough, typed scribbles during the meeting, not just a raw transcript.",
       "url": "https://www.granola.ai/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-16"
+      "date_added": "2026-08-16",
+      "rank": 8,
+      "score": 7.9
     },
     {
       "name": "Grok",
@@ -838,7 +988,9 @@
       "url": "https://grok.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Gumloop",
@@ -849,7 +1001,9 @@
       "url": "https://www.gumloop.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-16"
+      "date_added": "2026-08-16",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Harness AI",
@@ -860,7 +1014,9 @@
       "url": "https://www.harness.io/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Harvey",
@@ -871,7 +1027,9 @@
       "url": "https://www.harvey.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "paid",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": null,
+      "score": null
     },
     {
       "name": "HeyGen",
@@ -882,7 +1040,9 @@
       "url": "https://www.heygen.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Higgsfield",
@@ -893,7 +1053,9 @@
       "url": "https://higgsfield.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "HireVue",
@@ -904,7 +1066,9 @@
       "url": "https://www.hirevue.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Hootsuite",
@@ -915,7 +1079,9 @@
       "url": "https://www.hootsuite.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "HubSpot Free CRM",
@@ -924,9 +1090,11 @@
       "description": "Free CRM tier is genuinely solid; AI features (Breeze) are rate-limited or paid.",
       "cool_fact": "The free CRM tier has no user cap or expiration date, unusual among free CRM offers.",
       "url": "https://www.hubspot.com/products/crm",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 15,
+      "score": 7.1
     },
     {
       "name": "Hugging Face",
@@ -937,7 +1105,9 @@
       "url": "https://huggingface.co/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Ideogram",
@@ -948,7 +1118,9 @@
       "url": "https://ideogram.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Instantly.ai",
@@ -957,9 +1129,11 @@
       "description": "Cold email outreach with AI-assisted copywriting and deliverability tooling across unlimited sending accounts, from $37.60/month with lead data and CRM sold as separate add-on modules.",
       "cool_fact": "Every plan includes unlimited email accounts and inbox warmup, but the lead database and CRM ship as paid add-ons, so a fully wired setup usually costs more than the sticker price suggests.",
       "url": "https://instantly.ai/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": 47,
+      "score": 6.3
     },
     {
       "name": "Intercom Fin",
@@ -970,7 +1144,9 @@
       "url": "https://www.intercom.com/fin",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Interior AI",
@@ -981,7 +1157,9 @@
       "url": "https://interiorai.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Ironclad",
@@ -992,7 +1170,9 @@
       "url": "https://ironclad.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Jamie",
@@ -1003,7 +1183,9 @@
       "url": "https://www.meetjamie.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Jasper",
@@ -1011,10 +1193,12 @@
       "category": "Writing & Copywriting",
       "description": "AI copywriting focused on brand-voice consistency for marketing teams.",
       "cool_fact": "Its brand-voice training keeps tone consistent across a high volume of generated content.",
-      "url": "https://www.copy.ai/",
+      "url": "https://www.jasper.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Jobscan",
@@ -1025,7 +1209,9 @@
       "url": "https://www.jobscan.co/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Juicebox",
@@ -1036,7 +1222,9 @@
       "url": "https://juicebox.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Julius",
@@ -1047,7 +1235,9 @@
       "url": "https://julius.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Julius AI",
@@ -1058,7 +1248,9 @@
       "url": "https://julius.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Kagi",
@@ -1069,7 +1261,9 @@
       "url": "https://kagi.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Kapwing",
@@ -1080,7 +1274,9 @@
       "url": "https://www.kapwing.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Khanmigo",
@@ -1091,7 +1287,9 @@
       "url": "https://www.khanacademy.org/khan-labs",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Klevu",
@@ -1102,7 +1300,9 @@
       "url": "https://www.klevu.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Kling AI",
@@ -1113,7 +1313,9 @@
       "url": "https://klingai.com/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Koala AI",
@@ -1122,9 +1324,11 @@
       "description": "AI writer built for SEO-optimized articles, from $9/month.",
       "cool_fact": "Runs real-time SERP analysis before drafting, structuring articles to actually compete for a keyword.",
       "url": "https://koala.sh/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 30,
+      "score": 7.7
     },
     {
       "name": "Krea AI",
@@ -1135,7 +1339,9 @@
       "url": "https://www.krea.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "LangChain",
@@ -1146,7 +1352,9 @@
       "url": "https://www.langchain.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "LegesGPT",
@@ -1157,7 +1365,9 @@
       "url": "https://www.legesgpt.com/",
       "reviewed_on_solosgems": false,
       "pricing": "paid",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Leonardo AI",
@@ -1168,7 +1378,9 @@
       "url": "https://leonardo.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Lettuce",
@@ -1179,7 +1391,9 @@
       "url": "https://www.lettuce.co/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Lex",
@@ -1190,7 +1404,9 @@
       "url": "https://lex.page/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-16"
+      "date_added": "2026-08-16",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Lindy",
@@ -1201,7 +1417,9 @@
       "url": "https://www.lindy.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "paid",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Linear",
@@ -1212,7 +1430,9 @@
       "url": "https://linear.app/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Lokalise",
@@ -1223,7 +1443,9 @@
       "url": "https://lokalise.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Looka",
@@ -1234,7 +1456,9 @@
       "url": "https://looka.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Loom",
@@ -1243,9 +1467,11 @@
       "description": "Async video messaging with AI transcripts and summaries; free tier caps videos at 5 minutes.",
       "cool_fact": "Auto-generates a written summary and action items from any recorded video.",
       "url": "https://www.loom.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 23,
+      "score": 7.0
     },
     {
       "name": "Lovable",
@@ -1254,9 +1480,11 @@
       "description": "Describe an app in plain English and get a working frontend and backend, from $25/month.",
       "cool_fact": "Lets you keep iterating conversationally, 'add a login page', instead of writing code yourself.",
       "url": "https://lovable.dev/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 43,
+      "score": 4.7
     },
     {
       "name": "Luma Dream Machine",
@@ -1267,7 +1495,9 @@
       "url": "https://lumalabs.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Lumen5",
@@ -1278,7 +1508,9 @@
       "url": "https://lumen5.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-16"
+      "date_added": "2026-08-16",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Luminance",
@@ -1289,7 +1521,9 @@
       "url": "https://www.luminance.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "MagicSchool AI",
@@ -1300,7 +1534,9 @@
       "url": "https://www.magicschool.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Make",
@@ -1309,9 +1545,11 @@
       "description": "Visual automation platform and a direct alternative to Zapier; credit-based pricing.",
       "cool_fact": "Its canvas-style builder shows an entire automation, branches and all, on one screen.",
       "url": "https://www.make.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 18,
+      "score": 6.8
     },
     {
       "name": "Manus",
@@ -1322,7 +1560,9 @@
       "url": "https://manus.im/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Mem",
@@ -1333,7 +1573,9 @@
       "url": "https://get.mem.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Meshy",
@@ -1344,7 +1586,9 @@
       "url": "https://www.meshy.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Meta AI",
@@ -1355,7 +1599,9 @@
       "url": "https://www.meta.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Microsoft Copilot",
@@ -1366,7 +1612,9 @@
       "url": "https://copilot.microsoft.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Midjourney",
@@ -1375,9 +1623,11 @@
       "description": "Distinctive AI image generation; no free plan.",
       "cool_fact": "Started as a Discord bot and still runs primarily through Discord commands.",
       "url": "https://www.midjourney.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 42,
+      "score": 6.7
     },
     {
       "name": "Missive",
@@ -1388,7 +1638,9 @@
       "url": "https://missiveapp.com/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Mistral Le Chat",
@@ -1399,7 +1651,9 @@
       "url": "https://chat.mistral.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Monarch Money",
@@ -1410,7 +1664,9 @@
       "url": "https://www.monarchmoney.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Motion",
@@ -1419,9 +1675,11 @@
       "description": "AI calendar that auto-schedules your tasks around meetings; no free plan.",
       "cool_fact": "Automatically re-shuffles your task schedule the moment a new meeting gets booked.",
       "url": "https://www.usemotion.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 44,
+      "score": 5.4
     },
     {
       "name": "Murf AI",
@@ -1432,7 +1690,9 @@
       "url": "https://murf.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "MyArchitectAI",
@@ -1443,7 +1703,9 @@
       "url": "https://myarchitectai.com/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "MyFitnessPal",
@@ -1454,7 +1716,9 @@
       "url": "https://www.myfitnesspal.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "n8n",
@@ -1465,7 +1729,9 @@
       "url": "https://n8n.io/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Noom",
@@ -1476,7 +1742,9 @@
       "url": "https://www.noom.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "NotebookLM",
@@ -1485,9 +1753,11 @@
       "description": "Google's source-grounded AI notebook; free tier covers 100 notebooks and 50 chats a day.",
       "cool_fact": "Refuses to answer from general knowledge, every response is grounded in the documents you actually upload.",
       "url": "https://notebooklm.google/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 2,
+      "score": 8.6
     },
     {
       "name": "Notion AI",
@@ -1496,9 +1766,11 @@
       "description": "Notion's AI layer now requires the $20/user/month Business plan.",
       "cool_fact": "Can build a tracker or database directly from a meeting summary you paste in.",
       "url": "https://www.notion.com/product/ai",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 45,
+      "score": 5.5
     },
     {
       "name": "Notion Mail",
@@ -1509,7 +1781,9 @@
       "url": "https://www.notion.com/product/mail",
       "reviewed_on_solosgems": false,
       "pricing": "paid",
-      "date_added": "2026-08-16"
+      "date_added": "2026-08-16",
+      "rank": null,
+      "score": null
     },
     {
       "name": "NovelAI",
@@ -1520,7 +1794,9 @@
       "url": "https://novelai.net/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Numerous.ai",
@@ -1529,9 +1805,11 @@
       "description": "AI formulas that live inside Google Sheets and Excel, from $8/month billed yearly.",
       "cool_fact": "Lets you write a plain-language instruction as a spreadsheet formula instead of a nested function.",
       "url": "https://numerous.ai/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 24,
+      "score": 6.95
     },
     {
       "name": "Obviously AI",
@@ -1542,7 +1820,9 @@
       "url": "https://www.obviously.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Ocoya",
@@ -1553,7 +1833,9 @@
       "url": "https://www.ocoya.com/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "OpusClip",
@@ -1562,9 +1844,11 @@
       "description": "Turns long-form video into short social clips automatically, from $15/month.",
       "cool_fact": "Scores every auto-generated clip by predicted engagement before you post it.",
       "url": "https://www.opus.pro/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 41,
+      "score": 5.7
     },
     {
       "name": "Originality.ai",
@@ -1575,7 +1859,9 @@
       "url": "https://originality.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Otter.ai",
@@ -1584,9 +1870,11 @@
       "description": "Real-time meeting transcription and summaries; Business tier bills a 5-seat minimum.",
       "cool_fact": "Can join a call automatically and start transcribing without anyone manually starting a recorder.",
       "url": "https://otter.ai/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 6,
+      "score": 8.0
     },
     {
       "name": "PandaDoc",
@@ -1597,7 +1885,9 @@
       "url": "https://www.pandadoc.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Paradox",
@@ -1608,7 +1898,9 @@
       "url": "https://www.paradox.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Perplexity Comet",
@@ -1619,7 +1911,9 @@
       "url": "https://comet.perplexity.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Perplexity Pro",
@@ -1628,9 +1922,11 @@
       "description": "Cited, sourced AI search; a nice-to-have if you already pay for another AI assistant.",
       "cool_fact": "Answers link directly back to the specific source they came from, not just a generic citation list.",
       "url": "https://www.perplexity.ai/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 48,
+      "score": 5.0
     },
     {
       "name": "Photoroom",
@@ -1639,9 +1935,11 @@
       "description": "AI background removal and product photo editing, from $7.50/month billed yearly.",
       "cool_fact": "Purpose-built for e-commerce product photos rather than general design work.",
       "url": "https://www.photoroom.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 7,
+      "score": 7.9
     },
     {
       "name": "Pictory",
@@ -1652,7 +1950,9 @@
       "url": "https://pictory.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Pika",
@@ -1663,7 +1963,9 @@
       "url": "https://pika.art/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Pitch",
@@ -1674,7 +1976,9 @@
       "url": "https://pitch.com/",
       "reviewed_on_solosgems": false,
       "pricing": "paid",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": null,
+      "score": null
     },
     {
       "name": "PixVerse",
@@ -1685,7 +1989,9 @@
       "url": "https://pixverse.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Play.ht",
@@ -1696,7 +2002,9 @@
       "url": "https://play.ht/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Plus AI",
@@ -1707,7 +2015,9 @@
       "url": "https://www.plusai.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Podium",
@@ -1718,7 +2028,9 @@
       "url": "https://www.podium.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Poe",
@@ -1729,7 +2041,9 @@
       "url": "https://poe.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "ProWritingAid",
@@ -1740,7 +2054,9 @@
       "url": "https://prowritingaid.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "QuickBooks Solopreneur",
@@ -1749,9 +2065,11 @@
       "description": "Bookkeeping built for one-person Schedule-C businesses, not a scaled-down QuickBooks Online.",
       "cool_fact": "Built from scratch specifically for one-person businesses, not just a trimmed-down version of the full product.",
       "url": "https://quickbooks.intuit.com/solopreneur/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 46,
+      "score": 5.8
     },
     {
       "name": "QuillBot",
@@ -1762,7 +2080,9 @@
       "url": "https://quillbot.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Quizlet",
@@ -1773,7 +2093,9 @@
       "url": "https://quizlet.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Rask AI",
@@ -1784,7 +2106,9 @@
       "url": "https://www.rask.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Reclaim.ai",
@@ -1793,9 +2117,11 @@
       "description": "An AI calendar tool that auto-schedules habits, focus time, and tasks around your existing meetings, with a genuinely free tier for a single calendar.",
       "cool_fact": "Automatically defends time for recurring habits like exercise or deep work, rescheduling them itself the moment a meeting collides.",
       "url": "https://reclaim.ai/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "free",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": 10,
+      "score": 7.8
     },
     {
       "name": "Recraft",
@@ -1806,7 +2132,9 @@
       "url": "https://www.recraft.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Recruiterflow",
@@ -1817,7 +2145,9 @@
       "url": "https://recruiterflow.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Reflect",
@@ -1828,7 +2158,9 @@
       "url": "https://reflect.app/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "RemodelAI",
@@ -1839,7 +2171,9 @@
       "url": "https://www.remodelai.io/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Replit",
@@ -1850,7 +2184,9 @@
       "url": "https://replit.com/",
       "reviewed_on_solosgems": false,
       "pricing": "paid",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Replit Agent",
@@ -1861,7 +2197,9 @@
       "url": "https://replit.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Respeecher",
@@ -1872,7 +2210,9 @@
       "url": "https://www.respeecher.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Rev",
@@ -1883,7 +2223,9 @@
       "url": "https://www.rev.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Rezi",
@@ -1894,7 +2236,9 @@
       "url": "https://www.rezi.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Riverside.fm",
@@ -1903,9 +2247,11 @@
       "description": "Studio-quality remote podcast and video recording with local-device recording.",
       "cool_fact": "Records each guest locally at full quality, so a bad internet connection doesn't degrade the final file.",
       "url": "https://riverside.fm/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 34,
+      "score": 6.2
     },
     {
       "name": "Robin AI",
@@ -1916,7 +2262,9 @@
       "url": "https://www.robinai.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Rocket Money",
@@ -1927,7 +2275,9 @@
       "url": "https://www.rocketmoney.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Rows",
@@ -1938,7 +2288,9 @@
       "url": "https://rows.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Runway",
@@ -1947,9 +2299,11 @@
       "description": "AI video generation and editing for solo creators, from $15/month.",
       "cool_fact": "Its Act-Two feature captures a real performance and maps it onto a generated character.",
       "url": "https://runwayml.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 31,
+      "score": 5.6
     },
     {
       "name": "Rytr",
@@ -1960,7 +2314,9 @@
       "url": "https://rytr.me/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Sanebox",
@@ -1971,7 +2327,9 @@
       "url": "https://www.sanebox.com/",
       "reviewed_on_solosgems": false,
       "pricing": "paid",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Seeking Alpha Premium",
@@ -1982,7 +2340,9 @@
       "url": "https://seekingalpha.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Semrush",
@@ -1991,9 +2351,11 @@
       "description": "A comprehensive SEO research platform with AI-assisted content and keyword tools, from $139.95/month.",
       "cool_fact": "Widely considered the most capable SEO tool in its category, though the price is overkill unless organic content is your core growth channel.",
       "url": "https://www.semrush.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 34,
+      "score": 5.2
     },
     {
       "name": "Shopify Magic",
@@ -2004,7 +2366,9 @@
       "url": "https://www.shopify.com/magic",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Shortwave",
@@ -2013,9 +2377,11 @@
       "description": "AI email client that triages and summarizes your inbox; $18/seat/month for Pro.",
       "cool_fact": "Lets you search your inbox in plain language instead of exact keyword matching.",
       "url": "https://www.shortwave.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 28,
+      "score": 6.6
     },
     {
       "name": "Sider",
@@ -2026,7 +2392,9 @@
       "url": "https://sider.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-16"
+      "date_added": "2026-08-16",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Simplified",
@@ -2037,7 +2405,9 @@
       "url": "https://simplified.com/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-16"
+      "date_added": "2026-08-16",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Smartlead",
@@ -2048,7 +2418,9 @@
       "url": "https://www.smartlead.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "paid",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Soundraw",
@@ -2059,7 +2431,9 @@
       "url": "https://soundraw.io/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Sourcegraph Cody",
@@ -2070,7 +2444,9 @@
       "url": "https://sourcegraph.com/cody",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Spellbook",
@@ -2081,7 +2457,9 @@
       "url": "https://www.spellbook.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Stable Diffusion",
@@ -2092,7 +2470,9 @@
       "url": "https://stability.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "StoryChief",
@@ -2103,7 +2483,9 @@
       "url": "https://storychief.io/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Sudowrite",
@@ -2114,7 +2496,9 @@
       "url": "https://sudowrite.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Suno",
@@ -2123,9 +2507,11 @@
       "description": "AI music generation that turns a text prompt into a full song with vocals and structure, from $8/month billed yearly.",
       "cool_fact": "Its latest model closes most of the uncanny valley in AI vocals, they sound like a real singer now.",
       "url": "https://suno.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 36,
+      "score": 6.15
     },
     {
       "name": "Superhuman",
@@ -2136,7 +2522,9 @@
       "url": "https://superhuman.com/",
       "reviewed_on_solosgems": false,
       "pricing": "paid",
-      "date_added": "2026-08-16"
+      "date_added": "2026-08-16",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Superwhisper",
@@ -2147,7 +2535,9 @@
       "url": "https://superwhisper.com/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Surfer SEO",
@@ -2158,7 +2548,9 @@
       "url": "https://surferseo.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Synthesia",
@@ -2167,9 +2559,11 @@
       "description": "Turns a script into a talking-avatar video, from $14/month.",
       "cool_fact": "Offers 125+ AI avatars to choose from without ever appearing on camera yourself.",
       "url": "https://www.synthesia.io/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 40,
+      "score": 4.9
     },
     {
       "name": "Tabnine",
@@ -2180,7 +2574,9 @@
       "url": "https://www.tabnine.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Tana",
@@ -2191,7 +2587,9 @@
       "url": "https://tana.inc/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Teal",
@@ -2202,7 +2600,9 @@
       "url": "https://www.tealhq.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Tidio",
@@ -2213,7 +2613,9 @@
       "url": "https://www.tidio.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "tl;dv",
@@ -2222,9 +2624,11 @@
       "description": "An AI meeting recorder and transcription tool for Zoom, Meet, and Teams with unlimited free recordings and 10 free AI summaries a month before paid plans start at $18/user/month.",
       "cool_fact": "The free plan's recording and transcription limits are genuinely unlimited, the only real cap is on AI-generated meeting summaries, most competitors throttle recording itself.",
       "url": "https://tldv.io/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "free",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": 13,
+      "score": 7.6
     },
     {
       "name": "Toggl Track",
@@ -2233,9 +2637,11 @@
       "description": "Time tracking with AI-assisted categorization; free for up to 5 users.",
       "cool_fact": "Free plan supports up to 5 users at no cost, unusually generous for a time tracker.",
       "url": "https://toggl.com/track/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 12,
+      "score": 7.4
     },
     {
       "name": "Tripo AI",
@@ -2246,7 +2652,9 @@
       "url": "https://www.tripo3d.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Turnitin",
@@ -2257,7 +2665,9 @@
       "url": "https://www.turnitin.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Typeform",
@@ -2266,9 +2676,11 @@
       "description": "Conversational forms and surveys with AI-assisted question generation, from $28/month.",
       "cool_fact": "Presents one question at a time in a full-screen format, which measurably raises completion rates.",
       "url": "https://www.typeform.com/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "paid",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 33,
+      "score": 5.3
     },
     {
       "name": "Udio",
@@ -2279,7 +2691,9 @@
       "url": "https://www.udio.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Uizard",
@@ -2290,7 +2704,9 @@
       "url": "https://uizard.io/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "v0",
@@ -2299,9 +2715,11 @@
       "description": "Vercel's AI tool that generates real, working frontend UI code from a prompt or screenshot, free or from $30/user/month.",
       "cool_fact": "Generated components deploy straight to Vercel's hosting with zero extra setup.",
       "url": "https://v0.dev/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 41,
+      "score": 5.65
     },
     {
       "name": "Vanna AI",
@@ -2312,7 +2730,9 @@
       "url": "https://vanna.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Vapi",
@@ -2323,7 +2743,9 @@
       "url": "https://vapi.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Veo",
@@ -2334,7 +2756,9 @@
       "url": "https://labs.google/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Virtual Staging AI",
@@ -2345,7 +2769,9 @@
       "url": "https://www.virtualstagingai.app/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Warmly",
@@ -2356,7 +2782,9 @@
       "url": "https://warmly.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Warp",
@@ -2367,7 +2795,9 @@
       "url": "https://www.warp.dev/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-16"
+      "date_added": "2026-08-16",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Webflow",
@@ -2378,7 +2808,9 @@
       "url": "https://webflow.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Whoop",
@@ -2389,7 +2821,9 @@
       "url": "https://www.whoop.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Willow Voice",
@@ -2400,7 +2834,9 @@
       "url": "https://willowvoice.com/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-08"
+      "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Windsurf",
@@ -2411,7 +2847,9 @@
       "url": "https://windsurf.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Wispr Flow",
@@ -2420,9 +2858,11 @@
       "description": "AI voice dictation that writes in your own tone across any app on your computer, free or $12/user/month.",
       "cool_fact": "Works system-wide, not just inside one app, so it dictates into email, Slack, or a code editor alike.",
       "url": "https://wisprflow.ai/",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "free",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 14,
+      "score": 7.55
     },
     {
       "name": "Wix",
@@ -2433,7 +2873,9 @@
       "url": "https://www.wix.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Wiz",
@@ -2444,7 +2886,9 @@
       "url": "https://www.wiz.io/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Writesonic",
@@ -2455,7 +2899,9 @@
       "url": "https://writesonic.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "You.com",
@@ -2466,7 +2912,9 @@
       "url": "https://you.com/",
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
     },
     {
       "name": "Zapier AI Actions",
@@ -2475,9 +2923,11 @@
       "description": "AI decision-making steps inside Zapier automations; new pricing model is easy to overspend on.",
       "cool_fact": "Connects thousands of different apps together, the largest integration library in the category.",
       "url": "https://zapier.com/ai",
-      "reviewed_on_solosgems": false,
+      "reviewed_on_solosgems": true,
       "pricing": "unlisted",
-      "date_added": "2026-08-01"
+      "date_added": "2026-08-01",
+      "rank": 32,
+      "score": 6.3
     },
     {
       "name": "Zed",
@@ -2488,7 +2938,9 @@
       "url": "https://zed.dev/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
-      "date_added": "2026-08-19"
+      "date_added": "2026-08-19",
+      "rank": null,
+      "score": null
     }
   ]
 }

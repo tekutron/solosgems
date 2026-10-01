@@ -13,7 +13,7 @@
     "ease": 9.5,
     "trial": 8.5,
     "badge": null,
-    "url": "reviews/canva-magic-studio.html"
+    "url": "index.html#tool-canva-magic-studio"
   },
   {
     "slug": "notebooklm",
@@ -26,7 +26,7 @@
     "ease": 8.5,
     "trial": 9.5,
     "badge": "Best Free Tier",
-    "url": "reviews/notebooklm.html"
+    "url": "index.html#tool-notebooklm"
   },
   {
     "slug": "fireflies-ai",
@@ -39,7 +39,7 @@
     "ease": 8.5,
     "trial": 9.5,
     "badge": "Best Value",
-    "url": "reviews/fireflies-ai.html"
+    "url": "index.html#tool-fireflies-ai"
   },
   {
     "slug": "beehiiv",
@@ -52,7 +52,7 @@
     "ease": 8.0,
     "trial": 8.5,
     "badge": "Safest Free Trial",
-    "url": "reviews/beehiiv.html"
+    "url": "index.html#tool-beehiiv"
   },
   {
     "slug": "grammarly",
@@ -65,7 +65,7 @@
     "ease": 9.5,
     "trial": 8.5,
     "badge": null,
-    "url": "reviews/grammarly.html"
+    "url": "index.html#tool-grammarly"
   },
   {
     "slug": "otter-ai",
@@ -78,7 +78,7 @@
     "ease": 8.5,
     "trial": 8.0,
     "badge": null,
-    "url": "reviews/otter-ai.html"
+    "url": "index.html#tool-otter-ai"
   },
   {
     "slug": "photoroom",
@@ -91,7 +91,7 @@
     "ease": 8.5,
     "trial": 8.0,
     "badge": null,
-    "url": "reviews/photoroom.html"
+    "url": "index.html#tool-photoroom"
   },
   {
     "slug": "descript",
@@ -104,7 +104,7 @@
     "ease": 7.5,
     "trial": 7.5,
     "badge": "Most Powerful",
-    "url": "reviews/descript.html"
+    "url": "index.html#tool-descript"
   },
   {
     "slug": "koala-ai",
@@ -117,7 +117,7 @@
     "ease": 7.5,
     "trial": 8.0,
     "badge": null,
-    "url": "reviews/koala-ai.html"
+    "url": "index.html#tool-koala-ai"
   },
   {
     "slug": "airtable",
@@ -130,7 +130,7 @@
     "ease": 6.5,
     "trial": 8.5,
     "badge": null,
-    "url": "reviews/airtable.html"
+    "url": "index.html#tool-airtable"
   },
   {
     "slug": "wispr-flow",
@@ -143,7 +143,7 @@
     "ease": 9.0,
     "trial": 8.5,
     "badge": null,
-    "url": "reviews/wispr-flow.html"
+    "url": "index.html#tool-wispr-flow"
   },
   {
     "slug": "clickup-ai",
@@ -156,7 +156,7 @@
     "ease": 6.5,
     "trial": 7.5,
     "badge": null,
-    "url": "reviews/clickup-ai.html"
+    "url": "index.html#tool-clickup-ai"
   },
   {
     "slug": "toggl-track",
@@ -169,7 +169,7 @@
     "ease": 8.5,
     "trial": 8.5,
     "badge": null,
-    "url": "reviews/toggl-track.html"
+    "url": "index.html#tool-toggl-track"
   },
   {
     "slug": "calendly",
@@ -182,7 +182,7 @@
     "ease": 8.5,
     "trial": 8.0,
     "badge": "Easiest Start",
-    "url": "reviews/calendly.html"
+    "url": "index.html#tool-calendly"
   },
   {
     "slug": "bonsai",
@@ -195,7 +195,7 @@
     "ease": 7.0,
     "trial": 7.5,
     "badge": null,
-    "url": "reviews/bonsai.html"
+    "url": "index.html#tool-bonsai"
   },
   {
     "slug": "hubspot-free-crm",
@@ -208,7 +208,7 @@
     "ease": 7.0,
     "trial": 7.8,
     "badge": null,
-    "url": "reviews/hubspot-free-crm.html"
+    "url": "index.html#tool-hubspot-free-crm"
   },
   {
     "slug": "loom",
@@ -221,7 +221,7 @@
     "ease": 9.0,
     "trial": 6.0,
     "badge": null,
-    "url": "reviews/loom.html"
+    "url": "index.html#tool-loom"
   },
   {
     "slug": "numerous-ai",
@@ -234,7 +234,7 @@
     "ease": 8.5,
     "trial": 7.5,
     "badge": null,
-    "url": "reviews/numerous-ai.html"
+    "url": "index.html#tool-numerous-ai"
   },
   {
     "slug": "gamma",
@@ -247,7 +247,7 @@
     "ease": 8.0,
     "trial": 6.0,
     "badge": null,
-    "url": "reviews/gamma.html"
+    "url": "index.html#tool-gamma"
   },
   {
     "slug": "make",
@@ -260,7 +260,7 @@
     "ease": 6.0,
     "trial": 7.5,
     "badge": null,
-    "url": "reviews/make.html"
+    "url": "index.html#tool-make"
   },
   {
     "slug": "midjourney",
@@ -273,7 +273,7 @@
     "ease": 6.0,
     "trial": 4.5,
     "badge": null,
-    "url": "reviews/midjourney.html"
+    "url": "index.html#tool-midjourney"
   },
   {
     "slug": "shortwave",
@@ -286,7 +286,7 @@
     "ease": 7.5,
     "trial": 6.0,
     "badge": null,
-    "url": "reviews/shortwave.html"
+    "url": "index.html#tool-shortwave"
   },
   {
     "slug": "copyai-vs-jasper",
@@ -299,7 +299,7 @@
     "ease": 7.0,
     "trial": 7.0,
     "badge": null,
-    "url": "reviews/copyai-vs-jasper.html"
+    "url": "index.html#tool-copyai"
   },
   {
     "slug": "framer",
@@ -312,7 +312,7 @@
     "ease": 6.5,
     "trial": 6.5,
     "badge": null,
-    "url": "reviews/framer.html"
+    "url": "index.html#tool-framer"
   },
   {
     "slug": "zapier-ai",
@@ -325,7 +325,7 @@
     "ease": 6.0,
     "trial": 6.5,
     "badge": null,
-    "url": "reviews/zapier-ai.html"
+    "url": "index.html#tool-zapier-ai"
   },
   {
     "slug": "riverside",
@@ -338,7 +338,7 @@
     "ease": 7.0,
     "trial": 6.0,
     "badge": null,
-    "url": "reviews/riverside.html"
+    "url": "index.html#tool-riverside"
   },
   {
     "slug": "suno",
@@ -351,7 +351,7 @@
     "ease": 8.5,
     "trial": 6.5,
     "badge": null,
-    "url": "reviews/suno.html"
+    "url": "index.html#tool-suno"
   },
   {
     "slug": "elevenlabs",
@@ -364,7 +364,7 @@
     "ease": 6.5,
     "trial": 5.0,
     "badge": null,
-    "url": "reviews/elevenlabs.html"
+    "url": "index.html#tool-elevenlabs"
   },
   {
     "slug": "chatbase",
@@ -377,7 +377,7 @@
     "ease": 6.5,
     "trial": 6.5,
     "badge": null,
-    "url": "reviews/chatbase.html"
+    "url": "index.html#tool-chatbase"
   },
   {
     "slug": "cursor",
@@ -390,7 +390,7 @@
     "ease": 5.5,
     "trial": 6.0,
     "badge": null,
-    "url": "reviews/cursor.html"
+    "url": "index.html#tool-cursor"
   },
   {
     "slug": "quickbooks-solopreneur",
@@ -403,7 +403,7 @@
     "ease": 7.0,
     "trial": 6.5,
     "badge": null,
-    "url": "reviews/quickbooks-solopreneur.html"
+    "url": "index.html#tool-quickbooks-solopreneur"
   },
   {
     "slug": "opusclip",
@@ -416,7 +416,7 @@
     "ease": 7.0,
     "trial": 5.5,
     "badge": null,
-    "url": "reviews/opusclip.html"
+    "url": "index.html#tool-opusclip"
   },
   {
     "slug": "vercel-v0",
@@ -429,7 +429,7 @@
     "ease": 6.0,
     "trial": 6.0,
     "badge": null,
-    "url": "reviews/vercel-v0.html"
+    "url": "index.html#tool-vercel-v0"
   },
   {
     "slug": "runway",
@@ -442,7 +442,7 @@
     "ease": 5.5,
     "trial": 5.5,
     "badge": null,
-    "url": "reviews/runway.html"
+    "url": "index.html#tool-runway"
   },
   {
     "slug": "notion-ai",
@@ -455,7 +455,7 @@
     "ease": 6.0,
     "trial": 4.5,
     "badge": null,
-    "url": "reviews/notion-ai.html"
+    "url": "index.html#tool-notion-ai"
   },
   {
     "slug": "motion",
@@ -468,7 +468,7 @@
     "ease": 7.5,
     "trial": 4.5,
     "badge": null,
-    "url": "reviews/motion.html"
+    "url": "index.html#tool-motion"
   },
   {
     "slug": "typeform",
@@ -481,7 +481,7 @@
     "ease": 7.0,
     "trial": 5.5,
     "badge": null,
-    "url": "reviews/typeform.html"
+    "url": "index.html#tool-typeform"
   },
   {
     "slug": "semrush",
@@ -494,7 +494,7 @@
     "ease": 5.0,
     "trial": 5.0,
     "badge": null,
-    "url": "reviews/semrush.html"
+    "url": "index.html#tool-semrush"
   },
   {
     "slug": "apollo-io",
@@ -507,7 +507,7 @@
     "ease": 5.5,
     "trial": 5.0,
     "badge": null,
-    "url": "reviews/apollo-io.html"
+    "url": "index.html#tool-apollo-io"
   },
   {
     "slug": "perplexity-pro",
@@ -520,7 +520,7 @@
     "ease": 6.5,
     "trial": 5.0,
     "badge": null,
-    "url": "reviews/perplexity-pro.html"
+    "url": "index.html#tool-perplexity-pro"
   },
   {
     "slug": "synthesia",
@@ -533,7 +533,7 @@
     "ease": 6.0,
     "trial": 4.5,
     "badge": null,
-    "url": "reviews/synthesia.html"
+    "url": "index.html#tool-synthesia"
   },
   {
     "slug": "bland-ai",
@@ -546,7 +546,7 @@
     "ease": 4.5,
     "trial": 4.5,
     "badge": null,
-    "url": "reviews/bland-ai.html"
+    "url": "index.html#tool-bland-ai"
   },
   {
     "slug": "lovable",
@@ -559,7 +559,7 @@
     "ease": 5.5,
     "trial": 4.5,
     "badge": null,
-    "url": "reviews/lovable.html"
+    "url": "index.html#tool-lovable"
   }
 ];
 

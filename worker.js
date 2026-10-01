@@ -34,9 +34,18 @@ url.pathname === "/reviews.html" ||
 url.pathname === "/reviews/" ||
 url.pathname.startsWith("/reviews/"))
 ) {
+// Redirect to "/" (the homepage's canonical URL), not "/index.html", so
+// Google doesn't see a redirect that lands on a non-canonical page. Old
+// per-tool review URLs jump straight to that tool's row in the database.
 const redirectUrl = new URL(request.url);
-redirectUrl.pathname = "/index.html";
+redirectUrl.pathname = "/";
 redirectUrl.search = "";
+const reviewSlug = url.pathname
+.replace(/^\/reviews\/?/, "")
+.replace(/\.html$/, "")
+.replace(/\/+$/, "")
+.split("-vs-")[0];
+redirectUrl.hash = /^[a-z0-9-]+$/.test(reviewSlug) ? "tool-" + reviewSlug : "";
 return Response.redirect(redirectUrl.toString(), 301);
 }
 
