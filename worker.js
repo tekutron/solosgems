@@ -91,16 +91,6 @@ return handleRefreshRealms(env);
 return new Response("Method not allowed", { status: 405 });
 }
 
-// Temporary, manually-keyed endpoint used to batch-regenerate the D&D-style
-// review hero images via Workers AI. Not linked anywhere on the site.
-// Remove this route once the one-time image batch is regenerated.
-if (url.pathname === "/api/gen-image") {
-if (request.method === "GET") {
-return handleGenImage(request, env);
-}
-return new Response("Method not allowed", { status: 405 });
-}
-
 // Fallback for extensionless URLs (e.g. /about, /reviews/notion-ai,
 // /realms). Because html_handling is "none", Cloudflare's static asset
 // serving never auto-resolves these to their real "*.html" file, so a
@@ -534,54 +524,6 @@ return new Response(JSON.stringify({ ok: true, ...payload }), {
 status: 200,
 headers: { "Content-Type": "application/json" },
 });
-}
-
-// ---------------- Temporary: batch image generation ----------------
-// Manually-keyed, undocumented endpoint used to regenerate the D&D-style
-// review hero images via Workers AI (flux-1-schnell). Not linked anywhere on
-// the site and not meant to stay live long-term, remove this route and
-// function once the one-time image batch is done.
-const GEN_IMAGE_KEY = "sg-dnd-batch-8h2p4n";
-
-async function handleGenImage(request, env) {
-if (!env.AI) {
-return new Response(JSON.stringify({ ok: false, error: "AI binding not configured" }), {
-status: 500,
-headers: { "Content-Type": "application/json" },
-});
-}
-const url = new URL(request.url);
-const key = url.searchParams.get("key");
-if (key !== GEN_IMAGE_KEY) {
-return new Response(JSON.stringify({ ok: false, error: "unauthorized" }), {
-status: 401,
-headers: { "Content-Type": "application/json" },
-});
-}
-const prompt = url.searchParams.get("prompt");
-if (!prompt) {
-return new Response(JSON.stringify({ ok: false, error: "missing prompt" }), {
-status: 400,
-headers: { "Content-Type": "application/json" },
-});
-}
-const seed = url.searchParams.get("seed");
-try {
-const result = await env.AI.run("@cf/black-forest-labs/flux-1-schnell", {
-prompt: prompt.slice(0, 2048),
-steps: 6,
-...(seed ? { seed: parseInt(seed, 10) } : {}),
-});
-return new Response(JSON.stringify({ ok: true, image: result.image }), {
-status: 200,
-headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
-});
-} catch (err) {
-return new Response(JSON.stringify({ ok: false, error: String(err) }), {
-status: 500,
-headers: { "Content-Type": "application/json" },
-});
-}
 }
 
 // ---------------- Realm map (AI activity by region) ----------------
