@@ -3,6 +3,7 @@
 "name": "throbbing-mode-5ef2",
 "main": "worker.js",
 "compatibility_date": "2026-08-05",
+"keep_vars": true,
 "assets": {
 "directory": "./",
 "binding": "ASSETS",
