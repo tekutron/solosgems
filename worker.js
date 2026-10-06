@@ -13,6 +13,23 @@ const url = new URL(request.url);
 // mapping, so a bare root request falls through to this handler instead of
 // being served as a static asset. Rewrite it explicitly so the homepage
 // still loads at https://solosgems.com/.
+// One canonical host and one canonical homepage URL. www requests (once a
+// www DNS record points at this Worker) and /index.html both 301 to the
+// bare domain root so Google doesn't index duplicate copies of the
+// homepage. /index.html only reaches this code because wrangler.jsonc lists
+// it under assets.run_worker_first; the "/" handler below still fetches it
+// straight from the ASSETS binding, which bypasses this redirect.
+if (url.hostname === "www.solosgems.com") {
+const apex = new URL(request.url);
+apex.hostname = "solosgems.com";
+return Response.redirect(apex.toString(), 301);
+}
+if (url.pathname === "/index.html" || url.pathname === "/ai-database" || url.pathname === "/ai-database.html") {
+const home = new URL(request.url);
+home.pathname = "/";
+return Response.redirect(home.toString(), 301);
+}
+
 if (url.pathname === "/") {
 const assetUrl = new URL(request.url);
 assetUrl.pathname = "/index.html";
@@ -1144,7 +1161,7 @@ caption = buildStaticCaptionFallback(entry.country, stats);
 // Herald's Hub database on index.html), so link to that tool's own row
 // there instead of a standalone page.
 const reviewLink =
-!usingOriginFallback && stats.hotTool ? `index.html#tool-${slugifyToolName(stats.hotTool)}` : null;
+!usingOriginFallback && stats.hotTool ? `/#tool-${slugifyToolName(stats.hotTool)}` : null;
 
 countries.push({
 name: entry.country,
