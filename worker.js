@@ -1380,8 +1380,11 @@ if (!("body" in object)) return new Response(null, { status: 304, headers });
 let status = 200;
 if (request.headers.has("Range") && object.range) {
 const r = object.range;
-const offset = "suffix" in r ? object.size - r.suffix : r.offset || 0;
-const length = "suffix" in r ? r.suffix : r.length !== undefined ? r.length : object.size - offset;
+// R2 reports either {offset, length} or {suffix}; unused keys can be
+// present but undefined, so check the values rather than key presence.
+const isSuffix = typeof r.suffix === "number";
+const offset = isSuffix ? object.size - r.suffix : r.offset || 0;
+const length = isSuffix ? r.suffix : typeof r.length === "number" ? r.length : object.size - offset;
 headers.set("Content-Range", `bytes ${offset}-${offset + length - 1}/${object.size}`);
 headers.set("Content-Length", String(length));
 status = 206;
