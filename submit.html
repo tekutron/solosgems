@@ -6,21 +6,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="max-image-preview:large">
-<title>Submit an AI Tool or a DeathStack Tip | Solos Gems</title>
-<meta name="description" content="Submit an AI tool for an honest, scored review, or tip us off about an AI tool or service that's shut down for the DeathStack graveyard.">
+<title>Submit a Tool, Fix, or DeathStack Tip | Solos Gems</title>
+<meta name="description" content="Add an AI tool to the Solos Gems database, fix an out-of-date listing, or report an AI tool that shut down for the DeathStack graveyard.">
 <link rel="canonical" href="https://solosgems.com/submit.html">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Solos Gems">
 <meta property="og:title" content="Submit an AI Tool or a DeathStack Tip | Solos Gems">
-<meta property="og:description" content="Submit an AI tool for an honest, scored review, or tip us off about a defunct AI tool for the DeathStack graveyard.">
+<meta property="og:description" content="Add an AI tool to the Solos Gems database, fix an out-of-date listing, or report an AI tool that shut down for the DeathStack graveyard.">
 <meta property="og:url" content="https://solosgems.com/submit.html">
 <meta property="og:image" content="https://solosgems.com/images/og-default.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Submit an AI Tool or a DeathStack Tip | Solos Gems">
-<meta name="twitter:description" content="Submit an AI tool for an honest, scored review, or tip us off about a defunct AI tool for the DeathStack graveyard.">
+<meta name="twitter:description" content="Add an AI tool to the Solos Gems database, fix an out-of-date listing, or report an AI tool that shut down for the DeathStack graveyard.">
 <meta name="twitter:image" content="https://solosgems.com/images/og-default.png">
 <meta name="theme-color" content="#1a1a18">
 <link rel="stylesheet" href="styles.css">
@@ -56,18 +56,28 @@
 <main>
   <article>
     <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">/</span> <span>Submit</span></nav>
-    <span class="kicker">Two ways to contribute</span>
-    <h1>Submit</h1>
-    <p class="byline">Get a tool reviewed, or help us bury one that didn't make it</p>
+    <span class="kicker">The Herald's Mailbag</span>
+    <h1>Send word to the Herald</h1>
+    <p class="byline">Three scrolls, one mailbag, zero carrier pigeons harmed</p>
 
-    <h2>Submit an AI tool for review</h2>
-    <p>Built or found an AI tool solopreneurs should know about? Submit it below. We test everything ourselves against real pricing before it gets a score, so not every submission gets a full review, but every submission gets looked at.</p>
+    <p>The Herald can only cry what reaches the town square. Found a tool the database is missing? Spotted one of ours that's wrong, renamed, or suddenly charging double? Watched an AI startup fall off the map? Pick a scroll below. A human reads every one, usually within a week, and nothing gets published without being checked against a real source first.</p>
 
-    <form class="subscribe-form submit-form" action="/api/submit" method="POST" style="justify-content:flex-start; max-width:520px;">
+    <div class="submit-jump" role="navigation" aria-label="Choose a form">
+      <a href="#add-tool">📜 Add a tool</a>
+      <a href="#fix-tool">🛠️ Fix a listing</a>
+      <a href="#bury-tool">💀 Report a death</a>
+    </div>
+
+    <p class="submit-error" id="submit-error" hidden>That scroll arrived blank. Give the tool a name and try again.</p>
+
+    <h2 id="add-tool">📜 Add a tool to the database</h2>
+    <p>Any AI tool real people can actually sign up for is fair game, not just ones for solo founders. If it makes the cut it gets a row, a summary, a cool fact, a comic, and a caption. Tools that earn a spot in the ranked 51 get the full gauntlet and a score out of 10.</p>
+
+    <form class="subscribe-form submit-form" action="/api/submit" method="POST">
       <input type="hidden" name="type" value="tool">
       <div class="submit-field">
         <label for="tool-name">Tool name</label>
-        <input type="text" id="tool-name" name="tool_name" required placeholder="e.g. Acme AI">
+        <input type="text" id="tool-name" name="tool_name" required maxlength="200" placeholder="e.g. Acme AI">
       </div>
       <div class="submit-field">
         <label for="tool-url">Website</label>
@@ -75,31 +85,331 @@
       </div>
       <div class="submit-field">
         <label for="tool-category">Category</label>
-        <input type="text" id="tool-category" name="category" placeholder="e.g. AI Writing, Scheduling, Bookkeeping">
+        <select id="tool-category" name="category">
+          <option value="">Not sure, Herald's choice</option>
+          <option>3D &amp; Game Dev</option>
+          <option>AI Assistants</option>
+          <option>AI Detection &amp; Plagiarism</option>
+          <option>AI Phone Agents</option>
+          <option>AI Search &amp; Browsing</option>
+          <option>Accessibility</option>
+          <option>Automation &amp; Workflow</option>
+          <option>Bookkeeping &amp; Finance</option>
+          <option>CRM &amp; Client Management</option>
+          <option>Career &amp; Job Search</option>
+          <option>Coding &amp; Dev Tools</option>
+          <option>Customer Support</option>
+          <option>Cybersecurity</option>
+          <option>Data &amp; Analytics</option>
+          <option>Design &amp; Photography</option>
+          <option>E-commerce</option>
+          <option>Education &amp; Tutoring</option>
+          <option>Email &amp; Messaging</option>
+          <option>Forms &amp; Surveys</option>
+          <option>HR &amp; Recruiting</option>
+          <option>Health &amp; Fitness</option>
+          <option>Image Generation</option>
+          <option>Interior Design</option>
+          <option>Investing &amp; Markets</option>
+          <option>Legal</option>
+          <option>Local Business</option>
+          <option>Marketing &amp; Social Media</option>
+          <option>Meetings &amp; Transcription</option>
+          <option>Newsletters</option>
+          <option>No-code / Database</option>
+          <option>Personal Finance</option>
+          <option>Podcasting &amp; Video Editing</option>
+          <option>Presentations &amp; Design</option>
+          <option>Productivity &amp; Notes</option>
+          <option>Project Management</option>
+          <option>Real Estate</option>
+          <option>Research &amp; Knowledge</option>
+          <option>SEO</option>
+          <option>Sales &amp; Prospecting</option>
+          <option>Scheduling &amp; Time</option>
+          <option>Translation &amp; Localization</option>
+          <option>Video Generation</option>
+          <option>Voice &amp; Music</option>
+          <option>Voice Dictation</option>
+          <option>Website &amp; App Builders</option>
+          <option>Writing &amp; Copywriting</option>
+          <option value="Something new">Something new (tell us below)</option>
+        </select>
       </div>
       <div class="submit-field">
-        <label for="tool-pitch">Why should we review it? (optional)</label>
-        <textarea id="tool-pitch" name="pitch" rows="3" placeholder="What does it do that similar tools don't?"></textarea>
+        <label for="tool-pitch">What's its special ability? (optional)</label>
+        <textarea id="tool-pitch" name="pitch" rows="3" maxlength="2000" placeholder="What does it do that the other 226 don't?"></textarea>
       </div>
       <div class="submit-field">
-        <label for="tool-email">Your email (optional, in case we have questions)</label>
+        <label for="tool-email">Your email (optional, only if we have questions)</label>
         <input type="email" id="tool-email" name="submitter_email" placeholder="you@email.com">
       </div>
-      <button type="submit">Submit tool</button>
+      <button type="submit">Send the scroll</button>
     </form>
 
-    <h2 style="margin-top:48px;">Report a dead AI tool for DeathStack</h2>
-    <p>Know an AI tool or service that shut down, got discontinued, or quietly disappeared? Send it our way for the <a href="deathstack.html">DeathStack</a> graveyard. Include a source if you have one, we only publish sourced, factual entries.</p>
+    <h2 id="fix-tool" style="margin-top:48px;">🛠️ Fix a listing</h2>
+    <p>AI tools change prices, names, and entire personalities overnight. If a row in the database is out of date, tell us what changed and, ideally, where you saw it. Building one of these tools? Corrections from the makers are very welcome.</p>
 
-    <form class="subscribe-form submit-form" action="/api/submit" method="POST" style="justify-content:flex-start; max-width:520px;">
+    <form class="subscribe-form submit-form" action="/api/submit" method="POST">
+      <input type="hidden" name="type" value="correction">
+      <div class="submit-field">
+        <label for="fix-name">Which tool?</label>
+        <input type="text" id="fix-name" name="tool_name" required maxlength="200" list="db-tool-names" placeholder="Start typing a tool name" autocomplete="off">
+      </div>
+      <div class="submit-field">
+        <label for="fix-what">What's wrong or out of date?</label>
+        <textarea id="fix-what" name="pitch" rows="3" required maxlength="2000" placeholder="e.g. The free plan was cut to 10 credits a month"></textarea>
+      </div>
+      <div class="submit-field">
+        <label for="fix-source">Source link (pricing page, changelog, announcement)</label>
+        <input type="url" id="fix-source" name="tool_url" placeholder="https://">
+      </div>
+      <div class="submit-field">
+        <label for="fix-email">Your email (optional)</label>
+        <input type="email" id="fix-email" name="submitter_email" placeholder="you@email.com">
+      </div>
+      <button type="submit">Send the correction</button>
+    </form>
+    <datalist id="db-tool-names">
+      <option value="10Web"></option>
+      <option value="Adobe Firefly"></option>
+      <option value="Ahrefs"></option>
+      <option value="AI2SQL"></option>
+      <option value="Airtable"></option>
+      <option value="AIVA"></option>
+      <option value="AltText.ai"></option>
+      <option value="Amazon Q Developer"></option>
+      <option value="Anara"></option>
+      <option value="Apollo.io"></option>
+      <option value="Astra Security"></option>
+      <option value="Async"></option>
+      <option value="Attio"></option>
+      <option value="Auphonic"></option>
+      <option value="Beautiful.ai"></option>
+      <option value="Beehiiv"></option>
+      <option value="Birdeye"></option>
+      <option value="Bland AI"></option>
+      <option value="Bolt.new"></option>
+      <option value="Bonsai"></option>
+      <option value="Buffer"></option>
+      <option value="Cal.com"></option>
+      <option value="Calendly"></option>
+      <option value="Calm"></option>
+      <option value="Canva Magic Studio"></option>
+      <option value="CapCut"></option>
+      <option value="Cashflowy"></option>
+      <option value="Chatbase"></option>
+      <option value="ChatGPT"></option>
+      <option value="ChatGPT Atlas"></option>
+      <option value="Chattermill"></option>
+      <option value="Claude"></option>
+      <option value="Clay"></option>
+      <option value="Cleanvoice"></option>
+      <option value="Cleo"></option>
+      <option value="ClickUp Brain"></option>
+      <option value="CodeRabbit"></option>
+      <option value="Composer"></option>
+      <option value="Consensus"></option>
+      <option value="Copilot Money"></option>
+      <option value="Copy.ai"></option>
+      <option value="Copyleaks"></option>
+      <option value="Craft"></option>
+      <option value="Creatify"></option>
+      <option value="Cursor"></option>
+      <option value="D-ID"></option>
+      <option value="Danelfin"></option>
+      <option value="DeepL"></option>
+      <option value="DeepSeek"></option>
+      <option value="Descript"></option>
+      <option value="Devin"></option>
+      <option value="DocuSign"></option>
+      <option value="Dovetail"></option>
+      <option value="Durable"></option>
+      <option value="eesel AI"></option>
+      <option value="ElevenLabs"></option>
+      <option value="Elicit"></option>
+      <option value="Epique AI"></option>
+      <option value="Fathom"></option>
+      <option value="Fireflies.ai"></option>
+      <option value="Fitbod"></option>
+      <option value="Flux"></option>
+      <option value="Framer"></option>
+      <option value="Freepik AI"></option>
+      <option value="Fyxer AI"></option>
+      <option value="Gamma"></option>
+      <option value="Gemini"></option>
+      <option value="Genspark"></option>
+      <option value="GitHub Copilot"></option>
+      <option value="Gong"></option>
+      <option value="GPTZero"></option>
+      <option value="Grain"></option>
+      <option value="Grammarly"></option>
+      <option value="Granola"></option>
+      <option value="Grok"></option>
+      <option value="Gumloop"></option>
+      <option value="Harness AI"></option>
+      <option value="Harvey"></option>
+      <option value="HeyGen"></option>
+      <option value="Higgsfield"></option>
+      <option value="HireVue"></option>
+      <option value="Hootsuite"></option>
+      <option value="HubSpot Free CRM"></option>
+      <option value="Hugging Face"></option>
+      <option value="Ideogram"></option>
+      <option value="Instantly.ai"></option>
+      <option value="Intercom Fin"></option>
+      <option value="Interior AI"></option>
+      <option value="Ironclad"></option>
+      <option value="Jamie"></option>
+      <option value="Jasper"></option>
+      <option value="Jobscan"></option>
+      <option value="Juicebox"></option>
+      <option value="Julius"></option>
+      <option value="Julius AI"></option>
+      <option value="Kagi"></option>
+      <option value="Kapwing"></option>
+      <option value="Khanmigo"></option>
+      <option value="Klevu"></option>
+      <option value="Kling AI"></option>
+      <option value="Koala AI"></option>
+      <option value="Krea AI"></option>
+      <option value="LangChain"></option>
+      <option value="LegesGPT"></option>
+      <option value="Leonardo AI"></option>
+      <option value="Lettuce"></option>
+      <option value="Lex"></option>
+      <option value="Lindy"></option>
+      <option value="Linear"></option>
+      <option value="Lokalise"></option>
+      <option value="Looka"></option>
+      <option value="Loom"></option>
+      <option value="Lovable"></option>
+      <option value="Luma Dream Machine"></option>
+      <option value="Lumen5"></option>
+      <option value="Luminance"></option>
+      <option value="MagicSchool AI"></option>
+      <option value="Make"></option>
+      <option value="Manus"></option>
+      <option value="Mem"></option>
+      <option value="Meshy"></option>
+      <option value="Meta AI"></option>
+      <option value="Microsoft Copilot"></option>
+      <option value="Midjourney"></option>
+      <option value="Missive"></option>
+      <option value="Mistral Le Chat"></option>
+      <option value="Monarch Money"></option>
+      <option value="Motion"></option>
+      <option value="Murf AI"></option>
+      <option value="MyArchitectAI"></option>
+      <option value="MyFitnessPal"></option>
+      <option value="n8n"></option>
+      <option value="Noom"></option>
+      <option value="NotebookLM"></option>
+      <option value="Notion AI"></option>
+      <option value="Notion Mail"></option>
+      <option value="NovelAI"></option>
+      <option value="Numerous.ai"></option>
+      <option value="Obviously AI"></option>
+      <option value="Ocoya"></option>
+      <option value="OpusClip"></option>
+      <option value="Originality.ai"></option>
+      <option value="Otter.ai"></option>
+      <option value="PandaDoc"></option>
+      <option value="Paradox"></option>
+      <option value="Perplexity Comet"></option>
+      <option value="Perplexity Pro"></option>
+      <option value="Photoroom"></option>
+      <option value="Pictory"></option>
+      <option value="Pika"></option>
+      <option value="Pitch"></option>
+      <option value="PixVerse"></option>
+      <option value="Play.ht"></option>
+      <option value="Plus AI"></option>
+      <option value="Podium"></option>
+      <option value="Poe"></option>
+      <option value="ProWritingAid"></option>
+      <option value="QuickBooks Solopreneur"></option>
+      <option value="QuillBot"></option>
+      <option value="Quizlet"></option>
+      <option value="Rask AI"></option>
+      <option value="Reclaim.ai"></option>
+      <option value="Recraft"></option>
+      <option value="Recruiterflow"></option>
+      <option value="Reflect"></option>
+      <option value="RemodelAI"></option>
+      <option value="Replit"></option>
+      <option value="Replit Agent"></option>
+      <option value="Respeecher"></option>
+      <option value="Rev"></option>
+      <option value="Rezi"></option>
+      <option value="Riverside.fm"></option>
+      <option value="Robin AI"></option>
+      <option value="Rocket Money"></option>
+      <option value="Rows"></option>
+      <option value="Runway"></option>
+      <option value="Rytr"></option>
+      <option value="Sanebox"></option>
+      <option value="Seeking Alpha Premium"></option>
+      <option value="Semrush"></option>
+      <option value="Shopify Magic"></option>
+      <option value="Shortwave"></option>
+      <option value="Sider"></option>
+      <option value="Simplified"></option>
+      <option value="Smartlead"></option>
+      <option value="Soundraw"></option>
+      <option value="Sourcegraph Cody"></option>
+      <option value="Spellbook"></option>
+      <option value="Stable Diffusion"></option>
+      <option value="StoryChief"></option>
+      <option value="Sudowrite"></option>
+      <option value="Suno"></option>
+      <option value="Superhuman"></option>
+      <option value="Superwhisper"></option>
+      <option value="Surfer SEO"></option>
+      <option value="Synthesia"></option>
+      <option value="Tabnine"></option>
+      <option value="Tana"></option>
+      <option value="Teal"></option>
+      <option value="Tidio"></option>
+      <option value="tl;dv"></option>
+      <option value="Toggl Track"></option>
+      <option value="Tripo AI"></option>
+      <option value="Turnitin"></option>
+      <option value="Typeform"></option>
+      <option value="Udio"></option>
+      <option value="Uizard"></option>
+      <option value="v0"></option>
+      <option value="Vanna AI"></option>
+      <option value="Vapi"></option>
+      <option value="Veo"></option>
+      <option value="Virtual Staging AI"></option>
+      <option value="Warmly"></option>
+      <option value="Warp"></option>
+      <option value="Webflow"></option>
+      <option value="Whoop"></option>
+      <option value="Willow Voice"></option>
+      <option value="Windsurf"></option>
+      <option value="Wispr Flow"></option>
+      <option value="Wix"></option>
+      <option value="Wiz"></option>
+      <option value="Writesonic"></option>
+      <option value="You.com"></option>
+      <option value="Zapier AI Actions"></option>
+      <option value="Zed"></option>
+    </datalist>
+
+    <h2 id="bury-tool" style="margin-top:48px;">💀 Report a death for the DeathStack</h2>
+    <p>Know an AI tool or service that shut down, got acquired and switched off, or quietly stopped answering the door? Nominate it for the <a href="deathstack.html">DeathStack</a>. We only bury what we can source, so a link to a news story or the official goodbye post helps a lot.</p>
+
+    <form class="subscribe-form submit-form" action="/api/submit" method="POST">
       <input type="hidden" name="type" value="deathstack">
       <div class="submit-field">
         <label for="ds-name">Tool or service name</label>
-        <input type="text" id="ds-name" name="tool_name" required placeholder="e.g. Acme AI">
+        <input type="text" id="ds-name" name="tool_name" required maxlength="200" placeholder="e.g. Acme AI">
       </div>
       <div class="submit-field">
-        <label for="ds-what">What happened</label>
-        <textarea id="ds-what" name="pitch" rows="3" required placeholder="What happened, and when, as best you know it"></textarea>
+        <label for="ds-what">Cause of death</label>
+        <textarea id="ds-what" name="pitch" rows="3" required maxlength="2000" placeholder="What happened, and when, as best you know it"></textarea>
       </div>
       <div class="submit-field">
         <label for="ds-source">Source link (news article, official announcement, etc.)</label>
@@ -109,11 +419,18 @@
         <label for="ds-email">Your email (optional)</label>
         <input type="email" id="ds-email" name="submitter_email" placeholder="you@email.com">
       </div>
-      <button type="submit">Submit tip</button>
+      <button type="submit">Ring the funeral bell</button>
     </form>
 
+    <p style="margin-top:40px;">Your email is only used to follow up on your submission. It is never published, sold, or added to a mailing list. See our <a href="privacy.html">privacy policy</a>.</p>
   </article>
 </main>
+<script>
+  if (/[?&]error=/.test(location.search)) {
+    var e = document.getElementById('submit-error');
+    if (e) e.hidden = false;
+  }
+</script>
 
 <footer>
   <div class="wrap">

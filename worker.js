@@ -84,6 +84,13 @@ return handleGetRealms(env);
 return new Response("Method not allowed", { status: 405 });
 }
 
+if (url.pathname === "/api/realms/summary") {
+if (request.method === "GET") {
+return handleGetRealmsSummary(env);
+}
+return new Response("Method not allowed", { status: 405 });
+}
+
 if (url.pathname === "/api/realms/refresh") {
 if (request.method === "GET" || request.method === "POST") {
 return handleRefreshRealms(env);
@@ -1128,6 +1135,42 @@ headers: {
 "Cache-Control": "public, max-age=300",
 },
 });
+}
+
+// Lightweight slice of the stored realm data for the homepage's Herald's
+// Report. The full /api/realms payload embeds a generated JPEG per country
+// (several MB in total), which the homepage doesn't need, so this returns
+// just the top realms' text and the newest GitHub build activity.
+async function handleGetRealmsSummary(env) {
+const stored = env.REALMS ? await env.REALMS.get("latest") : null;
+let data = {};
+try {
+data = stored ? JSON.parse(stored) : {};
+} catch (err) {
+data = {};
+}
+const countries = (data.countries || []).slice(0, 4).map((c) => ({
+name: c.name,
+rank: c.rank,
+hotTool: c.hotTool || null,
+mentions: c.mentions || 0,
+metricLabel: c.metricLabel || "",
+dndCaption: (c.caption && c.caption.dndCaption) || "",
+}));
+const buildActivity = ((data.categories && data.categories.buildActivity) || [])
+.slice(0, 5)
+.map((r) => ({ name: r.name, url: r.url, stars: r.stars || 0, language: r.language || "" }));
+return new Response(
+JSON.stringify({ generated_at: data.generated_at || null, countries, buildActivity }),
+{
+status: 200,
+headers: {
+"Content-Type": "application/json",
+"Access-Control-Allow-Origin": "*",
+"Cache-Control": "public, max-age=300",
+},
+}
+);
 }
 
 async function handleRefreshRealms(env) {

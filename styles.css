@@ -514,7 +514,7 @@ main.wide { max-width: 1100px; }
   color: var(--ink-soft);
   margin-bottom: 10px;
 }
-.breadcrumb a { color: var(--ink-soft); text-decoration: none; }
+.breadcrumb a { margin-left: 0; color: var(--ink-soft); text-decoration: none; }
 .breadcrumb a:hover { color: var(--rust-dark); text-decoration: underline; }
 .breadcrumb span[aria-hidden] { margin: 0 4px; color: var(--line); }
 
@@ -1353,19 +1353,22 @@ article li { margin: 6px 0; }
 /* ---------- Herald's Report columns ---------- */
 .herald-report {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
-  max-width: var(--max-width);
-  margin: 24px auto 40px;
+  max-width: 1100px;
+  margin: 24px auto 18px;
 }
 .herald-col {
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--line);
   border-radius: 10px;
   background: var(--panel);
   padding: 18px 20px;
+  min-width: 0;
 }
 .herald-col h2 {
-  margin: 0 0 8px;
+  margin: 0 0 4px;
   font-size: 1.05rem;
   font-family: "IBM Plex Mono", monospace;
 }
@@ -1375,26 +1378,158 @@ article li { margin: 6px 0; }
   color: var(--ink-soft);
   line-height: 1.5;
 }
+.herald-col .herald-col-sub { font-size: 0.8rem; margin-bottom: 12px; }
 .herald-col-cta {
+  margin-top: auto;
+  padding-top: 8px;
   font-size: 0.84rem;
   font-weight: 600;
   color: var(--rust-dark);
   text-decoration: none;
 }
 .herald-col-cta:hover { text-decoration: underline; }
-.crystalball-items {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.herald-news-list,
+.herald-realm-list {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
 }
-.crystalball-item {
-  font-size: 0.8rem;
+.herald-news-item,
+.herald-realm-item {
+  padding: 9px 0;
+  border-bottom: 1px dashed var(--line);
+}
+.herald-news-item:last-child,
+.herald-realm-item:last-child { border-bottom: 0; }
+.herald-loading { font-size: 0.82rem; color: var(--ink-soft); padding: 6px 0; }
+.herald-news-source {
+  display: block;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  margin-bottom: 2px;
+}
+.herald-news-source.is-hot { color: #ff9a5c; }
+.herald-news-title {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.35;
   color: var(--ink);
   text-decoration: none;
-  border-bottom: 1px dashed var(--line);
-  padding: 3px 0;
 }
-.crystalball-item:hover { color: var(--rust-dark); }
+.herald-news-title:hover { color: var(--rust-dark); }
+.herald-col .herald-news-flavor,
+.herald-col .herald-realm-caption {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  font-style: italic;
+  line-height: 1.45;
+}
+.herald-realm-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.herald-realm-head:hover .herald-realm-name { color: var(--rust-dark); }
+.herald-realm-rank {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--rust-dark);
+}
+.herald-realm-name { font-size: 0.9rem; font-weight: 600; }
+.herald-realm-tool {
+  font-size: 0.68rem;
+  padding: 1px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-soft);
+}
+.herald-grave-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.herald-grave {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--ink);
+  text-decoration: none;
+}
+.herald-grave:hover { border-color: var(--rust-dark); }
+.herald-grave img {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: var(--paper);
+}
+.herald-grave-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.herald-grave-name { font-size: 0.9rem; font-weight: 600; }
+.herald-grave-meta { font-size: 0.72rem; color: var(--ink-soft); }
+.herald-grave-cause { color: #ff9a5c; }
+.herald-grave-caption {
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+.herald-crystalball {
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  padding: 16px 20px;
+}
+.herald-crystalball h2 {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+  font-family: "IBM Plex Mono", monospace;
+}
+.herald-crystalball p {
+  margin: 0 0 10px;
+  font-size: 0.84rem;
+  color: var(--ink-soft);
+}
+.crystalball-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 8px;
+}
+.crystalball-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  text-decoration: none;
+  min-width: 0;
+}
+.crystalball-item:hover { border-color: var(--rust-dark); }
+.crystalball-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.crystalball-meta { font-size: 0.72rem; color: var(--ink-soft); }
 
 @media (max-width: 900px) {
   .herald-report { grid-template-columns: 1fr; }
@@ -1587,7 +1722,9 @@ article li { margin: 6px 0; }
 .submit-form {
   flex-direction: column;
   align-items: stretch;
+  justify-content: flex-start;
   gap: 16px;
+  max-width: 520px;
   margin: 20px 0 8px;
 }
 .submit-field {
@@ -1603,6 +1740,7 @@ article li { margin: 6px 0; }
   color: var(--ink-soft);
 }
 .submit-field input,
+.submit-field select,
 .submit-field textarea {
   padding: 11px 14px;
   border: 1px solid var(--line);
@@ -1616,6 +1754,7 @@ article li { margin: 6px 0; }
 .submit-field input::placeholder,
 .submit-field textarea::placeholder { color: var(--ink-soft); }
 .submit-field input:focus,
+.submit-field select:focus,
 .submit-field textarea:focus { outline: none; border-color: var(--rust-dark); }
 .submit-form button {
   align-self: flex-start;
@@ -1630,6 +1769,32 @@ article li { margin: 6px 0; }
   transition: background 0.15s ease;
 }
 .submit-form button:hover { background: var(--rust-dark); }
+.submit-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0 8px;
+}
+.submit-jump a {
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--ink);
+  font-size: 0.88rem;
+  text-decoration: none;
+}
+.submit-jump a:hover { border-color: var(--rust-dark); color: var(--rust-dark); }
+#add-tool, #fix-tool, #bury-tool { scroll-margin-top: 100px; }
+/* The newsletter's row-layout email rule (flex-basis 260px) turns into a
+   260px-tall box inside these column forms, so reset it here. */
+.submit-form input[type="email"] { flex: none; max-width: none; }
+.submit-error {
+  padding: 10px 14px;
+  border: 1px solid #ff9a5c;
+  border-radius: 6px;
+  color: #ff9a5c;
+}
 
 /* ---------- News feed ---------- */
 .news-filters {

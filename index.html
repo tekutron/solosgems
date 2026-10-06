@@ -96,50 +96,142 @@
     </div>
   </div>
 
-  <section class="herald-report">
+  <section class="herald-report" aria-label="The Herald's Report">
+    <div class="herald-col herald-col-news">
+      <h2>📜 The Herald's Cry</h2>
+      <p class="herald-col-sub">Today's AI headlines, translated into adventurer.</p>
+      <ol class="herald-news-list" id="herald-news-list">
+        <li class="herald-loading">Unrolling the latest scrolls...</li>
+      </ol>
+      <a class="herald-col-cta" href="news.html">Read the full scroll &rarr;</a>
+    </div>
     <div class="herald-col herald-col-realms">
       <h2>🗺️ The Realms</h2>
-      <p>A living map of who's building what, and where. Zoom the world, click a marker, see the guild behind it.</p>
-      <a class="herald-col-cta" href="realms.html">Walk the map &rarr;</a>
+      <p class="herald-col-sub">Where the AI realm is loudest this week, by country.</p>
+      <ol class="herald-realm-list" id="herald-realm-list">
+        <li class="herald-loading">Consulting the cartographers...</li>
+      </ol>
+      <a class="herald-col-cta" href="realms.html">Walk the full map &rarr;</a>
     </div>
     <div class="herald-col herald-col-deathstack">
       <h2>💀 The DeathStack</h2>
-      <p>The graveyard of AI tools that didn't make it. Cautionary tales, told the way a bard tells them, so you don't repeat the mistake.</p>
-      <a class="herald-col-cta" href="deathstack.html">Visit the graveyard &rarr;</a>
-    </div>
-    <div class="herald-col herald-col-crystalball">
-      <h2>🔮 The Crystal Ball</h2>
-      <p id="crystalball-text">Peering into the mists of GitHub and the wider AI realm for what's brewing next...</p>
-      <div id="crystalball-items" class="crystalball-items"></div>
+      <p class="herald-col-sub">25 fallen AI tools, $3.2B+ in funding, zero refunds. Today's visiting hours:</p>
+      <div class="herald-grave-list" id="herald-grave-list">
+        <a class="herald-grave" href="deathstack.html#grave-builder-ai"><img src="images/ds-builderai-hero.svg" alt="Builder.ai comic" loading="lazy" width="64" height="64"><span class="herald-grave-body"><span class="herald-grave-name">Builder.ai</span><span class="herald-grave-meta">Born 2016 · Died May 2025 &middot; <span class="herald-grave-cause">Fraud and bankruptcy</span></span><span class="herald-grave-caption">Give the golem a name and a face and investors will believe it did the work the villagers did overnight.</span></span></a>
+        <a class="herald-grave" href="deathstack.html#grave-humane-ai-pin"><img src="images/ds-humane-ai-pin-hero.svg" alt="Humane AI Pin comic" loading="lazy" width="64" height="64"><span class="herald-grave-body"><span class="herald-grave-name">Humane AI Pin</span><span class="herald-grave-meta">Born April 2024 · Died February 2025 &middot; <span class="herald-grave-cause">Bought for parts</span></span><span class="herald-grave-caption">Everyone lined up to buy the amulet before anyone had worn it in daylight.</span></span></a>
+        <a class="herald-grave" href="deathstack.html#grave-sora"><img src="images/ds-sora-hero.svg" alt="Sora comic" loading="lazy" width="64" height="64"><span class="herald-grave-body"><span class="herald-grave-name">Sora</span><span class="herald-grave-meta">Born October 2025 · Died April 2026 &middot; <span class="herald-grave-cause">Too expensive to keep running</span></span><span class="herald-grave-caption">The spell cost a fortune to cast and the audience tossed a single copper coin into the hat.</span></span></a>
+      </div>
+      <a class="herald-col-cta" href="deathstack.html">Tour the whole graveyard &rarr;</a>
     </div>
   </section>
+  <section class="herald-crystalball" aria-label="The Crystal Ball">
+    <h2>🔮 The Crystal Ball</h2>
+    <p id="crystalball-text">Peering into the mists of GitHub for what's brewing next...</p>
+    <div id="crystalball-items" class="crystalball-items"></div>
+  </section>
+  <script type="application/json" id="herald-graves-data">[{"id": "chatgpt-plugins", "name": "ChatGPT Plugins", "dates": "Born March 2023 · Died April 2024", "cause": "Killed by its own landlord", "img": "images/ds-chatgpt-plugins-hero.svg", "caption": "The landlord can always change the locks. It's still your fault for never asking who owned the building."}, {"id": "the-pdf-chat-wrappers", "name": "The PDF Chat Wrappers", "dates": "Born early 2023 · Died November 2023", "cause": "Feature absorption", "img": "images/ds-the-pdf-chat-wrappers-hero.svg", "caption": "A hundred blacksmiths were selling a spell the king was about to cast for free. Only the king knew the announcement date."}, {"id": "neeva", "name": "Neeva", "dates": "Born 2019 · Died June 2023", "cause": "Couldn't outrun free", "img": "images/ds-neeva-hero.svg", "caption": "You cannot out-price a giant who has already decided to lose money forever just to keep you out."}, {"id": "olive-ai", "name": "Olive AI", "dates": "Born 2017 · Died late 2023", "cause": "The AI wasn't the AI", "img": "images/ds-olive-ai-hero.svg", "caption": "The wizard's automaton worked flawlessly, right up until you noticed the seven hundred tiny hands operating it from inside."}, {"id": "builder-ai", "name": "Builder.ai", "dates": "Born 2016 · Died May 2025", "cause": "Fraud and bankruptcy", "img": "images/ds-builderai-hero.svg", "caption": "Give the golem a name and a face and investors will believe it did the work the villagers did overnight."}, {"id": "tune-ai", "name": "Tune AI", "dates": "Born 2018 · Died 2025", "cause": "Sherlocked by the cloud giants", "img": "images/ds-tune-ai-hero.svg", "caption": "The toll bridge business collapses the day the king builds his own bridge and charges nothing to cross it."}, {"id": "woebot", "name": "Woebot", "dates": "Born 2017 · Died July 2025", "cause": "Regulation moved slower than AI", "img": "images/ds-woebot-hero.svg", "caption": "The healers' guild takes seven years to approve a remedy. The plague, unfortunately, does not wait for paperwork."}, {"id": "coqui-ai", "name": "Coqui AI", "dates": "Born 2021 · Died January 2024", "cause": "Ran out of runway", "img": "images/ds-coqui-ai-hero.svg", "caption": "The tools loved by every apprentice in the guild are not always the tools any lord will pay for."}, {"id": "yara-ai", "name": "Yara AI", "dates": "Born 2024 · Died November 2025", "cause": "Chose itself", "img": "images/ds-yara-ai-hero.svg", "caption": "Most quests end when the hero runs out of gold. This one ended because the hero decided the dragon wasn't worth slaying."}, {"id": "ghost-autonomy", "name": "Ghost Autonomy", "dates": "Born 2017 · Died April 2024", "cause": "Outlived by its own backer", "img": "images/ds-ghost-autonomy-hero.svg", "caption": "Standing next to the king at the feast does not mean the king remembers your name by winter."}, {"id": "forward-health", "name": "Forward Health", "dates": "Born 2017 · Died November 2024", "cause": "The hardware kept failing", "img": "images/ds-forward-health-hero.svg", "caption": "The self-operating door worked in every demonstration. In the actual castle, it kept locking the guests inside."}, {"id": "humane-ai-pin", "name": "Humane AI Pin", "dates": "Born April 2024 · Died February 2025", "cause": "Bought for parts", "img": "images/ds-humane-ai-pin-hero.svg", "caption": "Everyone lined up to buy the amulet before anyone had worn it in daylight."}, {"id": "tome", "name": "Tome", "dates": "Born 2020 · Died April 2025", "cause": "Growth without a business model", "img": "images/ds-tome-hero.svg", "caption": "The whole village came to see the free magic show. Nobody bought a ticket to the second one."}, {"id": "sora", "name": "Sora", "dates": "Born October 2025 · Died April 2026", "cause": "Too expensive to keep running", "img": "images/ds-sora-hero.svg", "caption": "The spell cost a fortune to cast and the audience tossed a single copper coin into the hat."}, {"id": "chatgpt-atlas", "name": "ChatGPT Atlas", "dates": "Born October 2025 · Died July 2026", "cause": "Redundant by design", "img": "images/ds-chatgpt-atlas-hero.svg", "caption": "The kingdom built a second castle just to prove the first castle's gate should have been wider, then moved back into the first castle."}, {"id": "yupp", "name": "Yupp", "dates": "Born 2025 · Died March 2026", "cause": "Outpaced by its own market", "img": "images/ds-yupp-hero.svg", "caption": "By the time the tailor perfected the measuring tape, the whole village had stopped wearing clothes that needed measuring."}, {"id": "thegist", "name": "theGist", "dates": "Born 2022 · Died September 2025", "cause": "Traction never arrived", "img": "images/ds-thegist-hero.svg", "caption": "A sturdy cart built by the finest wheelwrights in the land still needs somewhere the village actually wants to go."}, {"id": "reforged-labs", "name": "Reforged Labs", "dates": "Born 2023 · Died early 2026", "cause": "The market gap closed", "img": "images/ds-reforged-labs-hero.svg", "caption": "The armorer's craft was flawless. The tournament that needed it simply stopped being held."}, {"id": "relay-app", "name": "Relay.app", "dates": "Born 2021 · Died August 2026", "cause": "No reason given", "img": "images/ds-relay-app-hero.svg", "caption": "One morning the workshop just had a sign on the door. No plague, no fire, no debtors at the gate. Just a sign."}, {"id": "astra", "name": "Astra", "dates": "Born 2023 · Died June 2025", "cause": "Co-founders parted ways", "img": "images/ds-astra-hero.svg", "caption": "Two knights swore the same oath at the same fire. By the second village, they had stopped speaking, and the quest died with the friendship."}, {"id": "doppl", "name": "Doppl", "dates": "Born 2025 · Died April 2026", "cause": "Died of its own success", "img": "images/ds-doppl-hero.svg", "caption": "The scout who found the shortest road to the capital was thanked, reassigned, and never allowed to walk it herself again."}, {"id": "cruise", "name": "Cruise", "dates": "Born 2013 · Died December 2024", "cause": "Pedestrian dragging incident", "img": "images/ds-cruise-hero.svg", "caption": "The self-driving carriage promised it saw everything on the road. It just didn't see the person stuck beneath it."}, {"id": "ibm-watson-health", "name": "IBM Watson Health", "dates": "Born 2015 · Died January 2022", "cause": "Sold for parts", "img": "images/ds-watson-health-hero.svg", "caption": "The kingdom spent four billion gold summoning an oracle. It sold the oracle for one billion once the prophecies stopped making sense."}, {"id": "amazon-halo", "name": "Amazon Halo", "dates": "Born 2020 · Died July 2023", "cause": "Quietly discontinued", "img": "images/ds-halo-hero.svg", "caption": "Nobody accused this amulet of malfunctioning. The kingdom just decided it no longer wanted to be in the business of amulets."}, {"id": "meta-galactica", "name": "Meta Galactica", "dates": "Born November 2022 · Died November 2022", "cause": "Pulled after 3 days", "img": "images/ds-galactica-hero.svg", "caption": "This scroll read like scholarship and lied like a con artist. The guild pulled it from the shelf before the ink had even dried."}]</script>
   <script>
   (function () {
-    var textEl = document.getElementById('crystalball-text');
-    var listEl = document.getElementById('crystalball-items');
-    if (!listEl) return;
-    fetch('/api/realms')
+    function el(tag, cls, text) {
+      var n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text != null) n.textContent = text;
+      return n;
+    }
+    function fail(list, msg) {
+      list.innerHTML = '';
+      list.appendChild(el('li', 'herald-loading', msg));
+    }
+
+    // DeathStack: rotate three graves per day. The server-rendered three
+    // stay put if this script or the data can't run.
+    try {
+      var graves = JSON.parse(document.getElementById('herald-graves-data').textContent);
+      var day = Math.floor(Date.now() / 86400000);
+      var graveList = document.getElementById('herald-grave-list');
+      if (graves.length >= 3 && graveList) {
+        graveList.innerHTML = '';
+        for (var i = 0; i < 3; i++) {
+          var g = graves[(day * 3 + i) % graves.length];
+          var a = el('a', 'herald-grave');
+          a.href = 'deathstack.html#grave-' + g.id;
+          var img = el('img');
+          img.src = g.img; img.alt = g.name + ' comic'; img.loading = 'lazy'; img.width = 64; img.height = 64;
+          var body = el('span', 'herald-grave-body');
+          body.appendChild(el('span', 'herald-grave-name', g.name));
+          var meta = el('span', 'herald-grave-meta', g.dates + ' \u00b7 ');
+          meta.appendChild(el('span', 'herald-grave-cause', g.cause));
+          body.appendChild(meta);
+          body.appendChild(el('span', 'herald-grave-caption', g.caption));
+          a.appendChild(img); a.appendChild(body);
+          graveList.appendChild(a);
+        }
+      }
+    } catch (e) {}
+
+    // News: four freshest headlines with their D&D flavor line.
+    var newsList = document.getElementById('herald-news-list');
+    fetch('/api/news')
       .then(function (res) { return res.json(); })
       .then(function (data) {
-        var activity = (data.buildActivity || data.activity || data.trending || []).slice(0, 5);
-        if (!activity.length) {
-          if (textEl) textEl.textContent = "The mists are quiet today. Check back after the next moon.";
+        var items = (data.items || []).slice(0, 4);
+        if (!items.length) return fail(newsList, 'The herald is between scrolls. Check back soon.');
+        newsList.innerHTML = '';
+        items.forEach(function (it) {
+          var li = el('li', 'herald-news-item');
+          var a = el('a', 'herald-news-title', it.title);
+          a.href = it.link; a.target = '_blank'; a.rel = 'noopener';
+          var src = el('span', 'herald-news-source', (it.controversial ? '\u25cf ' : '') + it.source);
+          if (it.controversial) src.className += ' is-hot';
+          li.appendChild(src); li.appendChild(a);
+          if (it.flavor) li.appendChild(el('p', 'herald-news-flavor', it.flavor));
+          newsList.appendChild(li);
+        });
+      })
+      .catch(function () { fail(newsList, "Couldn't reach the town square right now."); });
+
+    // Realms + Crystal Ball share one small summary request.
+    var realmList = document.getElementById('herald-realm-list');
+    var cbText = document.getElementById('crystalball-text');
+    var cbList = document.getElementById('crystalball-items');
+    fetch('/api/realms/summary')
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        var countries = data.countries || [];
+        if (!countries.length) {
+          fail(realmList, 'The map is still being inked. Check back shortly.');
+        } else {
+          realmList.innerHTML = '';
+          countries.forEach(function (c) {
+            var li = el('li', 'herald-realm-item');
+            var head = el('a', 'herald-realm-head');
+            head.href = 'realms.html';
+            head.appendChild(el('span', 'herald-realm-rank', '#' + c.rank));
+            head.appendChild(el('span', 'herald-realm-name', c.name));
+            if (c.hotTool) head.appendChild(el('span', 'herald-realm-tool', c.hotTool));
+            li.appendChild(head);
+            if (c.dndCaption) li.appendChild(el('p', 'herald-realm-caption', c.dndCaption));
+            realmList.appendChild(li);
+          });
+        }
+        var repos = data.buildActivity || [];
+        if (!repos.length) {
+          cbText.textContent = 'The mists are quiet today. Check back after the next moon.';
           return;
         }
-        if (textEl) textEl.textContent = "What the realms are conjuring right now:";
-        listEl.innerHTML = '';
-        activity.forEach(function (it) {
-          var a = document.createElement('a');
-          a.className = 'crystalball-item';
-          a.href = it.url || it.link || '#';
-          a.target = '_blank';
-          a.rel = 'noopener';
-          a.textContent = it.name || it.title || it.repo || 'Unnamed conjuring';
-          listEl.appendChild(a);
+        cbText.textContent = 'Newly summoned AI projects gathering stars on GitHub right now:';
+        cbList.innerHTML = '';
+        repos.forEach(function (r) {
+          var a = el('a', 'crystalball-item');
+          a.href = r.url; a.target = '_blank'; a.rel = 'noopener';
+          a.appendChild(el('span', 'crystalball-name', r.name));
+          a.appendChild(el('span', 'crystalball-meta', '\u2605 ' + Number(r.stars).toLocaleString() + (r.language ? ' \u00b7 ' + r.language : '')));
+          cbList.appendChild(a);
         });
       })
       .catch(function () {
-        if (textEl) textEl.textContent = "The crystal ball is cloudy right now, try again shortly.";
+        fail(realmList, 'The cartographers are out to lunch. Try again shortly.');
+        cbText.textContent = 'The crystal ball is cloudy right now, try again shortly.';
       });
   })();
   </script>
