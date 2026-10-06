@@ -104,6 +104,18 @@ return handleGetRealms(env);
 return new Response("Method not allowed", { status: 405 });
 }
 
+if (url.pathname === "/api/vault/unlock") {
+if (request.method === "POST") return handleVaultUnlock(request, env);
+return new Response("Method not allowed", { status: 405 });
+}
+if (url.pathname === "/api/vault/status") {
+return handleVaultStatus(request, env);
+}
+if (url.pathname === "/api/vault/video") {
+if (request.method === "GET" || request.method === "HEAD") return handleVaultVideo(request, env);
+return new Response("Method not allowed", { status: 405 });
+}
+
 if (url.pathname === "/api/realms/summary") {
 if (request.method === "GET") {
 return handleGetRealmsSummary(env);
@@ -1277,6 +1289,106 @@ if (a.length !== b.length) return false;
 let diff = 0;
 for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
 return diff === 0;
+}
+
+// ---------------- Vault (password-protected video) ----------------
+// The password lives only in the VAULT_PASSWORD secret on this Worker. A
+// correct guess gets an HMAC-signed, HttpOnly session cookie scoped to
+// /api/vault, and the video streams from the private VAULT_BUCKET R2 bucket
+// only to requests carrying a valid cookie. Wrong guesses are rate limited
+// per IP so the password can't be brute forced through this endpoint.
+const VAULT_COOKIE = "vault_session";
+const VAULT_SESSION_SECONDS = 12 * 60 * 60;
+const VAULT_OBJECT_KEY = "mainquest.mp4";
+const VAULT_MAX_ATTEMPTS = 10;
+const VAULT_ATTEMPT_WINDOW_SECONDS = 15 * 60;
+
+function vaultJson(body, status, extraHeaders) {
+const headers = { "Content-Type": "application/json", "Cache-Control": "no-store" };
+return new Response(JSON.stringify(body), { status, headers: { ...headers, ...(extraHeaders || {}) } });
+}
+
+async function vaultHmac(secret, message) {
+const key = await crypto.subtle.importKey(
+"raw",
+new TextEncoder().encode(secret),
+{ name: "HMAC", hash: "SHA-256" },
+false,
+["sign"]
+);
+const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(message));
+return [...new Uint8Array(sig)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+async function vaultSessionValid(request, env) {
+if (!env.VAULT_PASSWORD) return false;
+const cookie = request.headers.get("Cookie") || "";
+const match = cookie.match(new RegExp("(?:^|;\\s*)" + VAULT_COOKIE + "=([^;]+)"));
+if (!match) return false;
+const [exp, sig] = match[1].split(".");
+if (!exp || !sig || !/^\d+$/.test(exp) || Number(exp) < Math.floor(Date.now() / 1000)) return false;
+const expected = await vaultHmac(env.VAULT_PASSWORD, "vault:" + exp);
+return timingSafeEqual(sig, expected);
+}
+
+async function handleVaultUnlock(request, env) {
+if (!env.VAULT_PASSWORD) return vaultJson({ ok: false, error: "not_configured" }, 503);
+const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+const attemptsKey = "vault-attempts:" + ip;
+const store = env.SUBMISSIONS;
+let attempts = 0;
+if (store) attempts = parseInt((await store.get(attemptsKey)) || "0", 10) || 0;
+if (attempts >= VAULT_MAX_ATTEMPTS) return vaultJson({ ok: false, error: "too_many_attempts" }, 429);
+
+let password = "";
+try {
+const body = await request.json();
+password = String((body && body.password) || "");
+} catch (err) {
+return vaultJson({ ok: false, error: "bad_request" }, 400);
+}
+
+if (!password || !timingSafeEqual(password, env.VAULT_PASSWORD)) {
+if (store) await store.put(attemptsKey, String(attempts + 1), { expirationTtl: VAULT_ATTEMPT_WINDOW_SECONDS });
+return vaultJson({ ok: false, error: "wrong_password" }, 401);
+}
+
+if (store && attempts) await store.delete(attemptsKey);
+const exp = Math.floor(Date.now() / 1000) + VAULT_SESSION_SECONDS;
+const token = exp + "." + (await vaultHmac(env.VAULT_PASSWORD, "vault:" + exp));
+return vaultJson({ ok: true }, 200, {
+"Set-Cookie": `${VAULT_COOKIE}=${token}; Path=/api/vault; Max-Age=${VAULT_SESSION_SECONDS}; HttpOnly; Secure; SameSite=Strict`,
+});
+}
+
+async function handleVaultStatus(request, env) {
+return vaultJson({ unlocked: await vaultSessionValid(request, env) }, 200);
+}
+
+async function handleVaultVideo(request, env) {
+if (!(await vaultSessionValid(request, env))) return new Response("Locked", { status: 401 });
+if (!env.VAULT_BUCKET) return new Response("Vault storage not configured", { status: 503 });
+const object = await env.VAULT_BUCKET.get(VAULT_OBJECT_KEY, { range: request.headers, onlyIf: request.headers });
+if (object === null) return new Response("Not found", { status: 404 });
+const headers = new Headers();
+object.writeHttpMetadata(headers);
+headers.set("ETag", object.httpEtag);
+headers.set("Accept-Ranges", "bytes");
+headers.set("Cache-Control", "private, no-store");
+if (!headers.has("Content-Type")) headers.set("Content-Type", "video/mp4");
+if (!("body" in object)) return new Response(null, { status: 304, headers });
+let status = 200;
+if (request.headers.has("Range") && object.range) {
+const r = object.range;
+const offset = "suffix" in r ? object.size - r.suffix : r.offset || 0;
+const length = "suffix" in r ? r.suffix : r.length !== undefined ? r.length : object.size - offset;
+headers.set("Content-Range", `bytes ${offset}-${offset + length - 1}/${object.size}`);
+headers.set("Content-Length", String(length));
+status = 206;
+} else {
+headers.set("Content-Length", String(object.size));
+}
+return new Response(request.method === "HEAD" ? null : object.body, { status, headers });
 }
 
 async function handleRefreshRealms(env) {

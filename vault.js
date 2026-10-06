@@ -1,51 +1,51 @@
 (function () {
   "use strict";
 
-  // SHA-256 of the vault password. The plaintext is never stored in this
-  // file, but note: this is still just a client-side check on a static
-  // site. Anyone who opens dev tools can read this hash, brute force it,
-  // or simply flip the "unlocked" flag by hand. Use this to keep casual
-  // visitors out, not as a real access control.
-  var PASSWORD_HASH = "dd9cced523986e64eec57b353d2d8cd3697714ecca0c313a50c8b855b71a915d";
-  var SESSION_KEY = "vault_unlocked_v1";
-
+  // The password is checked by the server (POST /api/vault/unlock), never
+  // in this file. A correct password sets an HttpOnly session cookie, and
+  // the video only streams from /api/vault/video with that cookie, so
+  // reading this script or the page source doesn't reveal the video.
+  var VIDEO_URL = "/api/vault/video";
   var els = {};
-
-  function sha256Hex(text) {
-    var data = new TextEncoder().encode(text);
-    return crypto.subtle.digest("SHA-256", data).then(function (buf) {
-      var bytes = new Uint8Array(buf);
-      var hex = "";
-      for (var i = 0; i < bytes.length; i++) {
-        hex += bytes[i].toString(16).padStart(2, "0");
-      }
-      return hex;
-    });
-  }
 
   function unlock() {
     els.gate.hidden = true;
     els.content.hidden = false;
+    if (els.video && !els.video.getAttribute("src")) {
+      els.video.setAttribute("src", VIDEO_URL);
+      els.video.load();
+    }
+  }
+
+  function showError(message) {
+    els.error.textContent = message;
+    els.error.hidden = false;
   }
 
   function handleSubmit(evt) {
     evt.preventDefault();
     els.error.hidden = true;
-    var value = els.password.value || "";
-    sha256Hex(value).then(function (hex) {
-      if (hex === PASSWORD_HASH) {
-        try {
-          sessionStorage.setItem(SESSION_KEY, "1");
-        } catch (e) {
-          // sessionStorage unavailable, no big deal, just skip persistence
-        }
-        unlock();
-      } else {
-        els.error.hidden = false;
+    els.button.disabled = true;
+    fetch("/api/vault/unlock", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
+      body: JSON.stringify({ password: els.password.value || "" })
+    })
+      .then(function (res) {
+        if (res.ok) return unlock();
         els.password.value = "";
         els.password.focus();
-      }
-    });
+        if (res.status === 429) return showError("Too many wrong guesses. The vault is sulking for 15 minutes.");
+        if (res.status === 503) return showError("The vault is being set up. Try again later.");
+        showError("Wrong password. Try again.");
+      })
+      .catch(function () {
+        showError("Couldn't reach the vault. Check your connection and try again.");
+      })
+      .then(function () {
+        els.button.disabled = false;
+      });
   }
 
   function init() {
@@ -54,18 +54,16 @@
     els.form = document.getElementById("vault-form");
     els.password = document.getElementById("vault-password");
     els.error = document.getElementById("vault-error");
-
+    els.video = document.getElementById("vault-video");
     if (!els.gate || !els.content || !els.form) return;
-
+    els.button = els.form.querySelector("button");
     els.form.addEventListener("submit", handleSubmit);
 
-    var alreadyUnlocked = false;
-    try {
-      alreadyUnlocked = sessionStorage.getItem(SESSION_KEY) === "1";
-    } catch (e) {
-      alreadyUnlocked = false;
-    }
-    if (alreadyUnlocked) unlock();
+    // Already unlocked in this browser (cookie still valid)? Skip the gate.
+    fetch("/api/vault/status", { credentials: "same-origin" })
+      .then(function (res) { return res.json(); })
+      .then(function (data) { if (data && data.unlocked) unlock(); })
+      .catch(function () {});
   }
 
   if (document.readyState === "loading") {
