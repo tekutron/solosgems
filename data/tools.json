@@ -1,7 +1,7 @@
 {
   "source": "https://solosgems.com/",
-  "generated": "2026-10-05",
-  "count": 235,
+  "generated": "2026-10-06",
+  "count": 234,
   "license": "Free to use with attribution to Solos Gems (solosgems.com).",
   "tools": [
     {
@@ -14,8 +14,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 146,
+      "score": 6.88,
+      "rank_basis": "scouted",
+      "rank_why": "AI WordPress builder plus hosting. Convenient bundle, WordPress quirks included."
     },
     {
       "name": "Adobe Firefly",
@@ -27,8 +29,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 65,
+      "score": 7.75,
+      "rank_basis": "scouted",
+      "rank_why": "Commercially safer images inside the Adobe tools you may already rent. Great if you live in Adobe's castle."
     },
     {
       "name": "Ahrefs",
@@ -40,8 +44,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 200,
+      "score": 6.0,
+      "rank_basis": "scouted",
+      "rank_why": "An elite SEO toolkit priced for agencies. A great grimoire, too costly for casual use."
     },
     {
       "name": "AI2SQL",
@@ -53,8 +59,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 151,
+      "score": 6.88,
+      "rank_basis": "scouted",
+      "rank_why": "Turns plain English into SQL. A helpful translator for people who fear databases."
     },
     {
       "name": "Airtable",
@@ -66,8 +74,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": 12,
-      "score": 7.6
+      "rank": 61,
+      "score": 7.75,
+      "rank_basis": "tested",
+      "rank_why": "A spreadsheet that learned necromancy. Powerful, with a generous free plan, but it takes a few sessions to master."
     },
     {
       "name": "AIVA",
@@ -79,8 +89,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 79,
+      "score": 7.62,
+      "rank_basis": "scouted",
+      "rank_why": "Composes original soundtracks with a free tier. A court composer who works for crumbs."
     },
     {
       "name": "AltText.ai",
@@ -92,8 +104,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 100,
+      "score": 7.38,
+      "rank_basis": "scouted",
+      "rank_why": "Writes alt text for every image so your site is readable for everyone. Narrow, useful, and kind."
     },
     {
       "name": "Amazon Q Developer",
@@ -105,8 +119,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-19",
-      "rank": null,
-      "score": null
+      "rank": 55,
+      "score": 7.88,
+      "rank_basis": "scouted",
+      "rank_why": "Free for individuals and great at AWS plumbing. Less exciting outside the AWS kingdom."
     },
     {
       "name": "Anara",
@@ -118,8 +134,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-16",
-      "rank": 29,
-      "score": 6.6
+      "rank": 140,
+      "score": 6.88,
+      "rank_basis": "tested",
+      "rank_why": "Cites the exact passage in your own documents. Strong scholar, steeper price than the free alternatives."
     },
     {
       "name": "Apollo.io",
@@ -131,8 +149,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 47,
-      "score": 5.1
+      "rank": 213,
+      "score": 5.62,
+      "rank_basis": "tested",
+      "rank_why": "A huge lead database with real capability, priced per seat and easy to waste credits on."
     },
     {
       "name": "Astra Security",
@@ -144,8 +164,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 195,
+      "score": 6.25,
+      "rank_basis": "scouted",
+      "rank_why": "Vulnerability scanning sized for small teams. Good armor, but not something most solos buy first."
     },
     {
       "name": "Async",
@@ -157,8 +179,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-16",
-      "rank": null,
-      "score": null
+      "rank": 116,
+      "score": 7.25,
+      "rank_basis": "scouted",
+      "rank_why": "Recording, editing, and AI cleanup in the browser with a free tier. A whole studio in one tab."
     },
     {
       "name": "Attio",
@@ -170,8 +194,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "free",
       "date_added": "2026-08-19",
-      "rank": 16,
-      "score": 7.5
+      "rank": 62,
+      "score": 7.75,
+      "rank_basis": "tested",
+      "rank_why": "A modern CRM with AI on every plan, free included. A strong pick for small parties tracking many quests."
     },
     {
       "name": "Auphonic",
@@ -183,8 +209,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 46,
+      "score": 8.0,
+      "rank_basis": "scouted",
+      "rank_why": "Levels and cleans podcast audio automatically, with free monthly hours. Quietly essential."
     },
     {
       "name": "Beautiful.ai",
@@ -196,8 +224,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 174,
+      "score": 6.5,
+      "rank_basis": "scouted",
+      "rank_why": "Slides that rearrange themselves as you type. Lovely, but trial-then-pay."
     },
     {
       "name": "Beehiiv",
@@ -209,8 +239,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": 4,
-      "score": 8.2
+      "rank": 26,
+      "score": 8.25,
+      "rank_basis": "tested",
+      "rank_why": "Zero commission on paid subscriptions from day one. The newsletter guild's only innkeeper who doesn't skim off the top of your tips."
     },
     {
       "name": "Birdeye",
@@ -222,8 +254,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 215,
+      "score": 5.62,
+      "rank_basis": "scouted",
+      "rank_why": "Reputation management for local businesses that automates reviews. Effective, pricey for a single shop."
     },
     {
       "name": "Bland AI",
@@ -235,8 +269,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 50,
-      "score": 4.8
+      "rank": 221,
+      "score": 5.25,
+      "rank_basis": "tested",
+      "rank_why": "Impressive voice agents for developers, billed by the minute, with little for a non-coder to hold onto."
     },
     {
       "name": "Bolt.new",
@@ -248,8 +284,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 109,
+      "score": 7.25,
+      "rank_basis": "scouted",
+      "rank_why": "Spins up full-stack apps in the browser. Fun and fast, but tokens drain quickly once the bugs start."
     },
     {
       "name": "Bonsai",
@@ -261,8 +299,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": 20,
-      "score": 7.2
+      "rank": 107,
+      "score": 7.25,
+      "rank_basis": "tested",
+      "rank_why": "Contracts, invoices, and scheduling for freelancers in one tidy pouch. Dependable, not flashy."
     },
     {
       "name": "Buffer",
@@ -274,8 +314,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 23,
+      "score": 8.38,
+      "rank_basis": "scouted",
+      "rank_why": "Social scheduling with a genuinely usable free tier. The easiest way to post everywhere without losing your mind."
     },
     {
       "name": "Cal.com",
@@ -287,8 +329,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-16",
-      "rank": null,
-      "score": null
+      "rank": 12,
+      "score": 8.62,
+      "rank_basis": "scouted",
+      "rank_why": "An open-source Calendly rival with a generous free plan and an AI phone agent. Better value than the original."
     },
     {
       "name": "Calendly",
@@ -300,8 +344,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": 18,
-      "score": 7.3
+      "rank": 91,
+      "score": 7.38,
+      "rank_basis": "tested",
+      "rank_why": "The easiest spell in the book: share a link, let the meeting cast itself. Not much magic beyond that, and it doesn't pretend otherwise."
     },
     {
       "name": "Calm",
@@ -313,8 +359,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 131,
+      "score": 7.12,
+      "rank_basis": "scouted",
+      "rank_why": "Soothing, easy, and polished. The AI is a light touch on a meditation app most people use for the rain sounds."
     },
     {
       "name": "Canva Magic Studio",
@@ -326,8 +374,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 1,
-      "score": 8.7
+      "rank": 6,
+      "score": 8.75,
+      "rank_basis": "tested",
+      "rank_why": "Rolled high on value, ease, and a free tier generous enough to feel like a trap. It isn't. The fanciest spells just live behind Pro."
     },
     {
       "name": "CapCut",
@@ -339,8 +389,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 8,
+      "score": 8.75,
+      "rank_basis": "scouted",
+      "rank_why": "A free, powerful editor with AI tricks built for short-form video. Hard to beat for social creators."
     },
     {
       "name": "Cartesia",
@@ -352,8 +404,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-10-05",
-      "rank": null,
-      "score": null
+      "rank": 49,
+      "score": 7.88,
+      "rank_basis": "scouted",
+      "rank_why": "Ultra-fast voice AI with a free plan and a $5 Pro tier. A builder's delight, a little technical for others."
     },
     {
       "name": "Cashflowy",
@@ -365,8 +419,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 186,
+      "score": 6.38,
+      "rank_basis": "scouted",
+      "rank_why": "AI bookkeeping coach for freelancers. Helpful for the numerically cursed, but small and paid-first."
     },
     {
       "name": "Chatbase",
@@ -378,8 +434,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 37,
-      "score": 6.0
+      "rank": 191,
+      "score": 6.25,
+      "rank_basis": "tested",
+      "rank_why": "Trains a chatbot on your site in minutes. Value drops fast once your visitors start actually talking to it."
     },
     {
       "name": "ChatGPT",
@@ -391,21 +449,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
-    },
-    {
-      "name": "ChatGPT Atlas",
-      "domain": "chatgpt.com",
-      "category": "AI Search & Browsing",
-      "description": "OpenAI's own web browser, with ChatGPT built into the sidebar and an agent mode that can complete tasks for you.",
-      "cool_fact": "Its agent mode can research, compare, and complete multi-step browsing tasks directly on live webpages.",
-      "url": "https://chatgpt.com/atlas",
-      "reviewed_on_solosgems": false,
-      "pricing": "unlisted",
-      "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 1,
+      "score": 9.25,
+      "rank_basis": "scouted",
+      "rank_why": "The realm's most popular familiar for a reason: a strong free tier, does nearly everything, and anyone can use it on day one."
     },
     {
       "name": "Chattermill",
@@ -417,8 +464,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 226,
+      "score": 5.12,
+      "rank_basis": "scouted",
+      "rank_why": "Ties feedback to revenue for big companies. Clever, and completely sized for enterprise kingdoms."
     },
     {
       "name": "Claude",
@@ -430,8 +479,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 4,
+      "score": 8.88,
+      "rank_basis": "scouted",
+      "rank_why": "A careful, well-read scholar with a strong free tier. Loses a hair to ChatGPT only on sheer breadth of extra gadgets."
     },
     {
       "name": "Claude Code",
@@ -443,8 +494,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-10-05",
-      "rank": null,
-      "score": null
+      "rank": 84,
+      "score": 7.5,
+      "rank_basis": "scouted",
+      "rank_why": "One of the strongest coding agents in the land, included with Claude Pro. No free tier, and it assumes you can read code."
     },
     {
       "name": "Clay",
@@ -456,8 +509,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 192,
+      "score": 6.25,
+      "rank_basis": "scouted",
+      "rank_why": "Pulls data from 150+ providers into one workflow. Enormously powerful, with a learning curve like a dungeon staircase."
     },
     {
       "name": "Cleanvoice",
@@ -469,8 +524,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 123,
+      "score": 7.12,
+      "rank_basis": "scouted",
+      "rank_why": "Strips filler words and stutters from raw audio. Narrow, effective, mostly paid."
     },
     {
       "name": "Cleo",
@@ -482,8 +539,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 132,
+      "score": 7.12,
+      "rank_basis": "scouted",
+      "rank_why": "A sassy budgeting chatbot that roasts your spending. Fun and approachable, light on depth."
     },
     {
       "name": "ClickUp Brain",
@@ -495,8 +554,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 15,
-      "score": 7.5
+      "rank": 89,
+      "score": 7.38,
+      "rank_basis": "tested",
+      "rank_why": "Smart oracle, cluttered war table. Capable when you find the right lever, but there are a lot of levers."
     },
     {
       "name": "CodeRabbit",
@@ -508,8 +569,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 69,
+      "score": 7.75,
+      "rank_basis": "scouted",
+      "rank_why": "Reviews every pull request line by line, free for open source. A tireless second pair of eyes."
     },
     {
       "name": "Composer",
@@ -521,8 +584,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 101,
+      "score": 7.38,
+      "rank_basis": "scouted",
+      "rank_why": "Build and backtest trading strategies without code, free to try. Remember: the dice do not care about your backtest."
     },
     {
       "name": "Consensus",
@@ -534,8 +599,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 28,
+      "score": 8.25,
+      "rank_basis": "scouted",
+      "rank_why": "Answers backed by peer-reviewed papers, with a free tier. A scholar who cites real sources."
     },
     {
       "name": "Copilot Money",
@@ -547,8 +614,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 136,
+      "score": 7.0,
+      "rank_basis": "scouted",
+      "rank_why": "A beautiful budgeting app with smart categorization. Paid after the trial, Apple-first."
     },
     {
       "name": "Copy.ai",
@@ -560,8 +629,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": 30,
-      "score": 6.5
+      "rank": 162,
+      "score": 6.62,
+      "rank_basis": "tested",
+      "rank_why": "A solid scribe with a real free tier, outgrowing pure copywriting into workflows. Competent, not legendary."
     },
     {
       "name": "Copyleaks",
@@ -573,8 +644,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 181,
+      "score": 6.38,
+      "rank_basis": "scouted",
+      "rank_why": "Detects AI text, plagiarism, and AI images in one tool. Detection is a guessing game for everyone, this one guesses well."
     },
     {
       "name": "Craft",
@@ -586,8 +659,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": 19,
-      "score": 7.3
+      "rank": 90,
+      "score": 7.38,
+      "rank_basis": "tested",
+      "rank_why": "Lovely notes and docs with helpful AI. More polish than raw power."
     },
     {
       "name": "Creatify",
@@ -599,8 +674,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 147,
+      "score": 6.88,
+      "rank_basis": "scouted",
+      "rank_why": "Product link in, avatar ad out. Fast, and the avatars still look like avatars."
     },
     {
       "name": "Cursor",
@@ -612,8 +689,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": 38,
-      "score": 5.9
+      "rank": 169,
+      "score": 6.5,
+      "rank_basis": "tested",
+      "rank_why": "One of the most capable coding familiars alive, priced fairly, but it rewards people who already know their way around code."
     },
     {
       "name": "D-ID",
@@ -625,8 +704,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 182,
+      "score": 6.38,
+      "rank_basis": "scouted",
+      "rank_why": "Talking-avatar video with a developer API. Useful for builders, uncanny for audiences."
     },
     {
       "name": "Danelfin",
@@ -638,8 +719,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 152,
+      "score": 6.88,
+      "rank_basis": "scouted",
+      "rank_why": "Rates stocks 1 to 10 with machine learning. Simple to read, and still not a prophecy."
     },
     {
       "name": "DeepL",
@@ -651,8 +734,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 10,
+      "score": 8.62,
+      "rank_basis": "scouted",
+      "rank_why": "The translator many call the most accurate in the realm, with a strong free tier. A polyglot familiar."
     },
     {
       "name": "DeepSeek",
@@ -664,8 +749,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 5,
+      "score": 8.88,
+      "rank_basis": "scouted",
+      "rank_why": "Top-tier brains for free, with open weights for anyone who wants to run the spell at home. Hard to beat on value."
     },
     {
       "name": "Descript",
@@ -677,8 +764,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": 9,
-      "score": 7.8
+      "rank": 60,
+      "score": 7.75,
+      "rank_basis": "tested",
+      "rank_why": "Editing video by editing text is a legendary spell. The learning curve and price keep it from the top of the tower."
     },
     {
       "name": "Devin",
@@ -690,8 +779,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 218,
+      "score": 5.5,
+      "rank_basis": "scouted",
+      "rank_why": "An autonomous AI engineer that's impressive and expensive. A hireling priced for guilds, not solo adventurers."
     },
     {
       "name": "Dia",
@@ -703,8 +794,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-10-05",
-      "rank": null,
-      "score": null
+      "rank": 37,
+      "score": 8.12,
+      "rank_basis": "scouted",
+      "rank_why": "A free AI browser that actually understands your tabs. Promising, young, and still earning its reputation."
     },
     {
       "name": "DocuSign",
@@ -716,8 +809,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 166,
+      "score": 6.62,
+      "rank_basis": "scouted",
+      "rank_why": "The e-signature standard, now with AI contract analysis. Reliable, and priced like the standard it is."
     },
     {
       "name": "Dovetail",
@@ -729,8 +824,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 143,
+      "score": 6.88,
+      "rank_basis": "scouted",
+      "rank_why": "Turns interviews and surveys into searchable themes. A great research library, overkill for occasional use."
     },
     {
       "name": "Durable",
@@ -742,8 +839,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": 21,
-      "score": 7.2
+      "rank": 92,
+      "score": 7.38,
+      "rank_basis": "tested",
+      "rank_why": "A website, CRM, and booking calendar in one quick spell. Not deep, but very fast to stand up."
     },
     {
       "name": "eesel AI",
@@ -755,8 +854,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 144,
+      "score": 6.88,
+      "rank_basis": "scouted",
+      "rank_why": "Adds an AI agent to the helpdesk you already have. Clever, but paid-first."
     },
     {
       "name": "ElevenLabs",
@@ -768,8 +869,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": 36,
-      "score": 6.1
+      "rank": 189,
+      "score": 6.25,
+      "rank_basis": "tested",
+      "rank_why": "The best voices in the realm, held back by a watermarked, non-commercial free tier and costs that climb with every word spoken."
     },
     {
       "name": "Elicit",
@@ -781,8 +884,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 50,
+      "score": 7.88,
+      "rank_basis": "scouted",
+      "rank_why": "Automates literature reviews and evidence extraction, free to start. Superb for researchers."
     },
     {
       "name": "Epique AI",
@@ -794,8 +899,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 105,
+      "score": 7.38,
+      "rank_basis": "scouted",
+      "rank_why": "AI listing descriptions and emails built for real estate agents. Narrow, handy, affordable."
     },
     {
       "name": "Fathom",
@@ -807,8 +914,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 9,
+      "score": 8.75,
+      "rank_basis": "scouted",
+      "rank_why": "A free meeting recorder with good summaries and no fuss. One of the best free spells in the realm."
     },
     {
       "name": "Figma Make",
@@ -820,8 +929,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-10-05",
-      "rank": null,
-      "score": null
+      "rank": 110,
+      "score": 7.25,
+      "rank_basis": "scouted",
+      "rank_why": "Prompt-to-prototype that respects your real design system. Great inside Figma, gated by its plans."
     },
     {
       "name": "Fireflies.ai",
@@ -833,8 +944,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": 3,
-      "score": 8.4
+      "rank": 7,
+      "score": 8.75,
+      "rank_basis": "tested",
+      "rank_why": "Unlimited transcription on every tier, free included, is the kind of loot drop that makes the rest of the meeting-notes guild look stingy."
     },
     {
       "name": "Fitbod",
@@ -846,8 +959,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 102,
+      "score": 7.38,
+      "rank_basis": "scouted",
+      "rank_why": "Adapts each workout to how you actually trained. A helpful squire for the gym, paid after a few sessions."
     },
     {
       "name": "Flux",
@@ -859,8 +974,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 43,
+      "score": 8.0,
+      "rank_basis": "scouted",
+      "rank_why": "Gorgeous photorealism with open-weight versions you can run yourself. Top-tier art, a bit fiddly to wield."
     },
     {
       "name": "Framer",
@@ -872,8 +989,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": 31,
-      "score": 6.4
+      "rank": 170,
+      "score": 6.5,
+      "rank_basis": "tested",
+      "rank_why": "Prompt-to-website that actually publishes. The pricing and learning curve keep it mid-pack."
     },
     {
       "name": "Freepik AI",
@@ -885,8 +1004,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 70,
+      "score": 7.75,
+      "rank_basis": "scouted",
+      "rank_why": "Image generation stapled to a huge stock library with a free tier. A practical one-stop art shop."
     },
     {
       "name": "Fyxer AI",
@@ -898,8 +1019,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-16",
-      "rank": null,
-      "score": null
+      "rank": 94,
+      "score": 7.38,
+      "rank_basis": "scouted",
+      "rank_why": "Sorts your inbox and drafts replies in your voice, with a free trial. A promising inbox squire."
     },
     {
       "name": "Gamma",
@@ -911,8 +1034,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": 25,
-      "score": 6.9
+      "rank": 141,
+      "score": 6.88,
+      "rank_basis": "tested",
+      "rank_why": "Turns a prompt into a polished deck faster than a bard can tune a lute. The free credits run dry quickly, though."
     },
     {
       "name": "Gemini",
@@ -924,8 +1049,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 2,
+      "score": 9.0,
+      "rank_basis": "scouted",
+      "rank_why": "Free, capable, and already living inside your Gmail and Docs. The home-field advantage is real."
     },
     {
       "name": "Genspark",
@@ -937,8 +1064,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-16",
-      "rank": null,
-      "score": null
+      "rank": 114,
+      "score": 7.25,
+      "rank_basis": "scouted",
+      "rank_why": "A Super Agent that researches and builds decks for you. Impressive when it works, credit-hungry when it doesn't."
     },
     {
       "name": "GitHub Copilot",
@@ -950,8 +1079,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 11,
+      "score": 8.62,
+      "rank_basis": "scouted",
+      "rank_why": "The default coding familiar, with a free tier and editor integration everywhere. Hard to go wrong."
     },
     {
       "name": "Gong",
@@ -963,8 +1094,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-19",
-      "rank": null,
-      "score": null
+      "rank": 231,
+      "score": 4.75,
+      "rank_basis": "scouted",
+      "rank_why": "The sales-call oracle for big revenue teams. Excellent, and entirely enterprise-priced."
     },
     {
       "name": "Google Antigravity",
@@ -976,8 +1109,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-10-05",
-      "rank": null,
-      "score": null
+      "rank": 15,
+      "score": 8.5,
+      "rank_basis": "scouted",
+      "rank_why": "Free for individuals and runs a whole party of coding agents. Powerful, still new, and a little overwhelming."
     },
     {
       "name": "Google Stitch",
@@ -989,8 +1124,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-10-05",
-      "rank": null,
-      "score": null
+      "rank": 13,
+      "score": 8.62,
+      "rank_basis": "scouted",
+      "rank_why": "Free multi-screen UI designs that paste straight into Figma. Hard to argue with free and good."
     },
     {
       "name": "GPTZero",
@@ -1002,8 +1139,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 106,
+      "score": 7.38,
+      "rank_basis": "scouted",
+      "rank_why": "Easy and free to start, beloved by teachers. Like every AI detector, it can accuse an innocent scroll."
     },
     {
       "name": "Grain",
@@ -1015,8 +1154,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 124,
+      "score": 7.12,
+      "rank_basis": "scouted",
+      "rank_why": "Turns call moments into shareable clips. Nice for sales and research calls, narrower than the big notetakers."
     },
     {
       "name": "Grammarly",
@@ -1028,8 +1169,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": 5,
-      "score": 8.1
+      "rank": 27,
+      "score": 8.25,
+      "rank_basis": "tested",
+      "rank_why": "So easy you forget it's casting. The free tier alone saves more embarrassing emails than most paid tools."
     },
     {
       "name": "Granola",
@@ -1041,8 +1184,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-16",
-      "rank": 8,
-      "score": 7.9
+      "rank": 25,
+      "score": 8.25,
+      "rank_basis": "tested",
+      "rank_why": "The notetaker with no bot at the table. Easy, clever, and loved by everyone who tries it."
     },
     {
       "name": "Grok",
@@ -1054,8 +1199,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 111,
+      "score": 7.25,
+      "rank_basis": "scouted",
+      "rank_why": "Sharp and plugged into X's live firehose, but the best features sit behind paid tiers and its chaotic alignment is a feature, apparently."
     },
     {
       "name": "Gumloop",
@@ -1067,8 +1214,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-16",
-      "rank": null,
-      "score": null
+      "rank": 115,
+      "score": 7.25,
+      "rank_basis": "scouted",
+      "rank_why": "A friendly visual canvas for AI automations. Easier than Zapier for AI-heavy flows, younger and less proven."
     },
     {
       "name": "Hailuo AI",
@@ -1080,8 +1229,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-10-05",
-      "rank": null,
-      "score": null
+      "rank": 21,
+      "score": 8.38,
+      "rank_basis": "scouted",
+      "rank_why": "Strong video from a photo or prompt with free credits to burn. A rising star of the video guild."
     },
     {
       "name": "Harness AI",
@@ -1093,8 +1244,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 228,
+      "score": 5.0,
+      "rank_basis": "scouted",
+      "rank_why": "Serious CI/CD automation for engineering teams. Overkill and overpriced for a party of one."
     },
     {
       "name": "Harvey",
@@ -1106,8 +1259,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-19",
-      "rank": null,
-      "score": null
+      "rank": 224,
+      "score": 5.12,
+      "rank_basis": "scouted",
+      "rank_why": "Elite legal AI for big law firms. Powerful, and you'll need a firm with a moat to get through the gate."
     },
     {
       "name": "HeyGen",
@@ -1119,8 +1274,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 108,
+      "score": 7.25,
+      "rank_basis": "scouted",
+      "rank_why": "The best lip-sync and video translation in town. Avatar magic that costs real gold."
     },
     {
       "name": "Higgsfield",
@@ -1132,8 +1289,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 112,
+      "score": 7.25,
+      "rank_basis": "scouted",
+      "rank_why": "Cinematic camera moves on demand. Gorgeous presets, credit-hungry."
     },
     {
       "name": "HireVue",
@@ -1145,8 +1304,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 234,
+      "score": 4.0,
+      "rank_basis": "scouted",
+      "rank_why": "Enterprise video interviewing at volume. Not for solos, and its AI judging candidates draws plenty of side-eye."
     },
     {
       "name": "Hootsuite",
@@ -1158,8 +1319,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 202,
+      "score": 6.0,
+      "rank_basis": "scouted",
+      "rank_why": "Powerful social management for teams, priced for teams. A solo creator is paying for an army they don't have."
     },
     {
       "name": "HubSpot Free CRM",
@@ -1171,8 +1334,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": 22,
-      "score": 7.1
+      "rank": 133,
+      "score": 7.08,
+      "rank_basis": "tested",
+      "rank_why": "The free tier is a sturdy keep. The AI wing is real but locked behind a toll gate that gets pricier every floor."
     },
     {
       "name": "Hugging Face",
@@ -1184,8 +1349,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 34,
+      "score": 8.12,
+      "rank_basis": "scouted",
+      "rank_why": "The great open library of models, mostly free. Indispensable for builders, bewildering for everyone else."
     },
     {
       "name": "Ideogram",
@@ -1197,8 +1364,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 35,
+      "score": 8.12,
+      "rank_basis": "scouted",
+      "rank_why": "The rare image wizard that can actually spell. A free tier and readable text make it a designer's friend."
     },
     {
       "name": "Instantly.ai",
@@ -1210,8 +1379,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-19",
-      "rank": 33,
-      "score": 6.3
+      "rank": 190,
+      "score": 6.25,
+      "rank_basis": "tested",
+      "rank_why": "Scales cold email with unlimited mailboxes, but there's no real way to try it without paying first."
     },
     {
       "name": "Intercom Fin",
@@ -1223,8 +1394,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 201,
+      "score": 6.0,
+      "rank_basis": "scouted",
+      "rank_why": "Resolves support tickets by itself, billed per resolution on top of Intercom. Enterprise armor at enterprise prices."
     },
     {
       "name": "Interior AI",
@@ -1236,8 +1409,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 138,
+      "score": 7.0,
+      "rank_basis": "scouted",
+      "rank_why": "Restyles a room from one photo. Fun and quick, light on free tries."
     },
     {
       "name": "Ironclad",
@@ -1249,8 +1424,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 227,
+      "score": 5.0,
+      "rank_basis": "scouted",
+      "rank_why": "Contract lifecycle management for large legal teams. Overkill for a solo founder's handful of agreements."
     },
     {
       "name": "Jamie",
@@ -1262,8 +1439,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 95,
+      "score": 7.38,
+      "rank_basis": "scouted",
+      "rank_why": "Bot-free notes captured locally, in person or online. Discreet and capable, smaller free allowance."
     },
     {
       "name": "Jasper",
@@ -1275,8 +1454,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 203,
+      "score": 6.0,
+      "rank_basis": "scouted",
+      "rank_why": "Brand-voice copywriting for marketing teams. Good, but priced for teams when cheaper scribes exist."
     },
     {
       "name": "Jobscan",
@@ -1288,8 +1469,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 148,
+      "score": 6.88,
+      "rank_basis": "scouted",
+      "rank_why": "Tests your resume against the ATS gatekeepers. One very useful trick, with a free trial scan to prove it."
     },
     {
       "name": "Juicebox",
@@ -1301,8 +1484,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 164,
+      "score": 6.62,
+      "rank_basis": "scouted",
+      "rank_why": "Plain-language candidate search across the whole realm. Powerful for recruiters, pricey for the occasional hire."
     },
     {
       "name": "Julius",
@@ -1314,8 +1499,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-19",
-      "rank": null,
-      "score": null
+      "rank": 38,
+      "score": 8.12,
+      "rank_basis": "scouted",
+      "rank_why": "Chat with your spreadsheet and it builds the charts. A free plan and a gentle learning curve make it a top analyst."
     },
     {
       "name": "Kagi",
@@ -1327,8 +1514,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 113,
+      "score": 7.25,
+      "rank_basis": "scouted",
+      "rank_why": "Ad-free search you pay for, which is refreshing and also, well, paying for search. Worth it for the devoted."
     },
     {
       "name": "Kapwing",
@@ -1340,8 +1529,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 76,
+      "score": 7.62,
+      "rank_basis": "scouted",
+      "rank_why": "A friendly online editor with subtitles and dubbing built in, free to start. A great all-rounder."
     },
     {
       "name": "Khanmigo",
@@ -1353,8 +1544,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 24,
+      "score": 8.38,
+      "rank_basis": "scouted",
+      "rank_why": "A free, patient tutor for teachers and cheap for families that refuses to just hand over answers. Wholesome and effective."
     },
     {
       "name": "Kimi",
@@ -1366,8 +1559,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-10-05",
-      "rank": null,
-      "score": null
+      "rank": 17,
+      "score": 8.5,
+      "rank_basis": "scouted",
+      "rank_why": "Free, reads a whole library in one sitting, and handles agentic tasks well. A strong assistant most of the realm hasn't met yet."
     },
     {
       "name": "Klevu",
@@ -1379,8 +1574,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 219,
+      "score": 5.38,
+      "rank_basis": "scouted",
+      "rank_why": "Smart search for big catalogs. Built for large stores, priced to match."
     },
     {
       "name": "Kling AI",
@@ -1392,8 +1589,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 16,
+      "score": 8.5,
+      "rank_basis": "scouted",
+      "rank_why": "Realistic motion and a generous free tier. One of the best values in AI video right now."
     },
     {
       "name": "Koala AI",
@@ -1405,8 +1604,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 11,
-      "score": 7.7
+      "rank": 74,
+      "score": 7.62,
+      "rank_basis": "tested",
+      "rank_why": "Cheap, SEO-minded article writer that does its one job well. Not much range outside that job."
     },
     {
       "name": "Krea AI",
@@ -1418,8 +1619,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 52,
+      "score": 7.88,
+      "rank_basis": "scouted",
+      "rank_why": "Images that update live as you sketch, plus a free tier. Delightful to play with, genuinely useful too."
     },
     {
       "name": "Krisp",
@@ -1431,8 +1634,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-10-05",
-      "rank": null,
-      "score": null
+      "rank": 96,
+      "score": 7.38,
+      "rank_basis": "scouted",
+      "rank_why": "Silences every barking dog on both ends of the call. Excellent at its trick, paid after a short trial."
     },
     {
       "name": "LangChain",
@@ -1444,8 +1649,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 97,
+      "score": 7.38,
+      "rank_basis": "scouted",
+      "rank_why": "Free, open-source plumbing for AI apps. Mighty if you code, a maze of pipes if you don't."
     },
     {
       "name": "LegesGPT",
@@ -1457,8 +1664,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 157,
+      "score": 6.75,
+      "rank_basis": "scouted",
+      "rank_why": "Contract drafting and citation checks priced for solo lawyers. A rare legal tool sized for one."
     },
     {
       "name": "Leonardo AI",
@@ -1470,8 +1679,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 66,
+      "score": 7.75,
+      "rank_basis": "scouted",
+      "rank_why": "Strong for game art and stylized illustration, with free daily credits. A favorite of the concept-art guild."
     },
     {
       "name": "Lettuce",
@@ -1483,8 +1694,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 198,
+      "score": 6.12,
+      "rank_basis": "scouted",
+      "rank_why": "Bookkeeping, payroll, and taxes for S-corp solos in one bundle. Great fit for exactly that party, pricey for others."
     },
     {
       "name": "Lex",
@@ -1496,8 +1709,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-16",
-      "rank": null,
-      "score": null
+      "rank": 80,
+      "score": 7.62,
+      "rank_basis": "scouted",
+      "rank_why": "A calm, distraction-free word processor with AI on call. A writer's quiet tower."
     },
     {
       "name": "Lindy",
@@ -1509,8 +1724,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 180,
+      "score": 6.38,
+      "rank_basis": "scouted",
+      "rank_why": "An AI assistant that triages your inbox and books meetings. Useful, but paid-first and pricey for one person."
     },
     {
       "name": "Linear",
@@ -1522,8 +1739,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-19",
-      "rank": null,
-      "score": null
+      "rank": 18,
+      "score": 8.5,
+      "rank_basis": "scouted",
+      "rank_why": "A fast, beautiful issue tracker, free for small teams. Makes project management feel almost pleasant."
     },
     {
       "name": "Lokalise",
@@ -1535,8 +1754,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 206,
+      "score": 5.88,
+      "rank_basis": "scouted",
+      "rank_why": "Localization management for product teams. Powerful, sized for companies shipping in many languages."
     },
     {
       "name": "Looka",
@@ -1548,8 +1769,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 128,
+      "score": 7.12,
+      "rank_basis": "scouted",
+      "rank_why": "Logo and brand kit in minutes, free to design. You pay only when you download, which is fair."
     },
     {
       "name": "Loom",
@@ -1561,8 +1784,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": 23,
-      "score": 7.0
+      "rank": 120,
+      "score": 7.12,
+      "rank_basis": "tested",
+      "rank_why": "Effortless to record and share, docked because the free tier caps how long and how many videos you get."
     },
     {
       "name": "Lovable",
@@ -1574,8 +1799,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 51,
-      "score": 4.7
+      "rank": 222,
+      "score": 5.25,
+      "rank_basis": "tested",
+      "rank_why": "Builds real apps from plain English, then charges you for every rebuild while it fixes its own bugs."
     },
     {
       "name": "Luma Dream Machine",
@@ -1587,8 +1814,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 64,
+      "score": 7.75,
+      "rank_basis": "scouted",
+      "rank_why": "Video with real depth and camera movement, free to try. Strong, credit-limited."
     },
     {
       "name": "Lumen5",
@@ -1600,8 +1829,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-16",
-      "rank": null,
-      "score": null
+      "rank": 168,
+      "score": 6.62,
+      "rank_basis": "scouted",
+      "rank_why": "Turns blog posts into branded videos quickly. Easy, a bit template-y."
     },
     {
       "name": "Luminance",
@@ -1613,8 +1844,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 230,
+      "score": 4.88,
+      "rank_basis": "scouted",
+      "rank_why": "Bulk contract review for enterprises. Mighty, and nowhere near a solo budget."
     },
     {
       "name": "MagicSchool AI",
@@ -1626,8 +1859,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 22,
+      "score": 8.38,
+      "rank_basis": "scouted",
+      "rank_why": "A free toolkit that saves teachers hours on lesson plans and rubrics. A paladin for the classroom."
     },
     {
       "name": "Make",
@@ -1639,8 +1874,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": 26,
-      "score": 6.8
+      "rank": 134,
+      "score": 7.0,
+      "rank_basis": "tested",
+      "rank_why": "A cheaper, more flexible Zapier with a steeper learning curve. Strong value if you're willing to read the spellbook."
     },
     {
       "name": "Manus",
@@ -1652,8 +1889,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 153,
+      "score": 6.75,
+      "rank_basis": "scouted",
+      "rank_why": "A general agent that browses and builds on its own. Wildly capable on a good roll, expensive on a bad one."
     },
     {
       "name": "Mem",
@@ -1665,8 +1904,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 183,
+      "score": 6.38,
+      "rank_basis": "scouted",
+      "rank_why": "Notes that organize themselves. A clever idea that has struggled to stay ahead of bigger note apps."
     },
     {
       "name": "Meshy",
@@ -1678,8 +1919,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 145,
+      "score": 6.88,
+      "rank_basis": "scouted",
+      "rank_why": "Conjures rigged 3D models from a sentence, which is wizardry. Game-ready quality still needs a blacksmith's touch."
     },
     {
       "name": "Meta AI",
@@ -1691,8 +1934,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 20,
+      "score": 8.5,
+      "rank_basis": "scouted",
+      "rank_why": "Free and already in your group chats. Convenient as a tavern bard, not the deepest thinker in the room."
     },
     {
       "name": "Microsoft Copilot",
@@ -1704,8 +1949,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 29,
+      "score": 8.25,
+      "rank_basis": "scouted",
+      "rank_why": "Free, useful, and woven through Windows and Office. The deep Office magic costs extra gold."
     },
     {
       "name": "Midjourney",
@@ -1717,8 +1964,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 27,
-      "score": 6.7
+      "rank": 176,
+      "score": 6.38,
+      "rank_basis": "tested",
+      "rank_why": "Paints like a court master, charges like one too, and has no free trial at all. Pure capability, terrible trial safety."
     },
     {
       "name": "Missive",
@@ -1730,8 +1979,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-19",
-      "rank": null,
-      "score": null
+      "rank": 86,
+      "score": 7.5,
+      "rank_basis": "scouted",
+      "rank_why": "Shared inbox, chat, and tasks in one thread, with a free plan for tiny teams. Practical and underrated."
     },
     {
       "name": "Mistral Vibe",
@@ -1743,8 +1994,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 39,
+      "score": 8.12,
+      "rank_basis": "scouted",
+      "rank_why": "A solid free assistant now doubling as a coding agent. A strong choice if you'd rather not hand your scrolls to the usual giants."
     },
     {
       "name": "Monarch Money",
@@ -1756,8 +2009,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 135,
+      "score": 7.0,
+      "rank_basis": "scouted",
+      "rank_why": "Clear, complete money tracking for couples and households. Paid, but many say worth it."
     },
     {
       "name": "Motion",
@@ -1769,8 +2024,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 44,
-      "score": 5.4
+      "rank": 204,
+      "score": 5.88,
+      "rank_basis": "tested",
+      "rank_why": "A clever AI calendar with no free plan and a price that assumes you're a busy guild master."
     },
     {
       "name": "Murf AI",
@@ -1782,8 +2039,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 122,
+      "score": 7.12,
+      "rank_basis": "scouted",
+      "rank_why": "Polished voiceovers for videos and slides. Easy and reliable, outclassed by ElevenLabs on range."
     },
     {
       "name": "MyArchitectAI",
@@ -1795,8 +2054,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 81,
+      "score": 7.62,
+      "rank_basis": "scouted",
+      "rank_why": "Interior and exterior renders with free renders to start. A handy sketchbook for home dreamers."
     },
     {
       "name": "MyFitnessPal",
@@ -1808,8 +2069,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 87,
+      "score": 7.5,
+      "rank_basis": "scouted",
+      "rank_why": "Photo meal logging and a giant food database with a free tier. Useful, though the best tricks are Premium."
     },
     {
       "name": "n8n",
@@ -1821,8 +2084,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 51,
+      "score": 7.88,
+      "rank_basis": "scouted",
+      "rank_why": "Open source and self-hostable, so the gold cost can hit zero. The price is your time learning the spellbook."
     },
     {
       "name": "Noom",
@@ -1834,8 +2099,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 211,
+      "score": 5.75,
+      "rank_basis": "scouted",
+      "rank_why": "Psychology-based coaching that works for some. Subscription-heavy and not cheap for what it is."
     },
     {
       "name": "NotebookLM",
@@ -1847,8 +2114,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": 2,
-      "score": 8.6
+      "rank": 3,
+      "score": 8.88,
+      "rank_basis": "tested",
+      "rank_why": "Free, grounded in your own sources, and hard to make hallucinate. The best-value scholar in the entire realm."
     },
     {
       "name": "Notion AI",
@@ -1860,8 +2129,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 43,
-      "score": 5.5
+      "rank": 214,
+      "score": 5.62,
+      "rank_basis": "tested",
+      "rank_why": "Clever, but now locked behind the $20/user Business plan. A good spell priced like a rare one."
     },
     {
       "name": "Notion Mail",
@@ -1873,8 +2144,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-16",
-      "rank": null,
-      "score": null
+      "rank": 160,
+      "score": 6.75,
+      "rank_basis": "scouted",
+      "rank_why": "A pretty, auto-labeling inbox wired into Notion. Nice for Notion devotees, thin for everyone else."
     },
     {
       "name": "NovelAI",
@@ -1886,8 +2159,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 167,
+      "score": 6.62,
+      "rank_basis": "scouted",
+      "rank_why": "Fiction writing and anime art from a small studio. Beloved by its fans, paid from the start."
     },
     {
       "name": "Numerous.ai",
@@ -1899,8 +2174,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 24,
-      "score": 6.95
+      "rank": 93,
+      "score": 7.38,
+      "rank_basis": "tested",
+      "rank_why": "A small, cheap spell inside Google Sheets that does one useful thing very well."
     },
     {
       "name": "Obviously AI",
@@ -1912,8 +2189,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 184,
+      "score": 6.38,
+      "rank_basis": "scouted",
+      "rank_why": "No-code predictions from a spreadsheet. Genuinely clever, pricey for occasional fortune-telling."
     },
     {
       "name": "Ocoya",
@@ -1925,8 +2204,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 117,
+      "score": 7.25,
+      "rank_basis": "scouted",
+      "rank_why": "AI captions and scheduling across 30+ platforms with a free tier. Broad reach, lighter polish."
     },
     {
       "name": "OpenAI Codex",
@@ -1938,8 +2219,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-10-05",
-      "rank": null,
-      "score": null
+      "rank": 14,
+      "score": 8.5,
+      "rank_basis": "scouted",
+      "rank_why": "A strong coding agent bundled into ChatGPT plans, free included. Excellent value if you already pay for ChatGPT."
     },
     {
       "name": "OpusClip",
@@ -1951,8 +2234,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 40,
-      "score": 5.7
+      "rank": 196,
+      "score": 6.12,
+      "rank_basis": "tested",
+      "rank_why": "Turns long videos into shorts with decent instincts. The free tier is a tease and the clips still need a human eye."
     },
     {
       "name": "Originality.ai",
@@ -1964,8 +2249,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 185,
+      "score": 6.38,
+      "rank_basis": "scouted",
+      "rank_why": "Strong detection for publishers, but pay-per-credit with no real free tier means you buy the dice before you roll."
     },
     {
       "name": "Otter.ai",
@@ -1977,8 +2264,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": 6,
-      "score": 8.0
+      "rank": 41,
+      "score": 8.0,
+      "rank_basis": "tested",
+      "rank_why": "A reliable court scribe with fast notes, docked a few points because the Business tier sells seats in packs of five like a wizard bulk-buying candles."
     },
     {
       "name": "PandaDoc",
@@ -1990,8 +2279,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 98,
+      "score": 7.38,
+      "rank_basis": "scouted",
+      "rank_why": "Proposals, quotes, and e-signatures with a free e-sign tier. A tidy deal-closing satchel."
     },
     {
       "name": "Paradox",
@@ -2003,8 +2294,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 233,
+      "score": 4.5,
+      "rank_basis": "scouted",
+      "rank_why": "A recruiting assistant built for hiring hundreds. Irrelevant for a party of one."
     },
     {
       "name": "Perplexity Comet",
@@ -2016,8 +2309,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 36,
+      "score": 8.12,
+      "rank_basis": "scouted",
+      "rank_why": "A free AI browser that reads and acts on the page you're on. Strong agent tricks, still settling in."
     },
     {
       "name": "Perplexity Pro",
@@ -2029,8 +2324,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": 48,
-      "score": 5.0
+      "rank": 223,
+      "score": 5.25,
+      "rank_basis": "tested",
+      "rank_why": "Cited answers are nice. Paying extra for them when the free tier and your other chatbots already do most of it is less nice."
     },
     {
       "name": "Photoroom",
@@ -2042,8 +2339,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 7,
-      "score": 7.9
+      "rank": 32,
+      "score": 8.12,
+      "rank_basis": "tested",
+      "rank_why": "Background removal so quick and cheap it feels like a cantrip. The top product-photo tool for small sellers."
     },
     {
       "name": "Pictory",
@@ -2055,8 +2354,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 175,
+      "score": 6.5,
+      "rank_basis": "scouted",
+      "rank_why": "Turns long content into short clips. Handy, increasingly outshone by newer tools."
     },
     {
       "name": "Pika",
@@ -2068,8 +2369,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 77,
+      "score": 7.62,
+      "rank_basis": "scouted",
+      "rank_why": "Quick, stylized clips and playful effects with a free tier. More party trick than production line."
     },
     {
       "name": "Pitch",
@@ -2081,8 +2384,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-19",
-      "rank": null,
-      "score": null
+      "rank": 125,
+      "score": 7.12,
+      "rank_basis": "scouted",
+      "rank_why": "Collaborative decks with AI slides and a free tier. Great for teams, fine for one."
     },
     {
       "name": "PixVerse",
@@ -2094,8 +2399,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 71,
+      "score": 7.75,
+      "rank_basis": "scouted",
+      "rank_why": "Fast text-to-video with style templates and free credits. A capable, cheerful option."
     },
     {
       "name": "Play.ht",
@@ -2107,8 +2414,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 155,
+      "score": 6.75,
+      "rank_basis": "scouted",
+      "rank_why": "Text-to-speech and cloning for podcasts and apps. Capable, in a crowded voice guild."
     },
     {
       "name": "Plus AI",
@@ -2120,8 +2429,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 126,
+      "score": 7.12,
+      "rank_basis": "scouted",
+      "rank_why": "Generates slides right inside Google Slides and PowerPoint. Convenient, paid after the trial."
     },
     {
       "name": "Podium",
@@ -2133,8 +2444,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 210,
+      "score": 5.75,
+      "rank_basis": "scouted",
+      "rank_why": "Texting, reviews, and lead follow-up for local services. Strong tools, sales-call pricing."
     },
     {
       "name": "Poe",
@@ -2146,8 +2459,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 75,
+      "score": 7.62,
+      "rank_basis": "scouted",
+      "rank_why": "One subscription, dozens of familiars. Great for sampling the bestiary, though points-based limits run out fast."
     },
     {
       "name": "ProWritingAid",
@@ -2159,8 +2474,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 99,
+      "score": 7.38,
+      "rank_basis": "scouted",
+      "rank_why": "Deep style and grammar checks for long manuscripts. A novelist's editor with a free tier."
     },
     {
       "name": "QuickBooks Solopreneur",
@@ -2172,8 +2489,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": 39,
-      "score": 5.8
+      "rank": 205,
+      "score": 5.88,
+      "rank_basis": "tested",
+      "rank_why": "Simple bookkeeping for one-person businesses, but the AI is more apprentice than wizard and the feature list is thin."
     },
     {
       "name": "QuillBot",
@@ -2185,8 +2504,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 40,
+      "score": 8.12,
+      "rank_basis": "scouted",
+      "rank_why": "Paraphrasing, grammar, and a free AI detector in one cheap pouch. Not glamorous, very useful."
     },
     {
       "name": "Quizlet",
@@ -2198,8 +2519,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 88,
+      "score": 7.5,
+      "rank_basis": "scouted",
+      "rank_why": "Easy flashcards and practice tests from your notes. The AI is useful, the best bits sit behind Plus."
     },
     {
       "name": "Rask AI",
@@ -2211,8 +2534,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 171,
+      "score": 6.5,
+      "rank_basis": "scouted",
+      "rank_why": "Dubs and lip-syncs video into other languages. Impressive, priced per minute."
     },
     {
       "name": "Raycast",
@@ -2224,8 +2549,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-10-05",
-      "rank": null,
-      "score": null
+      "rank": 19,
+      "score": 8.5,
+      "rank_basis": "scouted",
+      "rank_why": "A free launcher that makes your whole computer faster, with AI on Pro. Beloved for good reason."
     },
     {
       "name": "Read AI",
@@ -2237,8 +2564,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-10-05",
-      "rank": null,
-      "score": null
+      "rank": 72,
+      "score": 7.75,
+      "rank_basis": "scouted",
+      "rank_why": "Solid meeting summaries and cross-app search with a small free tier. A capable scribe, not the cheapest."
     },
     {
       "name": "Reclaim.ai",
@@ -2250,8 +2579,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "free",
       "date_added": "2026-08-19",
-      "rank": 10,
-      "score": 7.8
+      "rank": 42,
+      "score": 8.0,
+      "rank_basis": "tested",
+      "rank_why": "Defends your focus time like a loyal shield-bearer, with a free tier that actually covers a solo calendar."
     },
     {
       "name": "Recraft",
@@ -2263,8 +2594,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 67,
+      "score": 7.75,
+      "rank_basis": "scouted",
+      "rank_why": "Brand-consistent graphics, icons, and vectors. The image tool that thinks like a designer."
     },
     {
       "name": "Recruiterflow",
@@ -2276,8 +2609,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 216,
+      "score": 5.62,
+      "rank_basis": "scouted",
+      "rank_why": "ATS and CRM for recruitment agencies. Solid for that exact guild, nobody else."
     },
     {
       "name": "Reflect",
@@ -2289,8 +2624,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 158,
+      "score": 6.75,
+      "rank_basis": "scouted",
+      "rank_why": "Networked notes with built-in AI. Elegant, paid after the trial."
     },
     {
       "name": "RemodelAI",
@@ -2302,8 +2639,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 137,
+      "score": 7.0,
+      "rank_basis": "scouted",
+      "rank_why": "Photoreal redesigns, staging, and paint previews. Capable, mostly paid."
     },
     {
       "name": "Replit",
@@ -2315,8 +2654,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-19",
-      "rank": null,
-      "score": null
+      "rank": 68,
+      "score": 7.75,
+      "rank_basis": "scouted",
+      "rank_why": "Describe an app and Replit Agent builds and hosts it. Easy start, usage costs climb as the app grows."
     },
     {
       "name": "Respeecher",
@@ -2328,8 +2669,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 225,
+      "score": 5.12,
+      "rank_basis": "scouted",
+      "rank_why": "Ethical, consent-based voice cloning for studios. Admirable, and studio-priced."
     },
     {
       "name": "Rev",
@@ -2341,8 +2684,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 142,
+      "score": 6.88,
+      "rank_basis": "scouted",
+      "rank_why": "AI plus human-checked transcripts accurate enough for accessibility compliance. The human part is precise and not cheap."
     },
     {
       "name": "Rezi",
@@ -2354,8 +2699,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 139,
+      "score": 7.0,
+      "rank_basis": "scouted",
+      "rank_why": "ATS-safe resumes with a lifetime plan option. Focused and fair, but narrow."
     },
     {
       "name": "Riverside.fm",
@@ -2367,8 +2714,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": 34,
-      "score": 6.2
+      "rank": 178,
+      "score": 6.38,
+      "rank_basis": "tested",
+      "rank_why": "Studio-quality remote recording, but you pay studio-ish prices for the full kit."
     },
     {
       "name": "Robin AI",
@@ -2380,8 +2729,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 207,
+      "score": 5.88,
+      "rank_basis": "scouted",
+      "rank_why": "Speeds up redlining for legal teams. Useful, mostly sold to companies with legal departments."
     },
     {
       "name": "Rocket Money",
@@ -2393,8 +2744,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 82,
+      "score": 7.62,
+      "rank_basis": "scouted",
+      "rank_why": "Finds and cancels forgotten subscriptions, free to start. It may pay for itself by slaying one zombie subscription."
     },
     {
       "name": "Rows",
@@ -2406,8 +2759,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 57,
+      "score": 7.88,
+      "rank_basis": "scouted",
+      "rank_why": "A spreadsheet with AI and live data built in, plus a real free plan. Quietly excellent."
     },
     {
       "name": "Runway",
@@ -2419,8 +2774,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 42,
-      "score": 5.6
+      "rank": 187,
+      "score": 6.25,
+      "rank_basis": "tested",
+      "rank_why": "Astonishing video magic held back by credit costs that drain your purse faster than a mimic."
     },
     {
       "name": "Rytr",
@@ -2432,8 +2789,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 59,
+      "score": 7.88,
+      "rank_basis": "scouted",
+      "rank_why": "A cheap, cheerful copywriter with a free plan. Not deep, very affordable."
     },
     {
       "name": "Sanebox",
@@ -2445,8 +2804,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-19",
-      "rank": null,
-      "score": null
+      "rank": 129,
+      "score": 7.12,
+      "rank_basis": "scouted",
+      "rank_why": "Quietly sweeps newsletters and noise out of your inbox. Simple, effective, and paid after the trial."
     },
     {
       "name": "Seeking Alpha Premium",
@@ -2458,8 +2819,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 172,
+      "score": 6.5,
+      "rank_basis": "scouted",
+      "rank_why": "Deep stock research with AI summaries. Useful for serious investors, a pricey subscription for the curious."
     },
     {
       "name": "Semrush",
@@ -2471,8 +2834,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 46,
-      "score": 5.2
+      "rank": 212,
+      "score": 5.62,
+      "rank_basis": "tested",
+      "rank_why": "Possibly the most powerful SEO grimoire ever written. Also priced like one, which sinks it for solo adventurers."
     },
     {
       "name": "Shopify Magic",
@@ -2484,8 +2849,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 58,
+      "score": 7.88,
+      "rank_basis": "scouted",
+      "rank_why": "Free AI inside Shopify for descriptions and images. Only useful if you already live in Shopify's castle."
     },
     {
       "name": "Shortwave",
@@ -2497,8 +2864,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 28,
-      "score": 6.6
+      "rank": 161,
+      "score": 6.62,
+      "rank_basis": "tested",
+      "rank_why": "A smart AI inbox, but per-seat pricing makes it a luxury mount rather than a daily horse."
     },
     {
       "name": "Sider",
@@ -2510,8 +2879,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-16",
-      "rank": null,
-      "score": null
+      "rank": 78,
+      "score": 7.62,
+      "rank_basis": "scouted",
+      "rank_why": "A sidebar that brings twenty-odd models to any webpage. Handy, though you're renting other wizards' spells."
     },
     {
       "name": "Simplified",
@@ -2523,8 +2894,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-16",
-      "rank": null,
-      "score": null
+      "rank": 130,
+      "score": 7.12,
+      "rank_basis": "scouted",
+      "rank_why": "Design, writing, video, and scheduling in one bundle. Jack of many trades, master of few."
     },
     {
       "name": "Smartlead",
@@ -2536,8 +2909,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-19",
-      "rank": null,
-      "score": null
+      "rank": 173,
+      "score": 6.5,
+      "rank_basis": "scouted",
+      "rank_why": "Cold email at scale with unlimited mailboxes. Strong value per send, no way to try it free."
     },
     {
       "name": "Soundraw",
@@ -2549,8 +2924,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 119,
+      "score": 7.25,
+      "rank_basis": "scouted",
+      "rank_why": "Royalty-free music shaped by mood and length. A dependable background bard."
     },
     {
       "name": "Sourcegraph Cody",
@@ -2562,8 +2939,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-19",
-      "rank": null,
-      "score": null
+      "rank": 156,
+      "score": 6.75,
+      "rank_basis": "scouted",
+      "rank_why": "Codebase-aware answers built on serious code search. Newer coding agents have stolen much of its spotlight."
     },
     {
       "name": "Spellbook",
@@ -2575,8 +2954,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 193,
+      "score": 6.25,
+      "rank_basis": "scouted",
+      "rank_why": "AI drafting inside Word for law firms. Excellent fit for lawyers, priced for firms."
     },
     {
       "name": "Stable Diffusion",
@@ -2588,8 +2969,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 53,
+      "score": 7.88,
+      "rank_basis": "scouted",
+      "rank_why": "Free and open to run on your own machine forever. Unbeatable value, if you can survive the setup dungeon."
     },
     {
       "name": "StoryChief",
@@ -2601,8 +2984,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 199,
+      "score": 6.12,
+      "rank_basis": "scouted",
+      "rank_why": "Plans and distributes content across every channel. Useful for content teams, heavy for one writer."
     },
     {
       "name": "Sudowrite",
@@ -2614,8 +2999,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 165,
+      "score": 6.62,
+      "rank_basis": "scouted",
+      "rank_why": "An AI built for novelists and worldbuilders. Excellent muse, paid from the start."
     },
     {
       "name": "Suno",
@@ -2627,8 +3014,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 35,
-      "score": 6.15
+      "rank": 121,
+      "score": 7.12,
+      "rank_basis": "tested",
+      "rank_why": "Writes full songs with vocals from a sentence, and the free tier is fun. Commercial rights require gold."
     },
     {
       "name": "Superhuman",
@@ -2640,8 +3029,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-16",
-      "rank": null,
-      "score": null
+      "rank": 197,
+      "score": 6.12,
+      "rank_basis": "scouted",
+      "rank_why": "The fastest email client in the realm, with excellent AI drafts. Priced for people who bill by the hour."
     },
     {
       "name": "Superwhisper",
@@ -2653,8 +3044,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 30,
+      "score": 8.25,
+      "rank_basis": "scouted",
+      "rank_why": "Private, on-device dictation for Mac and iOS, free to start. A quiet, loyal scribe."
     },
     {
       "name": "Surfer SEO",
@@ -2666,8 +3059,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 194,
+      "score": 6.25,
+      "rank_basis": "scouted",
+      "rank_why": "Scores drafts against what actually ranks. Useful, and paid from the first spell."
     },
     {
       "name": "Synthesia",
@@ -2679,8 +3074,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 49,
-      "score": 4.9
+      "rank": 217,
+      "score": 5.5,
+      "rank_basis": "tested",
+      "rank_why": "Polished avatar videos, but the uncanny valley and the price tag both loom large."
     },
     {
       "name": "Tabnine",
@@ -2692,8 +3089,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 149,
+      "score": 6.88,
+      "rank_basis": "scouted",
+      "rank_why": "Private, run-it-yourself code completion. Great for secret-keeping guilds, less capable than the big agents."
     },
     {
       "name": "Tana",
@@ -2705,8 +3104,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 154,
+      "score": 6.75,
+      "rank_basis": "scouted",
+      "rank_why": "Powerful structured notes with a free tier. A spellbook that rewards those who study it."
     },
     {
       "name": "Teal",
@@ -2718,8 +3119,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 83,
+      "score": 7.62,
+      "rank_basis": "scouted",
+      "rank_why": "Resume builder plus job tracker with a usable free tier. The best overall kit for a job-hunting quest."
     },
     {
       "name": "Tidio",
@@ -2731,8 +3134,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 73,
+      "score": 7.75,
+      "rank_basis": "scouted",
+      "rank_why": "Chat and AI support for small shops with a free plan. Exactly sized for the solo storefront."
     },
     {
       "name": "tl;dv",
@@ -2744,8 +3149,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "free",
       "date_added": "2026-08-19",
-      "rank": 13,
-      "score": 7.6
+      "rank": 47,
+      "score": 7.88,
+      "rank_basis": "tested",
+      "rank_why": "Unlimited free recording and transcription. The only real cap is on AI summaries, which is a fair trade."
     },
     {
       "name": "Toggl Track",
@@ -2757,8 +3164,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": 17,
-      "score": 7.4
+      "rank": 63,
+      "score": 7.75,
+      "rank_basis": "tested",
+      "rank_why": "Free for small parties and dead simple to use. The AI is a garnish, not the main course."
     },
     {
       "name": "Tripo AI",
@@ -2770,8 +3179,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 159,
+      "score": 6.75,
+      "rank_basis": "scouted",
+      "rank_why": "Fast 3D summoning straight into game engines. Solid, but the 3D guild is crowded and Meshy got there first."
     },
     {
       "name": "Turnitin",
@@ -2783,8 +3194,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-19",
-      "rank": null,
-      "score": null
+      "rank": 232,
+      "score": 4.62,
+      "rank_basis": "scouted",
+      "rank_why": "The academy's official plagiarism hound. Powerful, but sold only to institutions, so solo adventurers can't even get a leash."
     },
     {
       "name": "Typeform",
@@ -2796,8 +3209,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 45,
-      "score": 5.3
+      "rank": 209,
+      "score": 5.75,
+      "rank_basis": "tested",
+      "rank_why": "Beautiful, conversational forms. The free tier is stingy and the AI is a minor enchantment."
     },
     {
       "name": "Udio",
@@ -2809,8 +3224,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 44,
+      "score": 8.0,
+      "rank_basis": "scouted",
+      "rank_why": "Coherent songs with separable tracks and a free tier. A serious rival to Suno."
     },
     {
       "name": "Uizard",
@@ -2822,8 +3239,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 118,
+      "score": 7.25,
+      "rank_basis": "scouted",
+      "rank_why": "Turns sketches into clickable mockups with a free tier. Friendly for non-designers."
     },
     {
       "name": "v0",
@@ -2835,8 +3254,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": 41,
-      "score": 5.65
+      "rank": 188,
+      "score": 6.25,
+      "rank_basis": "tested",
+      "rank_why": "Generates real frontend code that looks finished. Getting the plumbing behind it working is still your quest."
     },
     {
       "name": "Vanna AI",
@@ -2848,8 +3269,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 127,
+      "score": 7.12,
+      "rank_basis": "scouted",
+      "rank_why": "Open-source text-to-SQL you build yourself. Free and flexible, if you can build it."
     },
     {
       "name": "Vapi",
@@ -2861,8 +3284,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 179,
+      "score": 6.38,
+      "rank_basis": "scouted",
+      "rank_why": "Builds real phone agents if you can code. Usage billing and developer focus keep it out of reach for most."
     },
     {
       "name": "Veo",
@@ -2874,8 +3299,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 48,
+      "score": 7.88,
+      "rank_basis": "scouted",
+      "rank_why": "Google's top-tier video with sound, built into Gemini. Best results need a paid plan."
     },
     {
       "name": "Virtual Staging AI",
@@ -2887,8 +3314,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 103,
+      "score": 7.38,
+      "rank_basis": "scouted",
+      "rank_why": "Furnishes empty rooms for a fraction of real staging. Fast and cheap per photo."
     },
     {
       "name": "Warmly",
@@ -2900,8 +3329,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-19",
-      "rank": null,
-      "score": null
+      "rank": 220,
+      "score": 5.38,
+      "rank_basis": "scouted",
+      "rank_why": "Unmasks anonymous website visitors for sales teams. Clever, priced for teams with quotas."
     },
     {
       "name": "Warp",
@@ -2913,8 +3344,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-16",
-      "rank": null,
-      "score": null
+      "rank": 54,
+      "score": 7.88,
+      "rank_basis": "scouted",
+      "rank_why": "A fast terminal with a capable agent mode and a free tier. Makes the command line feel less like a dungeon."
     },
     {
       "name": "Webflow",
@@ -2926,8 +3359,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 163,
+      "score": 6.62,
+      "rank_basis": "scouted",
+      "rank_why": "Professional sites with clean code and a free starter plan. Powerful, with a real learning curve."
     },
     {
       "name": "Whoop",
@@ -2939,8 +3374,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 208,
+      "score": 5.88,
+      "rank_basis": "scouted",
+      "rank_why": "A wearable that coaches your sleep and strain. Good data, but the subscription is mandatory and steep."
     },
     {
       "name": "Willow Voice",
@@ -2952,8 +3389,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-08",
-      "rank": null,
-      "score": null
+      "rank": 56,
+      "score": 7.88,
+      "rank_basis": "scouted",
+      "rank_why": "Cross-platform dictation that learns how you write, with a free tier. A friendly rival to Wispr Flow."
     },
     {
       "name": "Windsurf",
@@ -2965,8 +3404,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 45,
+      "score": 8.0,
+      "rank_basis": "scouted",
+      "rank_why": "A capable agentic code editor with a free tier. A real rival to Cursor, with a bumpier ownership history."
     },
     {
       "name": "Wispr Flow",
@@ -2978,8 +3419,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": 14,
-      "score": 7.55
+      "rank": 33,
+      "score": 8.12,
+      "rank_basis": "tested",
+      "rank_why": "Talk and it types, cleanly, in any app. Easy, generous free use, and genuinely faster than your fingers."
     },
     {
       "name": "Wix",
@@ -2991,8 +3434,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 85,
+      "score": 7.5,
+      "rank_basis": "scouted",
+      "rank_why": "An AI wizard builds you a site from a short chat. Easy and capable, upsells lurk around every corner."
     },
     {
       "name": "Wiz",
@@ -3004,8 +3449,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 229,
+      "score": 4.88,
+      "rank_basis": "scouted",
+      "rank_why": "Elite cloud security for big kingdoms. Brilliant, and as reachable for a solo founder as the royal treasury."
     },
     {
       "name": "Writesonic",
@@ -3017,8 +3464,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 150,
+      "score": 6.88,
+      "rank_basis": "scouted",
+      "rank_why": "Marketing copy and SEO articles at scale. Capable, in a very crowded scribes' guild."
     },
     {
       "name": "You.com",
@@ -3030,8 +3479,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
+      "rank": 104,
+      "score": 7.38,
+      "rank_basis": "scouted",
+      "rank_why": "Lets you pick which model answers. Flexible, but outshone by the bigger search familiars."
     },
     {
       "name": "Zapier AI Actions",
@@ -3043,8 +3494,10 @@
       "reviewed_on_solosgems": true,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": 32,
-      "score": 6.3
+      "rank": 177,
+      "score": 6.38,
+      "rank_basis": "tested",
+      "rank_why": "Powerful automation magic, but the new pricing makes every accidental chain reaction cost real gold."
     },
     {
       "name": "Zed",
@@ -3056,8 +3509,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-19",
-      "rank": null,
-      "score": null
+      "rank": 31,
+      "score": 8.25,
+      "rank_basis": "scouted",
+      "rank_why": "A blazing-fast free editor with optional AI. Lean and lovely, with fewer AI tricks than the heavyweights."
     }
   ]
 }

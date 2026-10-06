@@ -2239,3 +2239,72 @@ footer .wrap { max-width: var(--max-width); margin: 0 auto; }
 
 /* Herald-written D&D line for each GitHub project on the Realms page. */
 .realm-row-lore { font-style: italic; }
+
+/* ---------- Rotating hero comic ---------- */
+.hero-rotator { margin: 0; text-align: center; }
+.hero-rotator a { display: block; max-width: 420px; margin: 0 auto; }
+.hero-rotator .review-hero { transition: opacity 0.25s ease; }
+.hero-rotator figcaption { transition: opacity 0.25s ease; }
+.hero-rotator.is-fading .review-hero,
+.hero-rotator.is-fading figcaption { opacity: 0; }
+.hero-rotator-tool {
+  display: block;
+  margin-top: 10px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--rust-dark);
+}
+.hero-rotator .review-hero-caption { display: block; }
+.hero-rotator-controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+.hero-rotator-controls button {
+  min-width: 36px;
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+.hero-rotator-controls button:hover { color: var(--rust-dark); border-color: var(--rust-dark); }
+@media (prefers-reduced-motion: reduce) {
+  .hero-rotator .review-hero, .hero-rotator figcaption { transition: none; }
+}
+
+/* ---------- Full-database ranking labels ---------- */
+.db-basis-chip {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+.db-basis-chip.is-tested { background: var(--rust); color: #fff; }
+.db-basis-chip.is-scouted { border: 1px solid var(--line); color: var(--ink-soft); }
+.db-rank-why {
+  margin: 6px 0;
+  padding-left: 10px;
+  border-left: 2px solid var(--rust-dark);
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+.db-rank-why strong { color: var(--ink); }
+.db-wall-popover-rank {
+  margin: 4px 0 8px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--rust-dark);
+}
+.db-wall-popover-rank:empty { display: none; }
