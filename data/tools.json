@@ -1,7 +1,7 @@
 {
   "source": "https://solosgems.com/",
-  "generated": "2026-09-30",
-  "count": 226,
+  "generated": "2026-10-05",
+  "count": 235,
   "license": "Free to use with attribution to Solos Gems (solosgems.com).",
   "tools": [
     {
@@ -92,19 +92,6 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
-    },
-    {
-      "name": "Amazon Q Developer",
-      "domain": "aws.amazon.com",
-      "category": "Coding & Dev Tools",
-      "description": "AWS's AI coding assistant, built specifically for writing and reasoning about cloud infrastructure code.",
-      "cool_fact": "Can trace a bug or cost spike back through your actual AWS account resources, not just your codebase.",
-      "url": "https://aws.amazon.com/q/developer/",
-      "reviewed_on_solosgems": false,
-      "pricing": "unlisted",
-      "date_added": "2026-08-19",
       "rank": null,
       "score": null
     },
@@ -356,6 +343,19 @@
       "score": null
     },
     {
+      "name": "Cartesia",
+      "domain": "cartesia.ai",
+      "category": "Voice & Music",
+      "description": "Real-time voice AI: Sonic text-to-speech, Ink speech-to-text, and phone voice agents. Free plan, Pro from $5/month.",
+      "cool_fact": "Built for very low latency, so voice agents answer fast enough to feel like a conversation instead of a walkie-talkie.",
+      "url": "https://cartesia.ai/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-10-05",
+      "rank": null,
+      "score": null
+    },
+    {
       "name": "Cashflowy",
       "domain": "cashflowy.ai",
       "category": "Bookkeeping & Finance",
@@ -430,6 +430,19 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
+    },
+    {
+      "name": "Claude Code",
+      "domain": "claude.com",
+      "category": "Coding & Dev Tools",
+      "description": "Anthropic's AI coding agent that plans, writes, tests, and commits code from your terminal, IDE, desktop app, or browser. Included with Claude Pro from $20/month.",
+      "cool_fact": "Can work on several tasks in parallel and map an unfamiliar codebase in seconds, without you hand-picking which files it should read.",
+      "url": "https://www.claude.com/product/claude-code",
+      "reviewed_on_solosgems": false,
+      "pricing": "paid",
+      "date_added": "2026-10-05",
       "rank": null,
       "score": null
     },
@@ -681,6 +694,19 @@
       "score": null
     },
     {
+      "name": "Dia",
+      "domain": "diabrowser.com",
+      "category": "AI Search & Browsing",
+      "description": "The Browser Company's AI browser for work. It chats with your open tabs and pulls together info from your other tools. Free on Mac and Windows.",
+      "cool_fact": "Its Morning Brief gathers your calendar, inbox, and key links into one page before the workday starts.",
+      "url": "https://www.diabrowser.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-10-05",
+      "rank": null,
+      "score": null
+    },
+    {
       "name": "DocuSign",
       "domain": "docusign.com",
       "category": "Legal",
@@ -781,6 +807,19 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
+    },
+    {
+      "name": "Figma Make",
+      "domain": "figma.com",
+      "category": "Presentations & Design",
+      "description": "Figma's prompt-to-prototype tool that generates working, code-backed designs you can keep editing visually on the canvas.",
+      "cool_fact": "Make kits pull in your real component library and npm packages, so generated screens use your design system instead of generic boxes.",
+      "url": "https://www.figma.com/make/",
+      "reviewed_on_solosgems": false,
+      "pricing": "unlisted",
+      "date_added": "2026-10-05",
       "rank": null,
       "score": null
     },
@@ -928,6 +967,32 @@
       "score": null
     },
     {
+      "name": "Google Antigravity",
+      "domain": "antigravity.google",
+      "category": "Coding & Dev Tools",
+      "description": "Google's agent-first development platform where you hand coding tasks to AI agents that plan, build, and test in a browser. Free for individual developers.",
+      "cool_fact": "Works as a command center for several local agents at once, with scheduled messages so an agent can pick up work while you sleep.",
+      "url": "https://antigravity.google/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-10-05",
+      "rank": null,
+      "score": null
+    },
+    {
+      "name": "Google Stitch",
+      "domain": "stitch.withgoogle.com",
+      "category": "Presentations & Design",
+      "description": "A free Google Labs tool that turns a prompt, sketch, or voice description into multi-screen app and web UI designs, exportable to Figma or code.",
+      "cool_fact": "There is no paid tier at all. It runs on a daily credit allowance, and designs paste straight into Figma as editable layers.",
+      "url": "https://stitch.withgoogle.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-10-05",
+      "rank": null,
+      "score": null
+    },
+    {
       "name": "GPTZero",
       "domain": "gptzero.me",
       "category": "AI Detection & Plagiarism",
@@ -1002,6 +1067,19 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-16",
+      "rank": null,
+      "score": null
+    },
+    {
+      "name": "Hailuo AI",
+      "domain": "hailuoai.video",
+      "category": "Video Generation",
+      "description": "MiniMax's AI video, image, and audio generator, best known for turning a single photo into a short animated clip.",
+      "cool_fact": "Its Omni Reference feature steers a generation with your own photos and notes, and you can earn extra free credits by answering surveys.",
+      "url": "https://hailuoai.video/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-10-05",
       "rank": null,
       "score": null
     },
@@ -1240,19 +1318,6 @@
       "score": null
     },
     {
-      "name": "Julius AI",
-      "domain": "julius.ai",
-      "category": "Data & Analytics",
-      "description": "An AI data analyst that can analyze spreadsheets, build forecasts, and create charts from a plain-language request.",
-      "cool_fact": "Can train and run actual machine learning models from a conversational prompt, not just make charts.",
-      "url": "https://julius.ai/",
-      "reviewed_on_solosgems": false,
-      "pricing": "unlisted",
-      "date_added": "2026-08-01",
-      "rank": null,
-      "score": null
-    },
-    {
       "name": "Kagi",
       "domain": "kagi.com",
       "category": "AI Search & Browsing",
@@ -1288,6 +1353,19 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
+    },
+    {
+      "name": "Kimi",
+      "domain": "kimi.com",
+      "category": "AI Assistants",
+      "description": "Moonshot AI's assistant, built around its K3 model for agentic coding and knowledge work, with deep research and scheduled tasks.",
+      "cool_fact": "Made its name on very long context, reading whole stacks of documents in a single conversation.",
+      "url": "https://www.kimi.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-10-05",
       "rank": null,
       "score": null
     },
@@ -1340,6 +1418,19 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
+      "rank": null,
+      "score": null
+    },
+    {
+      "name": "Krisp",
+      "domain": "krisp.ai",
+      "category": "Meetings & Transcription",
+      "description": "AI noise cancellation, transcription, and meeting notes that work across any calling app. 7-day free trial, then from $8/user/month billed annually.",
+      "cool_fact": "Removes background noise on both ends of the call, so it can mute the other person's barking dog too.",
+      "url": "https://krisp.ai/",
+      "reviewed_on_solosgems": false,
+      "pricing": "paid",
+      "date_added": "2026-10-05",
       "rank": null,
       "score": null
     },
@@ -1643,10 +1734,10 @@
       "score": null
     },
     {
-      "name": "Mistral Le Chat",
+      "name": "Mistral Vibe",
       "domain": "chat.mistral.ai",
       "category": "AI Assistants",
-      "description": "A European AI assistant from Mistral, built with a privacy-first, GDPR-compliant approach.",
+      "description": "Mistral AI's assistant, renamed from Le Chat in May 2026, now pairing a work chatbot with a coding agent. Free plan, Pro from $14.99/month.",
       "cool_fact": "Remembers details from conversations weeks earlier, even on the free tier.",
       "url": "https://chat.mistral.ai/",
       "reviewed_on_solosgems": false,
@@ -1834,6 +1925,19 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-08",
+      "rank": null,
+      "score": null
+    },
+    {
+      "name": "OpenAI Codex",
+      "domain": "openai.com",
+      "category": "Coding & Dev Tools",
+      "description": "OpenAI's coding agent, bundled into every ChatGPT plan including Free, that builds features, fixes bugs, and proposes pull requests in the cloud or your terminal.",
+      "cool_fact": "There is no separate Codex subscription. It rides along with ChatGPT, though the command-line version starts at the $20/month Plus plan.",
+      "url": "https://openai.com/codex/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-10-05",
       "rank": null,
       "score": null
     },
@@ -2111,6 +2215,32 @@
       "score": null
     },
     {
+      "name": "Raycast",
+      "domain": "raycast.com",
+      "category": "Productivity & Notes",
+      "description": "A free launcher for apps, clipboard history, windows, and snippets, with Raycast AI chat and commands on Pro from $10/month.",
+      "cool_fact": "Screen awareness lets the AI read what is on your screen right now, so you can ask about it without copying and pasting.",
+      "url": "https://www.raycast.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-10-05",
+      "rank": null,
+      "score": null
+    },
+    {
+      "name": "Read AI",
+      "domain": "read.ai",
+      "category": "Meetings & Transcription",
+      "description": "An AI meeting assistant that transcribes and summarizes Zoom, Meet, and Teams calls. Free for 5 transcripts a month, Pro from $15/month.",
+      "cool_fact": "Ask Read searches across your meetings, email, and chat at once, so you can find what was decided without rewatching anything.",
+      "url": "https://www.read.ai/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-10-05",
+      "rank": null,
+      "score": null
+    },
+    {
       "name": "Reclaim.ai",
       "domain": "reclaim.ai",
       "category": "Scheduling & Time",
@@ -2183,21 +2313,8 @@
       "cool_fact": "The subscription is really just the base fee, actively building with the Agent burns separate usage credits that can add another five to twenty dollars a day on top.",
       "url": "https://replit.com/",
       "reviewed_on_solosgems": false,
-      "pricing": "paid",
+      "pricing": "free",
       "date_added": "2026-08-19",
-      "rank": null,
-      "score": null
-    },
-    {
-      "name": "Replit Agent",
-      "domain": "replit.com",
-      "category": "Coding & Dev Tools",
-      "description": "A browser-based AI agent that builds, runs, and deploys full-stack apps inside Replit's IDE.",
-      "cool_fact": "Handles the whole stack, servers, databases, and publishing, without anything installed locally.",
-      "url": "https://replit.com/",
-      "reviewed_on_solosgems": false,
-      "pricing": "unlisted",
-      "date_added": "2026-08-01",
       "rank": null,
       "score": null
     },

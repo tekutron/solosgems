@@ -1,6 +1,6 @@
 # Solos Gems
 
-> Solos Gems is a D&D-flavored AI tools database: the Herald's Hub at https://solosgems.com/ lists 226 AI tools across every major category, each with a plain-English summary, a retro video game style comic and caption, and a direct link to the real product. The 51 tools Solos Gems has fully tested carry a score and a rank on a single cross-category list (0-10, weighted across value for price, real-world capability, ease of use, and trial safety), shown right in their database row; each tool below links to its row. Nothing scores a 10. Some links are affiliate links (disclosed on the About page); that never changes which tools are covered or what the verdict says. Standalone review pages (/reviews/...) were retired in September 2026 and now redirect to the matching database row.
+> Solos Gems is a D&D-flavored AI tools database: the Herald's Hub at https://solosgems.com/ lists 235 AI tools across every major category, each with a plain-English summary, a retro video game style comic and caption, and a direct link to the real product. The 51 tools Solos Gems has fully tested carry a score and a rank on a single cross-category list (0-10, weighted across value for price, real-world capability, ease of use, and trial safety), shown right in their database row; each tool below links to its row. Nothing scores a 10. Some links are affiliate links (disclosed on the About page); that never changes which tools are covered or what the verdict says. Standalone review pages (/reviews/...) were retired in September 2026 and now redirect to the matching database row.
 
 Last updated: 2026-09-30.
 
@@ -60,7 +60,7 @@ Last updated: 2026-09-30.
 
 ## Other pages
 
-- [Herald's Hub / AI tools database](https://solosgems.com/): All 226 tools in a filterable, searchable database with ranks and scores on the 51 tested tools, a live headline ticker, the Herald's Report (the latest AI headlines with D&D summaries, the top Realms by country, and three rotating DeathStack graves), and a Crystal Ball of trending AI projects from GitHub. Raw data: https://solosgems.com/data/tools.json and https://solosgems.com/data/tools.csv.
+- [Herald's Hub / AI tools database](https://solosgems.com/): All 235 tools in a filterable, searchable database with ranks and scores on the 51 tested tools, a live headline ticker, the Herald's Report (the latest AI headlines with D&D summaries, the top Realms by country, and three rotating DeathStack graves), and a Crystal Ball of trending AI projects from GitHub. Raw data: https://solosgems.com/data/tools.json and https://solosgems.com/data/tools.csv.
 - [Realms](https://solosgems.com/realms.html): A live, D&D-styled world map of real AI activity by country: news coverage or verified company headquarters, search interest from Wikipedia pageviews, and build activity from GitHub.
 - [About / methodology](https://solosgems.com/about.html): What the site is, how the ranking/scoring works, and the affiliate disclosure.
 - [State of AI Tools for Solopreneurs 2026](https://solosgems.com/state-of-ai-tools.html): Original aggregate data pulled from the 51 scored reviews, median score, free-tier rate, category breadth, updated as new reviews are added.
