@@ -32,5 +32,11 @@
 },
 "ai": {
 "binding": "AI"
+},
+"r2_buckets": [
+{
+"binding": "VAULT_BUCKET",
+"bucket_name": "sologems-vault"
 }
+]
 }
