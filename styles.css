@@ -1507,7 +1507,7 @@ article li { margin: 6px 0; }
 }
 .crystalball-items {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 8px;
 }
 .crystalball-item {
@@ -1530,6 +1530,13 @@ article li { margin: 6px 0; }
   white-space: nowrap;
 }
 .crystalball-meta { font-size: 0.72rem; color: var(--ink-soft); }
+.crystalball-lore {
+  margin-top: 4px;
+  font-size: 0.78rem;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
 
 @media (max-width: 900px) {
   .herald-report { grid-template-columns: 1fr; }
@@ -2229,3 +2236,6 @@ footer .wrap { max-width: var(--max-width); margin: 0 auto; }
 @media (max-width: 600px) {
   .realm-marker-label { display: none; }
 }
+
+/* Herald-written D&D line for each GitHub project on the Realms page. */
+.realm-row-lore { font-style: italic; }

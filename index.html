@@ -7,20 +7,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="max-image-preview:large">
 <title>Solos Gems: AI Database +1 Guidance</title>
-<meta name="description" content="A categorized directory of 235+ AI tools, plus 51 fully tested, priced, and ranked reviews. Chatbots, image and video generation, coding, writing, automation, and more.">
+<meta name="description" content="A D&amp;D-flavored database of 235 AI tools with plain-English summaries, comics, and 51 tested and ranked picks. Chatbots, image and video generation, coding, writing, automation, and more.">
 <link rel="canonical" href="https://solosgems.com/">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Solos Gems">
 <meta property="og:title" content="Solos Gems: AI Database +1 Guidance">
-<meta property="og:description" content="A categorized directory of 235+ AI tools, plus 51 fully tested, priced, and ranked reviews.">
+<meta property="og:description" content="A D&amp;D-flavored database of 235 AI tools with plain-English summaries, comics, and 51 tested and ranked picks. Chatbots, image and video generation, coding, writing, automation, and more.">
 <meta property="og:url" content="https://solosgems.com/">
 <meta property="og:image" content="https://solosgems.com/images/og-default.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Solos Gems: AI Database +1 Guidance">
-<meta name="twitter:description" content="A categorized directory of 235+ AI tools, plus 51 fully tested, priced, and ranked reviews.">
+<meta name="twitter:description" content="A D&amp;D-flavored database of 235 AI tools with plain-English summaries, comics, and 51 tested and ranked picks. Chatbots, image and video generation, coding, writing, automation, and more.">
 <meta name="twitter:image" content="https://solosgems.com/images/og-default.png">
 <meta name="theme-color" content="#1a1a18">
 <link rel="stylesheet" href="styles.css">
@@ -30,7 +30,7 @@
   "@type": "WebSite",
   "name": "Solos Gems",
   "url": "https://solosgems.com/",
-  "description": "A categorized directory of 235+ AI tools, plus 51 fully tested, priced, and ranked reviews.",
+  "description": "A D&D-flavored database of 235 AI tools with plain-English summaries, comics, and 51 tested and ranked picks. Chatbots, image and video generation, coding, writing, automation, and more.",
   "publisher": {
     "@type": "Organization",
     "name": "Solos Gems",
@@ -219,13 +219,17 @@
           cbText.textContent = 'The mists are quiet today. Check back after the next moon.';
           return;
         }
-        cbText.textContent = 'Newly summoned AI projects gathering stars on GitHub right now:';
+        cbText.textContent = 'Newly summoned AI projects gathering stars on GitHub right now, and what each one actually does:';
         cbList.innerHTML = '';
         repos.forEach(function (r) {
           var a = el('a', 'crystalball-item');
           a.href = r.url; a.target = '_blank'; a.rel = 'noopener';
           a.appendChild(el('span', 'crystalball-name', r.name));
           a.appendChild(el('span', 'crystalball-meta', '\u2605 ' + Number(r.stars).toLocaleString() + (r.language ? ' \u00b7 ' + r.language : '')));
+          // Prefer the Herald's D&D line; fall back to GitHub's own
+          // description only when it's plain English text.
+          var blurb = r.lore || (/^[\x20-\x7E]+$/.test(r.description || '') ? r.description : '');
+          if (blurb) a.appendChild(el('span', 'crystalball-lore', blurb));
           cbList.appendChild(a);
         });
       })
@@ -623,47 +627,47 @@
       <li><a href="#tool-granola"><span class="rank-list-num">8</span>Granola</a></li>
       <li><a href="#tool-descript"><span class="rank-list-num">9</span>Descript</a></li>
       <li><a href="#tool-reclaim-ai"><span class="rank-list-num">10</span>Reclaim.ai</a></li>
-      <li><a href="#tool-clickup-ai"><span class="rank-list-num">11</span>ClickUp Brain</a></li>
-      <li><a href="#tool-toggl-track"><span class="rank-list-num">12</span>Toggl Track</a></li>
+      <li><a href="#tool-koala-ai"><span class="rank-list-num">11</span>Koala AI</a></li>
       <li><a href="#tool-airtable"><span class="rank-list-num">12</span>Airtable</a></li>
       <li><a href="#tool-tldv"><span class="rank-list-num">13</span>tl;dv</a></li>
       <li><a href="#tool-wispr-flow"><span class="rank-list-num">14</span>Wispr Flow</a></li>
-      <li><a href="#tool-hubspot-free-crm"><span class="rank-list-num">15</span>HubSpot Free CRM + Breeze AI</a></li>
+      <li><a href="#tool-clickup-ai"><span class="rank-list-num">15</span>ClickUp Brain</a></li>
       <li><a href="#tool-attio"><span class="rank-list-num">16</span>Attio</a></li>
-      <li><a href="#tool-calendly"><span class="rank-list-num">17</span>Calendly</a></li>
-      <li><a href="#tool-make"><span class="rank-list-num">18</span>Make</a></li>
+      <li><a href="#tool-toggl-track"><span class="rank-list-num">17</span>Toggl Track</a></li>
+      <li><a href="#tool-calendly"><span class="rank-list-num">18</span>Calendly</a></li>
       <li><a href="#tool-craft"><span class="rank-list-num">19</span>Craft</a></li>
       <li><a href="#tool-bonsai"><span class="rank-list-num">20</span>Bonsai</a></li>
-      <li><a href="#tool-copyai-vs-jasper"><span class="rank-list-num">21</span>Copy.ai vs. Jasper AI</a></li>
-      <li><a href="#tool-framer"><span class="rank-list-num">22</span>Framer</a></li>
+      <li><a href="#tool-durable"><span class="rank-list-num">21</span>Durable</a></li>
+      <li><a href="#tool-hubspot-free-crm"><span class="rank-list-num">22</span>HubSpot Free CRM</a></li>
       <li><a href="#tool-loom"><span class="rank-list-num">23</span>Loom</a></li>
       <li><a href="#tool-numerous-ai"><span class="rank-list-num">24</span>Numerous.ai</a></li>
       <li><a href="#tool-gamma"><span class="rank-list-num">25</span>Gamma</a></li>
-      <li><a href="#tool-chatbase"><span class="rank-list-num">26</span>Chatbase</a></li>
-      <li><a href="#tool-cursor"><span class="rank-list-num">27</span>Cursor</a></li>
+      <li><a href="#tool-make"><span class="rank-list-num">26</span>Make</a></li>
+      <li><a href="#tool-midjourney"><span class="rank-list-num">27</span>Midjourney</a></li>
       <li><a href="#tool-shortwave"><span class="rank-list-num">28</span>Shortwave</a></li>
       <li><a href="#tool-anara"><span class="rank-list-num">29</span>Anara</a></li>
-      <li><a href="#tool-koala-ai"><span class="rank-list-num">30</span>Koala AI</a></li>
-      <li><a href="#tool-runway"><span class="rank-list-num">31</span>Runway</a></li>
-      <li><a href="#tool-zapier-ai"><span class="rank-list-num">32</span>Zapier: AI by Zapier</a></li>
-      <li><a href="#tool-typeform"><span class="rank-list-num">33</span>Typeform</a></li>
-      <li><a href="#tool-semrush"><span class="rank-list-num">34</span>Semrush</a></li>
-      <li><a href="#tool-apollo-io"><span class="rank-list-num">35</span>Apollo.io</a></li>
-      <li><a href="#tool-suno"><span class="rank-list-num">36</span>Suno</a></li>
-      <li><a href="#tool-elevenlabs"><span class="rank-list-num">37</span>ElevenLabs</a></li>
-      <li><a href="#tool-vercel-v0"><span class="rank-list-num">38</span>v0</a></li>
-      <li><a href="#tool-durable"><span class="rank-list-num">39</span>Durable</a></li>
-      <li><a href="#tool-synthesia"><span class="rank-list-num">40</span>Synthesia</a></li>
-      <li><a href="#tool-opusclip"><span class="rank-list-num">41</span>OpusClip</a></li>
-      <li><a href="#tool-midjourney"><span class="rank-list-num">42</span>Midjourney</a></li>
-      <li><a href="#tool-lovable"><span class="rank-list-num">43</span>Lovable</a></li>
+      <li><a href="#tool-copyai"><span class="rank-list-num">30</span>Copy.ai</a></li>
+      <li><a href="#tool-framer"><span class="rank-list-num">31</span>Framer</a></li>
+      <li><a href="#tool-zapier-ai"><span class="rank-list-num">32</span>Zapier AI Actions</a></li>
+      <li><a href="#tool-instantly-ai"><span class="rank-list-num">33</span>Instantly.ai</a></li>
+      <li><a href="#tool-riverside"><span class="rank-list-num">34</span>Riverside.fm</a></li>
+      <li><a href="#tool-suno"><span class="rank-list-num">35</span>Suno</a></li>
+      <li><a href="#tool-elevenlabs"><span class="rank-list-num">36</span>ElevenLabs</a></li>
+      <li><a href="#tool-chatbase"><span class="rank-list-num">37</span>Chatbase</a></li>
+      <li><a href="#tool-cursor"><span class="rank-list-num">38</span>Cursor</a></li>
+      <li><a href="#tool-quickbooks-solopreneur"><span class="rank-list-num">39</span>QuickBooks Solopreneur</a></li>
+      <li><a href="#tool-opusclip"><span class="rank-list-num">40</span>OpusClip</a></li>
+      <li><a href="#tool-vercel-v0"><span class="rank-list-num">41</span>v0</a></li>
+      <li><a href="#tool-runway"><span class="rank-list-num">42</span>Runway</a></li>
+      <li><a href="#tool-notion-ai"><span class="rank-list-num">43</span>Notion AI</a></li>
       <li><a href="#tool-motion"><span class="rank-list-num">44</span>Motion</a></li>
-      <li><a href="#tool-notion-ai"><span class="rank-list-num">45</span>Notion AI</a></li>
-      <li><a href="#tool-quickbooks-solopreneur"><span class="rank-list-num">46</span>QuickBooks Solopreneur</a></li>
-      <li><a href="#tool-instantly-ai"><span class="rank-list-num">47</span>Instantly.ai</a></li>
+      <li><a href="#tool-typeform"><span class="rank-list-num">45</span>Typeform</a></li>
+      <li><a href="#tool-semrush"><span class="rank-list-num">46</span>Semrush</a></li>
+      <li><a href="#tool-apollo-io"><span class="rank-list-num">47</span>Apollo.io</a></li>
       <li><a href="#tool-perplexity-pro"><span class="rank-list-num">48</span>Perplexity Pro</a></li>
-      <li><a href="#tool-riverside"><span class="rank-list-num">49</span>Riverside.fm</a></li>
+      <li><a href="#tool-synthesia"><span class="rank-list-num">49</span>Synthesia</a></li>
       <li><a href="#tool-bland-ai"><span class="rank-list-num">50</span>Bland AI</a></li>
+      <li><a href="#tool-lovable"><span class="rank-list-num">51</span>Lovable</a></li>
         </ol>
       </div>
       <div class="db-sidebar-block">
@@ -928,7 +932,7 @@
       <a class="db-row" href="https://www.midjourney.com/" target="_blank" rel="noopener" id="tool-midjourney" data-name="midjourney" data-category="Image Generation" data-tier="paid" style="--cat-accent:#6fae6a">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=midjourney.com&sz=128" alt="Midjourney logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>Midjourney</h3><div class="db-row-reviewed"><span class="db-rank-badge">#42 Ranked</span><span class="db-score-badge">6.7/10</span></div>
+          <h3>Midjourney</h3><div class="db-row-reviewed"><span class="db-rank-badge">#27 Ranked</span><span class="db-score-badge">6.7/10</span></div>
           <p>Distinctive AI image generation; no free plan.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Started as a Discord bot and still runs primarily through Discord commands.</p>
           <p class="db-row-caption">The court painter could render anything the king imagined, except, reliably, a hand holding a sword.</p>
@@ -1024,7 +1028,7 @@
       <a class="db-row" href="https://runwayml.com/" target="_blank" rel="noopener" id="tool-runway" data-name="runway" data-category="Video Generation" data-tier="paid" style="--cat-accent:#c9a53b">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=runwayml.com&sz=128" alt="Runway logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>Runway</h3><div class="db-row-reviewed"><span class="db-rank-badge">#31 Ranked</span><span class="db-score-badge">5.6/10</span></div>
+          <h3>Runway</h3><div class="db-row-reviewed"><span class="db-rank-badge">#42 Ranked</span><span class="db-score-badge">5.6/10</span></div>
           <p>AI video generation and editing for solo creators, from $15/month.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Its Act-Two feature captures a real performance and maps it onto a generated character.</p>
           <p class="db-row-caption">The illusionist conjured an entire audience out of thin air. The real audience left before noticing the difference.</p>
@@ -1034,7 +1038,7 @@
       <a class="db-row" href="https://www.synthesia.io/" target="_blank" rel="noopener" id="tool-synthesia" data-name="synthesia" data-category="Video Generation" data-tier="paid" style="--cat-accent:#c9a53b">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=synthesia.io&sz=128" alt="Synthesia logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>Synthesia</h3><div class="db-row-reviewed"><span class="db-rank-badge">#40 Ranked</span><span class="db-score-badge">4.9/10</span></div>
+          <h3>Synthesia</h3><div class="db-row-reviewed"><span class="db-rank-badge">#49 Ranked</span><span class="db-score-badge">4.9/10</span></div>
           <p>Turns a script into a talking-avatar video, from $14/month.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Offers 125+ AI avatars to choose from without ever appearing on camera yourself.</p>
           <p class="db-row-caption">The double gave the whole speech without complaint, without pay, and without ever meaning a word of it.</p>
@@ -1104,7 +1108,7 @@
       <a class="db-row" href="https://www.opus.pro/" target="_blank" rel="noopener" id="tool-opusclip" data-name="opusclip" data-category="Video Generation" data-tier="paid" style="--cat-accent:#c9a53b">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=opus.pro&sz=128" alt="OpusClip logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>OpusClip</h3><div class="db-row-reviewed"><span class="db-rank-badge">#41 Ranked</span><span class="db-score-badge">5.7/10</span></div>
+          <h3>OpusClip</h3><div class="db-row-reviewed"><span class="db-rank-badge">#40 Ranked</span><span class="db-score-badge">5.7/10</span></div>
           <p>Turns long-form video into short social clips automatically, from $15/month.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Scores every auto-generated clip by predicted engagement before you post it.</p>
           <p class="db-row-caption">The bard's three hour ballad got cut into forty nine second choruses. Somehow only the one about the horse survived.</p>
@@ -1210,7 +1214,7 @@
       <a class="db-row" href="https://elevenlabs.io/" target="_blank" rel="noopener" id="tool-elevenlabs" data-name="elevenlabs" data-category="Voice & Music" data-tier="free" style="--cat-accent:#a878c9">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=elevenlabs.io&sz=128" alt="ElevenLabs logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>ElevenLabs</h3><div class="db-row-reviewed"><span class="db-rank-badge">#37 Ranked</span><span class="db-score-badge">6.1/10</span></div>
+          <h3>ElevenLabs</h3><div class="db-row-reviewed"><span class="db-rank-badge">#36 Ranked</span><span class="db-score-badge">6.1/10</span></div>
           <p>AI voice generation and cloning; free tier is watermarked and non-commercial.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Can clone a convincing voice from just a short audio sample.</p>
           <p class="db-row-caption">Once the parrot can do every voice in the tavern, nobody in the tavern can prove they ever said anything.</p>
@@ -1220,7 +1224,7 @@
       <a class="db-row" href="https://suno.com/" target="_blank" rel="noopener" id="tool-suno" data-name="suno" data-category="Voice & Music" data-tier="paid" style="--cat-accent:#a878c9">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=suno.com&sz=128" alt="Suno logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>Suno</h3><div class="db-row-reviewed"><span class="db-rank-badge">#36 Ranked</span><span class="db-score-badge">6.15/10</span></div>
+          <h3>Suno</h3><div class="db-row-reviewed"><span class="db-rank-badge">#35 Ranked</span><span class="db-score-badge">6.15/10</span></div>
           <p>AI music generation that turns a text prompt into a full song with vocals and structure, from $8/month billed yearly.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Its latest model closes most of the uncanny valley in AI vocals, they sound like a real singer now.</p>
           <p class="db-row-caption">The bard could write a note perfect ballad about anything in nine seconds. Nobody could hum it back nine seconds later.</p>
@@ -1358,7 +1362,7 @@
       <a class="db-row" href="https://cursor.com/" target="_blank" rel="noopener" id="tool-cursor" data-name="cursor" data-category="Coding & Dev Tools" data-tier="unlisted" style="--cat-accent:#cc8b4a">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=cursor.com&sz=128" alt="Cursor logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>Cursor</h3><div class="db-row-reviewed"><span class="db-rank-badge">#27 Ranked</span><span class="db-score-badge">5.9/10</span></div>
+          <h3>Cursor</h3><div class="db-row-reviewed"><span class="db-rank-badge">#38 Ranked</span><span class="db-score-badge">5.9/10</span></div>
           <p>AI-native code editor for solopreneurs building their own product.</p>
           <p class="db-cool"><strong>Cool fact:</strong> It's a fork of VS Code, so most existing extensions and workflows carry over.</p>
           <p class="db-row-caption">The golem built the wall perfectly straight. Nobody checked what was holding it up until it fell.</p>
@@ -1418,7 +1422,7 @@
       <a class="db-row" href="https://lovable.dev/" target="_blank" rel="noopener" id="tool-lovable" data-name="lovable" data-category="Coding & Dev Tools" data-tier="paid" style="--cat-accent:#cc8b4a">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=lovable.dev&sz=128" alt="Lovable logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>Lovable</h3><div class="db-row-reviewed"><span class="db-rank-badge">#43 Ranked</span><span class="db-score-badge">4.7/10</span></div>
+          <h3>Lovable</h3><div class="db-row-reviewed"><span class="db-rank-badge">#51 Ranked</span><span class="db-score-badge">4.7/10</span></div>
           <p>Describe an app in plain English and get a working frontend and backend, from $25/month.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Lets you keep iterating conversationally, 'add a login page', instead of writing code yourself.</p>
           <p class="db-row-caption">The apprentice conjured a working castle on the first try. The plumbing, it turned out, was more of a suggestion.</p>
@@ -1620,7 +1624,7 @@
       <a class="db-row" href="https://koala.sh/" target="_blank" rel="noopener" id="tool-koala-ai" data-name="koala ai" data-category="Writing & Copywriting" data-tier="paid" style="--cat-accent:#4fa3c7">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=koala.sh&sz=128" alt="Koala AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>Koala AI</h3><div class="db-row-reviewed"><span class="db-rank-badge">#30 Ranked</span><span class="db-score-badge">7.7/10</span></div>
+          <h3>Koala AI</h3><div class="db-row-reviewed"><span class="db-rank-badge">#11 Ranked</span><span class="db-score-badge">7.7/10</span></div>
           <p>AI writer built for SEO-optimized articles, from $9/month.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Runs real-time SERP analysis before drafting, structuring articles to actually compete for a keyword.</p>
           <p class="db-row-caption">Every forger eventually learns to forge the thing that catches forgers.</p>
@@ -1948,7 +1952,7 @@
       <a class="db-row" href="https://www.notion.com/product/ai" target="_blank" rel="noopener" id="tool-notion-ai" data-name="notion ai" data-category="Productivity & Notes" data-tier="paid" style="--cat-accent:#4fa3c7">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=notion.com&sz=128" alt="Notion AI logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>Notion AI</h3><div class="db-row-reviewed"><span class="db-rank-badge">#45 Ranked</span><span class="db-score-badge">5.5/10</span></div>
+          <h3>Notion AI</h3><div class="db-row-reviewed"><span class="db-rank-badge">#43 Ranked</span><span class="db-score-badge">5.5/10</span></div>
           <p>Notion's AI layer now requires the $20/user/month Business plan.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Can build a tracker or database directly from a meeting summary you paste in.</p>
           <p class="db-row-caption">The archive grew a new wing for tools meant to help you find things in the archive.</p>
@@ -2364,7 +2368,7 @@
       <a class="db-row" href="https://www.make.com/" target="_blank" rel="noopener" id="tool-make" data-name="make" data-category="Automation & Workflow" data-tier="unlisted" style="--cat-accent:#cc8b4a">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=make.com&sz=128" alt="Make logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>Make</h3><div class="db-row-reviewed"><span class="db-rank-badge">#18 Ranked</span><span class="db-score-badge">6.8/10</span></div>
+          <h3>Make</h3><div class="db-row-reviewed"><span class="db-rank-badge">#26 Ranked</span><span class="db-score-badge">6.8/10</span></div>
           <p>Visual automation platform and a direct alternative to Zapier; credit-based pricing.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Its canvas-style builder shows an entire automation, branches and all, on one screen.</p>
           <p class="db-row-caption">The engine had six hundred gears and one of them was a mouse on a wheel. Nobody remembered which.</p>
@@ -2410,7 +2414,7 @@
       <a class="db-row" href="https://www.apollo.io/" target="_blank" rel="noopener" id="tool-apollo-io" data-name="apollo.io" data-category="Sales & Prospecting" data-tier="paid" style="--cat-accent:#e0692a">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=apollo.io&sz=128" alt="Apollo.io logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>Apollo.io</h3><div class="db-row-reviewed"><span class="db-rank-badge">#35 Ranked</span><span class="db-score-badge">5.1/10</span></div>
+          <h3>Apollo.io</h3><div class="db-row-reviewed"><span class="db-rank-badge">#47 Ranked</span><span class="db-score-badge">5.1/10</span></div>
           <p>AI-assisted lead sourcing and outreach sequencing, from $49/user/month.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Combines a large contact database and outreach automation in one platform.</p>
           <p class="db-row-caption">A thousand arrows loosed at once turns archery into weather.</p>
@@ -2430,7 +2434,7 @@
       <a class="db-row" href="https://instantly.ai/" target="_blank" rel="noopener" id="tool-instantly-ai" data-name="instantly.ai" data-category="Sales & Prospecting" data-tier="paid" style="--cat-accent:#e0692a">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=instantly.ai&sz=128" alt="Instantly.ai logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>Instantly.ai</h3><div class="db-row-reviewed"><span class="db-rank-badge">#47 Ranked</span><span class="db-score-badge">6.3/10</span></div>
+          <h3>Instantly.ai</h3><div class="db-row-reviewed"><span class="db-rank-badge">#33 Ranked</span><span class="db-score-badge">6.3/10</span></div>
           <p>Cold email outreach with AI-assisted copywriting and deliverability tooling across unlimited sending accounts, from $37.60/month with lead data and CRM sold as separate add-on modules.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Every plan includes unlimited email accounts and inbox warmup, but the lead database and CRM ship as paid add-ons, so a fully wired setup usually costs more than the sticker price suggests.</p>
           <p class="db-row-caption">The letters get warmed by the fire before they're sent, so the recipients never suspect there are six hundred more just like it.</p>
@@ -2670,7 +2674,7 @@
       <a class="db-row" href="https://www.hubspot.com/products/crm" target="_blank" rel="noopener" id="tool-hubspot-free-crm" data-name="hubspot free crm" data-category="CRM & Client Management" data-tier="unlisted" style="--cat-accent:#d97a9c">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=hubspot.com&sz=128" alt="HubSpot Free CRM logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>HubSpot Free CRM</h3><div class="db-row-reviewed"><span class="db-rank-badge">#15 Ranked</span><span class="db-score-badge">7.1/10</span></div>
+          <h3>HubSpot Free CRM</h3><div class="db-row-reviewed"><span class="db-rank-badge">#22 Ranked</span><span class="db-score-badge">7.1/10</span></div>
           <p>Free CRM tier is genuinely solid; AI features (Breeze) are rate-limited or paid.</p>
           <p class="db-cool"><strong>Cool fact:</strong> The free CRM tier has no user cap or expiration date, unusual among free CRM offers.</p>
           <p class="db-row-caption">The first vine is always free. Nobody mentions the garden was built to grow toward a gate you'll pay to open.</p>
@@ -2706,7 +2710,7 @@
       <a class="db-row" href="https://www.chatbase.co/" target="_blank" rel="noopener" id="tool-chatbase" data-name="chatbase" data-category="Customer Support" data-tier="paid" style="--cat-accent:#5fb8a8">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=chatbase.co&sz=128" alt="Chatbase logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>Chatbase</h3><div class="db-row-reviewed"><span class="db-rank-badge">#26 Ranked</span><span class="db-score-badge">6.0/10</span></div>
+          <h3>Chatbase</h3><div class="db-row-reviewed"><span class="db-rank-badge">#37 Ranked</span><span class="db-score-badge">6.0/10</span></div>
           <p>Custom AI chatbot trained on your own site or docs, from $32/month.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Trains exclusively on your own content, so answers stay consistent with your actual policies.</p>
           <p class="db-row-caption">Teaching a golem to read your entire library doesn't stop it from confidently pointing at the wrong shelf.</p>
@@ -2880,7 +2884,7 @@
       <a class="db-row" href="https://www.semrush.com/" target="_blank" rel="noopener" id="tool-semrush" data-name="semrush" data-category="SEO" data-tier="paid" style="--cat-accent:#6fae6a">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=semrush.com&sz=128" alt="Semrush logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>Semrush</h3><div class="db-row-reviewed"><span class="db-rank-badge">#34 Ranked</span><span class="db-score-badge">5.2/10</span></div>
+          <h3>Semrush</h3><div class="db-row-reviewed"><span class="db-rank-badge">#46 Ranked</span><span class="db-score-badge">5.2/10</span></div>
           <p>A comprehensive SEO research platform with AI-assisted content and keyword tools, from $139.95/month.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Widely considered the most capable SEO tool in its category, though the price is overkill unless organic content is your core growth channel.</p>
           <p class="db-row-caption">Every merchant learned the secret password to the front of the market. The moment they did, the guild changed the password.</p>
@@ -2916,7 +2920,7 @@
       <a class="db-row" href="https://calendly.com/" target="_blank" rel="noopener" id="tool-calendly" data-name="calendly" data-category="Scheduling & Time" data-tier="unlisted" style="--cat-accent:#c9a53b">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=calendly.com&sz=128" alt="Calendly logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>Calendly</h3><div class="db-row-reviewed"><span class="db-rank-badge">#17 Ranked</span><span class="db-score-badge">7.3/10</span></div>
+          <h3>Calendly</h3><div class="db-row-reviewed"><span class="db-rank-badge">#18 Ranked</span><span class="db-score-badge">7.3/10</span></div>
           <p>Scheduling with AI-assisted call routing and no-show reduction.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Can route a booking to the right team member automatically based on the meeting type.</p>
           <p class="db-row-caption">The scroll that spares you from ever asking 'does Tuesday work' also books you a meeting at dawn you never wanted.</p>
@@ -2936,7 +2940,7 @@
       <a class="db-row" href="https://toggl.com/track/" target="_blank" rel="noopener" id="tool-toggl-track" data-name="toggl track" data-category="Scheduling & Time" data-tier="free" style="--cat-accent:#c9a53b">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=toggl.com&sz=128" alt="Toggl Track logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>Toggl Track</h3><div class="db-row-reviewed"><span class="db-rank-badge">#12 Ranked</span><span class="db-score-badge">7.4/10</span></div>
+          <h3>Toggl Track</h3><div class="db-row-reviewed"><span class="db-rank-badge">#17 Ranked</span><span class="db-score-badge">7.4/10</span></div>
           <p>Time tracking with AI-assisted categorization; free for up to 5 users.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Free plan supports up to 5 users at no cost, unusually generous for a time tracker.</p>
           <p class="db-row-caption">The hourglass could tell you exactly how the day disappeared. It could not, unfortunately, bring any of it back.</p>
@@ -3090,7 +3094,7 @@
       <a class="db-row" href="https://quickbooks.intuit.com/solopreneur/" target="_blank" rel="noopener" id="tool-quickbooks-solopreneur" data-name="quickbooks solopreneur" data-category="Bookkeeping & Finance" data-tier="unlisted" style="--cat-accent:#cc8b4a">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=quickbooks.intuit.com&sz=128" alt="QuickBooks Solopreneur logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>QuickBooks Solopreneur</h3><div class="db-row-reviewed"><span class="db-rank-badge">#46 Ranked</span><span class="db-score-badge">5.8/10</span></div>
+          <h3>QuickBooks Solopreneur</h3><div class="db-row-reviewed"><span class="db-rank-badge">#39 Ranked</span><span class="db-score-badge">5.8/10</span></div>
           <p>Bookkeeping built for one-person Schedule-C businesses, not a scaled-down QuickBooks Online.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Built from scratch specifically for one-person businesses, not just a trimmed-down version of the full product.</p>
           <p class="db-row-caption">The ledger doesn't make the debt smaller. It just makes the debt easier to read.</p>
@@ -3126,7 +3130,7 @@
       <a class="db-row" href="https://www.framer.com/" target="_blank" rel="noopener" id="tool-framer" data-name="framer" data-category="Website & App Builders" data-tier="free" style="--cat-accent:#e0692a">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=framer.com&sz=128" alt="Framer logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>Framer</h3><div class="db-row-reviewed"><span class="db-rank-badge">#22 Ranked</span><span class="db-score-badge">6.4/10</span></div>
+          <h3>Framer</h3><div class="db-row-reviewed"><span class="db-rank-badge">#31 Ranked</span><span class="db-score-badge">6.4/10</span></div>
           <p>AI-assisted website builder; generate and publish a real site from a prompt, then edit visually.</p>
           <p class="db-cool"><strong>Cool fact:</strong> The free plan is genuinely usable to launch a real, live site, not a crippled demo.</p>
           <p class="db-row-caption">The castle had flawless battlements and no walls. The architect had, after all, only been asked for battlements.</p>
@@ -3136,7 +3140,7 @@
       <a class="db-row" href="https://durable.co/" target="_blank" rel="noopener" id="tool-durable" data-name="durable" data-category="Website & App Builders" data-tier="unlisted" style="--cat-accent:#e0692a">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=durable.co&sz=128" alt="Durable logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>Durable</h3><div class="db-row-reviewed"><span class="db-rank-badge">#39 Ranked</span><span class="db-score-badge">7.2/10</span></div>
+          <h3>Durable</h3><div class="db-row-reviewed"><span class="db-rank-badge">#21 Ranked</span><span class="db-score-badge">7.2/10</span></div>
           <p>Generates a full small-business website, copy, images, and booking, in under a minute.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Also auto-generates basic business tools like invoices and a CRM alongside the website itself.</p>
           <p class="db-row-caption">A shop built in sixty seconds looks exactly like a shop, right up until someone tries to open the door.</p>
@@ -3182,7 +3186,7 @@
       <a class="db-row" href="https://www.typeform.com/" target="_blank" rel="noopener" id="tool-typeform" data-name="typeform" data-category="Forms & Surveys" data-tier="paid" style="--cat-accent:#4fa3c7">
         <img class="db-logo" src="https://www.google.com/s2/favicons?domain=typeform.com&sz=128" alt="Typeform logo" width="36" height="36" loading="lazy">
         <div class="db-row-body">
-          <h3>Typeform</h3><div class="db-row-reviewed"><span class="db-rank-badge">#33 Ranked</span><span class="db-score-badge">5.3/10</span></div>
+          <h3>Typeform</h3><div class="db-row-reviewed"><span class="db-rank-badge">#45 Ranked</span><span class="db-score-badge">5.3/10</span></div>
           <p>Conversational forms and surveys with AI-assisted question generation, from $28/month.</p>
           <p class="db-cool"><strong>Cool fact:</strong> Presents one question at a time in a full-screen format, which measurably raises completion rates.</p>
           <p class="db-row-caption">Somebody made the toll booth beautiful. The line did not get any shorter.</p>
@@ -3533,8 +3537,8 @@
   </script>
 
   <div class="subscribe-box">
-    <h3>Get notified about new reviews</h3>
-    <p>One email when a new tool gets tested, scored, and ranked. No spam, unsubscribe anytime.</p>
+    <h3>Get the Herald's dispatch</h3>
+    <p>An occasional email when the database gains new tools, the rankings shift, or a fresh grave is dug in the DeathStack. No spam, unsubscribe anytime.</p>
     <form class="subscribe-form" action="/api/subscribe" method="POST">
       <input type="email" name="email" placeholder="you@email.com" required aria-label="Email address">
       <button type="submit">Notify me</button>

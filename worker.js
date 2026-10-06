@@ -827,6 +827,65 @@ createdAt: r.created_at || null,
 }));
 }
 
+// One plain-English, D&D-flavored line per trending repo for the homepage's
+// Crystal Ball, so visitors can tell what a project actually does (GitHub
+// descriptions are often terse, jargon-heavy, or not in English). Lines are
+// reused from the previous run by repo URL, and new AI calls are capped per
+// run like the news flavor text.
+const REPO_LORE_SYSTEM_PROMPT =
+"You are a witty, nerdy Dungeon Master describing newly discovered open-source " +
+"AI projects to adventurers. Given a GitHub repository name, its description " +
+"(which may be in any language), and its main programming language, write " +
+"exactly ONE sentence in English, maximum 24 words, that first makes clear what " +
+"the project actually does in plain terms, then adds light Dungeons & Dragons " +
+"flavor (spells, familiars, guilds, scrolls, quests, artifacts). Be accurate: do " +
+"not invent features the description does not mention. If the description is " +
+"empty, describe it cautiously from the name. No hashtags, no emoji. Output ONLY " +
+"the sentence, no quotation marks, no preamble.";
+
+const MAX_REPO_LORE_PER_RUN = 6;
+
+async function generateRepoLore(repo, env) {
+if (!env.AI) return null;
+try {
+const result = await env.AI.run("@cf/meta/llama-3.2-3b-instruct", {
+messages: [
+{ role: "system", content: REPO_LORE_SYSTEM_PROMPT },
+{
+role: "user",
+content: `Repository: ${repo.name}\nDescription: ${repo.description || "(none)"}\nLanguage: ${repo.language || "unknown"}`,
+},
+],
+max_tokens: 70,
+});
+let text = extractAIText(result).toString().trim();
+text = text.replace(/^["'\u201c]+|["'\u201d]+$/g, "").trim();
+text = text.replace(/^(DM|Narrator|Quest Log)\s*[:\-]\s*/i, "").trim();
+text = text.replace(/\u2014|\u2013/g, ", ");
+if (!text) return null;
+return text.length > 220 ? text.slice(0, 217).trimEnd() + "..." : text;
+} catch (err) {
+return null;
+}
+}
+
+async function attachRepoLore(repos, prevPayload, env) {
+const previous = new Map();
+const prevRepos = (prevPayload && prevPayload.categories && prevPayload.categories.buildActivity) || [];
+for (const r of prevRepos) if (r && r.url && r.lore) previous.set(r.url, r.lore);
+let budget = MAX_REPO_LORE_PER_RUN;
+for (const repo of repos) {
+if (previous.has(repo.url)) {
+repo.lore = previous.get(repo.url);
+continue;
+}
+if (budget <= 0) continue;
+budget -= 1;
+repo.lore = await generateRepoLore(repo, env);
+}
+return repos;
+}
+
 async function gatherWikiInterest() {
 const end = new Date();
 const start = new Date(end.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -978,7 +1037,10 @@ const hadCountries = Array.isArray(prevPayload.countries) && prevPayload.countri
 // countries and no fallback either (extremely unlikely now), only hold
 // that empty result for 10 minutes so the next request/cron tick gets a
 // real retry instead of being stuck showing an empty map for hours.
-const throttleMs = hadCountries ? 6 * 60 * 60 * 1000 : 10 * 60 * 1000;
+// 5.5h rather than 6h: the cron fires every 6h, and a run that finished a
+// few minutes after its tick would otherwise make the next tick skip,
+// so the map only really refreshed every 12h.
+const throttleMs = hadCountries ? 5.5 * 60 * 60 * 1000 : 10 * 60 * 1000;
 if (age < throttleMs) return prevPayload;
 }
 } catch (err) {
@@ -992,6 +1054,7 @@ gatherGlobalCountryMentions(),
 gatherGithubTrending(env),
 gatherWikiInterest(),
 ]);
+await attachRepoLore(githubTrending, prevPayload, env);
 let topGlobal = globalCountries.slice(0, 12);
 
 let previousByCountry = new Map();
@@ -1171,7 +1234,14 @@ dndCaption: (c.caption && c.caption.dndCaption) || "",
 }));
 const buildActivity = ((data.categories && data.categories.buildActivity) || [])
 .slice(0, 5)
-.map((r) => ({ name: r.name, url: r.url, stars: r.stars || 0, language: r.language || "" }));
+.map((r) => ({
+name: r.name,
+url: r.url,
+stars: r.stars || 0,
+language: r.language || "",
+description: r.description || "",
+lore: r.lore || "",
+}));
 return new Response(
 JSON.stringify({ generated_at: data.generated_at || null, countries, buildActivity }),
 {

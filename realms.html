@@ -315,6 +315,7 @@
         '<div class="realm-row-body">' +
           '<h4>' + escapeHtml(r.name) + '</h4>' +
           '<p>' + escapeHtml(r.stars.toLocaleString()) + ' stars' + (r.language ? ' &middot; ' + escapeHtml(r.language) : '') + '</p>' +
+          (r.lore ? '<p class="realm-row-headline realm-row-lore">' + escapeHtml(r.lore) + '</p>' : '') +
           (r.description ? '<p class="realm-row-headline">' + escapeHtml(r.description) + '</p>' : '') +
           '<p class="realm-row-headline"><a href="' + escapeHtml(r.url) + '" target="_blank" rel="noopener">View on GitHub &rarr;</a></p>' +
         '</div></div>';
