@@ -70,11 +70,14 @@ return handleGetNews(env);
 return new Response("Method not allowed", { status: 405 });
 }
 
+// Same lock as /api/realms/refresh below: the cron keeps news fresh, and a
+// manual refresh spends Workers AI quota on flavor lines.
 if (url.pathname === "/api/news/refresh") {
-if (request.method === "GET" || request.method === "POST") {
-return handleRefreshNews(env);
+const auth = request.headers.get("Authorization") || "";
+if (request.method !== "POST" || !env.REFRESH_KEY || !timingSafeEqual(auth, "Bearer " + env.REFRESH_KEY)) {
+return new Response("Not found", { status: 404 });
 }
-return new Response("Method not allowed", { status: 405 });
+return handleRefreshNews(env);
 }
 
 if (url.pathname === "/api/realms") {
@@ -91,11 +94,17 @@ return handleGetRealmsSummary(env);
 return new Response("Method not allowed", { status: 405 });
 }
 
+// Manual realm refresh forces a full gather, including Workers AI caption
+// and image generation, so it must not be publicly callable. The 6-hourly
+// cron already keeps the map fresh. It only works when a REFRESH_KEY secret
+// is set on the Worker and the request sends it as
+// "Authorization: Bearer <key>"; otherwise it looks like any missing page.
 if (url.pathname === "/api/realms/refresh") {
-if (request.method === "GET" || request.method === "POST") {
-return handleRefreshRealms(env);
+const auth = request.headers.get("Authorization") || "";
+if (request.method !== "POST" || !env.REFRESH_KEY || !timingSafeEqual(auth, "Bearer " + env.REFRESH_KEY)) {
+return new Response("Not found", { status: 404 });
 }
-return new Response("Method not allowed", { status: 405 });
+return handleRefreshRealms(env);
 }
 
 // Fallback for extensionless URLs (e.g. /about, /reviews/notion-ai,
@@ -1171,6 +1180,13 @@ headers: {
 },
 }
 );
+}
+
+function timingSafeEqual(a, b) {
+if (a.length !== b.length) return false;
+let diff = 0;
+for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+return diff === 0;
 }
 
 async function handleRefreshRealms(env) {
