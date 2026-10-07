@@ -1,7 +1,7 @@
 {
   "source": "https://solosgems.com/",
   "generated": "2026-10-06",
-  "count": 242,
+  "count": 241,
   "license": "Free to use with attribution to Solos Gems (solosgems.com).",
   "tools": [
     {
@@ -149,7 +149,7 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 221,
+      "rank": 220,
       "score": 5.62,
       "rank_basis": "tested",
       "rank_why": "A huge lead database with real capability, priced per seat and easy to waste credits on."
@@ -254,7 +254,7 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-08",
-      "rank": 223,
+      "rank": 222,
       "score": 5.62,
       "rank_basis": "scouted",
       "rank_why": "Reputation management for local businesses that automates reviews. Effective, pricey for a single shop."
@@ -269,7 +269,7 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 229,
+      "rank": 228,
       "score": 5.25,
       "rank_basis": "tested",
       "rank_why": "Impressive voice agents for developers, billed by the minute, with little for a non-coder to hold onto."
@@ -479,7 +479,7 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 234,
+      "rank": 233,
       "score": 5.12,
       "rank_basis": "scouted",
       "rank_why": "Ties feedback to revenue for big companies. Clever, and completely sized for enterprise kingdoms."
@@ -809,10 +809,25 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 226,
+      "rank": 225,
       "score": 5.5,
       "rank_basis": "scouted",
       "rank_why": "An autonomous AI engineer that's impressive and expensive. A hireling priced for guilds, not solo adventurers."
+    },
+    {
+      "name": "Devin Desktop",
+      "domain": "devin.ai",
+      "category": "Coding & Dev Tools",
+      "description": "Cognition's AI code editor, renamed from Windsurf in June 2026, where the Devin Local agent handles multi-step coding tasks while you stay in the loop.",
+      "cool_fact": "Now owned by Cognition, the same company behind the autonomous coding agent Devin.",
+      "url": "https://devin.ai/desktop",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-08-01",
+      "rank": 49,
+      "score": 8.0,
+      "rank_basis": "scouted",
+      "rank_why": "A capable agentic code editor with a free tier. A real rival to Cursor, with a bumpier ownership history."
     },
     {
       "name": "Dia",
@@ -876,11 +891,11 @@
     },
     {
       "name": "Durable",
-      "domain": "durable.co",
+      "domain": "durable.com",
       "category": "Website & App Builders",
       "description": "Generates a full small-business website, copy, images, and booking, in under a minute.",
       "cool_fact": "Also auto-generates basic business tools like invoices and a CRM alongside the website itself.",
-      "url": "https://durable.co/",
+      "url": "https://durable.com/",
       "reviewed_on_solosgems": true,
       "pricing": "free",
       "date_added": "2026-08-01",
@@ -951,11 +966,11 @@
     },
     {
       "name": "Fathom",
-      "domain": "fathom.video",
+      "domain": "fathom.ai",
       "category": "Meetings & Transcription",
       "description": "A free AI meeting recorder that transcribes, summarizes, and highlights action items automatically.",
       "cool_fact": "Its core recording and summarization features are free with no minutes cap.",
-      "url": "https://fathom.video/",
+      "url": "https://www.fathom.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-01",
@@ -1100,6 +1115,21 @@
       "rank_why": "Free, capable, and already living inside your Gmail and Docs. The home-field advantage is real."
     },
     {
+      "name": "Gemini Notebook",
+      "domain": "notebook.google.com",
+      "category": "Research & Knowledge",
+      "description": "Google's source-grounded AI notebook, renamed from NotebookLM in July 2026; the free tier covers 100 notebooks and 50 chats a day.",
+      "cool_fact": "Refuses to answer from general knowledge, every response is grounded in the documents you actually upload.",
+      "url": "https://notebook.google.com/",
+      "reviewed_on_solosgems": true,
+      "pricing": "free",
+      "date_added": "2026-08-01",
+      "rank": 3,
+      "score": 8.88,
+      "rank_basis": "tested",
+      "rank_why": "Free, grounded in your own sources, and hard to make hallucinate. The best-value scholar in the entire realm."
+    },
+    {
       "name": "Genspark",
       "domain": "genspark.ai",
       "category": "AI Search & Browsing",
@@ -1139,7 +1169,7 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-19",
-      "rank": 239,
+      "rank": 238,
       "score": 4.75,
       "rank_basis": "scouted",
       "rank_why": "The sales-call oracle for big revenue teams. Excellent, and entirely enterprise-priced."
@@ -1289,7 +1319,7 @@
       "reviewed_on_solosgems": false,
       "pricing": "unlisted",
       "date_added": "2026-08-01",
-      "rank": 236,
+      "rank": 235,
       "score": 5.0,
       "rank_basis": "scouted",
       "rank_why": "Serious CI/CD automation for engineering teams. Overkill and overpriced for a party of one."
@@ -1304,7 +1334,7 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-19",
-      "rank": 232,
+      "rank": 231,
       "score": 5.12,
       "rank_basis": "scouted",
       "rank_why": "Elite legal AI for big law firms. Powerful, and you'll need a firm with a moat to get through the gate."
@@ -1349,7 +1379,7 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 242,
+      "rank": 241,
       "score": 4.0,
       "rank_basis": "scouted",
       "rank_why": "Enterprise video interviewing at volume. Not for solos, and its AI judging candidates draws plenty of side-eye."
@@ -1431,11 +1461,11 @@
     },
     {
       "name": "Intercom Fin",
-      "domain": "intercom.com",
+      "domain": "fin.ai",
       "category": "Customer Support",
       "description": "Intercom's AI agent that resolves customer support tickets autonomously, escalating to a human only when needed.",
       "cool_fact": "Can resolve a large share of incoming support volume start to finish with no human agent involved.",
-      "url": "https://www.intercom.com/fin",
+      "url": "https://fin.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-01",
@@ -1469,7 +1499,7 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 235,
+      "rank": 234,
       "score": 5.0,
       "rank_basis": "scouted",
       "rank_why": "Contract lifecycle management for large legal teams. Overkill for a solo founder's handful of agreements."
@@ -1619,18 +1649,18 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 227,
+      "rank": 226,
       "score": 5.38,
       "rank_basis": "scouted",
       "rank_why": "Smart search for big catalogs. Built for large stores, priced to match."
     },
     {
       "name": "Kling AI",
-      "domain": "klingai.com",
+      "domain": "kling.ai",
       "category": "Video Generation",
       "description": "A video generator known for realistic motion and a generous free tier.",
       "cool_fact": "Its Omni mode can lip-sync two different characters in one scene, each mouth matched to its own audio track.",
-      "url": "https://klingai.com/",
+      "url": "https://kling.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-01",
@@ -1844,7 +1874,7 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 230,
+      "rank": 229,
       "score": 5.25,
       "rank_basis": "tested",
       "rank_why": "Builds real apps from plain English, then charges you for every rebuild while it fixes its own bugs."
@@ -1889,7 +1919,7 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 238,
+      "rank": 237,
       "score": 4.88,
       "rank_basis": "scouted",
       "rank_why": "Bulk contract review for enterprises. Mighty, and nowhere near a solo budget."
@@ -2061,11 +2091,11 @@
     },
     {
       "name": "Monarch Money",
-      "domain": "monarchmoney.com",
+      "domain": "monarch.com",
       "category": "Personal Finance",
       "description": "A budgeting and financial tracking app that gives a single clear view of spending, saving, and net worth.",
       "cool_fact": "Built to give a full household financial picture in one dashboard, not just a single account view.",
-      "url": "https://www.monarchmoney.com/",
+      "url": "https://www.monarch.com/",
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-01",
@@ -2174,25 +2204,10 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 219,
+      "rank": 218,
       "score": 5.75,
       "rank_basis": "scouted",
       "rank_why": "Psychology-based coaching that works for some. Subscription-heavy and not cheap for what it is."
-    },
-    {
-      "name": "NotebookLM",
-      "domain": "notebooklm.google",
-      "category": "Research & Knowledge",
-      "description": "Google's source-grounded AI notebook; free tier covers 100 notebooks and 50 chats a day.",
-      "cool_fact": "Refuses to answer from general knowledge, every response is grounded in the documents you actually upload.",
-      "url": "https://notebooklm.google/",
-      "reviewed_on_solosgems": true,
-      "pricing": "free",
-      "date_added": "2026-08-01",
-      "rank": 3,
-      "score": 8.88,
-      "rank_basis": "tested",
-      "rank_why": "Free, grounded in your own sources, and hard to make hallucinate. The best-value scholar in the entire realm."
     },
     {
       "name": "Notion AI",
@@ -2204,7 +2219,7 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 222,
+      "rank": 221,
       "score": 5.62,
       "rank_basis": "tested",
       "rank_why": "Clever, but now locked behind the $20/user Business plan. A good spell priced like a rare one."
@@ -2369,7 +2384,7 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 241,
+      "rank": 240,
       "score": 4.5,
       "rank_basis": "scouted",
       "rank_why": "A recruiting assistant built for hiring hundreds. Irrelevant for a party of one."
@@ -2399,7 +2414,7 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 231,
+      "rank": 230,
       "score": 5.25,
       "rank_basis": "tested",
       "rank_why": "Cited answers are nice. Paying extra for them when the free tier and your other chatbots already do most of it is less nice."
@@ -2457,7 +2472,7 @@
       "cool_fact": "It was built by former Wunderlist founders specifically to fix the parts of pitch decks that get stuck in email attachments and version-numbered filenames.",
       "url": "https://pitch.com/",
       "reviewed_on_solosgems": false,
-      "pricing": "paid",
+      "pricing": "free",
       "date_added": "2026-08-19",
       "rank": 132,
       "score": 7.12,
@@ -2504,7 +2519,7 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 218,
+      "rank": 217,
       "score": 5.75,
       "rank_basis": "scouted",
       "rank_why": "Texting, reviews, and lead follow-up for local services. Strong tools, sales-call pricing."
@@ -2684,7 +2699,7 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 224,
+      "rank": 223,
       "score": 5.62,
       "rank_basis": "scouted",
       "rank_why": "ATS and CRM for recruitment agencies. Solid for that exact guild, nobody else."
@@ -2744,7 +2759,7 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 233,
+      "rank": 232,
       "score": 5.12,
       "rank_basis": "scouted",
       "rank_why": "Ethical, consent-based voice cloning for studios. Admirable, and studio-priced."
@@ -2781,11 +2796,11 @@
     },
     {
       "name": "Riverside.fm",
-      "domain": "riverside.fm",
+      "domain": "riverside.com",
       "category": "Podcasting & Video Editing",
       "description": "Studio-quality remote podcast and video recording with local-device recording.",
       "cool_fact": "Records each guest locally at full quality, so a bad internet connection doesn't degrade the final file.",
-      "url": "https://riverside.fm/",
+      "url": "https://riverside.com/",
       "reviewed_on_solosgems": true,
       "pricing": "free",
       "date_added": "2026-08-01",
@@ -2793,21 +2808,6 @@
       "score": 6.38,
       "rank_basis": "tested",
       "rank_why": "Studio-quality remote recording, but you pay studio-ish prices for the full kit."
-    },
-    {
-      "name": "Robin AI",
-      "domain": "robinai.com",
-      "category": "Legal",
-      "description": "An AI contract review and negotiation assistant used by legal and business teams to speed up redlining.",
-      "cool_fact": "Can compare a contract against a company's own playbook and flag every clause that deviates from it.",
-      "url": "https://www.robinai.com/",
-      "reviewed_on_solosgems": false,
-      "pricing": "paid",
-      "date_added": "2026-08-01",
-      "rank": 215,
-      "score": 5.88,
-      "rank_basis": "scouted",
-      "rank_why": "Speeds up redlining for legal teams. Useful, mostly sold to companies with legal departments."
     },
     {
       "name": "Rocket Money",
@@ -2841,11 +2841,11 @@
     },
     {
       "name": "Runway",
-      "domain": "runwayml.com",
+      "domain": "runway.com",
       "category": "Video Generation",
       "description": "AI video generation and editing for solo creators, from $15/month.",
       "cool_fact": "Its Act-Two feature captures a real performance and maps it onto a generated character.",
-      "url": "https://runwayml.com/",
+      "url": "https://runway.com/",
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
@@ -2909,7 +2909,7 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 220,
+      "rank": 219,
       "score": 5.62,
       "rank_basis": "tested",
       "rank_why": "Possibly the most powerful SEO grimoire ever written. Also priced like one, which sinks it for solo adventurers."
@@ -3179,7 +3179,7 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 225,
+      "rank": 224,
       "score": 5.5,
       "rank_basis": "tested",
       "rank_why": "Polished avatar videos, but the uncanny valley and the price tag both loom large."
@@ -3189,7 +3189,7 @@
       "domain": "tabnine.com",
       "category": "Coding & Dev Tools",
       "description": "An AI code-completion tool that can run fully privately, on your own infrastructure or offline.",
-      "cool_fact": "One of the earliest AI coding tools on the market, it predates most of today's AI-native code editors.",
+      "cool_fact": "Acquired by Tricentis in July 2026 and folded into its enterprise testing platform, so it is now sold mainly to large companies.",
       "url": "https://www.tabnine.com/",
       "reviewed_on_solosgems": false,
       "pricing": "paid",
@@ -3314,7 +3314,7 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-19",
-      "rank": 240,
+      "rank": 239,
       "score": 4.62,
       "rank_basis": "scouted",
       "rank_why": "The academy's official plagiarism hound. Powerful, but sold only to institutions, so solo adventurers can't even get a leash."
@@ -3329,7 +3329,7 @@
       "reviewed_on_solosgems": true,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 217,
+      "rank": 216,
       "score": 5.75,
       "rank_basis": "tested",
       "rank_why": "Beautiful, conversational forms. The free tier is stingy and the AI is a minor enchantment."
@@ -3366,11 +3366,11 @@
     },
     {
       "name": "v0",
-      "domain": "v0.dev",
+      "domain": "v0.app",
       "category": "Coding & Dev Tools",
       "description": "Vercel's AI tool that generates real, working frontend UI code from a prompt or screenshot, free or from $30/user/month.",
       "cool_fact": "Generated components deploy straight to Vercel's hosting with zero extra setup.",
-      "url": "https://v0.dev/",
+      "url": "https://v0.app/",
       "reviewed_on_solosgems": true,
       "pricing": "free",
       "date_added": "2026-08-01",
@@ -3449,7 +3449,7 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-19",
-      "rank": 228,
+      "rank": 227,
       "score": 5.38,
       "rank_basis": "scouted",
       "rank_why": "Unmasks anonymous website visitors for sales teams. Clever, priced for teams with quotas."
@@ -3494,7 +3494,7 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 216,
+      "rank": 215,
       "score": 5.88,
       "rank_basis": "scouted",
       "rank_why": "A wearable that coaches your sleep and strain. Good data, but the subscription is mandatory and steep."
@@ -3513,21 +3513,6 @@
       "score": 7.88,
       "rank_basis": "scouted",
       "rank_why": "Cross-platform dictation that learns how you write, with a free tier. A friendly rival to Wispr Flow."
-    },
-    {
-      "name": "Windsurf",
-      "domain": "windsurf.com",
-      "category": "Coding & Dev Tools",
-      "description": "An AI-powered code editor whose Cascade agent handles multi-step coding tasks while you stay in the loop.",
-      "cool_fact": "Now owned by Cognition, the same company behind the autonomous coding agent Devin.",
-      "url": "https://windsurf.com/",
-      "reviewed_on_solosgems": false,
-      "pricing": "free",
-      "date_added": "2026-08-01",
-      "rank": 49,
-      "score": 8.0,
-      "rank_basis": "scouted",
-      "rank_why": "A capable agentic code editor with a free tier. A real rival to Cursor, with a bumpier ownership history."
     },
     {
       "name": "Wispr Flow",
@@ -3569,7 +3554,7 @@
       "reviewed_on_solosgems": false,
       "pricing": "paid",
       "date_added": "2026-08-01",
-      "rank": 237,
+      "rank": 236,
       "score": 4.88,
       "rank_basis": "scouted",
       "rank_why": "Elite cloud security for big kingdoms. Brilliant, and as reachable for a solo founder as the royal treasury."

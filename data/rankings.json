@@ -1,7 +1,7 @@
 {
   "methodology": "Score out of 10: the average of four equally weighted criteria, value for a solo operator relative to price, real-world capability, ease of use / setup friction, and how safely you can trial it. 'tested' tools were tested hands-on by Solos Gems; 'scouted' tools were scored from public pricing, documentation, and features. previous_rank is the tool's rank in the earlier 51-tool list, where it had one. Nothing scores a 10.",
   "last_updated": "2026-10-06",
-  "count": 242,
+  "count": 241,
   "tools": [
     {
       "rank": 1,
@@ -34,7 +34,7 @@
     {
       "rank": 3,
       "slug": "notebooklm",
-      "name": "NotebookLM",
+      "name": "Gemini Notebook",
       "category": "Research & Knowledge",
       "score": 8.88,
       "basis": "tested",
@@ -681,7 +681,7 @@
     {
       "rank": 49,
       "slug": "windsurf",
-      "name": "Windsurf",
+      "name": "Devin Desktop",
       "category": "Coding & Dev Tools",
       "score": 8.0,
       "basis": "scouted",
@@ -3006,20 +3006,6 @@
     },
     {
       "rank": 215,
-      "slug": "robin-ai",
-      "name": "Robin AI",
-      "category": "Legal",
-      "score": 5.88,
-      "basis": "scouted",
-      "value_score": 4.5,
-      "capability_score": 7.5,
-      "ease_score": 7.0,
-      "trial_score": 4.5,
-      "previous_rank": null,
-      "why": "Speeds up redlining for legal teams. Useful, mostly sold to companies with legal departments."
-    },
-    {
-      "rank": 216,
       "slug": "whoop",
       "name": "Whoop",
       "category": "Health & Fitness",
@@ -3033,7 +3019,7 @@
       "why": "A wearable that coaches your sleep and strain. Good data, but the subscription is mandatory and steep."
     },
     {
-      "rank": 217,
+      "rank": 216,
       "slug": "typeform",
       "name": "Typeform",
       "category": "Forms & Surveys",
@@ -3047,7 +3033,7 @@
       "why": "Beautiful, conversational forms. The free tier is stingy and the AI is a minor enchantment."
     },
     {
-      "rank": 218,
+      "rank": 217,
       "slug": "podium",
       "name": "Podium",
       "category": "Local Business",
@@ -3061,7 +3047,7 @@
       "why": "Texting, reviews, and lead follow-up for local services. Strong tools, sales-call pricing."
     },
     {
-      "rank": 219,
+      "rank": 218,
       "slug": "noom",
       "name": "Noom",
       "category": "Health & Fitness",
@@ -3075,7 +3061,7 @@
       "why": "Psychology-based coaching that works for some. Subscription-heavy and not cheap for what it is."
     },
     {
-      "rank": 220,
+      "rank": 219,
       "slug": "semrush",
       "name": "Semrush",
       "category": "SEO",
@@ -3089,7 +3075,7 @@
       "why": "Possibly the most powerful SEO grimoire ever written. Also priced like one, which sinks it for solo adventurers."
     },
     {
-      "rank": 221,
+      "rank": 220,
       "slug": "apollo-io",
       "name": "Apollo.io",
       "category": "Sales & Prospecting",
@@ -3103,7 +3089,7 @@
       "why": "A huge lead database with real capability, priced per seat and easy to waste credits on."
     },
     {
-      "rank": 222,
+      "rank": 221,
       "slug": "notion-ai",
       "name": "Notion AI",
       "category": "Productivity & Notes",
@@ -3117,7 +3103,7 @@
       "why": "Clever, but now locked behind the $20/user Business plan. A good spell priced like a rare one."
     },
     {
-      "rank": 223,
+      "rank": 222,
       "slug": "birdeye",
       "name": "Birdeye",
       "category": "Local Business",
@@ -3131,7 +3117,7 @@
       "why": "Reputation management for local businesses that automates reviews. Effective, pricey for a single shop."
     },
     {
-      "rank": 224,
+      "rank": 223,
       "slug": "recruiterflow",
       "name": "Recruiterflow",
       "category": "HR & Recruiting",
@@ -3145,7 +3131,7 @@
       "why": "ATS and CRM for recruitment agencies. Solid for that exact guild, nobody else."
     },
     {
-      "rank": 225,
+      "rank": 224,
       "slug": "synthesia",
       "name": "Synthesia",
       "category": "Video Generation",
@@ -3159,7 +3145,7 @@
       "why": "Polished avatar videos, but the uncanny valley and the price tag both loom large."
     },
     {
-      "rank": 226,
+      "rank": 225,
       "slug": "devin",
       "name": "Devin",
       "category": "Coding & Dev Tools",
@@ -3173,7 +3159,7 @@
       "why": "An autonomous AI engineer that's impressive and expensive. A hireling priced for guilds, not solo adventurers."
     },
     {
-      "rank": 227,
+      "rank": 226,
       "slug": "klevu",
       "name": "Klevu",
       "category": "E-commerce",
@@ -3187,7 +3173,7 @@
       "why": "Smart search for big catalogs. Built for large stores, priced to match."
     },
     {
-      "rank": 228,
+      "rank": 227,
       "slug": "warmly",
       "name": "Warmly",
       "category": "Sales & Prospecting",
@@ -3201,7 +3187,7 @@
       "why": "Unmasks anonymous website visitors for sales teams. Clever, priced for teams with quotas."
     },
     {
-      "rank": 229,
+      "rank": 228,
       "slug": "bland-ai",
       "name": "Bland AI",
       "category": "AI Phone Agents",
@@ -3215,7 +3201,7 @@
       "why": "Impressive voice agents for developers, billed by the minute, with little for a non-coder to hold onto."
     },
     {
-      "rank": 230,
+      "rank": 229,
       "slug": "lovable",
       "name": "Lovable",
       "category": "Coding & Dev Tools",
@@ -3229,7 +3215,7 @@
       "why": "Builds real apps from plain English, then charges you for every rebuild while it fixes its own bugs."
     },
     {
-      "rank": 231,
+      "rank": 230,
       "slug": "perplexity-pro",
       "name": "Perplexity Pro",
       "category": "AI Assistants",
@@ -3243,7 +3229,7 @@
       "why": "Cited answers are nice. Paying extra for them when the free tier and your other chatbots already do most of it is less nice."
     },
     {
-      "rank": 232,
+      "rank": 231,
       "slug": "harvey",
       "name": "Harvey",
       "category": "Legal",
@@ -3257,7 +3243,7 @@
       "why": "Elite legal AI for big law firms. Powerful, and you'll need a firm with a moat to get through the gate."
     },
     {
-      "rank": 233,
+      "rank": 232,
       "slug": "respeecher",
       "name": "Respeecher",
       "category": "Voice & Music",
@@ -3271,7 +3257,7 @@
       "why": "Ethical, consent-based voice cloning for studios. Admirable, and studio-priced."
     },
     {
-      "rank": 234,
+      "rank": 233,
       "slug": "chattermill",
       "name": "Chattermill",
       "category": "Forms & Surveys",
@@ -3285,7 +3271,7 @@
       "why": "Ties feedback to revenue for big companies. Clever, and completely sized for enterprise kingdoms."
     },
     {
-      "rank": 235,
+      "rank": 234,
       "slug": "ironclad",
       "name": "Ironclad",
       "category": "Legal",
@@ -3299,7 +3285,7 @@
       "why": "Contract lifecycle management for large legal teams. Overkill for a solo founder's handful of agreements."
     },
     {
-      "rank": 236,
+      "rank": 235,
       "slug": "harness-ai",
       "name": "Harness AI",
       "category": "Coding & Dev Tools",
@@ -3313,7 +3299,7 @@
       "why": "Serious CI/CD automation for engineering teams. Overkill and overpriced for a party of one."
     },
     {
-      "rank": 237,
+      "rank": 236,
       "slug": "wiz",
       "name": "Wiz",
       "category": "Cybersecurity",
@@ -3327,7 +3313,7 @@
       "why": "Elite cloud security for big kingdoms. Brilliant, and as reachable for a solo founder as the royal treasury."
     },
     {
-      "rank": 238,
+      "rank": 237,
       "slug": "luminance",
       "name": "Luminance",
       "category": "Legal",
@@ -3341,7 +3327,7 @@
       "why": "Bulk contract review for enterprises. Mighty, and nowhere near a solo budget."
     },
     {
-      "rank": 239,
+      "rank": 238,
       "slug": "gong",
       "name": "Gong",
       "category": "Sales & Prospecting",
@@ -3355,7 +3341,7 @@
       "why": "The sales-call oracle for big revenue teams. Excellent, and entirely enterprise-priced."
     },
     {
-      "rank": 240,
+      "rank": 239,
       "slug": "turnitin",
       "name": "Turnitin",
       "category": "AI Detection & Plagiarism",
@@ -3369,7 +3355,7 @@
       "why": "The academy's official plagiarism hound. Powerful, but sold only to institutions, so solo adventurers can't even get a leash."
     },
     {
-      "rank": 241,
+      "rank": 240,
       "slug": "paradox",
       "name": "Paradox",
       "category": "HR & Recruiting",
@@ -3383,7 +3369,7 @@
       "why": "A recruiting assistant built for hiring hundreds. Irrelevant for a party of one."
     },
     {
-      "rank": 242,
+      "rank": 241,
       "slug": "hirevue",
       "name": "HireVue",
       "category": "HR & Recruiting",
