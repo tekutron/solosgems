@@ -164,6 +164,14 @@ return Response.redirect(redirectUrl.toString(), 301);
 }
 }
 
+// HTML pages listed in assets.run_worker_first reach this handler (so the
+// www and /index.html redirects above apply to them). Serve them, and any
+// other real asset, from the ASSETS binding before falling back to the 404.
+if (request.method === "GET" || request.method === "HEAD") {
+const asset = await env.ASSETS.fetch(request);
+if (asset.status !== 404) return asset;
+}
+
 const notFound = await env.ASSETS.fetch(new Request(new URL("/404.html", request.url), request));
 if (notFound.ok) {
 return new Response(notFound.body, { status: 404, headers: notFound.headers });

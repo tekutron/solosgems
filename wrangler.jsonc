@@ -8,7 +8,7 @@
 "directory": "./",
 "binding": "ASSETS",
 "html_handling": "none",
-"run_worker_first": ["/index.html"]
+"run_worker_first": ["/404.html", "/about.html", "/deathstack.html", "/embed.html", "/embed/top10.html", "/game.html", "/index.html", "/news.html", "/privacy.html", "/realms.html", "/state-of-ai-tools.html", "/submit.html", "/submitted.html", "/terms.html", "/thanks.html", "/vault.html"]
 },
 "kv_namespaces": [
 {
