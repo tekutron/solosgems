@@ -2,7 +2,7 @@
 
 > Solos Gems is a D&D-flavored AI tools database: the Herald's Hub at https://solosgems.com/ lists 241 AI tools across every major category, each with a plain-English summary, a retro video game style comic and caption, and a direct link to the real product. Every tool carries a score and a rank on one cross-category list (0-10, the average of value for price, real-world capability, ease of use, and trial safety), shown in its database row with a short note on why it landed there. 51 tools were tested hands-on; the rest are scouted from public pricing and features, and are labeled that way. Nothing scores a 10. Some links are affiliate links (disclosed on the About page); that never changes which tools are covered or what the verdict says. Standalone review pages (/reviews/...) were retired in September 2026 and now redirect to the matching database row.
 
-Last updated: 2026-10-06.
+Last updated: 2026-10-08.
 
 ## Ranked tools (#1-241, every tool in the database, each links to its row)
 
@@ -55,8 +55,8 @@ Tested = tested hands-on by Solos Gems. Scouted = scored from public pricing, do
 - [Reclaim.ai](https://solosgems.com/#tool-reclaim-ai): #45, 8/10, Tested. Defends your focus time like a loyal shield-bearer, with a free tier that actually covers a solo calendar.
 - [Flux](https://solosgems.com/#tool-flux): #46, 8/10, Scouted. Gorgeous photorealism with open-weight versions you can run yourself. Top-tier art, a bit fiddly to wield.
 - [Cline](https://solosgems.com/#tool-cline): #47, 8/10, Scouted. Free, open source, and no vendor lock-in. Model costs are on you, and it assumes you're comfortable reading code.
-- [Udio](https://solosgems.com/#tool-udio): #48, 8/10, Scouted. Coherent songs with separable tracks and a free tier. A serious rival to Suno.
-- [Devin Desktop](https://solosgems.com/#tool-windsurf): #49, 8/10, Scouted. A capable agentic code editor with a free tier. A real rival to Cursor, with a bumpier ownership history.
+- [Devin Desktop](https://solosgems.com/#tool-windsurf): #48, 8/10, Scouted. A capable agentic code editor with a free tier. A real rival to Cursor, with a bumpier ownership history.
+- [Udio](https://solosgems.com/#tool-udio): #49, 8/10, Scouted. Coherent songs with separable tracks and a free tier. A serious rival to Suno.
 - [Auphonic](https://solosgems.com/#tool-auphonic): #50, 8/10, Scouted. Levels and cleans podcast audio automatically, with free monthly hours. Quietly essential.
 - [Character.AI](https://solosgems.com/#tool-character-ai): #51, 8/10, Scouted. Free and endlessly entertaining for roleplay and storytelling. Not built for real work, and safety concerns have reshaped it.
 - [tl;dv](https://solosgems.com/#tool-tldv): #52, 7.88/10, Tested. Unlimited free recording and transcription. The only real cap is on AI summaries, which is a fair trade.

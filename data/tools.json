@@ -1,6 +1,6 @@
 {
   "source": "https://solosgems.com/",
-  "generated": "2026-10-06",
+  "generated": "2026-10-08",
   "count": 241,
   "license": "Free to use with attribution to Solos Gems (solosgems.com).",
   "tools": [
@@ -824,7 +824,7 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": 49,
+      "rank": 48,
       "score": 8.0,
       "rank_basis": "scouted",
       "rank_why": "A capable agentic code editor with a free tier. A real rival to Cursor, with a bumpier ownership history."
@@ -3344,7 +3344,7 @@
       "reviewed_on_solosgems": false,
       "pricing": "free",
       "date_added": "2026-08-01",
-      "rank": 48,
+      "rank": 49,
       "score": 8.0,
       "rank_basis": "scouted",
       "rank_why": "Coherent songs with separable tracks and a free tier. A serious rival to Suno."

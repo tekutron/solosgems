@@ -5,3 +5,5 @@ worker.js
 *.py
 README.md
 functions
+tools
+_headers

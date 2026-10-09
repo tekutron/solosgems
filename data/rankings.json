@@ -1,6 +1,6 @@
 {
   "methodology": "Score out of 10: the average of four equally weighted criteria, value for a solo operator relative to price, real-world capability, ease of use / setup friction, and how safely you can trial it. 'tested' tools were tested hands-on by Solos Gems; 'scouted' tools were scored from public pricing, documentation, and features. previous_rank is the tool's rank in the earlier 51-tool list, where it had one. Nothing scores a 10.",
-  "last_updated": "2026-10-06",
+  "last_updated": "2026-10-08",
   "count": 241,
   "tools": [
     {
@@ -666,20 +666,6 @@
     },
     {
       "rank": 48,
-      "slug": "udio",
-      "name": "Udio",
-      "category": "Voice & Music",
-      "score": 8.0,
-      "basis": "scouted",
-      "value_score": 7.5,
-      "capability_score": 8.5,
-      "ease_score": 8.0,
-      "trial_score": 8.0,
-      "previous_rank": null,
-      "why": "Coherent songs with separable tracks and a free tier. A serious rival to Suno."
-    },
-    {
-      "rank": 49,
       "slug": "windsurf",
       "name": "Devin Desktop",
       "category": "Coding & Dev Tools",
@@ -691,6 +677,20 @@
       "trial_score": 8.0,
       "previous_rank": null,
       "why": "A capable agentic code editor with a free tier. A real rival to Cursor, with a bumpier ownership history."
+    },
+    {
+      "rank": 49,
+      "slug": "udio",
+      "name": "Udio",
+      "category": "Voice & Music",
+      "score": 8.0,
+      "basis": "scouted",
+      "value_score": 7.5,
+      "capability_score": 8.5,
+      "ease_score": 8.0,
+      "trial_score": 8.0,
+      "previous_rank": null,
+      "why": "Coherent songs with separable tracks and a free tier. A serious rival to Suno."
     },
     {
       "rank": 50,
