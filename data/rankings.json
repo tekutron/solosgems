@@ -1,7 +1,7 @@
 {
   "methodology": "Score out of 10: the average of four equally weighted criteria, value for a solo operator relative to price, real-world capability, ease of use / setup friction, and how safely you can trial it. 'tested' tools were tested hands-on by Solos Gems; 'scouted' tools were scored from public pricing, documentation, and features. previous_rank is the tool's rank in the earlier 51-tool list, where it had one. Nothing scores a 10.",
   "last_updated": "2026-10-09",
-  "count": 240,
+  "count": 242,
   "tools": [
     {
       "rank": 1,
@@ -1297,6 +1297,20 @@
     },
     {
       "rank": 93,
+      "slug": "genpage",
+      "name": "GenPage",
+      "category": "Marketing & Social Media",
+      "score": 7.5,
+      "basis": "scouted",
+      "value_score": 7.5,
+      "capability_score": 7.0,
+      "ease_score": 7.5,
+      "trial_score": 8.0,
+      "previous_rank": null,
+      "why": "Real free plan and a tidy trick for per-visitor pages, though the best toys (custom domains, API) sit behind the $79 Pro door."
+    },
+    {
+      "rank": 94,
       "slug": "missive",
       "name": "Missive",
       "category": "Email & Messaging",
@@ -1310,7 +1324,7 @@
       "why": "Shared inbox, chat, and tasks in one thread, with a free plan for tiny teams. Practical and underrated."
     },
     {
-      "rank": 94,
+      "rank": 95,
       "slug": "myfitnesspal",
       "name": "MyFitnessPal",
       "category": "Health & Fitness",
@@ -1324,7 +1338,7 @@
       "why": "Photo meal logging and a giant food database with a free tier. Useful, though the best tricks are Premium."
     },
     {
-      "rank": 95,
+      "rank": 96,
       "slug": "quizlet",
       "name": "Quizlet",
       "category": "Education & Tutoring",
@@ -1338,7 +1352,7 @@
       "why": "Easy flashcards and practice tests from your notes. The AI is useful, the best bits sit behind Plus."
     },
     {
-      "rank": 96,
+      "rank": 97,
       "slug": "clickup-ai",
       "name": "ClickUp Brain",
       "category": "Project Management",
@@ -1352,7 +1366,7 @@
       "why": "Smart oracle, cluttered war table. Capable when you find the right lever, but there are a lot of levers."
     },
     {
-      "rank": 97,
+      "rank": 98,
       "slug": "craft",
       "name": "Craft",
       "category": "Productivity & Notes",
@@ -1366,7 +1380,7 @@
       "why": "Lovely notes and docs with helpful AI. More polish than raw power."
     },
     {
-      "rank": 98,
+      "rank": 99,
       "slug": "calendly",
       "name": "Calendly",
       "category": "Scheduling & Time",
@@ -1381,7 +1395,7 @@
       "badge": "Easiest Start"
     },
     {
-      "rank": 99,
+      "rank": 100,
       "slug": "durable",
       "name": "Durable",
       "category": "Website & App Builders",
@@ -1395,7 +1409,7 @@
       "why": "A website, CRM, and booking calendar in one quick spell. Not deep, but very fast to stand up."
     },
     {
-      "rank": 100,
+      "rank": 101,
       "slug": "numerous-ai",
       "name": "Numerous.ai",
       "category": "Data & Analytics",
@@ -1409,7 +1423,7 @@
       "why": "A small, cheap spell inside Google Sheets that does one useful thing very well."
     },
     {
-      "rank": 101,
+      "rank": 102,
       "slug": "fyxer-ai",
       "name": "Fyxer AI",
       "category": "Email & Messaging",
@@ -1423,7 +1437,7 @@
       "why": "Sorts your inbox and drafts replies in your voice, with a free trial. A promising inbox squire."
     },
     {
-      "rank": 102,
+      "rank": 103,
       "slug": "jamie",
       "name": "Jamie",
       "category": "Meetings & Transcription",
@@ -1437,7 +1451,7 @@
       "why": "Bot-free notes captured locally, in person or online. Discreet and capable, smaller free allowance."
     },
     {
-      "rank": 103,
+      "rank": 104,
       "slug": "krisp",
       "name": "Krisp",
       "category": "Meetings & Transcription",
@@ -1451,7 +1465,7 @@
       "why": "Silences every barking dog on both ends of the call. Excellent at its trick, paid after a short trial."
     },
     {
-      "rank": 104,
+      "rank": 105,
       "slug": "langchain",
       "name": "LangChain",
       "category": "Coding & Dev Tools",
@@ -1465,7 +1479,7 @@
       "why": "Free, open-source plumbing for AI apps. Mighty if you code, a maze of pipes if you don't."
     },
     {
-      "rank": 105,
+      "rank": 106,
       "slug": "pandadoc",
       "name": "PandaDoc",
       "category": "Legal",
@@ -1479,7 +1493,7 @@
       "why": "Proposals, quotes, and e-signatures with a free e-sign tier. A tidy deal-closing satchel."
     },
     {
-      "rank": 106,
+      "rank": 107,
       "slug": "prowritingaid",
       "name": "ProWritingAid",
       "category": "Writing & Copywriting",
@@ -1493,7 +1507,7 @@
       "why": "Deep style and grammar checks for long manuscripts. A novelist's editor with a free tier."
     },
     {
-      "rank": 107,
+      "rank": 108,
       "slug": "alttext-ai",
       "name": "AltText.ai",
       "category": "Accessibility",
@@ -1507,7 +1521,7 @@
       "why": "Writes alt text for every image so your site is readable for everyone. Narrow, useful, and kind."
     },
     {
-      "rank": 108,
+      "rank": 109,
       "slug": "composer",
       "name": "Composer",
       "category": "Investing & Markets",
@@ -1521,7 +1535,7 @@
       "why": "Build and backtest trading strategies without code, free to try. Remember: the dice do not care about your backtest."
     },
     {
-      "rank": 109,
+      "rank": 110,
       "slug": "fitbod",
       "name": "Fitbod",
       "category": "Health & Fitness",
@@ -1535,7 +1549,7 @@
       "why": "Adapts each workout to how you actually trained. A helpful squire for the gym, paid after a few sessions."
     },
     {
-      "rank": 110,
+      "rank": 111,
       "slug": "virtual-staging-ai",
       "name": "Virtual Staging AI",
       "category": "Real Estate",
@@ -1549,7 +1563,7 @@
       "why": "Furnishes empty rooms for a fraction of real staging. Fast and cheap per photo."
     },
     {
-      "rank": 111,
+      "rank": 112,
       "slug": "you-com",
       "name": "You.com",
       "category": "AI Search & Browsing",
@@ -1563,7 +1577,7 @@
       "why": "Lets you pick which model answers. Flexible, but outshone by the bigger search familiars."
     },
     {
-      "rank": 112,
+      "rank": 113,
       "slug": "epique-ai",
       "name": "Epique AI",
       "category": "Real Estate",
@@ -1577,7 +1591,7 @@
       "why": "AI listing descriptions and emails built for real estate agents. Narrow, handy, affordable."
     },
     {
-      "rank": 113,
+      "rank": 114,
       "slug": "gptzero",
       "name": "GPTZero",
       "category": "AI Detection & Plagiarism",
@@ -1591,7 +1605,21 @@
       "why": "Easy and free to start, beloved by teachers. Like every AI detector, it can accuse an innocent scroll."
     },
     {
-      "rank": 114,
+      "rank": 115,
+      "slug": "rill-browser",
+      "name": "Rill Browser",
+      "category": "AI Search & Browsing",
+      "score": 7.38,
+      "basis": "scouted",
+      "value_score": 8.0,
+      "capability_score": 6.5,
+      "ease_score": 7.0,
+      "trial_score": 8.0,
+      "previous_rank": null,
+      "why": "Free to enter and lets your existing familiars ride along, but it is a 0.1 beta, Apple-silicon-only, and useless without a Claude or Codex plan."
+    },
+    {
+      "rank": 116,
       "slug": "bonsai",
       "name": "Bonsai",
       "category": "CRM & Client Management",
@@ -1605,7 +1633,7 @@
       "why": "Contracts, invoices, and scheduling for freelancers in one tidy pouch. Dependable, not flashy."
     },
     {
-      "rank": 115,
+      "rank": 117,
       "slug": "heygen",
       "name": "HeyGen",
       "category": "Video Generation",
@@ -1619,7 +1647,7 @@
       "why": "The best lip-sync and video translation in town. Avatar magic that costs real gold."
     },
     {
-      "rank": 116,
+      "rank": 118,
       "slug": "bolt-new",
       "name": "Bolt.new",
       "category": "Coding & Dev Tools",
@@ -1633,7 +1661,7 @@
       "why": "Spins up full-stack apps in the browser. Fun and fast, but tokens drain quickly once the bugs start."
     },
     {
-      "rank": 117,
+      "rank": 119,
       "slug": "figma-make",
       "name": "Figma Make",
       "category": "Presentations & Design",
@@ -1647,7 +1675,7 @@
       "why": "Prompt-to-prototype that respects your real design system. Great inside Figma, gated by its plans."
     },
     {
-      "rank": 118,
+      "rank": 120,
       "slug": "grok",
       "name": "Grok",
       "category": "AI Assistants",
@@ -1661,7 +1689,7 @@
       "why": "Sharp and plugged into X's live firehose, but the best features sit behind paid tiers and its chaotic alignment is a feature, apparently."
     },
     {
-      "rank": 119,
+      "rank": 121,
       "slug": "higgsfield",
       "name": "Higgsfield",
       "category": "Video Generation",
@@ -1675,7 +1703,7 @@
       "why": "Cinematic camera moves on demand. Gorgeous presets, credit-hungry."
     },
     {
-      "rank": 120,
+      "rank": 122,
       "slug": "kagi",
       "name": "Kagi",
       "category": "AI Search & Browsing",
@@ -1689,7 +1717,7 @@
       "why": "Ad-free search you pay for, which is refreshing and also, well, paying for search. Worth it for the devoted."
     },
     {
-      "rank": 121,
+      "rank": 123,
       "slug": "genspark",
       "name": "Genspark",
       "category": "AI Search & Browsing",
@@ -1703,7 +1731,7 @@
       "why": "A Super Agent that researches and builds decks for you. Impressive when it works, credit-hungry when it doesn't."
     },
     {
-      "rank": 122,
+      "rank": 124,
       "slug": "gumloop",
       "name": "Gumloop",
       "category": "Automation & Workflow",
@@ -1717,7 +1745,7 @@
       "why": "A friendly visual canvas for AI automations. Easier than Zapier for AI-heavy flows, younger and less proven."
     },
     {
-      "rank": 123,
+      "rank": 125,
       "slug": "async",
       "name": "Async",
       "category": "Podcasting & Video Editing",
@@ -1731,7 +1759,7 @@
       "why": "Recording, editing, and AI cleanup in the browser with a free tier. A whole studio in one tab."
     },
     {
-      "rank": 124,
+      "rank": 126,
       "slug": "ocoya",
       "name": "Ocoya",
       "category": "Marketing & Social Media",
@@ -1745,7 +1773,7 @@
       "why": "AI captions and scheduling across 30+ platforms with a free tier. Broad reach, lighter polish."
     },
     {
-      "rank": 125,
+      "rank": 127,
       "slug": "uizard",
       "name": "Uizard",
       "category": "Presentations & Design",
@@ -1759,7 +1787,7 @@
       "why": "Turns sketches into clickable mockups with a free tier. Friendly for non-designers."
     },
     {
-      "rank": 126,
+      "rank": 128,
       "slug": "soundraw",
       "name": "Soundraw",
       "category": "Voice & Music",
@@ -1773,7 +1801,7 @@
       "why": "Royalty-free music shaped by mood and length. A dependable background bard."
     },
     {
-      "rank": 127,
+      "rank": 129,
       "slug": "loom",
       "name": "Loom",
       "category": "Meetings & Transcription",
@@ -1787,7 +1815,7 @@
       "why": "Effortless to record and share, docked because the free tier caps how long and how many videos you get."
     },
     {
-      "rank": 128,
+      "rank": 130,
       "slug": "suno",
       "name": "Suno",
       "category": "Voice & Music",
@@ -1801,7 +1829,7 @@
       "why": "Writes full songs with vocals from a sentence, and the free tier is fun. Commercial rights require gold."
     },
     {
-      "rank": 129,
+      "rank": 131,
       "slug": "murf-ai",
       "name": "Murf AI",
       "category": "Voice & Music",
@@ -1815,7 +1843,7 @@
       "why": "Polished voiceovers for videos and slides. Easy and reliable, outclassed by ElevenLabs on range."
     },
     {
-      "rank": 130,
+      "rank": 132,
       "slug": "cleanvoice",
       "name": "Cleanvoice",
       "category": "Podcasting & Video Editing",
@@ -1829,7 +1857,7 @@
       "why": "Strips filler words and stutters from raw audio. Narrow, effective, mostly paid."
     },
     {
-      "rank": 131,
+      "rank": 133,
       "slug": "grain",
       "name": "Grain",
       "category": "Meetings & Transcription",
@@ -1843,7 +1871,7 @@
       "why": "Turns call moments into shareable clips. Nice for sales and research calls, narrower than the big notetakers."
     },
     {
-      "rank": 132,
+      "rank": 134,
       "slug": "pitch",
       "name": "Pitch",
       "category": "Presentations & Design",
@@ -1857,7 +1885,7 @@
       "why": "Collaborative decks with AI slides and a free tier. Great for teams, fine for one."
     },
     {
-      "rank": 133,
+      "rank": 135,
       "slug": "plus-ai",
       "name": "Plus AI",
       "category": "Presentations & Design",
@@ -1871,7 +1899,7 @@
       "why": "Generates slides right inside Google Slides and PowerPoint. Convenient, paid after the trial."
     },
     {
-      "rank": 134,
+      "rank": 136,
       "slug": "vanna-ai",
       "name": "Vanna AI",
       "category": "No-code / Database",
@@ -1885,7 +1913,7 @@
       "why": "Open-source text-to-SQL you build yourself. Free and flexible, if you can build it."
     },
     {
-      "rank": 135,
+      "rank": 137,
       "slug": "looka",
       "name": "Looka",
       "category": "Presentations & Design",
@@ -1899,7 +1927,7 @@
       "why": "Logo and brand kit in minutes, free to design. You pay only when you download, which is fair."
     },
     {
-      "rank": 136,
+      "rank": 138,
       "slug": "sanebox",
       "name": "Sanebox",
       "category": "Email & Messaging",
@@ -1913,7 +1941,7 @@
       "why": "Quietly sweeps newsletters and noise out of your inbox. Simple, effective, and paid after the trial."
     },
     {
-      "rank": 137,
+      "rank": 139,
       "slug": "simplified",
       "name": "Simplified",
       "category": "Marketing & Social Media",
@@ -1927,7 +1955,7 @@
       "why": "Design, writing, video, and scheduling in one bundle. Jack of many trades, master of few."
     },
     {
-      "rank": 138,
+      "rank": 140,
       "slug": "calm",
       "name": "Calm",
       "category": "Health & Fitness",
@@ -1941,7 +1969,7 @@
       "why": "Soothing, easy, and polished. The AI is a light touch on a meditation app most people use for the rain sounds."
     },
     {
-      "rank": 139,
+      "rank": 141,
       "slug": "cleo",
       "name": "Cleo",
       "category": "Personal Finance",
@@ -1955,7 +1983,7 @@
       "why": "A sassy budgeting chatbot that roasts your spending. Fun and approachable, light on depth."
     },
     {
-      "rank": 140,
+      "rank": 142,
       "slug": "hubspot-free-crm",
       "name": "HubSpot Free CRM",
       "category": "CRM & Client Management",
@@ -1969,7 +1997,7 @@
       "why": "The free tier is a sturdy keep. The AI wing is real but locked behind a toll gate that gets pricier every floor."
     },
     {
-      "rank": 141,
+      "rank": 143,
       "slug": "make",
       "name": "Make",
       "category": "Automation & Workflow",
@@ -1983,7 +2011,7 @@
       "why": "A cheaper, more flexible Zapier with a steeper learning curve. Strong value if you're willing to read the spellbook."
     },
     {
-      "rank": 142,
+      "rank": 144,
       "slug": "monarch-money",
       "name": "Monarch Money",
       "category": "Personal Finance",
@@ -1997,7 +2025,7 @@
       "why": "Clear, complete money tracking for couples and households. Paid, but many say worth it."
     },
     {
-      "rank": 143,
+      "rank": 145,
       "slug": "copilot-money",
       "name": "Copilot Money",
       "category": "Personal Finance",
@@ -2011,7 +2039,7 @@
       "why": "A beautiful budgeting app with smart categorization. Paid after the trial, Apple-first."
     },
     {
-      "rank": 144,
+      "rank": 146,
       "slug": "remodelai",
       "name": "RemodelAI",
       "category": "Interior Design",
@@ -2025,7 +2053,7 @@
       "why": "Photoreal redesigns, staging, and paint previews. Capable, mostly paid."
     },
     {
-      "rank": 145,
+      "rank": 147,
       "slug": "interior-ai",
       "name": "Interior AI",
       "category": "Interior Design",
@@ -2039,7 +2067,7 @@
       "why": "Restyles a room from one photo. Fun and quick, light on free tries."
     },
     {
-      "rank": 146,
+      "rank": 148,
       "slug": "rezi",
       "name": "Rezi",
       "category": "Career & Job Search",
@@ -2053,7 +2081,7 @@
       "why": "ATS-safe resumes with a lifetime plan option. Focused and fair, but narrow."
     },
     {
-      "rank": 147,
+      "rank": 149,
       "slug": "anara",
       "name": "Anara",
       "category": "Research & Knowledge",
@@ -2067,7 +2095,7 @@
       "why": "Cites the exact passage in your own documents. Strong scholar, steeper price than the free alternatives."
     },
     {
-      "rank": 148,
+      "rank": 150,
       "slug": "gamma",
       "name": "Gamma",
       "category": "Presentations & Design",
@@ -2081,7 +2109,7 @@
       "why": "Turns a prompt into a polished deck faster than a bard can tune a lute. The free credits run dry quickly, though."
     },
     {
-      "rank": 149,
+      "rank": 151,
       "slug": "topaz-labs",
       "name": "Topaz Labs",
       "category": "Design & Photography",
@@ -2095,7 +2123,7 @@
       "why": "The best upscaling magic in the realm, but subscription-only with no free plan, so you pay before you see the sharpening."
     },
     {
-      "rank": 150,
+      "rank": 152,
       "slug": "rev",
       "name": "Rev",
       "category": "Accessibility",
@@ -2109,7 +2137,7 @@
       "why": "AI plus human-checked transcripts accurate enough for accessibility compliance. The human part is precise and not cheap."
     },
     {
-      "rank": 151,
+      "rank": 153,
       "slug": "dovetail",
       "name": "Dovetail",
       "category": "Forms & Surveys",
@@ -2123,7 +2151,7 @@
       "why": "Turns interviews and surveys into searchable themes. A great research library, overkill for occasional use."
     },
     {
-      "rank": 152,
+      "rank": 154,
       "slug": "eesel-ai",
       "name": "eesel AI",
       "category": "Customer Support",
@@ -2137,7 +2165,7 @@
       "why": "Adds an AI agent to the helpdesk you already have. Clever, but paid-first."
     },
     {
-      "rank": 153,
+      "rank": 155,
       "slug": "meshy",
       "name": "Meshy",
       "category": "3D & Game Dev",
@@ -2151,7 +2179,7 @@
       "why": "Conjures rigged 3D models from a sentence, which is wizardry. Game-ready quality still needs a blacksmith's touch."
     },
     {
-      "rank": 154,
+      "rank": 156,
       "slug": "10web",
       "name": "10Web",
       "category": "Website & App Builders",
@@ -2165,7 +2193,7 @@
       "why": "AI WordPress builder plus hosting. Convenient bundle, WordPress quirks included."
     },
     {
-      "rank": 155,
+      "rank": 157,
       "slug": "creatify",
       "name": "Creatify",
       "category": "Video Generation",
@@ -2179,7 +2207,7 @@
       "why": "Product link in, avatar ad out. Fast, and the avatars still look like avatars."
     },
     {
-      "rank": 156,
+      "rank": 158,
       "slug": "jobscan",
       "name": "Jobscan",
       "category": "Career & Job Search",
@@ -2193,7 +2221,7 @@
       "why": "Tests your resume against the ATS gatekeepers. One very useful trick, with a free trial scan to prove it."
     },
     {
-      "rank": 157,
+      "rank": 159,
       "slug": "submagic",
       "name": "Submagic",
       "category": "Podcasting & Video Editing",
@@ -2207,7 +2235,7 @@
       "why": "Fast, easy, and does the caption trick creators love. Paid from the start and narrow beyond short-form clips."
     },
     {
-      "rank": 158,
+      "rank": 160,
       "slug": "tabnine",
       "name": "Tabnine",
       "category": "Coding & Dev Tools",
@@ -2221,7 +2249,7 @@
       "why": "Private, run-it-yourself code completion. Great for secret-keeping guilds, less capable than the big agents."
     },
     {
-      "rank": 159,
+      "rank": 161,
       "slug": "writesonic",
       "name": "Writesonic",
       "category": "Writing & Copywriting",
@@ -2235,7 +2263,7 @@
       "why": "Marketing copy and SEO articles at scale. Capable, in a very crowded scribes' guild."
     },
     {
-      "rank": 160,
+      "rank": 162,
       "slug": "ai2sql",
       "name": "AI2SQL",
       "category": "No-code / Database",
@@ -2249,7 +2277,7 @@
       "why": "Turns plain English into SQL. A helpful translator for people who fear databases."
     },
     {
-      "rank": 161,
+      "rank": 163,
       "slug": "danelfin",
       "name": "Danelfin",
       "category": "Investing & Markets",
@@ -2263,7 +2291,7 @@
       "why": "Rates stocks 1 to 10 with machine learning. Simple to read, and still not a prophecy."
     },
     {
-      "rank": 162,
+      "rank": 164,
       "slug": "manus",
       "name": "Manus",
       "category": "AI Search & Browsing",
@@ -2277,7 +2305,7 @@
       "why": "A general agent that browses and builds on its own. Wildly capable on a good roll, expensive on a bad one."
     },
     {
-      "rank": 163,
+      "rank": 165,
       "slug": "tana",
       "name": "Tana",
       "category": "Productivity & Notes",
@@ -2291,7 +2319,7 @@
       "why": "Powerful structured notes with a free tier. A spellbook that rewards those who study it."
     },
     {
-      "rank": 164,
+      "rank": 166,
       "slug": "sourcegraph-cody",
       "name": "Sourcegraph Cody",
       "category": "Coding & Dev Tools",
@@ -2305,7 +2333,7 @@
       "why": "Codebase-aware answers built on serious code search. Newer coding agents have stolen much of its spotlight."
     },
     {
-      "rank": 165,
+      "rank": 167,
       "slug": "legesgpt",
       "name": "LegesGPT",
       "category": "Legal",
@@ -2319,7 +2347,7 @@
       "why": "Contract drafting and citation checks priced for solo lawyers. A rare legal tool sized for one."
     },
     {
-      "rank": 166,
+      "rank": 168,
       "slug": "reflect",
       "name": "Reflect",
       "category": "Productivity & Notes",
@@ -2333,7 +2361,7 @@
       "why": "Networked notes with built-in AI. Elegant, paid after the trial."
     },
     {
-      "rank": 167,
+      "rank": 169,
       "slug": "tripo-ai",
       "name": "Tripo AI",
       "category": "3D & Game Dev",
@@ -2347,7 +2375,7 @@
       "why": "Fast 3D summoning straight into game engines. Solid, but the 3D guild is crowded and Meshy got there first."
     },
     {
-      "rank": 168,
+      "rank": 170,
       "slug": "shortwave",
       "name": "Shortwave",
       "category": "Email & Messaging",
@@ -2361,7 +2389,7 @@
       "why": "A smart AI inbox, but per-seat pricing makes it a luxury mount rather than a daily horse."
     },
     {
-      "rank": 169,
+      "rank": 171,
       "slug": "copyai",
       "name": "Copy.ai",
       "category": "Writing & Copywriting",
@@ -2375,7 +2403,7 @@
       "why": "A solid scribe with a real free tier, outgrowing pure copywriting into workflows. Competent, not legendary."
     },
     {
-      "rank": 170,
+      "rank": 172,
       "slug": "webflow",
       "name": "Webflow",
       "category": "Website & App Builders",
@@ -2389,7 +2417,7 @@
       "why": "Professional sites with clean code and a free starter plan. Powerful, with a real learning curve."
     },
     {
-      "rank": 171,
+      "rank": 173,
       "slug": "juicebox",
       "name": "Juicebox",
       "category": "HR & Recruiting",
@@ -2403,7 +2431,7 @@
       "why": "Plain-language candidate search across the whole realm. Powerful for recruiters, pricey for the occasional hire."
     },
     {
-      "rank": 172,
+      "rank": 174,
       "slug": "sudowrite",
       "name": "Sudowrite",
       "category": "Writing & Copywriting",
@@ -2417,7 +2445,7 @@
       "why": "An AI built for novelists and worldbuilders. Excellent muse, paid from the start."
     },
     {
-      "rank": 173,
+      "rank": 175,
       "slug": "docusign",
       "name": "DocuSign",
       "category": "Legal",
@@ -2431,7 +2459,7 @@
       "why": "The e-signature standard, now with AI contract analysis. Reliable, and priced like the standard it is."
     },
     {
-      "rank": 174,
+      "rank": 176,
       "slug": "novelai",
       "name": "NovelAI",
       "category": "Writing & Copywriting",
@@ -2445,7 +2473,7 @@
       "why": "Fiction writing and anime art from a small studio. Beloved by its fans, paid from the start."
     },
     {
-      "rank": 175,
+      "rank": 177,
       "slug": "lumen5",
       "name": "Lumen5",
       "category": "Video Generation",
@@ -2459,7 +2487,7 @@
       "why": "Turns blog posts into branded videos quickly. Easy, a bit template-y."
     },
     {
-      "rank": 176,
+      "rank": 178,
       "slug": "cursor",
       "name": "Cursor",
       "category": "Coding & Dev Tools",
@@ -2473,7 +2501,7 @@
       "why": "One of the most capable coding familiars alive, priced fairly, but it rewards people who already know their way around code."
     },
     {
-      "rank": 177,
+      "rank": 179,
       "slug": "framer",
       "name": "Framer",
       "category": "Website & App Builders",
@@ -2487,7 +2515,7 @@
       "why": "Prompt-to-website that actually publishes. The pricing and learning curve keep it mid-pack."
     },
     {
-      "rank": 178,
+      "rank": 180,
       "slug": "rask-ai",
       "name": "Rask AI",
       "category": "Video Generation",
@@ -2501,7 +2529,7 @@
       "why": "Dubs and lip-syncs video into other languages. Impressive, priced per minute."
     },
     {
-      "rank": 179,
+      "rank": 181,
       "slug": "seeking-alpha-premium",
       "name": "Seeking Alpha Premium",
       "category": "Investing & Markets",
@@ -2515,7 +2543,7 @@
       "why": "Deep stock research with AI summaries. Useful for serious investors, a pricey subscription for the curious."
     },
     {
-      "rank": 180,
+      "rank": 182,
       "slug": "smartlead",
       "name": "Smartlead",
       "category": "Sales & Prospecting",
@@ -2529,7 +2557,7 @@
       "why": "Cold email at scale with unlimited mailboxes. Strong value per send, no way to try it free."
     },
     {
-      "rank": 181,
+      "rank": 183,
       "slug": "beautiful-ai",
       "name": "Beautiful.ai",
       "category": "Presentations & Design",
@@ -2543,7 +2571,7 @@
       "why": "Slides that rearrange themselves as you type. Lovely, but trial-then-pay."
     },
     {
-      "rank": 182,
+      "rank": 184,
       "slug": "pictory",
       "name": "Pictory",
       "category": "Video Generation",
@@ -2557,7 +2585,7 @@
       "why": "Turns long content into short clips. Handy, increasingly outshone by newer tools."
     },
     {
-      "rank": 183,
+      "rank": 185,
       "slug": "midjourney",
       "name": "Midjourney",
       "category": "Image Generation",
@@ -2571,7 +2599,7 @@
       "why": "Paints like a court master, charges like one too, and has no free trial at all. Pure capability, terrible trial safety."
     },
     {
-      "rank": 184,
+      "rank": 186,
       "slug": "zapier-ai",
       "name": "Zapier AI Actions",
       "category": "Automation & Workflow",
@@ -2585,7 +2613,7 @@
       "why": "Powerful automation magic, but the new pricing makes every accidental chain reaction cost real gold."
     },
     {
-      "rank": 185,
+      "rank": 187,
       "slug": "riverside",
       "name": "Riverside.fm",
       "category": "Podcasting & Video Editing",
@@ -2599,7 +2627,7 @@
       "why": "Studio-quality remote recording, but you pay studio-ish prices for the full kit."
     },
     {
-      "rank": 186,
+      "rank": 188,
       "slug": "vapi",
       "name": "Vapi",
       "category": "AI Phone Agents",
@@ -2613,7 +2641,7 @@
       "why": "Builds real phone agents if you can code. Usage billing and developer focus keep it out of reach for most."
     },
     {
-      "rank": 187,
+      "rank": 189,
       "slug": "lindy",
       "name": "Lindy",
       "category": "Automation & Workflow",
@@ -2627,7 +2655,7 @@
       "why": "An AI assistant that triages your inbox and books meetings. Useful, but paid-first and pricey for one person."
     },
     {
-      "rank": 188,
+      "rank": 190,
       "slug": "copyleaks",
       "name": "Copyleaks",
       "category": "AI Detection & Plagiarism",
@@ -2641,7 +2669,7 @@
       "why": "Detects AI text, plagiarism, and AI images in one tool. Detection is a guessing game for everyone, this one guesses well."
     },
     {
-      "rank": 189,
+      "rank": 191,
       "slug": "d-id",
       "name": "D-ID",
       "category": "Video Generation",
@@ -2655,7 +2683,7 @@
       "why": "Talking-avatar video with a developer API. Useful for builders, uncanny for audiences."
     },
     {
-      "rank": 190,
+      "rank": 192,
       "slug": "mem",
       "name": "Mem",
       "category": "Productivity & Notes",
@@ -2669,7 +2697,7 @@
       "why": "Notes that organize themselves. A clever idea that has struggled to stay ahead of bigger note apps."
     },
     {
-      "rank": 191,
+      "rank": 193,
       "slug": "obviously-ai",
       "name": "Obviously AI",
       "category": "Data & Analytics",
@@ -2683,7 +2711,7 @@
       "why": "No-code predictions from a spreadsheet. Genuinely clever, pricey for occasional fortune-telling."
     },
     {
-      "rank": 192,
+      "rank": 194,
       "slug": "originality-ai",
       "name": "Originality.ai",
       "category": "AI Detection & Plagiarism",
@@ -2697,7 +2725,7 @@
       "why": "Strong detection for publishers, but pay-per-credit with no real free tier means you buy the dice before you roll."
     },
     {
-      "rank": 193,
+      "rank": 195,
       "slug": "cashflowy",
       "name": "Cashflowy",
       "category": "Bookkeeping & Finance",
@@ -2711,7 +2739,7 @@
       "why": "AI bookkeeping coach for freelancers. Helpful for the numerically cursed, but small and paid-first."
     },
     {
-      "rank": 194,
+      "rank": 196,
       "slug": "runway",
       "name": "Runway",
       "category": "Video Generation",
@@ -2725,7 +2753,7 @@
       "why": "Astonishing video magic held back by credit costs that drain your purse faster than a mimic."
     },
     {
-      "rank": 195,
+      "rank": 197,
       "slug": "vercel-v0",
       "name": "v0",
       "category": "Coding & Dev Tools",
@@ -2739,7 +2767,7 @@
       "why": "Generates real frontend code that looks finished. Getting the plumbing behind it working is still your quest."
     },
     {
-      "rank": 196,
+      "rank": 198,
       "slug": "elevenlabs",
       "name": "ElevenLabs",
       "category": "Voice & Music",
@@ -2753,7 +2781,7 @@
       "why": "The best voices in the realm, held back by a watermarked, non-commercial free tier and costs that climb with every word spoken."
     },
     {
-      "rank": 197,
+      "rank": 199,
       "slug": "instantly-ai",
       "name": "Instantly.ai",
       "category": "Sales & Prospecting",
@@ -2767,7 +2795,7 @@
       "why": "Scales cold email with unlimited mailboxes, but there's no real way to try it without paying first."
     },
     {
-      "rank": 198,
+      "rank": 200,
       "slug": "chatbase",
       "name": "Chatbase",
       "category": "Customer Support",
@@ -2781,7 +2809,7 @@
       "why": "Trains a chatbot on your site in minutes. Value drops fast once your visitors start actually talking to it."
     },
     {
-      "rank": 199,
+      "rank": 201,
       "slug": "clay",
       "name": "Clay",
       "category": "Sales & Prospecting",
@@ -2795,7 +2823,7 @@
       "why": "Pulls data from 150+ providers into one workflow. Enormously powerful, with a learning curve like a dungeon staircase."
     },
     {
-      "rank": 200,
+      "rank": 202,
       "slug": "spellbook",
       "name": "Spellbook",
       "category": "Legal",
@@ -2809,7 +2837,7 @@
       "why": "AI drafting inside Word for law firms. Excellent fit for lawyers, priced for firms."
     },
     {
-      "rank": 201,
+      "rank": 203,
       "slug": "surfer-seo",
       "name": "Surfer SEO",
       "category": "SEO",
@@ -2823,7 +2851,7 @@
       "why": "Scores drafts against what actually ranks. Useful, and paid from the first spell."
     },
     {
-      "rank": 202,
+      "rank": 204,
       "slug": "astra-security",
       "name": "Astra Security",
       "category": "Cybersecurity",
@@ -2837,7 +2865,7 @@
       "why": "Vulnerability scanning sized for small teams. Good armor, but not something most solos buy first."
     },
     {
-      "rank": 203,
+      "rank": 205,
       "slug": "opusclip",
       "name": "OpusClip",
       "category": "Video Generation",
@@ -2851,7 +2879,7 @@
       "why": "Turns long videos into shorts with decent instincts. The free tier is a tease and the clips still need a human eye."
     },
     {
-      "rank": 204,
+      "rank": 206,
       "slug": "superhuman",
       "name": "Superhuman",
       "category": "Email & Messaging",
@@ -2865,7 +2893,7 @@
       "why": "The fastest email client in the realm, with excellent AI drafts. Priced for people who bill by the hour."
     },
     {
-      "rank": 205,
+      "rank": 207,
       "slug": "lettuce",
       "name": "Lettuce",
       "category": "Bookkeeping & Finance",
@@ -2879,7 +2907,7 @@
       "why": "Bookkeeping, payroll, and taxes for S-corp solos in one bundle. Great fit for exactly that party, pricey for others."
     },
     {
-      "rank": 206,
+      "rank": 208,
       "slug": "storychief",
       "name": "StoryChief",
       "category": "Marketing & Social Media",
@@ -2893,7 +2921,7 @@
       "why": "Plans and distributes content across every channel. Useful for content teams, heavy for one writer."
     },
     {
-      "rank": 207,
+      "rank": 209,
       "slug": "ahrefs",
       "name": "Ahrefs",
       "category": "SEO",
@@ -2907,7 +2935,7 @@
       "why": "An elite SEO toolkit priced for agencies. A great grimoire, too costly for casual use."
     },
     {
-      "rank": 208,
+      "rank": 210,
       "slug": "intercom-fin",
       "name": "Intercom Fin",
       "category": "Customer Support",
@@ -2921,7 +2949,7 @@
       "why": "Resolves support tickets by itself, billed per resolution on top of Intercom. Enterprise armor at enterprise prices."
     },
     {
-      "rank": 209,
+      "rank": 211,
       "slug": "hootsuite",
       "name": "Hootsuite",
       "category": "Marketing & Social Media",
@@ -2935,7 +2963,7 @@
       "why": "Powerful social management for teams, priced for teams. A solo creator is paying for an army they don't have."
     },
     {
-      "rank": 210,
+      "rank": 212,
       "slug": "jasper",
       "name": "Jasper",
       "category": "Writing & Copywriting",
@@ -2949,7 +2977,7 @@
       "why": "Brand-voice copywriting for marketing teams. Good, but priced for teams when cheaper scribes exist."
     },
     {
-      "rank": 211,
+      "rank": 213,
       "slug": "motion",
       "name": "Motion",
       "category": "Scheduling & Time",
@@ -2963,7 +2991,7 @@
       "why": "A clever AI calendar with no free plan and a price that assumes you're a busy guild master."
     },
     {
-      "rank": 212,
+      "rank": 214,
       "slug": "quickbooks-solopreneur",
       "name": "QuickBooks Solopreneur",
       "category": "Bookkeeping & Finance",
@@ -2977,7 +3005,7 @@
       "why": "Simple bookkeeping for one-person businesses, but the AI is more apprentice than wizard and the feature list is thin."
     },
     {
-      "rank": 213,
+      "rank": 215,
       "slug": "lokalise",
       "name": "Lokalise",
       "category": "Translation & Localization",
@@ -2991,7 +3019,7 @@
       "why": "Localization management for product teams. Powerful, sized for companies shipping in many languages."
     },
     {
-      "rank": 214,
+      "rank": 216,
       "slug": "whoop",
       "name": "Whoop",
       "category": "Health & Fitness",
@@ -3005,7 +3033,7 @@
       "why": "A wearable that coaches your sleep and strain. Good data, but the subscription is mandatory and steep."
     },
     {
-      "rank": 215,
+      "rank": 217,
       "slug": "typeform",
       "name": "Typeform",
       "category": "Forms & Surveys",
@@ -3019,7 +3047,7 @@
       "why": "Beautiful, conversational forms. The free tier is stingy and the AI is a minor enchantment."
     },
     {
-      "rank": 216,
+      "rank": 218,
       "slug": "podium",
       "name": "Podium",
       "category": "Local Business",
@@ -3033,7 +3061,7 @@
       "why": "Texting, reviews, and lead follow-up for local services. Strong tools, sales-call pricing."
     },
     {
-      "rank": 217,
+      "rank": 219,
       "slug": "noom",
       "name": "Noom",
       "category": "Health & Fitness",
@@ -3047,7 +3075,7 @@
       "why": "Psychology-based coaching that works for some. Subscription-heavy and not cheap for what it is."
     },
     {
-      "rank": 218,
+      "rank": 220,
       "slug": "semrush",
       "name": "Semrush",
       "category": "SEO",
@@ -3061,7 +3089,7 @@
       "why": "Possibly the most powerful SEO grimoire ever written. Also priced like one, which sinks it for solo adventurers."
     },
     {
-      "rank": 219,
+      "rank": 221,
       "slug": "apollo-io",
       "name": "Apollo.io",
       "category": "Sales & Prospecting",
@@ -3075,7 +3103,7 @@
       "why": "A huge lead database with real capability, priced per seat and easy to waste credits on."
     },
     {
-      "rank": 220,
+      "rank": 222,
       "slug": "notion-ai",
       "name": "Notion AI",
       "category": "Productivity & Notes",
@@ -3089,7 +3117,7 @@
       "why": "Clever, but now locked behind the $20/user Business plan. A good spell priced like a rare one."
     },
     {
-      "rank": 221,
+      "rank": 223,
       "slug": "birdeye",
       "name": "Birdeye",
       "category": "Local Business",
@@ -3103,7 +3131,7 @@
       "why": "Reputation management for local businesses that automates reviews. Effective, pricey for a single shop."
     },
     {
-      "rank": 222,
+      "rank": 224,
       "slug": "recruiterflow",
       "name": "Recruiterflow",
       "category": "HR & Recruiting",
@@ -3117,7 +3145,7 @@
       "why": "ATS and CRM for recruitment agencies. Solid for that exact guild, nobody else."
     },
     {
-      "rank": 223,
+      "rank": 225,
       "slug": "synthesia",
       "name": "Synthesia",
       "category": "Video Generation",
@@ -3131,7 +3159,7 @@
       "why": "Polished avatar videos, but the uncanny valley and the price tag both loom large."
     },
     {
-      "rank": 224,
+      "rank": 226,
       "slug": "devin",
       "name": "Devin",
       "category": "Coding & Dev Tools",
@@ -3145,7 +3173,7 @@
       "why": "An autonomous AI engineer that's impressive and expensive. A hireling priced for guilds, not solo adventurers."
     },
     {
-      "rank": 225,
+      "rank": 227,
       "slug": "klevu",
       "name": "Klevu",
       "category": "E-commerce",
@@ -3159,7 +3187,7 @@
       "why": "Smart search for big catalogs. Built for large stores, priced to match."
     },
     {
-      "rank": 226,
+      "rank": 228,
       "slug": "warmly",
       "name": "Warmly",
       "category": "Sales & Prospecting",
@@ -3173,7 +3201,7 @@
       "why": "Unmasks anonymous website visitors for sales teams. Clever, priced for teams with quotas."
     },
     {
-      "rank": 227,
+      "rank": 229,
       "slug": "bland-ai",
       "name": "Bland AI",
       "category": "AI Phone Agents",
@@ -3187,7 +3215,7 @@
       "why": "Impressive voice agents for developers, billed by the minute, with little for a non-coder to hold onto."
     },
     {
-      "rank": 228,
+      "rank": 230,
       "slug": "lovable",
       "name": "Lovable",
       "category": "Coding & Dev Tools",
@@ -3201,7 +3229,7 @@
       "why": "Builds real apps from plain English, then charges you for every rebuild while it fixes its own bugs."
     },
     {
-      "rank": 229,
+      "rank": 231,
       "slug": "perplexity-pro",
       "name": "Perplexity Pro",
       "category": "AI Assistants",
@@ -3215,7 +3243,7 @@
       "why": "Cited answers are nice. Paying extra for them when the free tier and your other chatbots already do most of it is less nice."
     },
     {
-      "rank": 230,
+      "rank": 232,
       "slug": "harvey",
       "name": "Harvey",
       "category": "Legal",
@@ -3229,7 +3257,7 @@
       "why": "Elite legal AI for big law firms. Powerful, and you'll need a firm with a moat to get through the gate."
     },
     {
-      "rank": 231,
+      "rank": 233,
       "slug": "respeecher",
       "name": "Respeecher",
       "category": "Voice & Music",
@@ -3243,7 +3271,7 @@
       "why": "Ethical, consent-based voice cloning for studios. Admirable, and studio-priced."
     },
     {
-      "rank": 232,
+      "rank": 234,
       "slug": "chattermill",
       "name": "Chattermill",
       "category": "Forms & Surveys",
@@ -3257,7 +3285,7 @@
       "why": "Ties feedback to revenue for big companies. Clever, and completely sized for enterprise kingdoms."
     },
     {
-      "rank": 233,
+      "rank": 235,
       "slug": "ironclad",
       "name": "Ironclad",
       "category": "Legal",
@@ -3271,7 +3299,7 @@
       "why": "Contract lifecycle management for large legal teams. Overkill for a solo founder's handful of agreements."
     },
     {
-      "rank": 234,
+      "rank": 236,
       "slug": "harness-ai",
       "name": "Harness AI",
       "category": "Coding & Dev Tools",
@@ -3285,7 +3313,7 @@
       "why": "Serious CI/CD automation for engineering teams. Overkill and overpriced for a party of one."
     },
     {
-      "rank": 235,
+      "rank": 237,
       "slug": "wiz",
       "name": "Wiz",
       "category": "Cybersecurity",
@@ -3299,7 +3327,7 @@
       "why": "Elite cloud security for big kingdoms. Brilliant, and as reachable for a solo founder as the royal treasury."
     },
     {
-      "rank": 236,
+      "rank": 238,
       "slug": "luminance",
       "name": "Luminance",
       "category": "Legal",
@@ -3313,7 +3341,7 @@
       "why": "Bulk contract review for enterprises. Mighty, and nowhere near a solo budget."
     },
     {
-      "rank": 237,
+      "rank": 239,
       "slug": "gong",
       "name": "Gong",
       "category": "Sales & Prospecting",
@@ -3327,7 +3355,7 @@
       "why": "The sales-call oracle for big revenue teams. Excellent, and entirely enterprise-priced."
     },
     {
-      "rank": 238,
+      "rank": 240,
       "slug": "turnitin",
       "name": "Turnitin",
       "category": "AI Detection & Plagiarism",
@@ -3341,7 +3369,7 @@
       "why": "The academy's official plagiarism hound. Powerful, but sold only to institutions, so solo adventurers can't even get a leash."
     },
     {
-      "rank": 239,
+      "rank": 241,
       "slug": "paradox",
       "name": "Paradox",
       "category": "HR & Recruiting",
@@ -3355,7 +3383,7 @@
       "why": "A recruiting assistant built for hiring hundreds. Irrelevant for a party of one."
     },
     {
-      "rank": 240,
+      "rank": 242,
       "slug": "hirevue",
       "name": "HireVue",
       "category": "HR & Recruiting",
