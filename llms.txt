@@ -2,7 +2,7 @@
 
 > Solos Gems is a D&D-flavored AI tools database: the Herald's Hub at https://solosgems.com/ lists 242 AI tools across every major category, each with a plain-English summary, a retro video game style comic and caption, and a direct link to the real product. Every tool carries a score and a rank on one cross-category list (0-10, the average of value for price, real-world capability, ease of use, and trial safety), shown in its database row with a short note on why it landed there. 51 tools were tested hands-on; the rest are scouted from public pricing and features, and are labeled that way. Nothing scores a 10. Some links are affiliate links (disclosed on the About page); that never changes which tools are covered or what the verdict says. Standalone review pages (/reviews/...) were retired in September 2026 and now redirect to the matching database row.
 
-Last updated: 2026-10-09.
+Last updated: 2026-10-13.
 
 ## Ranked tools (#1-242, every tool in the database, each links to its row)
 
@@ -210,7 +210,7 @@ Tested = tested hands-on by Solos Gems. Scouted = scored from public pricing, do
 - [Chatbase](https://solosgems.com/#tool-chatbase): #200, 6.25/10, Tested. Trains a chatbot on your site in minutes. Value drops fast once your visitors start actually talking to it.
 - [Clay](https://solosgems.com/#tool-clay): #201, 6.25/10, Scouted. Pulls data from 150+ providers into one workflow. Enormously powerful, with a learning curve like a dungeon staircase.
 - [Spellbook](https://solosgems.com/#tool-spellbook): #202, 6.25/10, Scouted. AI drafting inside Word for law firms. Excellent fit for lawyers, priced for firms.
-- [Surfer SEO](https://solosgems.com/#tool-surfer-seo): #203, 6.25/10, Scouted. Scores drafts against what actually ranks. Useful, and paid from the first spell.
+- [Positive Surfer](https://solosgems.com/#tool-surfer-seo): #203, 6.25/10, Scouted. Scores drafts against what actually ranks. Useful, and paid from the first spell.
 - [Astra Security](https://solosgems.com/#tool-astra-security): #204, 6.25/10, Scouted. Vulnerability scanning sized for small teams. Good armor, but not something most solos buy first.
 - [OpusClip](https://solosgems.com/#tool-opusclip): #205, 6.12/10, Tested. Turns long videos into shorts with decent instincts. The free tier is a tease and the clips still need a human eye.
 - [Superhuman](https://solosgems.com/#tool-superhuman): #206, 6.12/10, Scouted. The fastest email client in the realm, with excellent AI drafts. Priced for people who bill by the hour.

@@ -1,6 +1,6 @@
 {
   "source": "https://solosgems.com/",
-  "generated": "2026-10-09",
+  "generated": "2026-10-13",
   "count": 242,
   "license": "Free to use with attribution to Solos Gems (solosgems.com).",
   "tools": [
@@ -969,7 +969,7 @@
       "domain": "fathom.ai",
       "category": "Meetings & Transcription",
       "description": "A free AI meeting recorder that transcribes, summarizes, and highlights action items automatically.",
-      "cool_fact": "Its core recording and summarization features are free with no minutes cap.",
+      "cool_fact": "Acquired by Superhuman in September 2026; its free plan, which has no cap on recorded minutes, carried on unchanged.",
       "url": "https://www.fathom.ai/",
       "reviewed_on_solosgems": false,
       "pricing": "free",
@@ -2540,6 +2540,21 @@
       "rank_why": "One subscription, dozens of familiars. Great for sampling the bestiary, though points-based limits run out fast."
     },
     {
+      "name": "Positive Surfer",
+      "domain": "surferseo.com",
+      "category": "SEO",
+      "description": "AI content optimization, renamed from Surfer SEO, that scores drafts against what actually ranks in search and now tracks visibility in AI answers too.",
+      "cool_fact": "Acquired in October 2025 by the French software group Positive, which renamed it Positive Surfer and made it its AI search visibility division.",
+      "url": "https://surferseo.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "paid",
+      "date_added": "2026-08-01",
+      "rank": 203,
+      "score": 6.25,
+      "rank_basis": "scouted",
+      "rank_why": "Scores drafts against what actually ranks. Useful, and paid from the first spell."
+    },
+    {
       "name": "ProWritingAid",
       "domain": "prowritingaid.com",
       "category": "Writing & Copywriting",
@@ -3168,21 +3183,6 @@
       "score": 8.25,
       "rank_basis": "scouted",
       "rank_why": "Private, on-device dictation for Mac and iOS, free to start. A quiet, loyal scribe."
-    },
-    {
-      "name": "Surfer SEO",
-      "domain": "surferseo.com",
-      "category": "SEO",
-      "description": "AI content optimization that scores a draft against what's actually ranking on the live search results page.",
-      "cool_fact": "Rescans the live SERP each time, so its recommendations shift as competing pages change, not a static checklist.",
-      "url": "https://surferseo.com/",
-      "reviewed_on_solosgems": false,
-      "pricing": "paid",
-      "date_added": "2026-08-01",
-      "rank": 203,
-      "score": 6.25,
-      "rank_basis": "scouted",
-      "rank_why": "Scores drafts against what actually ranks. Useful, and paid from the first spell."
     },
     {
       "name": "Synthesia",

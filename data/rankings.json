@@ -1,6 +1,6 @@
 {
   "methodology": "Score out of 10: the average of four equally weighted criteria, value for a solo operator relative to price, real-world capability, ease of use / setup friction, and how safely you can trial it. 'tested' tools were tested hands-on by Solos Gems; 'scouted' tools were scored from public pricing, documentation, and features. previous_rank is the tool's rank in the earlier 51-tool list, where it had one. Nothing scores a 10.",
-  "last_updated": "2026-10-09",
+  "last_updated": "2026-10-13",
   "count": 242,
   "tools": [
     {
@@ -2839,7 +2839,7 @@
     {
       "rank": 203,
       "slug": "surfer-seo",
-      "name": "Surfer SEO",
+      "name": "Positive Surfer",
       "category": "SEO",
       "score": 6.25,
       "basis": "scouted",
