@@ -1,6 +1,6 @@
 {
   "source": "https://solosgems.com/",
-  "generated": "2026-10-13",
+  "generated": "2026-10-16",
   "count": 242,
   "license": "Free to use with attribution to Solos Gems (solosgems.com).",
   "tools": [
@@ -1055,21 +1055,6 @@
       "rank_why": "Prompt-to-website that actually publishes. The pricing and learning curve keep it mid-pack."
     },
     {
-      "name": "Freepik AI",
-      "domain": "freepik.com",
-      "category": "Image Generation",
-      "description": "AI image generation built into Freepik's massive stock photo, vector, and template library.",
-      "cool_fact": "Lets you generate a new image and drop it straight into a stock template in the same workspace.",
-      "url": "https://www.freepik.com/ai",
-      "reviewed_on_solosgems": false,
-      "pricing": "free",
-      "date_added": "2026-08-01",
-      "rank": 76,
-      "score": 7.75,
-      "rank_basis": "scouted",
-      "rank_why": "Image generation stapled to a huge stock library with a free tier. A practical one-stop art shop."
-    },
-    {
       "name": "Fyxer AI",
       "domain": "fyxer.com",
       "category": "Email & Messaging",
@@ -1953,6 +1938,21 @@
       "score": 8.38,
       "rank_basis": "scouted",
       "rank_why": "A free toolkit that saves teachers hours on lesson plans and rubrics. A paladin for the classroom."
+    },
+    {
+      "name": "Magnific",
+      "domain": "magnific.com",
+      "category": "Image Generation",
+      "description": "AI image, video, and upscaling studio, renamed from Freepik, bundled with its massive stock photo, vector, and template library.",
+      "cool_fact": "Freepik renamed itself Magnific in April 2026, after the AI upscaler it bought in 2024, while bootstrapped and reporting $230M in annual recurring revenue.",
+      "url": "https://www.magnific.com/",
+      "reviewed_on_solosgems": false,
+      "pricing": "free",
+      "date_added": "2026-08-01",
+      "rank": 76,
+      "score": 7.75,
+      "rank_basis": "scouted",
+      "rank_why": "Image generation stapled to a huge stock library with a free tier. A practical one-stop art shop."
     },
     {
       "name": "Make",

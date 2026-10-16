@@ -1,6 +1,6 @@
 {
   "methodology": "Score out of 10: the average of four equally weighted criteria, value for a solo operator relative to price, real-world capability, ease of use / setup friction, and how safely you can trial it. 'tested' tools were tested hands-on by Solos Gems; 'scouted' tools were scored from public pricing, documentation, and features. previous_rank is the tool's rank in the earlier 51-tool list, where it had one. Nothing scores a 10.",
-  "last_updated": "2026-10-13",
+  "last_updated": "2026-10-16",
   "count": 242,
   "tools": [
     {
@@ -1060,7 +1060,7 @@
     {
       "rank": 76,
       "slug": "freepik-ai",
-      "name": "Freepik AI",
+      "name": "Magnific",
       "category": "Image Generation",
       "score": 7.75,
       "basis": "scouted",

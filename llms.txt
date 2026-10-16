@@ -2,7 +2,7 @@
 
 > Solos Gems is a D&D-flavored AI tools database: the Herald's Hub at https://solosgems.com/ lists 242 AI tools across every major category, each with a plain-English summary, a retro video game style comic and caption, and a direct link to the real product. Every tool carries a score and a rank on one cross-category list (0-10, the average of value for price, real-world capability, ease of use, and trial safety), shown in its database row with a short note on why it landed there. 51 tools were tested hands-on; the rest are scouted from public pricing and features, and are labeled that way. Nothing scores a 10. Some links are affiliate links (disclosed on the About page); that never changes which tools are covered or what the verdict says. Standalone review pages (/reviews/...) were retired in September 2026 and now redirect to the matching database row.
 
-Last updated: 2026-10-13.
+Last updated: 2026-10-16.
 
 ## Ranked tools (#1-242, every tool in the database, each links to its row)
 
@@ -83,7 +83,7 @@ Tested = tested hands-on by Solos Gems. Scouted = scored from public pricing, do
 - [Recraft](https://solosgems.com/#tool-recraft): #73, 7.75/10, Scouted. Brand-consistent graphics, icons, and vectors. The image tool that thinks like a designer.
 - [Replit](https://solosgems.com/#tool-replit): #74, 7.75/10, Scouted. Describe an app and Replit Agent builds and hosts it. Easy start, usage costs climb as the app grows.
 - [CodeRabbit](https://solosgems.com/#tool-coderabbit): #75, 7.75/10, Scouted. Reviews every pull request line by line, free for open source. A tireless second pair of eyes.
-- [Freepik AI](https://solosgems.com/#tool-freepik-ai): #76, 7.75/10, Scouted. Image generation stapled to a huge stock library with a free tier. A practical one-stop art shop.
+- [Magnific](https://solosgems.com/#tool-freepik-ai): #76, 7.75/10, Scouted. Image generation stapled to a huge stock library with a free tier. A practical one-stop art shop.
 - [PixVerse](https://solosgems.com/#tool-pixverse): #77, 7.75/10, Scouted. Fast text-to-video with style templates and free credits. A capable, cheerful option.
 - [Read AI](https://solosgems.com/#tool-read-ai): #78, 7.75/10, Scouted. Solid meeting summaries and cross-app search with a small free tier. A capable scribe, not the cheapest.
 - [Tidio](https://solosgems.com/#tool-tidio): #79, 7.75/10, Scouted. Chat and AI support for small shops with a free plan. Exactly sized for the solo storefront.
