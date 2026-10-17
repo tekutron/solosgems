@@ -96,3 +96,10 @@ helpers (see `make_svg` in site.py). Update the word-number in the intro
 3. `node --check worker.js` if worker.js changed (or skip if node is absent).
 4. Commit with a clear message and push to `main`.
 5. New HTML pages must also be added to `assets.run_worker_first` in wrangler.jsonc.
+
+## The Herald's Riddle (daily.html)
+
+The daily puzzle reads `data/daily.json`, which `rerank` rebuilds: every tool
+(valid guesses) plus an answer schedule 120 days ahead. Never hand-edit it.
+Already scheduled days keep their answer; only a removed tool's days get a new
+pick. The answer pool is tools ranked #1-110 plus every tested tool.

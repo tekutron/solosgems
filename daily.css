@@ -1,0 +1,88 @@
+/* The Herald's Riddle (daily.html). Uses the tokens from styles.css. */
+
+.dr-wrap { max-width: var(--max-width); margin: 0 auto; padding: 32px 20px 64px; }
+.dr-wrap .kicker { display: block; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.78rem; color: var(--rust-dark); margin-bottom: 6px; }
+.dr-wrap h1 { margin: 0 0 10px; font-size: 2rem; }
+.dr-num { color: var(--ink-soft); font-size: 1.1rem; font-weight: 400; }
+.dr-lede { color: var(--ink-soft); margin: 0 0 22px; max-width: 640px; }
+.dr-h { font-size: 1rem; margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+
+.dr-modes { display: flex; gap: 8px; margin-bottom: 16px; }
+.dr-mode { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font: inherit; font-size: 0.9rem; cursor: pointer; }
+.dr-mode.is-on { background: var(--card); color: var(--ink); border-color: var(--rust-dark); }
+
+.dr-board { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+@media (max-width: 720px) { .dr-board { grid-template-columns: 1fr; padding: 14px; } }
+
+.dr-frame { aspect-ratio: 1 / 1; overflow: hidden; border-radius: 6px; border: 3px solid var(--ink); background: var(--card); }
+.dr-frame img { width: 100%; height: 100%; display: block; transform: scale(1.08); transition: filter 0.6s ease; }
+.dr-tries { display: flex; gap: 6px; margin-top: 10px; justify-content: center; }
+.dr-try { width: 26px; height: 8px; border-radius: 4px; background: var(--line); }
+.dr-try.miss { background: #b8423a; }
+.dr-try.skip { background: #6b665c; }
+.dr-try.win { background: var(--ok); }
+
+.dr-clues { list-style: none; margin: 0 0 16px; padding: 0; display: grid; gap: 6px; }
+.dr-clues li { background: var(--card); border: 1px solid var(--line); border-radius: 5px; padding: 7px 10px; font-size: 0.92rem; line-height: 1.45; }
+.dr-clues li.locked { color: #6f6a5e; border-style: dashed; background: transparent; }
+.dr-clue-k { display: block; font-family: "IBM Plex Mono", Menlo, monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--rust-dark); }
+.dr-clues li.locked .dr-clue-k { color: #6f6a5e; }
+
+.dr-label { display: block; font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 4px; }
+.dr-inputwrap { position: relative; }
+#dr-input { width: 100%; font: inherit; font-size: 1rem; padding: 10px 12px; border-radius: 5px; border: 2px solid var(--line); background: var(--paper); color: var(--ink); }
+#dr-input:focus { outline: none; border-color: var(--rust-dark); }
+.dr-suggest { position: absolute; z-index: 5; left: 0; right: 0; top: 100%; margin: 4px 0 0; padding: 4px; list-style: none; background: var(--card); border: 1px solid var(--line); border-radius: 5px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+.dr-suggest li { padding: 7px 10px; border-radius: 4px; cursor: pointer; }
+.dr-suggest li:hover, .dr-suggest li.on { background: var(--line); }
+.dr-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.dr-btn { font: inherit; font-weight: 600; padding: 9px 16px; border-radius: 5px; border: 2px solid var(--rust-dark); background: var(--rust); color: #fff; cursor: pointer; }
+.dr-btn:hover { background: var(--rust-dark); }
+.dr-btn-ghost { background: transparent; color: var(--ink-soft); border-color: var(--line); font-weight: 400; }
+.dr-btn-ghost:hover { background: var(--card); color: var(--ink); }
+.dr-msg { min-height: 1.4em; margin: 8px 0 0; font-size: 0.9rem; color: var(--ink-soft); }
+
+.dr-guesses { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 6px; }
+.dr-g { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 0.85rem; }
+.dr-g-name { font-weight: 600; min-width: 0; flex: 1 1 100%; }
+.dr-g.skip .dr-g-name { color: var(--ink-soft); font-weight: 400; font-style: italic; }
+.dr-g.win .dr-g-name { color: var(--ok); }
+.dr-rune { padding: 2px 8px; border-radius: 4px; font-size: 0.78rem; border: 1px solid transparent; }
+.dr-rune.ok { background: rgba(95,179,108,0.18); border-color: var(--ok); color: #bfe8c5; }
+.dr-rune.no { background: rgba(184,66,58,0.16); border-color: #b8423a; color: #f0c2bd; }
+.dr-rune.dir { background: rgba(224,105,42,0.14); border-color: var(--rust-dark); color: #f6cfb5; }
+
+.dr-result { margin-top: 20px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+.dr-verdict { font-family: "IBM Plex Mono", Menlo, monospace; font-size: 1.05rem; margin: 0 0 14px; }
+.dr-verdict.won { color: var(--ok); }
+.dr-verdict.lost { color: #e3887f; }
+.dr-answer h2 { margin: 0 0 4px; font-size: 1.5rem; }
+.dr-answer-meta { color: var(--ink-soft); font-size: 0.88rem; margin: 0 0 10px; }
+.dr-answer-cap { font-style: italic; color: var(--ink-soft); }
+.dr-share-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 14px; }
+.dr-next { color: var(--ink-soft); font-size: 0.88rem; }
+.dr-sharebox { background: var(--paper); border: 1px solid var(--line); border-radius: 5px; padding: 10px 12px; margin: 12px 0 0; white-space: pre-wrap; user-select: all; font-size: 0.95rem; }
+
+.dr-stats { margin-top: 24px; }
+.dr-stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; }
+.dr-stat-grid div { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 10px 4px; }
+.dr-stat-grid b { display: block; font-size: 1.5rem; font-family: "IBM Plex Mono", Menlo, monospace; }
+.dr-stat-grid span { font-size: 0.75rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em; }
+.dr-dist { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 4px; }
+.dr-dist li { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; }
+.dr-dist li span { width: 12px; color: var(--ink-soft); }
+.dr-dist li i { font-style: normal; background: var(--line); padding: 1px 6px; border-radius: 3px; text-align: right; min-width: 22px; }
+.dr-dist li.me i { background: var(--ok); color: #10200f; }
+
+.dr-yesterday { margin-top: 24px; }
+.dr-y-card { display: flex; gap: 14px; align-items: flex-start; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; }
+.dr-y-card img { width: 120px; height: 120px; border-radius: 5px; border: 2px solid var(--ink); flex: none; }
+.dr-y-card h3 { margin: 0 0 4px; }
+.dr-y-card p { margin: 0 0 6px; font-size: 0.92rem; }
+.dr-y-fact { color: var(--ink-soft); }
+@media (max-width: 480px) { .dr-y-card img { width: 84px; height: 84px; } }
+
+.dr-about { margin-top: 36px; border-top: 1px solid var(--line); padding-top: 24px; max-width: 680px; }
+.dr-about h2 { font-size: 1.3rem; }
+.dr-about h3 { font-size: 1.02rem; margin-top: 20px; }
+.dr-about-cta { color: var(--ink-soft); }

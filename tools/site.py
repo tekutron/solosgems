@@ -212,6 +212,61 @@ def sync_derived(R, ids):
     write("worker.js", wk[:m.start()] + "const TOOL_NAMES = " + json.dumps(names, ensure_ascii=False).replace('","', '", "') + ";" + wk[m.end():])
     # sitemap lastmod for the homepage
     write("sitemap.xml", re.sub(r"(<loc>https://solosgems.com/</loc><lastmod>)[0-9-]+", r"\g<1>" + TODAY, read("sitemap.xml")))
+    write("sitemap.xml", re.sub(r"(<loc>https://solosgems.com/daily.html</loc><lastmod>)[0-9-]+", r"\g<1>" + TODAY, read("sitemap.xml")))
+    daily_data(R, d)
+
+
+# ---------------------------------------------------------------- daily riddle
+DAILY_START = datetime.date(2026, 10, 17)   # puzzle #1
+DAILY_AHEAD = 120                            # days of answers scheduled in advance
+
+
+def daily_data(R, d):
+    """Write data/daily.json for daily.html: every tool (valid guesses) plus a
+    fixed answer schedule. Past and already scheduled days never change unless
+    their tool is removed; the schedule is extended on every rerank."""
+    s = read("index.html")
+    rows = {}
+    for b in row_blocks(s):
+        img = re.search(r'class="db-row-comic" src="([^"]+)"', b)
+        cap = re.search(r'<p class="db-row-caption">(.*?)</p>', b, re.S)
+        rows[row_name(b)] = (img.group(1) if img else "", U(re.sub(r"<[^>]+>", "", cap.group(1))) if cap else "")
+    info = {t["name"]: t for t in d["tools"]}
+    tools = []
+    for r in R["tools"]:
+        t = info[r["name"]]
+        img, cap = rows.get(r["name"], ("", ""))
+        tools.append({"slug": r["slug"], "name": r["name"], "category": t["category"], "tier": t["pricing"],
+                      "rank": r["rank"], "score": float("%.2f" % r["score"]), "basis": r["basis"],
+                      "img": img, "caption": cap, "desc": t["description"], "fact": t["cool_fact"],
+                      "why": r["why"], "url": t["url"]})
+    slugs = {t["slug"] for t in tools}
+    pool = sorted(t["slug"] for t in tools if t["img"] and (t["rank"] <= 110 or t["basis"] == "tested"))
+    old = load_json("data/daily.json").get("schedule", {}) if os.path.exists("data/daily.json") else {}
+    today = datetime.date.today()
+    sched, used = {}, []
+    day = DAILY_START
+    end = today + datetime.timedelta(days=DAILY_AHEAD)
+    while day <= end:
+        k = day.isoformat()
+        pick = old.get(k)
+        if pick not in slugs:
+            recent = set(used[-len(pool) + 1:]) if len(pool) > 1 else set()
+            fresh = [p for p in pool if p not in recent] or pool
+            # deterministic shuffle: hash of date + slug
+            pick = min(fresh, key=lambda p: hash_str(k + p))
+        sched[k] = pick
+        used.append(pick)
+        day += datetime.timedelta(days=1)
+    dump_json("data/daily.json", {"start": DAILY_START.isoformat(), "generated": TODAY,
+                                  "schedule": sched, "tools": tools})
+
+
+def hash_str(x):
+    h = 2166136261
+    for ch in x.encode():
+        h = ((h ^ ch) * 16777619) & 0xFFFFFFFF
+    return h
 
 
 def rerank():
