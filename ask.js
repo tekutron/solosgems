@@ -104,7 +104,11 @@
           if (!data || data === "[DONE]") return;
           try {
             var j = JSON.parse(data);
-            var piece = j.response != null ? j.response : (j.choices && j.choices[0] && j.choices[0].delta && j.choices[0].delta.content) || "";
+            // Workers AI sends each token twice: choices[0].delta.content is
+            // always a string, while "response" turns numeric tokens into JSON
+            // numbers (365, or 0 which is falsy), so prefer the delta.
+            var delta = j.choices && j.choices[0] && j.choices[0].delta;
+            var piece = delta && typeof delta.content === "string" ? delta.content : j.response != null ? String(j.response) : "";
             if (piece) {
               text += piece;
               render(body, text.replace(/<\|eot_id\|>[\s\S]*$/, ""));
