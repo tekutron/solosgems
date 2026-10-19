@@ -1550,20 +1550,22 @@ return scored.filter((x) => x.s > 0).slice(0, ASK_SHORTLIST).map((x) => x.t);
 // the meeting, and if all three do the keyword shortlist answers instead.
 const ASK_COUNCIL = [
 {
-id: "wizard", title: "The Wizard", icon: "\u{1F9D9}", model: "@cf/meta/llama-3.1-8b-instruct-fp8-fast", brain: "Llama 3.1 8B",
+id: "wizard", title: "The Wizard", icon: "\u{1F9D9}", models: [["@cf/meta/llama-3.1-8b-instruct-fp8-fast", "Llama 3.1 8B"]],
 persona: "You are the Wizard: an old, slightly pompous scholar who has read every scroll and cannot resist one dry, clever joke.",
 },
 {
-id: "bard", title: "The Bard", icon: "\u{1FA95}", model: "@cf/google/gemma-4-26b-a4b-it", brain: "Gemma 4 26B",
+// Gemma 4 is a reasoning model and spent its token budget thinking, so the
+// Bard uses Gemma 3 (no thinking step), with Mistral Small as a second voice.
+id: "bard", title: "The Bard", icon: "\u{1FA95}", models: [["@cf/google/gemma-3-12b-it", "Gemma 3 12B"], ["@cf/mistralai/mistral-small-3.1-24b-instruct", "Mistral Small 24B"]],
 persona: "You are the Bard: theatrical and warm, fond of puns and the occasional short rhyme, always rooting for the underdog tool.",
 },
 {
-id: "rogue", title: "The Rogue", icon: "\u{1F5E1}\u{FE0F}", model: "@cf/qwen/qwen3-30b-a3b-fp8", brain: "Qwen3 30B",
+id: "rogue", title: "The Rogue", icon: "\u{1F5E1}\u{FE0F}", models: [["@cf/qwen/qwen3-30b-a3b-fp8", "Qwen3 30B"]],
 persona: "You are the Rogue: sarcastic, street-smart and stingy, suspicious of anything that costs gold, deadpan funny.",
 },
 ];
 const ASK_FALLBACK_MODEL = "@cf/meta/llama-3.2-3b-instruct";
-const ASK_TIMEOUT_MS = 20000;
+const ASK_TIMEOUT_MS = 12000;
 
 function askHouseStyle(tools) {
 // A few real comic captions from the database, so every model learns the
@@ -1627,7 +1629,7 @@ temperature: 0.6,
 }),
 new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), ASK_TIMEOUT_MS)),
 ]);
-for (const model of [member.model, ASK_FALLBACK_MODEL]) {
+for (const [model, brain] of [...member.models, [ASK_FALLBACK_MODEL, "Llama 3.2 3B"]]) {
 try {
 const parsed = askParse(await run(model));
 if (!parsed) continue;
@@ -1641,7 +1643,7 @@ picks.push({ n, why: askClean(p.why, 240) });
 if (picks.length === 3) break;
 }
 if (!picks.length) continue;
-return { member, brain: model === member.model ? member.brain : "Llama 3.2 3B", quip: askClean(parsed.quip, 300), picks };
+return { member, brain, quip: askClean(parsed.quip, 300), picks };
 } catch (err) {
 // Try the small fallback model, then give up on this member.
 }
