@@ -6,14 +6,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="max-image-preview:large">
-<title>Ask the Herald: Free AI Tool Finder | Solos Gems</title>
-<meta name="description" content="Describe the job you need done in plain words and the Herald convenes a council of three free AI models to vote on the best tools for it from the Solos Gems database of 245 AI tools, with a free-plan filter and a reason for every pick.">
+<title>Ask the Herald: A Free AI Assistant With a D&amp;D Voice | Solos Gems</title>
+<meta name="description" content="Ask the Herald anything and get a real answer in the Solos Gems voice: a free AI assistant built with Llama 3.1, styled on our D&amp;D-flavored, observational writing.">
 <link rel="canonical" href="https://solosgems.com/ask.html">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Solos Gems">
-<meta property="og:title" content="Ask the Herald: three AI oracles pick your AI tool">
-<meta property="og:description" content="Describe your task. A Wizard, a Bard, and a Rogue (three different free AI models) vote on the best tools for it from the Solos Gems rankings.">
+<meta property="og:title" content="Ask the Herald: a free AI assistant with a D&amp;D voice">
+<meta property="og:description" content="Real answers to any question, told by a wry fantasy narrator. Built with Llama.">
 <meta property="og:url" content="https://solosgems.com/ask.html">
 <meta property="og:image" content="https://solosgems.com/images/og-default.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -29,7 +29,7 @@
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Any",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "description": "A free AI tool finder: describe a task in plain English and three free AI models, playing a Wizard, a Bard and a Rogue, vote on the best-fitting tools from the Solos Gems database.",
+  "description": "A free AI assistant with a D&D-flavored voice: ask any question and get a real answer. Built with Llama 3.1, styled on Solos Gems writing.",
   "isPartOf": { "@type": "WebSite", "name": "Solos Gems", "url": "https://solosgems.com/" }
 }
 </script>
@@ -66,59 +66,52 @@
 </header>
 
 <main class="ak-wrap">
-  <span class="kicker">A free AI tool finder</span>
+  <span class="kicker">A free AI assistant</span>
   <h1>Ask the Herald</h1>
-  <p class="ak-lede">Tell the Herald what you are trying to get done, in your own words. The Herald searches the <a href="/">Solos Gems database</a> and convenes the Council of Oracles: a Wizard, a Bard, and a Rogue, each a different free AI model, who argue it out and vote for the tools best suited to your quest.</p>
+  <p class="ak-lede">Ask anything: a recipe, a science question, a stubborn bug in your code, how to word a tricky email. The Herald gives you a real answer, told the way Solos Gems tells everything, like a wry narrator who sees the modern world as a fantasy realm.</p>
 
-  <form id="ak-form" class="ak-form" autocomplete="off">
-    <label for="ak-q" class="ak-label">Your quest</label>
-    <textarea id="ak-q" rows="3" maxlength="300" placeholder="e.g. turn my podcast episodes into short clips for TikTok" required></textarea>
-    <div class="ak-row">
-      <label class="ak-check"><input type="checkbox" id="ak-free"> Free plans only</label>
-      <span class="ak-count" id="ak-count">0 / 300</span>
-      <button type="submit" class="ak-btn" id="ak-go">Ask the Herald</button>
+  <section class="ak-chat" aria-label="Conversation with the Herald">
+    <ol class="ak-log" id="ak-log" aria-live="polite">
+      <li class="ak-msg ak-herald-msg"><p class="ak-who">The Herald</p><div class="ak-body"><p>Hail, traveler! Ask me anything you like. I'll give you a straight answer with a little flavor, and if you'd rather skip the fantasy voice, just say so.</p></div></li>
+    </ol>
+    <form id="ak-form" class="ak-form" autocomplete="off">
+      <label for="ak-q" class="ak-label">Your question</label>
+      <textarea id="ak-q" rows="2" maxlength="2000" placeholder="e.g. Why do onions make you cry?" required></textarea>
+      <div class="ak-row">
+        <button type="button" class="ak-btn ak-btn-ghost" id="ak-new">New conversation</button>
+        <span class="ak-count" id="ak-count">0 / 2000</span>
+        <button type="submit" class="ak-btn" id="ak-go">Ask</button>
+      </div>
+    </form>
+    <div class="ak-examples" id="ak-examples" aria-label="Example questions">
+      <span>Try:</span>
+      <button type="button" class="ak-chip">Why is the sky blue?</button>
+      <button type="button" class="ak-chip">How do I make a budget?</button>
+      <button type="button" class="ak-chip">Explain recursion simply</button>
+      <button type="button" class="ak-chip">Write a haiku about Mondays</button>
+      <button type="button" class="ak-chip">What is compound interest?</button>
+      <button type="button" class="ak-chip">How do I fall asleep faster?</button>
     </div>
-  </form>
-
-  <div class="ak-examples" aria-label="Example quests">
-    <span>Try:</span>
-    <button type="button" class="ak-chip">take notes in my Zoom meetings</button>
-    <button type="button" class="ak-chip">build a website without coding</button>
-    <button type="button" class="ak-chip">make a song for my friend's birthday</button>
-    <button type="button" class="ak-chip">fix bugs in my Python code</button>
-    <button type="button" class="ak-chip">tailor my resume to a job post</button>
-    <button type="button" class="ak-chip">translate documents into Spanish</button>
-  </div>
-
-  <section class="ak-answer" id="ak-answer" aria-live="polite" hidden>
-    <p class="ak-reply" id="ak-reply"></p>
-    <ul class="ak-council" id="ak-council" aria-label="The Council of Oracles" hidden></ul>
-    <h2 class="ak-h" id="ak-verdict-h" hidden>The verdict</h2>
-    <ol class="ak-picks" id="ak-picks"></ol>
-    <p class="ak-note" id="ak-note"></p>
   </section>
 
   <section class="ak-about">
-    <h2>How the Herald chooses</h2>
-    <p>The Herald does not guess from thin air. Every answer comes from the same database that powers the <a href="/">Solos Gems rankings</a>, a database of 245 AI tools, each with a category, its pricing, a score out of ten, and a plain-English summary written by hand.</p>
-    <h3>Step one: the scroll search</h3>
-    <p>Your words are matched against every tool's name, category, and write-up. Everyday words are translated into the database's language, so "Zoom calls" finds meeting transcription tools and "resume" finds career tools. Rare, specific words count for more than common ones. The closest matches, up to eighteen, make the shortlist. Tick "Free plans only" and paid-only tools never make it that far.</p>
-    <h3>Step two: the Council of Oracles votes</h3>
-    <p>Your quest and the shortlist go to three different free, open AI models at once, all running on Cloudflare Workers AI. Each plays a character: the Wizard (Meta's Llama) is a pompous scholar, the Bard (Mistral) loves a pun, and the Rogue (Alibaba's Qwen) distrusts anything that costs gold. Each one gives you a line in the Solos Gems house voice and votes for up to three tools, with a reason.</p>
-    <p>The Herald then counts the votes: a first choice is worth three points, a second two, a third one. The tool with the most points is the Council's choice. Because the oracles can only vote for tools on the shortlist, none of them can invent a tool that does not exist. If an oracle is busy it misses the meeting, and if the whole Council is out, the Herald answers with the top matches from the scroll search, so you always get an answer.</p>
-    <h3>Step three: the Herald has the last word</h3>
-    <p>Once the votes are in, the Herald delivers a one-line verdict on the Council's choice. The Herald is a small open model (Meta's Llama 3.2 3B) that we trained ourselves on Solos Gems writing: every comic caption in the database, the DeathStack epitaphs, scenes from <a href="game.html">The Road to Solos Gems</a>, and a few hundred original jokes comparing the real world to a fantasy realm. That training is why the Herald sounds like the rest of the site instead of a generic chatbot in a wizard hat.</p>
-    <h3>Why three models instead of one?</h3>
-    <p>Different AI models have different instincts. When all three agree, you can be fairly confident in the pick. When they split, you get several good options and the reasons behind each one, which is often more useful than a single answer.</p>
-    <h3>Reading the results</h3>
+    <h2>Who is the Herald?</h2>
+    <p>The Herald is a general-purpose AI assistant, like the big chatbots, with one difference: it talks like Solos Gems. Ask how to boil an egg and you get the right timings, plus the observation that peeling it is the real boss fight. The answer always comes first. The humor is seasoning.</p>
+    <h3>How it works</h3>
+    <p>Under the cloak is Meta's open Llama 3.1 model with 8 billion parameters, running on Cloudflare. The Herald's voice comes from Solos Gems writing: a style guide and example answers drawn from a dataset we wrote ourselves, with hundreds of everyday questions answered correctly in the Herald's style and a few hundred original jokes that describe the real world as if it were a fantasy realm (a free trial is an innkeeper whose key starts billing on day eight). The style shapes how the Herald talks. Its knowledge comes from the underlying model, not from our tool rankings.</p>
+    <h3>What it's good at</h3>
     <ul>
-      <li><strong>Rank and score:</strong> where the tool sits in the whole database, and its score out of ten.</li>
-      <li><strong>Tested or Scouted:</strong> Tested tools were used hands-on. Scouted tools are ranked from research.</li>
-      <li><strong>Free plan or Paid only:</strong> whether you can keep using it for free, not just trial it.</li>
+      <li><strong>Explanations:</strong> science, history, money, technology, "explain it like I'm five".</li>
+      <li><strong>Everyday help:</strong> cooking, cleaning, fixing things, planning, studying.</li>
+      <li><strong>Writing:</strong> emails, messages, essays, poems, names for your D&amp;D character.</li>
+      <li><strong>Code:</strong> short examples and explanations in common languages.</li>
     </ul>
+    <h3>What to keep in mind</h3>
+    <p>The Herald is a smaller model than the giants in the castle towers, and like every AI it can be confidently wrong. It can't browse the web or see today's news, and it isn't a doctor, lawyer, or financial advisor. Double-check anything important, and in an emergency, contact local emergency services.</p>
     <h3>Privacy</h3>
-    <p>Your question is sent to the Solos Gems server to find matches and is not stored with anything that identifies you. Do not type personal details into your quest. See the <a href="privacy.html">privacy policy</a>.</p>
-    <p class="ak-about-cta">Want to browse instead? The full <a href="/">AI tools database</a> lists every tool by category, or test what you know in <a href="daily.html">The Herald's Riddle</a>.</p>
+    <p>Your conversation is sent to the Solos Gems server and processed by Cloudflare Workers AI to write the reply. We don't store your conversations or link them to you, and the chat clears when you leave the page. Please don't share personal details like passwords, card numbers, or health records. See the <a href="privacy.html">privacy policy</a>.</p>
+    <p class="ak-built">Built with Llama. The Herald runs on Meta Llama 3.1, licensed under the Llama 3.1 Community License.</p>
+    <p class="ak-about-cta">Looking for the right AI tool instead? Browse the full <a href="/">AI tools database</a>, or test your knowledge in <a href="daily.html">The Herald's Riddle</a>.</p>
   </section>
 </main>
 

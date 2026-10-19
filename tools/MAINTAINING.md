@@ -106,14 +106,11 @@ pick. The answer pool is tools ranked #1-110 plus every tested tool.
 
 ## Ask the Herald (ask.html)
 
-The AI tool finder posts to `/api/ask` in `worker.js`. It reads the same
-`data/daily.json`, so new and renamed tools show up automatically after
-`rerank`. A keyword pass (with the `ASK_SYNONYMS` map of everyday words)
-shortlists up to 14 tools, then the Council of Oracles (`ASK_COUNCIL`: three
-Workers AI models, each a character) votes 1-3 of them by number with a reason;
-none can name a tool outside the shortlist. Votes are tallied 3/2/1 points.
-Each member falls back to Llama 3.2 3B if its model fails; if all fail the top
-keyword matches are returned. The house voice comes from real comic captions
-in the prompt (`askHouseStyle`), so better captions mean a funnier council. Answers are cached a day per question,
-and `ASK_LIMITER` (wrangler `ratelimits`) caps each visitor at 8 asks a minute.
-If a common request finds the wrong tools, add the word to `ASK_SYNONYMS`.
+A general-purpose chat assistant with the Solos Gems voice. The page posts the
+conversation to `/api/chat` in `worker.js`, which streams a reply from
+`@cf/meta/llama-3.1-8b-instruct-fp8-fast` with `CHAT_SYSTEM` (the Herald style
+guide) and `CHAT_EXAMPLES` (three example exchanges). A LoRA trained on the
+style dataset in `herald-training/` (outside the repo) made answers less
+accurate in testing, so it is not used; retrain only with a bigger, checked
+dataset. The page must keep the "Built with Llama" notice (Llama license).
+`ASK_LIMITER` caps each visitor at 8 messages a minute; nothing is stored.
