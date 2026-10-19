@@ -123,7 +123,7 @@
   function ask(text) {
     text = text.trim();
     if (!text || busy) return;
-    examples.hidden = true;
+    if (examples) examples.hidden = true;
     addMessage("user", text);
     history.push({ role: "user", content: text });
     history = history.slice(-MAX_TURNS);
@@ -181,7 +181,7 @@
     if (busy) return;
     history = [];
     log.innerHTML = greeting;
-    examples.hidden = false;
+    if (examples) examples.hidden = false;
   });
   Array.prototype.forEach.call(document.querySelectorAll(".ak-chip"), function (b) {
     b.addEventListener("click", function () {

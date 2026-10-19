@@ -4,7 +4,6 @@
 .herald-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
 .herald-orb { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-size: 1.2rem; color: #1a1a18; background: radial-gradient(circle at 35% 30%, #fff3cf, #ffd76a 45%, #b8790f); box-shadow: 0 0 14px rgba(255, 215, 106, 0.35); }
 .herald-title { margin: 0; font-size: 1.25rem; line-height: 1.1; }
-.herald-sub { margin: 2px 0 0; font-size: 0.85rem; color: var(--ink-soft); }
 .herald-clear { margin-left: auto; font: inherit; font-size: 0.8rem; background: transparent; color: var(--ink-soft); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; cursor: pointer; }
 .herald-clear:hover { color: var(--ink); border-color: var(--rust-dark); }
 
@@ -27,10 +26,6 @@
 .ak-btn:hover { background: var(--rust-dark); }
 .ak-btn:disabled { opacity: 0.65; cursor: wait; }
 
-.ak-examples { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-.ak-examples[hidden] { display: none; }
-.ak-chip { font: inherit; font-size: 0.82rem; background: transparent; color: var(--ink-soft); border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; cursor: pointer; }
-.ak-chip:hover { color: var(--ink); border-color: var(--rust-dark); }
 .herald-note { margin: 10px 0 0; font-size: 0.75rem; color: var(--ink-soft); }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 @media (max-width: 520px) { .herald { padding: 12px; } .ak-msg { max-width: 100%; } }
