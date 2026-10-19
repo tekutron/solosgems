@@ -48,6 +48,7 @@ a:hover { color: var(--rust); }
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
 }
 
 .logo {
@@ -82,11 +83,11 @@ a:hover { color: var(--rust); }
 nav { text-align: right; }
 
 nav a {
-  margin-left: 18px;
+  margin-left: 12px;
   white-space: nowrap;
   text-decoration: none;
   color: var(--ink-soft);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 nav a:hover { color: var(--rust-dark); }
@@ -111,10 +112,6 @@ nav a:hover { color: var(--rust-dark); }
 
 @media (max-width: 560px) {
   .quest-badge { display: none; }
-}
-
-@media (max-width: 1100px) {
-  nav a { margin-left: 14px; font-size: 0.9rem; }
 }
 
 /* Small screens: the nav drops to its own row under the logo and wraps. */
