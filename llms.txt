@@ -1,10 +1,10 @@
 # Solos Gems
 
-> Solos Gems is a D&D-flavored AI tools database: the Herald's Hub at https://solosgems.com/ lists 244 AI tools across every major category, each with a plain-English summary, a retro video game style comic and caption, and a direct link to the real product. Every tool carries a score and a rank on one cross-category list (0-10, the average of value for price, real-world capability, ease of use, and trial safety), shown in its database row with a short note on why it landed there. 51 tools were tested hands-on; the rest are scouted from public pricing and features, and are labeled that way. Nothing scores a 10. Some links are affiliate links (disclosed on the About page); that never changes which tools are covered or what the verdict says. Standalone review pages (/reviews/...) were retired in September 2026 and now redirect to the matching database row.
+> Solos Gems is a D&D-flavored AI tools database: the Herald's Hub at https://solosgems.com/ lists 245 AI tools across every major category, each with a plain-English summary, a retro video game style comic and caption, and a direct link to the real product. Every tool carries a score and a rank on one cross-category list (0-10, the average of value for price, real-world capability, ease of use, and trial safety), shown in its database row with a short note on why it landed there. 51 tools were tested hands-on; the rest are scouted from public pricing and features, and are labeled that way. Nothing scores a 10. Some links are affiliate links (disclosed on the About page); that never changes which tools are covered or what the verdict says. Standalone review pages (/reviews/...) were retired in September 2026 and now redirect to the matching database row.
 
-Last updated: 2026-10-17.
+Last updated: 2026-10-19.
 
-## Ranked tools (#1-244, every tool in the database, each links to its row)
+## Ranked tools (#1-245, every tool in the database, each links to its row)
 
 Tested = tested hands-on by Solos Gems. Scouted = scored from public pricing, docs, and features.
 
@@ -72,190 +72,191 @@ Tested = tested hands-on by Solos Gems. Scouted = scored from public pricing, do
 - [Amazon Q Developer](https://solosgems.com/#tool-amazon-q-developer): #62, 7.88/10, Scouted. Free for individuals and great at AWS plumbing. Less exciting outside the AWS kingdom.
 - [Willow Voice](https://solosgems.com/#tool-willow-voice): #63, 7.88/10, Scouted. Cross-platform dictation that learns how you write, with a free tier. A friendly rival to Wispr Flow.
 - [Rows](https://solosgems.com/#tool-rows): #64, 7.88/10, Scouted. A spreadsheet with AI and live data built in, plus a real free plan. Quietly excellent.
-- [Shopify Magic](https://solosgems.com/#tool-shopify-magic): #65, 7.88/10, Scouted. Free AI inside Shopify for descriptions and images. Only useful if you already live in Shopify's castle.
-- [Rytr](https://solosgems.com/#tool-rytr): #66, 7.88/10, Scouted. A cheap, cheerful copywriter with a free plan. Not deep, very affordable.
-- [Descript](https://solosgems.com/#tool-descript): #67, 7.75/10, Tested. Editing video by editing text is a legendary spell. The learning curve and price keep it from the top of the tower.
-- [Airtable](https://solosgems.com/#tool-airtable): #68, 7.75/10, Tested. A spreadsheet that learned necromancy. Powerful, with a generous free plan, but it takes a few sessions to master.
-- [Attio](https://solosgems.com/#tool-attio): #69, 7.75/10, Tested. A modern CRM with AI on every plan, free included. A strong pick for small parties tracking many quests.
-- [Toggl Track](https://solosgems.com/#tool-toggl-track): #70, 7.75/10, Tested. Free for small parties and dead simple to use. The AI is a garnish, not the main course.
-- [Luma Dream Machine](https://solosgems.com/#tool-luma-dream-machine): #71, 7.75/10, Scouted. Video with real depth and camera movement, free to try. Strong, credit-limited.
-- [Adobe Firefly](https://solosgems.com/#tool-adobe-firefly): #72, 7.75/10, Scouted. Commercially safer images inside the Adobe tools you may already rent. Great if you live in Adobe's castle.
-- [Leonardo AI](https://solosgems.com/#tool-leonardo-ai): #73, 7.75/10, Scouted. Strong for game art and stylized illustration, with free daily credits. A favorite of the concept-art guild.
-- [Recraft](https://solosgems.com/#tool-recraft): #74, 7.75/10, Scouted. Brand-consistent graphics, icons, and vectors. The image tool that thinks like a designer.
-- [Replit](https://solosgems.com/#tool-replit): #75, 7.75/10, Scouted. Describe an app and Replit Agent builds and hosts it. Easy start, usage costs climb as the app grows.
-- [CodeRabbit](https://solosgems.com/#tool-coderabbit): #76, 7.75/10, Scouted. Reviews every pull request line by line, free for open source. A tireless second pair of eyes.
-- [Magnific](https://solosgems.com/#tool-freepik-ai): #77, 7.75/10, Scouted. Image generation stapled to a huge stock library with a free tier. A practical one-stop art shop.
-- [PixVerse](https://solosgems.com/#tool-pixverse): #78, 7.75/10, Scouted. Fast text-to-video with style templates and free credits. A capable, cheerful option.
-- [Read AI](https://solosgems.com/#tool-read-ai): #79, 7.75/10, Scouted. Solid meeting summaries and cross-app search with a small free tier. A capable scribe, not the cheapest.
-- [Tidio](https://solosgems.com/#tool-tidio): #80, 7.75/10, Scouted. Chat and AI support for small shops with a free plan. Exactly sized for the solo storefront.
-- [Koala AI](https://solosgems.com/#tool-koala-ai): #81, 7.62/10, Tested. Cheap, SEO-minded article writer that does its one job well. Not much range outside that job.
-- [Poe](https://solosgems.com/#tool-poe): #82, 7.62/10, Scouted. One subscription, dozens of familiars. Great for sampling the bestiary, though points-based limits run out fast.
-- [Kapwing](https://solosgems.com/#tool-kapwing): #83, 7.62/10, Scouted. A friendly online editor with subtitles and dubbing built in, free to start. A great all-rounder.
-- [Pika](https://solosgems.com/#tool-pika): #84, 7.62/10, Scouted. Quick, stylized clips and playful effects with a free tier. More party trick than production line.
-- [Sider](https://solosgems.com/#tool-sider): #85, 7.62/10, Scouted. A sidebar that brings twenty-odd models to any webpage. Handy, though you're renting other wizards' spells.
-- [Speechify](https://solosgems.com/#tool-speechify): #86, 7.62/10, Scouted. Wonderful for listening instead of reading, but the voices worth hearing live behind a pricey Premium tier.
-- [AIVA](https://solosgems.com/#tool-aiva): #87, 7.62/10, Scouted. Composes original soundtracks with a free tier. A court composer who works for crumbs.
-- [Hark](https://solosgems.com/#tool-hark): #88, 7.62/10, Scouted. Free tier and every feature on every plan make this a generous familiar, but a brand-new squire with your inbox and credit cards is a leap of faith.
-- [Lex](https://solosgems.com/#tool-lex): #89, 7.62/10, Scouted. A calm, distraction-free word processor with AI on call. A writer's quiet tower.
-- [MyArchitectAI](https://solosgems.com/#tool-myarchitectai): #90, 7.62/10, Scouted. Interior and exterior renders with free renders to start. A handy sketchbook for home dreamers.
-- [Rocket Money](https://solosgems.com/#tool-rocket-money): #91, 7.62/10, Scouted. Finds and cancels forgotten subscriptions, free to start. It may pay for itself by slaying one zombie subscription.
-- [Teal](https://solosgems.com/#tool-teal): #92, 7.62/10, Scouted. Resume builder plus job tracker with a usable free tier. The best overall kit for a job-hunting quest.
-- [Claude Code](https://solosgems.com/#tool-claude-code): #93, 7.5/10, Scouted. One of the strongest coding agents in the land, included with Claude Pro. No free tier, and it assumes you can read code.
-- [Wix](https://solosgems.com/#tool-wix): #94, 7.5/10, Scouted. An AI wizard builds you a site from a short chat. Easy and capable, upsells lurk around every corner.
-- [GenPage](https://solosgems.com/#tool-genpage): #95, 7.5/10, Scouted. Real free plan and a tidy trick for per-visitor pages, though the best toys (custom domains, API) sit behind the $79 Pro door.
-- [Missive](https://solosgems.com/#tool-missive): #96, 7.5/10, Scouted. Shared inbox, chat, and tasks in one thread, with a free plan for tiny teams. Practical and underrated.
-- [MyFitnessPal](https://solosgems.com/#tool-myfitnesspal): #97, 7.5/10, Scouted. Photo meal logging and a giant food database with a free tier. Useful, though the best tricks are Premium.
-- [Quizlet](https://solosgems.com/#tool-quizlet): #98, 7.5/10, Scouted. Easy flashcards and practice tests from your notes. The AI is useful, the best bits sit behind Plus.
-- [ClickUp Brain](https://solosgems.com/#tool-clickup-ai): #99, 7.38/10, Tested. Smart oracle, cluttered war table. Capable when you find the right lever, but there are a lot of levers.
-- [Craft](https://solosgems.com/#tool-craft): #100, 7.38/10, Tested. Lovely notes and docs with helpful AI. More polish than raw power.
-- [Calendly](https://solosgems.com/#tool-calendly): #101, 7.38/10, Tested. The easiest spell in the book: share a link, let the meeting cast itself. Not much magic beyond that, and it doesn't pretend otherwise.
-- [Durable](https://solosgems.com/#tool-durable): #102, 7.38/10, Tested. A website, CRM, and booking calendar in one quick spell. Not deep, but very fast to stand up.
-- [Numerous.ai](https://solosgems.com/#tool-numerous-ai): #103, 7.38/10, Tested. A small, cheap spell inside Google Sheets that does one useful thing very well.
-- [Fyxer AI](https://solosgems.com/#tool-fyxer-ai): #104, 7.38/10, Scouted. Sorts your inbox and drafts replies in your voice, with a free trial. A promising inbox squire.
-- [Jamie](https://solosgems.com/#tool-jamie): #105, 7.38/10, Scouted. Bot-free notes captured locally, in person or online. Discreet and capable, smaller free allowance.
-- [Krisp](https://solosgems.com/#tool-krisp): #106, 7.38/10, Scouted. Silences every barking dog on both ends of the call. Excellent at its trick, paid after a short trial.
-- [LangChain](https://solosgems.com/#tool-langchain): #107, 7.38/10, Scouted. Free, open-source plumbing for AI apps. Mighty if you code, a maze of pipes if you don't.
-- [PandaDoc](https://solosgems.com/#tool-pandadoc): #108, 7.38/10, Scouted. Proposals, quotes, and e-signatures with a free e-sign tier. A tidy deal-closing satchel.
-- [ProWritingAid](https://solosgems.com/#tool-prowritingaid): #109, 7.38/10, Scouted. Deep style and grammar checks for long manuscripts. A novelist's editor with a free tier.
-- [AltText.ai](https://solosgems.com/#tool-alttext-ai): #110, 7.38/10, Scouted. Writes alt text for every image so your site is readable for everyone. Narrow, useful, and kind.
-- [Composer](https://solosgems.com/#tool-composer): #111, 7.38/10, Scouted. Build and backtest trading strategies without code, free to try. Remember: the dice do not care about your backtest.
-- [Fitbod](https://solosgems.com/#tool-fitbod): #112, 7.38/10, Scouted. Adapts each workout to how you actually trained. A helpful squire for the gym, paid after a few sessions.
-- [Virtual Staging AI](https://solosgems.com/#tool-virtual-staging-ai): #113, 7.38/10, Scouted. Furnishes empty rooms for a fraction of real staging. Fast and cheap per photo.
-- [You.com](https://solosgems.com/#tool-you-com): #114, 7.38/10, Scouted. Lets you pick which model answers. Flexible, but outshone by the bigger search familiars.
-- [Epique AI](https://solosgems.com/#tool-epique-ai): #115, 7.38/10, Scouted. AI listing descriptions and emails built for real estate agents. Narrow, handy, affordable.
-- [GPTZero](https://solosgems.com/#tool-gptzero): #116, 7.38/10, Scouted. Easy and free to start, beloved by teachers. Like every AI detector, it can accuse an innocent scroll.
-- [Rill Browser](https://solosgems.com/#tool-rill-browser): #117, 7.38/10, Scouted. Free to enter and lets your existing familiars ride along, but it is a 0.1 beta, Apple-silicon-only, and useless without a Claude or Codex plan.
-- [Bonsai](https://solosgems.com/#tool-bonsai): #118, 7.25/10, Tested. Contracts, invoices, and scheduling for freelancers in one tidy pouch. Dependable, not flashy.
-- [HeyGen](https://solosgems.com/#tool-heygen): #119, 7.25/10, Scouted. The best lip-sync and video translation in town. Avatar magic that costs real gold.
-- [Bolt.new](https://solosgems.com/#tool-bolt-new): #120, 7.25/10, Scouted. Spins up full-stack apps in the browser. Fun and fast, but tokens drain quickly once the bugs start.
-- [Figma Make](https://solosgems.com/#tool-figma-make): #121, 7.25/10, Scouted. Prompt-to-prototype that respects your real design system. Great inside Figma, gated by its plans.
-- [Grok](https://solosgems.com/#tool-grok): #122, 7.25/10, Scouted. Sharp and plugged into X's live firehose, but the best features sit behind paid tiers and its chaotic alignment is a feature, apparently.
-- [Higgsfield](https://solosgems.com/#tool-higgsfield): #123, 7.25/10, Scouted. Cinematic camera moves on demand. Gorgeous presets, credit-hungry.
-- [Kagi](https://solosgems.com/#tool-kagi): #124, 7.25/10, Scouted. Ad-free search you pay for, which is refreshing and also, well, paying for search. Worth it for the devoted.
-- [Genspark](https://solosgems.com/#tool-genspark): #125, 7.25/10, Scouted. A Super Agent that researches and builds decks for you. Impressive when it works, credit-hungry when it doesn't.
-- [Gumloop](https://solosgems.com/#tool-gumloop): #126, 7.25/10, Scouted. A friendly visual canvas for AI automations. Easier than Zapier for AI-heavy flows, younger and less proven.
-- [Async](https://solosgems.com/#tool-async): #127, 7.25/10, Scouted. Recording, editing, and AI cleanup in the browser with a free tier. A whole studio in one tab.
-- [Ocoya](https://solosgems.com/#tool-ocoya): #128, 7.25/10, Scouted. AI captions and scheduling across 30+ platforms with a free tier. Broad reach, lighter polish.
-- [Uizard](https://solosgems.com/#tool-uizard): #129, 7.25/10, Scouted. Turns sketches into clickable mockups with a free tier. Friendly for non-designers.
-- [Soundraw](https://solosgems.com/#tool-soundraw): #130, 7.25/10, Scouted. Royalty-free music shaped by mood and length. A dependable background bard.
-- [Loom](https://solosgems.com/#tool-loom): #131, 7.12/10, Tested. Effortless to record and share, docked because the free tier caps how long and how many videos you get.
-- [Suno](https://solosgems.com/#tool-suno): #132, 7.12/10, Tested. Writes full songs with vocals from a sentence, and the free tier is fun. Commercial rights require gold.
-- [Murf AI](https://solosgems.com/#tool-murf-ai): #133, 7.12/10, Scouted. Polished voiceovers for videos and slides. Easy and reliable, outclassed by ElevenLabs on range.
-- [Cleanvoice](https://solosgems.com/#tool-cleanvoice): #134, 7.12/10, Scouted. Strips filler words and stutters from raw audio. Narrow, effective, mostly paid.
-- [Grain](https://solosgems.com/#tool-grain): #135, 7.12/10, Scouted. Turns call moments into shareable clips. Nice for sales and research calls, narrower than the big notetakers.
-- [Pitch](https://solosgems.com/#tool-pitch): #136, 7.12/10, Scouted. Collaborative decks with AI slides and a free tier. Great for teams, fine for one.
-- [Plus AI](https://solosgems.com/#tool-plus-ai): #137, 7.12/10, Scouted. Generates slides right inside Google Slides and PowerPoint. Convenient, paid after the trial.
-- [Vanna AI](https://solosgems.com/#tool-vanna-ai): #138, 7.12/10, Scouted. Open-source text-to-SQL you build yourself. Free and flexible, if you can build it.
-- [Looka](https://solosgems.com/#tool-looka): #139, 7.12/10, Scouted. Logo and brand kit in minutes, free to design. You pay only when you download, which is fair.
-- [Sanebox](https://solosgems.com/#tool-sanebox): #140, 7.12/10, Scouted. Quietly sweeps newsletters and noise out of your inbox. Simple, effective, and paid after the trial.
-- [Simplified](https://solosgems.com/#tool-simplified): #141, 7.12/10, Scouted. Design, writing, video, and scheduling in one bundle. Jack of many trades, master of few.
-- [Calm](https://solosgems.com/#tool-calm): #142, 7.12/10, Scouted. Soothing, easy, and polished. The AI is a light touch on a meditation app most people use for the rain sounds.
-- [Cleo](https://solosgems.com/#tool-cleo): #143, 7.12/10, Scouted. A sassy budgeting chatbot that roasts your spending. Fun and approachable, light on depth.
-- [HubSpot Free CRM](https://solosgems.com/#tool-hubspot-free-crm): #144, 7.08/10, Tested. The free tier is a sturdy keep. The AI wing is real but locked behind a toll gate that gets pricier every floor.
-- [Make](https://solosgems.com/#tool-make): #145, 7/10, Tested. A cheaper, more flexible Zapier with a steeper learning curve. Strong value if you're willing to read the spellbook.
-- [Monarch Money](https://solosgems.com/#tool-monarch-money): #146, 7/10, Scouted. Clear, complete money tracking for couples and households. Paid, but many say worth it.
-- [Copilot Money](https://solosgems.com/#tool-copilot-money): #147, 7/10, Scouted. A beautiful budgeting app with smart categorization. Paid after the trial, Apple-first.
-- [RemodelAI](https://solosgems.com/#tool-remodelai): #148, 7/10, Scouted. Photoreal redesigns, staging, and paint previews. Capable, mostly paid.
-- [Interior AI](https://solosgems.com/#tool-interior-ai): #149, 7/10, Scouted. Restyles a room from one photo. Fun and quick, light on free tries.
-- [Rezi](https://solosgems.com/#tool-rezi): #150, 7/10, Scouted. ATS-safe resumes with a lifetime plan option. Focused and fair, but narrow.
-- [Anara](https://solosgems.com/#tool-anara): #151, 6.88/10, Tested. Cites the exact passage in your own documents. Strong scholar, steeper price than the free alternatives.
-- [Gamma](https://solosgems.com/#tool-gamma): #152, 6.88/10, Tested. Turns a prompt into a polished deck faster than a bard can tune a lute. The free credits run dry quickly, though.
-- [Topaz Labs](https://solosgems.com/#tool-topaz-labs): #153, 6.88/10, Scouted. The best upscaling magic in the realm, but subscription-only with no free plan, so you pay before you see the sharpening.
-- [Rev](https://solosgems.com/#tool-rev): #154, 6.88/10, Scouted. AI plus human-checked transcripts accurate enough for accessibility compliance. The human part is precise and not cheap.
-- [Dovetail](https://solosgems.com/#tool-dovetail): #155, 6.88/10, Scouted. Turns interviews and surveys into searchable themes. A great research library, overkill for occasional use.
-- [eesel AI](https://solosgems.com/#tool-eesel-ai): #156, 6.88/10, Scouted. Adds an AI agent to the helpdesk you already have. Clever, but paid-first.
-- [Meshy](https://solosgems.com/#tool-meshy): #157, 6.88/10, Scouted. Conjures rigged 3D models from a sentence, which is wizardry. Game-ready quality still needs a blacksmith's touch.
-- [10Web](https://solosgems.com/#tool-10web): #158, 6.88/10, Scouted. AI WordPress builder plus hosting. Convenient bundle, WordPress quirks included.
-- [Creatify](https://solosgems.com/#tool-creatify): #159, 6.88/10, Scouted. Product link in, avatar ad out. Fast, and the avatars still look like avatars.
-- [Jobscan](https://solosgems.com/#tool-jobscan): #160, 6.88/10, Scouted. Tests your resume against the ATS gatekeepers. One very useful trick, with a free trial scan to prove it.
-- [Submagic](https://solosgems.com/#tool-submagic): #161, 6.88/10, Scouted. Fast, easy, and does the caption trick creators love. Paid from the start and narrow beyond short-form clips.
-- [Tabnine](https://solosgems.com/#tool-tabnine): #162, 6.88/10, Scouted. Private, run-it-yourself code completion. Great for secret-keeping guilds, less capable than the big agents.
-- [Writesonic](https://solosgems.com/#tool-writesonic): #163, 6.88/10, Scouted. Marketing copy and SEO articles at scale. Capable, in a very crowded scribes' guild.
-- [AI2SQL](https://solosgems.com/#tool-ai2sql): #164, 6.88/10, Scouted. Turns plain English into SQL. A helpful translator for people who fear databases.
-- [Danelfin](https://solosgems.com/#tool-danelfin): #165, 6.88/10, Scouted. Rates stocks 1 to 10 with machine learning. Simple to read, and still not a prophecy.
-- [Manus](https://solosgems.com/#tool-manus): #166, 6.75/10, Scouted. A general agent that browses and builds on its own. Wildly capable on a good roll, expensive on a bad one.
-- [Tana](https://solosgems.com/#tool-tana): #167, 6.75/10, Scouted. Powerful structured notes with a free tier. A spellbook that rewards those who study it.
-- [Sourcegraph Cody](https://solosgems.com/#tool-sourcegraph-cody): #168, 6.75/10, Scouted. Codebase-aware answers built on serious code search. Newer coding agents have stolen much of its spotlight.
-- [LegesGPT](https://solosgems.com/#tool-legesgpt): #169, 6.75/10, Scouted. Contract drafting and citation checks priced for solo lawyers. A rare legal tool sized for one.
-- [Reflect](https://solosgems.com/#tool-reflect): #170, 6.75/10, Scouted. Networked notes with built-in AI. Elegant, paid after the trial.
-- [Tripo AI](https://solosgems.com/#tool-tripo-ai): #171, 6.75/10, Scouted. Fast 3D summoning straight into game engines. Solid, but the 3D guild is crowded and Meshy got there first.
-- [Shortwave](https://solosgems.com/#tool-shortwave): #172, 6.62/10, Tested. A smart AI inbox, but per-seat pricing makes it a luxury mount rather than a daily horse.
-- [Copy.ai](https://solosgems.com/#tool-copyai): #173, 6.62/10, Tested. A solid scribe with a real free tier, outgrowing pure copywriting into workflows. Competent, not legendary.
-- [Webflow](https://solosgems.com/#tool-webflow): #174, 6.62/10, Scouted. Professional sites with clean code and a free starter plan. Powerful, with a real learning curve.
-- [Juicebox](https://solosgems.com/#tool-juicebox): #175, 6.62/10, Scouted. Plain-language candidate search across the whole realm. Powerful for recruiters, pricey for the occasional hire.
-- [Sudowrite](https://solosgems.com/#tool-sudowrite): #176, 6.62/10, Scouted. An AI built for novelists and worldbuilders. Excellent muse, paid from the start.
-- [DocuSign](https://solosgems.com/#tool-docusign): #177, 6.62/10, Scouted. The e-signature standard, now with AI contract analysis. Reliable, and priced like the standard it is.
-- [NovelAI](https://solosgems.com/#tool-novelai): #178, 6.62/10, Scouted. Fiction writing and anime art from a small studio. Beloved by its fans, paid from the start.
-- [Lumen5](https://solosgems.com/#tool-lumen5): #179, 6.62/10, Scouted. Turns blog posts into branded videos quickly. Easy, a bit template-y.
-- [Cursor](https://solosgems.com/#tool-cursor): #180, 6.5/10, Tested. One of the most capable coding familiars alive, priced fairly, but it rewards people who already know their way around code.
-- [Framer](https://solosgems.com/#tool-framer): #181, 6.5/10, Tested. Prompt-to-website that actually publishes. The pricing and learning curve keep it mid-pack.
-- [Rask AI](https://solosgems.com/#tool-rask-ai): #182, 6.5/10, Scouted. Dubs and lip-syncs video into other languages. Impressive, priced per minute.
-- [Seeking Alpha Premium](https://solosgems.com/#tool-seeking-alpha-premium): #183, 6.5/10, Scouted. Deep stock research with AI summaries. Useful for serious investors, a pricey subscription for the curious.
-- [Smartlead](https://solosgems.com/#tool-smartlead): #184, 6.5/10, Scouted. Cold email at scale with unlimited mailboxes. Strong value per send, no way to try it free.
-- [Beautiful.ai](https://solosgems.com/#tool-beautiful-ai): #185, 6.5/10, Scouted. Slides that rearrange themselves as you type. Lovely, but trial-then-pay.
-- [Pictory](https://solosgems.com/#tool-pictory): #186, 6.5/10, Scouted. Turns long content into short clips. Handy, increasingly outshone by newer tools.
-- [Midjourney](https://solosgems.com/#tool-midjourney): #187, 6.38/10, Tested. Paints like a court master, charges like one too, and has no free trial at all. Pure capability, terrible trial safety.
-- [Zapier AI Actions](https://solosgems.com/#tool-zapier-ai): #188, 6.38/10, Tested. Powerful automation magic, but the new pricing makes every accidental chain reaction cost real gold.
-- [Riverside.fm](https://solosgems.com/#tool-riverside): #189, 6.38/10, Tested. Studio-quality remote recording, but you pay studio-ish prices for the full kit.
-- [Vapi](https://solosgems.com/#tool-vapi): #190, 6.38/10, Scouted. Builds real phone agents if you can code. Usage billing and developer focus keep it out of reach for most.
-- [Lindy](https://solosgems.com/#tool-lindy): #191, 6.38/10, Scouted. An AI assistant that triages your inbox and books meetings. Useful, but paid-first and pricey for one person.
-- [Copyleaks](https://solosgems.com/#tool-copyleaks): #192, 6.38/10, Scouted. Detects AI text, plagiarism, and AI images in one tool. Detection is a guessing game for everyone, this one guesses well.
-- [D-ID](https://solosgems.com/#tool-d-id): #193, 6.38/10, Scouted. Talking-avatar video with a developer API. Useful for builders, uncanny for audiences.
-- [Mem](https://solosgems.com/#tool-mem): #194, 6.38/10, Scouted. Notes that organize themselves. A clever idea that has struggled to stay ahead of bigger note apps.
-- [Obviously AI](https://solosgems.com/#tool-obviously-ai): #195, 6.38/10, Scouted. No-code predictions from a spreadsheet. Genuinely clever, pricey for occasional fortune-telling.
-- [Originality.ai](https://solosgems.com/#tool-originality-ai): #196, 6.38/10, Scouted. Strong detection for publishers, but pay-per-credit with no real free tier means you buy the dice before you roll.
-- [Cashflowy](https://solosgems.com/#tool-cashflowy): #197, 6.38/10, Scouted. AI bookkeeping coach for freelancers. Helpful for the numerically cursed, but small and paid-first.
-- [Runway](https://solosgems.com/#tool-runway): #198, 6.25/10, Tested. Astonishing video magic held back by credit costs that drain your purse faster than a mimic.
-- [v0](https://solosgems.com/#tool-vercel-v0): #199, 6.25/10, Tested. Generates real frontend code that looks finished. Getting the plumbing behind it working is still your quest.
-- [ElevenLabs](https://solosgems.com/#tool-elevenlabs): #200, 6.25/10, Tested. The best voices in the realm, held back by a watermarked, non-commercial free tier and costs that climb with every word spoken.
-- [Instantly.ai](https://solosgems.com/#tool-instantly-ai): #201, 6.25/10, Tested. Scales cold email with unlimited mailboxes, but there's no real way to try it without paying first.
-- [Chatbase](https://solosgems.com/#tool-chatbase): #202, 6.25/10, Tested. Trains a chatbot on your site in minutes. Value drops fast once your visitors start actually talking to it.
-- [Clay](https://solosgems.com/#tool-clay): #203, 6.25/10, Scouted. Pulls data from 150+ providers into one workflow. Enormously powerful, with a learning curve like a dungeon staircase.
-- [Spellbook](https://solosgems.com/#tool-spellbook): #204, 6.25/10, Scouted. AI drafting inside Word for law firms. Excellent fit for lawyers, priced for firms.
-- [Positive Surfer](https://solosgems.com/#tool-surfer-seo): #205, 6.25/10, Scouted. Scores drafts against what actually ranks. Useful, and paid from the first spell.
-- [Astra Security](https://solosgems.com/#tool-astra-security): #206, 6.25/10, Scouted. Vulnerability scanning sized for small teams. Good armor, but not something most solos buy first.
-- [OpusClip](https://solosgems.com/#tool-opusclip): #207, 6.12/10, Tested. Turns long videos into shorts with decent instincts. The free tier is a tease and the clips still need a human eye.
-- [Superhuman](https://solosgems.com/#tool-superhuman): #208, 6.12/10, Scouted. The fastest email client in the realm, with excellent AI drafts. Priced for people who bill by the hour.
-- [Lettuce](https://solosgems.com/#tool-lettuce): #209, 6.12/10, Scouted. Bookkeeping, payroll, and taxes for S-corp solos in one bundle. Great fit for exactly that party, pricey for others.
-- [StoryChief](https://solosgems.com/#tool-storychief): #210, 6.12/10, Scouted. Plans and distributes content across every channel. Useful for content teams, heavy for one writer.
-- [Ahrefs](https://solosgems.com/#tool-ahrefs): #211, 6/10, Scouted. An elite SEO toolkit priced for agencies. A great grimoire, too costly for casual use.
-- [Intercom Fin](https://solosgems.com/#tool-intercom-fin): #212, 6/10, Scouted. Resolves support tickets by itself, billed per resolution on top of Intercom. Enterprise armor at enterprise prices.
-- [Hootsuite](https://solosgems.com/#tool-hootsuite): #213, 6/10, Scouted. Powerful social management for teams, priced for teams. A solo creator is paying for an army they don't have.
-- [Jasper](https://solosgems.com/#tool-jasper): #214, 6/10, Scouted. Brand-voice copywriting for marketing teams. Good, but priced for teams when cheaper scribes exist.
-- [Motion](https://solosgems.com/#tool-motion): #215, 5.88/10, Tested. A clever AI calendar with no free plan and a price that assumes you're a busy guild master.
-- [QuickBooks Solopreneur](https://solosgems.com/#tool-quickbooks-solopreneur): #216, 5.88/10, Tested. Simple bookkeeping for one-person businesses, but the AI is more apprentice than wizard and the feature list is thin.
-- [Lokalise](https://solosgems.com/#tool-lokalise): #217, 5.88/10, Scouted. Localization management for product teams. Powerful, sized for companies shipping in many languages.
-- [Whoop](https://solosgems.com/#tool-whoop): #218, 5.88/10, Scouted. A wearable that coaches your sleep and strain. Good data, but the subscription is mandatory and steep.
-- [Typeform](https://solosgems.com/#tool-typeform): #219, 5.75/10, Tested. Beautiful, conversational forms. The free tier is stingy and the AI is a minor enchantment.
-- [Podium](https://solosgems.com/#tool-podium): #220, 5.75/10, Scouted. Texting, reviews, and lead follow-up for local services. Strong tools, sales-call pricing.
-- [Noom](https://solosgems.com/#tool-noom): #221, 5.75/10, Scouted. Psychology-based coaching that works for some. Subscription-heavy and not cheap for what it is.
-- [Semrush](https://solosgems.com/#tool-semrush): #222, 5.62/10, Tested. Possibly the most powerful SEO grimoire ever written. Also priced like one, which sinks it for solo adventurers.
-- [Apollo.io](https://solosgems.com/#tool-apollo-io): #223, 5.62/10, Tested. A huge lead database with real capability, priced per seat and easy to waste credits on.
-- [Notion AI](https://solosgems.com/#tool-notion-ai): #224, 5.62/10, Tested. Clever, but now locked behind the $20/user Business plan. A good spell priced like a rare one.
-- [Birdeye](https://solosgems.com/#tool-birdeye): #225, 5.62/10, Scouted. Reputation management for local businesses that automates reviews. Effective, pricey for a single shop.
-- [Recruiterflow](https://solosgems.com/#tool-recruiterflow): #226, 5.62/10, Scouted. ATS and CRM for recruitment agencies. Solid for that exact guild, nobody else.
-- [Synthesia](https://solosgems.com/#tool-synthesia): #227, 5.5/10, Tested. Polished avatar videos, but the uncanny valley and the price tag both loom large.
-- [Devin](https://solosgems.com/#tool-devin): #228, 5.5/10, Scouted. An autonomous AI engineer that's impressive and expensive. A hireling priced for guilds, not solo adventurers.
-- [Klevu](https://solosgems.com/#tool-klevu): #229, 5.38/10, Scouted. Smart search for big catalogs. Built for large stores, priced to match.
-- [Warmly](https://solosgems.com/#tool-warmly): #230, 5.38/10, Scouted. Unmasks anonymous website visitors for sales teams. Clever, priced for teams with quotas.
-- [Bland AI](https://solosgems.com/#tool-bland-ai): #231, 5.25/10, Tested. Impressive voice agents for developers, billed by the minute, with little for a non-coder to hold onto.
-- [Lovable](https://solosgems.com/#tool-lovable): #232, 5.25/10, Tested. Builds real apps from plain English, then charges you for every rebuild while it fixes its own bugs.
-- [Perplexity Pro](https://solosgems.com/#tool-perplexity-pro): #233, 5.25/10, Tested. Cited answers are nice. Paying extra for them when the free tier and your other chatbots already do most of it is less nice.
-- [Harvey](https://solosgems.com/#tool-harvey): #234, 5.12/10, Scouted. Elite legal AI for big law firms. Powerful, and you'll need a firm with a moat to get through the gate.
-- [Respeecher](https://solosgems.com/#tool-respeecher): #235, 5.12/10, Scouted. Ethical, consent-based voice cloning for studios. Admirable, and studio-priced.
-- [Chattermill](https://solosgems.com/#tool-chattermill): #236, 5.12/10, Scouted. Ties feedback to revenue for big companies. Clever, and completely sized for enterprise kingdoms.
-- [Ironclad](https://solosgems.com/#tool-ironclad): #237, 5/10, Scouted. Contract lifecycle management for large legal teams. Overkill for a solo founder's handful of agreements.
-- [Harness AI](https://solosgems.com/#tool-harness-ai): #238, 5/10, Scouted. Serious CI/CD automation for engineering teams. Overkill and overpriced for a party of one.
-- [Wiz](https://solosgems.com/#tool-wiz): #239, 4.88/10, Scouted. Elite cloud security for big kingdoms. Brilliant, and as reachable for a solo founder as the royal treasury.
-- [Luminance](https://solosgems.com/#tool-luminance): #240, 4.88/10, Scouted. Bulk contract review for enterprises. Mighty, and nowhere near a solo budget.
-- [Gong](https://solosgems.com/#tool-gong): #241, 4.75/10, Scouted. The sales-call oracle for big revenue teams. Excellent, and entirely enterprise-priced.
-- [Turnitin](https://solosgems.com/#tool-turnitin): #242, 4.62/10, Scouted. The academy's official plagiarism hound. Powerful, but sold only to institutions, so solo adventurers can't even get a leash.
-- [Paradox](https://solosgems.com/#tool-paradox): #243, 4.5/10, Scouted. A recruiting assistant built for hiring hundreds. Irrelevant for a party of one.
-- [HireVue](https://solosgems.com/#tool-hirevue): #244, 4/10, Scouted. Enterprise video interviewing at volume. Not for solos, and its AI judging candidates draws plenty of side-eye.
+- [Dyad](https://solosgems.com/#tool-dyad): #65, 7.88/10, Scouted. A free, local-first forge with no guild paperwork. You supply the mana (API keys), so the clever hosted extras live in Pro.
+- [Shopify Magic](https://solosgems.com/#tool-shopify-magic): #66, 7.88/10, Scouted. Free AI inside Shopify for descriptions and images. Only useful if you already live in Shopify's castle.
+- [Rytr](https://solosgems.com/#tool-rytr): #67, 7.88/10, Scouted. A cheap, cheerful copywriter with a free plan. Not deep, very affordable.
+- [Descript](https://solosgems.com/#tool-descript): #68, 7.75/10, Tested. Editing video by editing text is a legendary spell. The learning curve and price keep it from the top of the tower.
+- [Airtable](https://solosgems.com/#tool-airtable): #69, 7.75/10, Tested. A spreadsheet that learned necromancy. Powerful, with a generous free plan, but it takes a few sessions to master.
+- [Attio](https://solosgems.com/#tool-attio): #70, 7.75/10, Tested. A modern CRM with AI on every plan, free included. A strong pick for small parties tracking many quests.
+- [Toggl Track](https://solosgems.com/#tool-toggl-track): #71, 7.75/10, Tested. Free for small parties and dead simple to use. The AI is a garnish, not the main course.
+- [Luma Dream Machine](https://solosgems.com/#tool-luma-dream-machine): #72, 7.75/10, Scouted. Video with real depth and camera movement, free to try. Strong, credit-limited.
+- [Adobe Firefly](https://solosgems.com/#tool-adobe-firefly): #73, 7.75/10, Scouted. Commercially safer images inside the Adobe tools you may already rent. Great if you live in Adobe's castle.
+- [Leonardo AI](https://solosgems.com/#tool-leonardo-ai): #74, 7.75/10, Scouted. Strong for game art and stylized illustration, with free daily credits. A favorite of the concept-art guild.
+- [Recraft](https://solosgems.com/#tool-recraft): #75, 7.75/10, Scouted. Brand-consistent graphics, icons, and vectors. The image tool that thinks like a designer.
+- [Replit](https://solosgems.com/#tool-replit): #76, 7.75/10, Scouted. Describe an app and Replit Agent builds and hosts it. Easy start, usage costs climb as the app grows.
+- [CodeRabbit](https://solosgems.com/#tool-coderabbit): #77, 7.75/10, Scouted. Reviews every pull request line by line, free for open source. A tireless second pair of eyes.
+- [Magnific](https://solosgems.com/#tool-freepik-ai): #78, 7.75/10, Scouted. Image generation stapled to a huge stock library with a free tier. A practical one-stop art shop.
+- [PixVerse](https://solosgems.com/#tool-pixverse): #79, 7.75/10, Scouted. Fast text-to-video with style templates and free credits. A capable, cheerful option.
+- [Read AI](https://solosgems.com/#tool-read-ai): #80, 7.75/10, Scouted. Solid meeting summaries and cross-app search with a small free tier. A capable scribe, not the cheapest.
+- [Tidio](https://solosgems.com/#tool-tidio): #81, 7.75/10, Scouted. Chat and AI support for small shops with a free plan. Exactly sized for the solo storefront.
+- [Koala AI](https://solosgems.com/#tool-koala-ai): #82, 7.62/10, Tested. Cheap, SEO-minded article writer that does its one job well. Not much range outside that job.
+- [Poe](https://solosgems.com/#tool-poe): #83, 7.62/10, Scouted. One subscription, dozens of familiars. Great for sampling the bestiary, though points-based limits run out fast.
+- [Kapwing](https://solosgems.com/#tool-kapwing): #84, 7.62/10, Scouted. A friendly online editor with subtitles and dubbing built in, free to start. A great all-rounder.
+- [Pika](https://solosgems.com/#tool-pika): #85, 7.62/10, Scouted. Quick, stylized clips and playful effects with a free tier. More party trick than production line.
+- [Sider](https://solosgems.com/#tool-sider): #86, 7.62/10, Scouted. A sidebar that brings twenty-odd models to any webpage. Handy, though you're renting other wizards' spells.
+- [Speechify](https://solosgems.com/#tool-speechify): #87, 7.62/10, Scouted. Wonderful for listening instead of reading, but the voices worth hearing live behind a pricey Premium tier.
+- [AIVA](https://solosgems.com/#tool-aiva): #88, 7.62/10, Scouted. Composes original soundtracks with a free tier. A court composer who works for crumbs.
+- [Hark](https://solosgems.com/#tool-hark): #89, 7.62/10, Scouted. Free tier and every feature on every plan make this a generous familiar, but a brand-new squire with your inbox and credit cards is a leap of faith.
+- [Lex](https://solosgems.com/#tool-lex): #90, 7.62/10, Scouted. A calm, distraction-free word processor with AI on call. A writer's quiet tower.
+- [MyArchitectAI](https://solosgems.com/#tool-myarchitectai): #91, 7.62/10, Scouted. Interior and exterior renders with free renders to start. A handy sketchbook for home dreamers.
+- [Rocket Money](https://solosgems.com/#tool-rocket-money): #92, 7.62/10, Scouted. Finds and cancels forgotten subscriptions, free to start. It may pay for itself by slaying one zombie subscription.
+- [Teal](https://solosgems.com/#tool-teal): #93, 7.62/10, Scouted. Resume builder plus job tracker with a usable free tier. The best overall kit for a job-hunting quest.
+- [Claude Code](https://solosgems.com/#tool-claude-code): #94, 7.5/10, Scouted. One of the strongest coding agents in the land, included with Claude Pro. No free tier, and it assumes you can read code.
+- [Wix](https://solosgems.com/#tool-wix): #95, 7.5/10, Scouted. An AI wizard builds you a site from a short chat. Easy and capable, upsells lurk around every corner.
+- [GenPage](https://solosgems.com/#tool-genpage): #96, 7.5/10, Scouted. Real free plan and a tidy trick for per-visitor pages, though the best toys (custom domains, API) sit behind the $79 Pro door.
+- [Missive](https://solosgems.com/#tool-missive): #97, 7.5/10, Scouted. Shared inbox, chat, and tasks in one thread, with a free plan for tiny teams. Practical and underrated.
+- [MyFitnessPal](https://solosgems.com/#tool-myfitnesspal): #98, 7.5/10, Scouted. Photo meal logging and a giant food database with a free tier. Useful, though the best tricks are Premium.
+- [Quizlet](https://solosgems.com/#tool-quizlet): #99, 7.5/10, Scouted. Easy flashcards and practice tests from your notes. The AI is useful, the best bits sit behind Plus.
+- [ClickUp Brain](https://solosgems.com/#tool-clickup-ai): #100, 7.38/10, Tested. Smart oracle, cluttered war table. Capable when you find the right lever, but there are a lot of levers.
+- [Craft](https://solosgems.com/#tool-craft): #101, 7.38/10, Tested. Lovely notes and docs with helpful AI. More polish than raw power.
+- [Calendly](https://solosgems.com/#tool-calendly): #102, 7.38/10, Tested. The easiest spell in the book: share a link, let the meeting cast itself. Not much magic beyond that, and it doesn't pretend otherwise.
+- [Durable](https://solosgems.com/#tool-durable): #103, 7.38/10, Tested. A website, CRM, and booking calendar in one quick spell. Not deep, but very fast to stand up.
+- [Numerous.ai](https://solosgems.com/#tool-numerous-ai): #104, 7.38/10, Tested. A small, cheap spell inside Google Sheets that does one useful thing very well.
+- [Fyxer AI](https://solosgems.com/#tool-fyxer-ai): #105, 7.38/10, Scouted. Sorts your inbox and drafts replies in your voice, with a free trial. A promising inbox squire.
+- [Jamie](https://solosgems.com/#tool-jamie): #106, 7.38/10, Scouted. Bot-free notes captured locally, in person or online. Discreet and capable, smaller free allowance.
+- [Krisp](https://solosgems.com/#tool-krisp): #107, 7.38/10, Scouted. Silences every barking dog on both ends of the call. Excellent at its trick, paid after a short trial.
+- [LangChain](https://solosgems.com/#tool-langchain): #108, 7.38/10, Scouted. Free, open-source plumbing for AI apps. Mighty if you code, a maze of pipes if you don't.
+- [PandaDoc](https://solosgems.com/#tool-pandadoc): #109, 7.38/10, Scouted. Proposals, quotes, and e-signatures with a free e-sign tier. A tidy deal-closing satchel.
+- [ProWritingAid](https://solosgems.com/#tool-prowritingaid): #110, 7.38/10, Scouted. Deep style and grammar checks for long manuscripts. A novelist's editor with a free tier.
+- [AltText.ai](https://solosgems.com/#tool-alttext-ai): #111, 7.38/10, Scouted. Writes alt text for every image so your site is readable for everyone. Narrow, useful, and kind.
+- [Composer](https://solosgems.com/#tool-composer): #112, 7.38/10, Scouted. Build and backtest trading strategies without code, free to try. Remember: the dice do not care about your backtest.
+- [Fitbod](https://solosgems.com/#tool-fitbod): #113, 7.38/10, Scouted. Adapts each workout to how you actually trained. A helpful squire for the gym, paid after a few sessions.
+- [Virtual Staging AI](https://solosgems.com/#tool-virtual-staging-ai): #114, 7.38/10, Scouted. Furnishes empty rooms for a fraction of real staging. Fast and cheap per photo.
+- [You.com](https://solosgems.com/#tool-you-com): #115, 7.38/10, Scouted. Lets you pick which model answers. Flexible, but outshone by the bigger search familiars.
+- [Epique AI](https://solosgems.com/#tool-epique-ai): #116, 7.38/10, Scouted. AI listing descriptions and emails built for real estate agents. Narrow, handy, affordable.
+- [GPTZero](https://solosgems.com/#tool-gptzero): #117, 7.38/10, Scouted. Easy and free to start, beloved by teachers. Like every AI detector, it can accuse an innocent scroll.
+- [Rill Browser](https://solosgems.com/#tool-rill-browser): #118, 7.38/10, Scouted. Free to enter and lets your existing familiars ride along, but it is a 0.1 beta, Apple-silicon-only, and useless without a Claude or Codex plan.
+- [Bonsai](https://solosgems.com/#tool-bonsai): #119, 7.25/10, Tested. Contracts, invoices, and scheduling for freelancers in one tidy pouch. Dependable, not flashy.
+- [HeyGen](https://solosgems.com/#tool-heygen): #120, 7.25/10, Scouted. The best lip-sync and video translation in town. Avatar magic that costs real gold.
+- [Bolt.new](https://solosgems.com/#tool-bolt-new): #121, 7.25/10, Scouted. Spins up full-stack apps in the browser. Fun and fast, but tokens drain quickly once the bugs start.
+- [Figma Make](https://solosgems.com/#tool-figma-make): #122, 7.25/10, Scouted. Prompt-to-prototype that respects your real design system. Great inside Figma, gated by its plans.
+- [Grok](https://solosgems.com/#tool-grok): #123, 7.25/10, Scouted. Sharp and plugged into X's live firehose, but the best features sit behind paid tiers and its chaotic alignment is a feature, apparently.
+- [Higgsfield](https://solosgems.com/#tool-higgsfield): #124, 7.25/10, Scouted. Cinematic camera moves on demand. Gorgeous presets, credit-hungry.
+- [Kagi](https://solosgems.com/#tool-kagi): #125, 7.25/10, Scouted. Ad-free search you pay for, which is refreshing and also, well, paying for search. Worth it for the devoted.
+- [Genspark](https://solosgems.com/#tool-genspark): #126, 7.25/10, Scouted. A Super Agent that researches and builds decks for you. Impressive when it works, credit-hungry when it doesn't.
+- [Gumloop](https://solosgems.com/#tool-gumloop): #127, 7.25/10, Scouted. A friendly visual canvas for AI automations. Easier than Zapier for AI-heavy flows, younger and less proven.
+- [Async](https://solosgems.com/#tool-async): #128, 7.25/10, Scouted. Recording, editing, and AI cleanup in the browser with a free tier. A whole studio in one tab.
+- [Ocoya](https://solosgems.com/#tool-ocoya): #129, 7.25/10, Scouted. AI captions and scheduling across 30+ platforms with a free tier. Broad reach, lighter polish.
+- [Uizard](https://solosgems.com/#tool-uizard): #130, 7.25/10, Scouted. Turns sketches into clickable mockups with a free tier. Friendly for non-designers.
+- [Soundraw](https://solosgems.com/#tool-soundraw): #131, 7.25/10, Scouted. Royalty-free music shaped by mood and length. A dependable background bard.
+- [Loom](https://solosgems.com/#tool-loom): #132, 7.12/10, Tested. Effortless to record and share, docked because the free tier caps how long and how many videos you get.
+- [Suno](https://solosgems.com/#tool-suno): #133, 7.12/10, Tested. Writes full songs with vocals from a sentence, and the free tier is fun. Commercial rights require gold.
+- [Murf AI](https://solosgems.com/#tool-murf-ai): #134, 7.12/10, Scouted. Polished voiceovers for videos and slides. Easy and reliable, outclassed by ElevenLabs on range.
+- [Cleanvoice](https://solosgems.com/#tool-cleanvoice): #135, 7.12/10, Scouted. Strips filler words and stutters from raw audio. Narrow, effective, mostly paid.
+- [Grain](https://solosgems.com/#tool-grain): #136, 7.12/10, Scouted. Turns call moments into shareable clips. Nice for sales and research calls, narrower than the big notetakers.
+- [Pitch](https://solosgems.com/#tool-pitch): #137, 7.12/10, Scouted. Collaborative decks with AI slides and a free tier. Great for teams, fine for one.
+- [Plus AI](https://solosgems.com/#tool-plus-ai): #138, 7.12/10, Scouted. Generates slides right inside Google Slides and PowerPoint. Convenient, paid after the trial.
+- [Vanna AI](https://solosgems.com/#tool-vanna-ai): #139, 7.12/10, Scouted. Open-source text-to-SQL you build yourself. Free and flexible, if you can build it.
+- [Looka](https://solosgems.com/#tool-looka): #140, 7.12/10, Scouted. Logo and brand kit in minutes, free to design. You pay only when you download, which is fair.
+- [Sanebox](https://solosgems.com/#tool-sanebox): #141, 7.12/10, Scouted. Quietly sweeps newsletters and noise out of your inbox. Simple, effective, and paid after the trial.
+- [Simplified](https://solosgems.com/#tool-simplified): #142, 7.12/10, Scouted. Design, writing, video, and scheduling in one bundle. Jack of many trades, master of few.
+- [Calm](https://solosgems.com/#tool-calm): #143, 7.12/10, Scouted. Soothing, easy, and polished. The AI is a light touch on a meditation app most people use for the rain sounds.
+- [Cleo](https://solosgems.com/#tool-cleo): #144, 7.12/10, Scouted. A sassy budgeting chatbot that roasts your spending. Fun and approachable, light on depth.
+- [HubSpot Free CRM](https://solosgems.com/#tool-hubspot-free-crm): #145, 7.08/10, Tested. The free tier is a sturdy keep. The AI wing is real but locked behind a toll gate that gets pricier every floor.
+- [Make](https://solosgems.com/#tool-make): #146, 7/10, Tested. A cheaper, more flexible Zapier with a steeper learning curve. Strong value if you're willing to read the spellbook.
+- [Monarch Money](https://solosgems.com/#tool-monarch-money): #147, 7/10, Scouted. Clear, complete money tracking for couples and households. Paid, but many say worth it.
+- [Copilot Money](https://solosgems.com/#tool-copilot-money): #148, 7/10, Scouted. A beautiful budgeting app with smart categorization. Paid after the trial, Apple-first.
+- [RemodelAI](https://solosgems.com/#tool-remodelai): #149, 7/10, Scouted. Photoreal redesigns, staging, and paint previews. Capable, mostly paid.
+- [Interior AI](https://solosgems.com/#tool-interior-ai): #150, 7/10, Scouted. Restyles a room from one photo. Fun and quick, light on free tries.
+- [Rezi](https://solosgems.com/#tool-rezi): #151, 7/10, Scouted. ATS-safe resumes with a lifetime plan option. Focused and fair, but narrow.
+- [Anara](https://solosgems.com/#tool-anara): #152, 6.88/10, Tested. Cites the exact passage in your own documents. Strong scholar, steeper price than the free alternatives.
+- [Gamma](https://solosgems.com/#tool-gamma): #153, 6.88/10, Tested. Turns a prompt into a polished deck faster than a bard can tune a lute. The free credits run dry quickly, though.
+- [Topaz Labs](https://solosgems.com/#tool-topaz-labs): #154, 6.88/10, Scouted. The best upscaling magic in the realm, but subscription-only with no free plan, so you pay before you see the sharpening.
+- [Rev](https://solosgems.com/#tool-rev): #155, 6.88/10, Scouted. AI plus human-checked transcripts accurate enough for accessibility compliance. The human part is precise and not cheap.
+- [Dovetail](https://solosgems.com/#tool-dovetail): #156, 6.88/10, Scouted. Turns interviews and surveys into searchable themes. A great research library, overkill for occasional use.
+- [eesel AI](https://solosgems.com/#tool-eesel-ai): #157, 6.88/10, Scouted. Adds an AI agent to the helpdesk you already have. Clever, but paid-first.
+- [Meshy](https://solosgems.com/#tool-meshy): #158, 6.88/10, Scouted. Conjures rigged 3D models from a sentence, which is wizardry. Game-ready quality still needs a blacksmith's touch.
+- [10Web](https://solosgems.com/#tool-10web): #159, 6.88/10, Scouted. AI WordPress builder plus hosting. Convenient bundle, WordPress quirks included.
+- [Creatify](https://solosgems.com/#tool-creatify): #160, 6.88/10, Scouted. Product link in, avatar ad out. Fast, and the avatars still look like avatars.
+- [Jobscan](https://solosgems.com/#tool-jobscan): #161, 6.88/10, Scouted. Tests your resume against the ATS gatekeepers. One very useful trick, with a free trial scan to prove it.
+- [Submagic](https://solosgems.com/#tool-submagic): #162, 6.88/10, Scouted. Fast, easy, and does the caption trick creators love. Paid from the start and narrow beyond short-form clips.
+- [Tabnine](https://solosgems.com/#tool-tabnine): #163, 6.88/10, Scouted. Private, run-it-yourself code completion. Great for secret-keeping guilds, less capable than the big agents.
+- [Writesonic](https://solosgems.com/#tool-writesonic): #164, 6.88/10, Scouted. Marketing copy and SEO articles at scale. Capable, in a very crowded scribes' guild.
+- [AI2SQL](https://solosgems.com/#tool-ai2sql): #165, 6.88/10, Scouted. Turns plain English into SQL. A helpful translator for people who fear databases.
+- [Danelfin](https://solosgems.com/#tool-danelfin): #166, 6.88/10, Scouted. Rates stocks 1 to 10 with machine learning. Simple to read, and still not a prophecy.
+- [Manus](https://solosgems.com/#tool-manus): #167, 6.75/10, Scouted. A general agent that browses and builds on its own. Wildly capable on a good roll, expensive on a bad one.
+- [Tana](https://solosgems.com/#tool-tana): #168, 6.75/10, Scouted. Powerful structured notes with a free tier. A spellbook that rewards those who study it.
+- [Sourcegraph Cody](https://solosgems.com/#tool-sourcegraph-cody): #169, 6.75/10, Scouted. Codebase-aware answers built on serious code search. Newer coding agents have stolen much of its spotlight.
+- [LegesGPT](https://solosgems.com/#tool-legesgpt): #170, 6.75/10, Scouted. Contract drafting and citation checks priced for solo lawyers. A rare legal tool sized for one.
+- [Reflect](https://solosgems.com/#tool-reflect): #171, 6.75/10, Scouted. Networked notes with built-in AI. Elegant, paid after the trial.
+- [Tripo AI](https://solosgems.com/#tool-tripo-ai): #172, 6.75/10, Scouted. Fast 3D summoning straight into game engines. Solid, but the 3D guild is crowded and Meshy got there first.
+- [Shortwave](https://solosgems.com/#tool-shortwave): #173, 6.62/10, Tested. A smart AI inbox, but per-seat pricing makes it a luxury mount rather than a daily horse.
+- [Copy.ai](https://solosgems.com/#tool-copyai): #174, 6.62/10, Tested. A solid scribe with a real free tier, outgrowing pure copywriting into workflows. Competent, not legendary.
+- [Webflow](https://solosgems.com/#tool-webflow): #175, 6.62/10, Scouted. Professional sites with clean code and a free starter plan. Powerful, with a real learning curve.
+- [Juicebox](https://solosgems.com/#tool-juicebox): #176, 6.62/10, Scouted. Plain-language candidate search across the whole realm. Powerful for recruiters, pricey for the occasional hire.
+- [Sudowrite](https://solosgems.com/#tool-sudowrite): #177, 6.62/10, Scouted. An AI built for novelists and worldbuilders. Excellent muse, paid from the start.
+- [DocuSign](https://solosgems.com/#tool-docusign): #178, 6.62/10, Scouted. The e-signature standard, now with AI contract analysis. Reliable, and priced like the standard it is.
+- [NovelAI](https://solosgems.com/#tool-novelai): #179, 6.62/10, Scouted. Fiction writing and anime art from a small studio. Beloved by its fans, paid from the start.
+- [Lumen5](https://solosgems.com/#tool-lumen5): #180, 6.62/10, Scouted. Turns blog posts into branded videos quickly. Easy, a bit template-y.
+- [Cursor](https://solosgems.com/#tool-cursor): #181, 6.5/10, Tested. One of the most capable coding familiars alive, priced fairly, but it rewards people who already know their way around code.
+- [Framer](https://solosgems.com/#tool-framer): #182, 6.5/10, Tested. Prompt-to-website that actually publishes. The pricing and learning curve keep it mid-pack.
+- [Rask AI](https://solosgems.com/#tool-rask-ai): #183, 6.5/10, Scouted. Dubs and lip-syncs video into other languages. Impressive, priced per minute.
+- [Seeking Alpha Premium](https://solosgems.com/#tool-seeking-alpha-premium): #184, 6.5/10, Scouted. Deep stock research with AI summaries. Useful for serious investors, a pricey subscription for the curious.
+- [Smartlead](https://solosgems.com/#tool-smartlead): #185, 6.5/10, Scouted. Cold email at scale with unlimited mailboxes. Strong value per send, no way to try it free.
+- [Beautiful.ai](https://solosgems.com/#tool-beautiful-ai): #186, 6.5/10, Scouted. Slides that rearrange themselves as you type. Lovely, but trial-then-pay.
+- [Pictory](https://solosgems.com/#tool-pictory): #187, 6.5/10, Scouted. Turns long content into short clips. Handy, increasingly outshone by newer tools.
+- [Midjourney](https://solosgems.com/#tool-midjourney): #188, 6.38/10, Tested. Paints like a court master, charges like one too, and has no free trial at all. Pure capability, terrible trial safety.
+- [Zapier AI Actions](https://solosgems.com/#tool-zapier-ai): #189, 6.38/10, Tested. Powerful automation magic, but the new pricing makes every accidental chain reaction cost real gold.
+- [Riverside.fm](https://solosgems.com/#tool-riverside): #190, 6.38/10, Tested. Studio-quality remote recording, but you pay studio-ish prices for the full kit.
+- [Vapi](https://solosgems.com/#tool-vapi): #191, 6.38/10, Scouted. Builds real phone agents if you can code. Usage billing and developer focus keep it out of reach for most.
+- [Lindy](https://solosgems.com/#tool-lindy): #192, 6.38/10, Scouted. An AI assistant that triages your inbox and books meetings. Useful, but paid-first and pricey for one person.
+- [Copyleaks](https://solosgems.com/#tool-copyleaks): #193, 6.38/10, Scouted. Detects AI text, plagiarism, and AI images in one tool. Detection is a guessing game for everyone, this one guesses well.
+- [D-ID](https://solosgems.com/#tool-d-id): #194, 6.38/10, Scouted. Talking-avatar video with a developer API. Useful for builders, uncanny for audiences.
+- [Mem](https://solosgems.com/#tool-mem): #195, 6.38/10, Scouted. Notes that organize themselves. A clever idea that has struggled to stay ahead of bigger note apps.
+- [Obviously AI](https://solosgems.com/#tool-obviously-ai): #196, 6.38/10, Scouted. No-code predictions from a spreadsheet. Genuinely clever, pricey for occasional fortune-telling.
+- [Originality.ai](https://solosgems.com/#tool-originality-ai): #197, 6.38/10, Scouted. Strong detection for publishers, but pay-per-credit with no real free tier means you buy the dice before you roll.
+- [Cashflowy](https://solosgems.com/#tool-cashflowy): #198, 6.38/10, Scouted. AI bookkeeping coach for freelancers. Helpful for the numerically cursed, but small and paid-first.
+- [Runway](https://solosgems.com/#tool-runway): #199, 6.25/10, Tested. Astonishing video magic held back by credit costs that drain your purse faster than a mimic.
+- [v0](https://solosgems.com/#tool-vercel-v0): #200, 6.25/10, Tested. Generates real frontend code that looks finished. Getting the plumbing behind it working is still your quest.
+- [ElevenLabs](https://solosgems.com/#tool-elevenlabs): #201, 6.25/10, Tested. The best voices in the realm, held back by a watermarked, non-commercial free tier and costs that climb with every word spoken.
+- [Instantly.ai](https://solosgems.com/#tool-instantly-ai): #202, 6.25/10, Tested. Scales cold email with unlimited mailboxes, but there's no real way to try it without paying first.
+- [Chatbase](https://solosgems.com/#tool-chatbase): #203, 6.25/10, Tested. Trains a chatbot on your site in minutes. Value drops fast once your visitors start actually talking to it.
+- [Clay](https://solosgems.com/#tool-clay): #204, 6.25/10, Scouted. Pulls data from 150+ providers into one workflow. Enormously powerful, with a learning curve like a dungeon staircase.
+- [Spellbook](https://solosgems.com/#tool-spellbook): #205, 6.25/10, Scouted. AI drafting inside Word for law firms. Excellent fit for lawyers, priced for firms.
+- [Positive Surfer](https://solosgems.com/#tool-surfer-seo): #206, 6.25/10, Scouted. Scores drafts against what actually ranks. Useful, and paid from the first spell.
+- [Astra Security](https://solosgems.com/#tool-astra-security): #207, 6.25/10, Scouted. Vulnerability scanning sized for small teams. Good armor, but not something most solos buy first.
+- [OpusClip](https://solosgems.com/#tool-opusclip): #208, 6.12/10, Tested. Turns long videos into shorts with decent instincts. The free tier is a tease and the clips still need a human eye.
+- [Superhuman](https://solosgems.com/#tool-superhuman): #209, 6.12/10, Scouted. The fastest email client in the realm, with excellent AI drafts. Priced for people who bill by the hour.
+- [Lettuce](https://solosgems.com/#tool-lettuce): #210, 6.12/10, Scouted. Bookkeeping, payroll, and taxes for S-corp solos in one bundle. Great fit for exactly that party, pricey for others.
+- [StoryChief](https://solosgems.com/#tool-storychief): #211, 6.12/10, Scouted. Plans and distributes content across every channel. Useful for content teams, heavy for one writer.
+- [Ahrefs](https://solosgems.com/#tool-ahrefs): #212, 6/10, Scouted. An elite SEO toolkit priced for agencies. A great grimoire, too costly for casual use.
+- [Intercom Fin](https://solosgems.com/#tool-intercom-fin): #213, 6/10, Scouted. Resolves support tickets by itself, billed per resolution on top of Intercom. Enterprise armor at enterprise prices.
+- [Hootsuite](https://solosgems.com/#tool-hootsuite): #214, 6/10, Scouted. Powerful social management for teams, priced for teams. A solo creator is paying for an army they don't have.
+- [Jasper](https://solosgems.com/#tool-jasper): #215, 6/10, Scouted. Brand-voice copywriting for marketing teams. Good, but priced for teams when cheaper scribes exist.
+- [Motion](https://solosgems.com/#tool-motion): #216, 5.88/10, Tested. A clever AI calendar with no free plan and a price that assumes you're a busy guild master.
+- [QuickBooks Solopreneur](https://solosgems.com/#tool-quickbooks-solopreneur): #217, 5.88/10, Tested. Simple bookkeeping for one-person businesses, but the AI is more apprentice than wizard and the feature list is thin.
+- [Lokalise](https://solosgems.com/#tool-lokalise): #218, 5.88/10, Scouted. Localization management for product teams. Powerful, sized for companies shipping in many languages.
+- [Whoop](https://solosgems.com/#tool-whoop): #219, 5.88/10, Scouted. A wearable that coaches your sleep and strain. Good data, but the subscription is mandatory and steep.
+- [Typeform](https://solosgems.com/#tool-typeform): #220, 5.75/10, Tested. Beautiful, conversational forms. The free tier is stingy and the AI is a minor enchantment.
+- [Podium](https://solosgems.com/#tool-podium): #221, 5.75/10, Scouted. Texting, reviews, and lead follow-up for local services. Strong tools, sales-call pricing.
+- [Noom](https://solosgems.com/#tool-noom): #222, 5.75/10, Scouted. Psychology-based coaching that works for some. Subscription-heavy and not cheap for what it is.
+- [Semrush](https://solosgems.com/#tool-semrush): #223, 5.62/10, Tested. Possibly the most powerful SEO grimoire ever written. Also priced like one, which sinks it for solo adventurers.
+- [Apollo.io](https://solosgems.com/#tool-apollo-io): #224, 5.62/10, Tested. A huge lead database with real capability, priced per seat and easy to waste credits on.
+- [Notion AI](https://solosgems.com/#tool-notion-ai): #225, 5.62/10, Tested. Clever, but now locked behind the $20/user Business plan. A good spell priced like a rare one.
+- [Birdeye](https://solosgems.com/#tool-birdeye): #226, 5.62/10, Scouted. Reputation management for local businesses that automates reviews. Effective, pricey for a single shop.
+- [Recruiterflow](https://solosgems.com/#tool-recruiterflow): #227, 5.62/10, Scouted. ATS and CRM for recruitment agencies. Solid for that exact guild, nobody else.
+- [Synthesia](https://solosgems.com/#tool-synthesia): #228, 5.5/10, Tested. Polished avatar videos, but the uncanny valley and the price tag both loom large.
+- [Devin](https://solosgems.com/#tool-devin): #229, 5.5/10, Scouted. An autonomous AI engineer that's impressive and expensive. A hireling priced for guilds, not solo adventurers.
+- [Klevu](https://solosgems.com/#tool-klevu): #230, 5.38/10, Scouted. Smart search for big catalogs. Built for large stores, priced to match.
+- [Warmly](https://solosgems.com/#tool-warmly): #231, 5.38/10, Scouted. Unmasks anonymous website visitors for sales teams. Clever, priced for teams with quotas.
+- [Bland AI](https://solosgems.com/#tool-bland-ai): #232, 5.25/10, Tested. Impressive voice agents for developers, billed by the minute, with little for a non-coder to hold onto.
+- [Lovable](https://solosgems.com/#tool-lovable): #233, 5.25/10, Tested. Builds real apps from plain English, then charges you for every rebuild while it fixes its own bugs.
+- [Perplexity Pro](https://solosgems.com/#tool-perplexity-pro): #234, 5.25/10, Tested. Cited answers are nice. Paying extra for them when the free tier and your other chatbots already do most of it is less nice.
+- [Harvey](https://solosgems.com/#tool-harvey): #235, 5.12/10, Scouted. Elite legal AI for big law firms. Powerful, and you'll need a firm with a moat to get through the gate.
+- [Respeecher](https://solosgems.com/#tool-respeecher): #236, 5.12/10, Scouted. Ethical, consent-based voice cloning for studios. Admirable, and studio-priced.
+- [Chattermill](https://solosgems.com/#tool-chattermill): #237, 5.12/10, Scouted. Ties feedback to revenue for big companies. Clever, and completely sized for enterprise kingdoms.
+- [Ironclad](https://solosgems.com/#tool-ironclad): #238, 5/10, Scouted. Contract lifecycle management for large legal teams. Overkill for a solo founder's handful of agreements.
+- [Harness AI](https://solosgems.com/#tool-harness-ai): #239, 5/10, Scouted. Serious CI/CD automation for engineering teams. Overkill and overpriced for a party of one.
+- [Wiz](https://solosgems.com/#tool-wiz): #240, 4.88/10, Scouted. Elite cloud security for big kingdoms. Brilliant, and as reachable for a solo founder as the royal treasury.
+- [Luminance](https://solosgems.com/#tool-luminance): #241, 4.88/10, Scouted. Bulk contract review for enterprises. Mighty, and nowhere near a solo budget.
+- [Gong](https://solosgems.com/#tool-gong): #242, 4.75/10, Scouted. The sales-call oracle for big revenue teams. Excellent, and entirely enterprise-priced.
+- [Turnitin](https://solosgems.com/#tool-turnitin): #243, 4.62/10, Scouted. The academy's official plagiarism hound. Powerful, but sold only to institutions, so solo adventurers can't even get a leash.
+- [Paradox](https://solosgems.com/#tool-paradox): #244, 4.5/10, Scouted. A recruiting assistant built for hiring hundreds. Irrelevant for a party of one.
+- [HireVue](https://solosgems.com/#tool-hirevue): #245, 4/10, Scouted. Enterprise video interviewing at volume. Not for solos, and its AI judging candidates draws plenty of side-eye.
 
 ## Other pages
 
-- [Herald's Hub / AI tools database](https://solosgems.com/): All 244 tools in a filterable, searchable database with a rank, score, and Tested or Scouted label on every tool, a live headline ticker, the Herald's Report (the latest AI headlines with D&D summaries, the top Realms by country, and three rotating DeathStack graves), and a Crystal Ball of trending AI projects from GitHub. Raw data: https://solosgems.com/data/tools.json and https://solosgems.com/data/tools.csv.
+- [Herald's Hub / AI tools database](https://solosgems.com/): All 245 tools in a filterable, searchable database with a rank, score, and Tested or Scouted label on every tool, a live headline ticker, the Herald's Report (the latest AI headlines with D&D summaries, the top Realms by country, and three rotating DeathStack graves), and a Crystal Ball of trending AI projects from GitHub. Raw data: https://solosgems.com/data/tools.json and https://solosgems.com/data/tools.csv.
 - [Realms](https://solosgems.com/realms.html): A live, D&D-styled world map of real AI activity by country: news coverage or verified company headquarters, search interest from Wikipedia pageviews, and build activity from GitHub.
 - [About / methodology](https://solosgems.com/about.html): What the site is, how the ranking/scoring works, and the affiliate disclosure.
 - [State of AI Tools for Solopreneurs 2026](https://solosgems.com/state-of-ai-tools.html): Original aggregate data pulled from the 51 scored reviews, median score, free-tier rate, category breadth, updated as new reviews are added.
