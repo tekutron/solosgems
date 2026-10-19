@@ -1,13 +1,12 @@
-// Ask the Herald (ask.html): a chat with the Solos Gems Herald. Posts the
-// conversation to /api/chat and streams the reply (server-sent events from
-// Workers AI). The conversation lives only in this page's memory.
+// Herald: the homepage chat (index.html #herald). Posts the conversation to
+// /api/chat and streams the reply (server-sent events from Workers AI). The
+// conversation lives only in this page's memory.
 (function () {
   "use strict";
   var log = document.getElementById("ak-log");
   var form = document.getElementById("ak-form");
   var q = document.getElementById("ak-q");
   var go = document.getElementById("ak-go");
-  var count = document.getElementById("ak-count");
   var reset = document.getElementById("ak-new");
   var examples = document.getElementById("ak-examples");
   var greeting = log.innerHTML;
@@ -72,19 +71,18 @@
 
   function addMessage(role, text) {
     var li = el("li", "ak-msg " + (role === "user" ? "ak-user-msg" : "ak-herald-msg"));
-    li.appendChild(el("p", "ak-who", role === "user" ? "You" : "The Herald"));
     var body = el("div", "ak-body");
     render(body, text);
     li.appendChild(body);
     log.appendChild(li);
-    li.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    log.scrollTop = log.scrollHeight;
     return body;
   }
 
   function setBusy(on) {
     busy = on;
     go.disabled = on;
-    go.textContent = on ? "The Herald is writing..." : "Ask";
+    go.textContent = on ? "..." : "Ask";
   }
 
   function readStream(res, body, done) {
@@ -112,6 +110,7 @@
             if (piece) {
               text += piece;
               render(body, text.replace(/<\|eot_id\|>[\s\S]*$/, ""));
+              log.scrollTop = log.scrollHeight;
             }
           } catch (e) { /* partial line; ignore */ }
         });
@@ -161,8 +160,10 @@
       });
   }
 
+  // Grow the box with its text, up to a few lines.
   function updateCount() {
-    count.textContent = q.value.length + " / 2000";
+    q.style.height = "auto";
+    q.style.height = Math.min(q.scrollHeight, 140) + "px";
   }
 
   form.addEventListener("submit", function (e) {
@@ -181,7 +182,6 @@
     history = [];
     log.innerHTML = greeting;
     examples.hidden = false;
-    q.focus();
   });
   Array.prototype.forEach.call(document.querySelectorAll(".ak-chip"), function (b) {
     b.addEventListener("click", function () {

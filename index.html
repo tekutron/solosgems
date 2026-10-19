@@ -24,6 +24,7 @@
 <meta name="twitter:image" content="https://solosgems.com/images/og-default.png">
 <meta name="theme-color" content="#1a1a18">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="herald.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -70,8 +71,7 @@
       </svg><span class="logo-word">SOLOS GEMS</span></a>
     <a class="quest-badge" href="game.html" title="Play: The Road to Solos Gems">🎲 Quest</a>
     <nav>
-      <a href="ask.html">Ask the Herald</a>
-      <a href="daily.html">Daily Riddle</a>
+      <a href="/#herald">Herald</a>
       <a href="realms.html">Realms</a>
       <a href="deathstack.html">DeathStack</a>
       <a href="news.html">News</a>
@@ -85,94 +85,31 @@
   <section class="hero">
     <span class="kicker">The Herald's Hub</span>
     <h1>Hear Ye: The AI Tools Database</h1>
-    <figure class="hero-rotator" id="hero-rotator" aria-live="polite">
-      <a id="hero-rotator-link" href="#db-main">
-        <img class="review-hero" id="hero-rotator-img" src="images/database-hero.svg" alt="Retro video game style illustration" width="768" height="768">
-      </a>
-      <figcaption>
-        <span class="hero-rotator-tool" id="hero-rotator-tool" hidden></span>
-        <span class="review-hero-caption" id="hero-rotator-caption">The town crier gave up reading every scroll aloud and started ranking them instead. Same job, fewer hoarse mornings.</span>
-      </figcaption>
-      <div class="hero-rotator-controls">
-        <button type="button" id="hero-rotator-prev" aria-label="Previous comic">&#9664;</button>
-        <button type="button" id="hero-rotator-pause" aria-label="Pause rotation">&#10074;&#10074;</button>
-        <button type="button" id="hero-rotator-next" aria-label="Next comic">&#9654;</button>
+    <div class="herald" id="herald">
+      <div class="herald-head">
+        <span class="herald-orb" aria-hidden="true">&#10022;</span>
+        <div>
+          <h2 class="herald-title">Herald</h2>
+          <p class="herald-sub">Ask anything. Real answers, told the Solos Gems way.</p>
+        </div>
+        <button type="button" class="herald-clear" id="ak-new">Clear</button>
       </div>
-    </figure>
+      <ol class="ak-log" id="ak-log" aria-live="polite">
+        <li class="ak-msg ak-herald-msg"><div class="ak-body"><p>Hail, traveler! Ask me anything: a recipe, a science question, a stubborn bug, how to word a tricky email.</p></div></li>
+      </ol>
+      <form id="ak-form" class="ak-form" autocomplete="off">
+        <label for="ak-q" class="visually-hidden">Ask the Herald</label>
+        <textarea id="ak-q" rows="1" maxlength="2000" placeholder="Ask the Herald..." required></textarea>
+        <button type="submit" class="ak-btn" id="ak-go">Ask</button>
+      </form>
+      <div class="ak-examples" id="ak-examples" aria-label="Example questions">
+        <button type="button" class="ak-chip">Why is the sky blue?</button>
+        <button type="button" class="ak-chip">How do I make a budget?</button>
+        <button type="button" class="ak-chip">Write a haiku about Mondays</button>
+      </div>
+      <p class="herald-note">Built with Llama. The Herald can be wrong, so double-check anything important, and please don't share personal details. <a href="privacy.html">Privacy</a></p>
+    </div>
   </section>
-  <script>
-  // Rotate the hero comic through every tool's comic and caption on the
-  // page: a random one on each visit, then a new one every 9 seconds.
-  // Pauses on hover or focus; with reduced motion it only picks once.
-  (function () {
-    var img = document.getElementById('hero-rotator-img');
-    var cap = document.getElementById('hero-rotator-caption');
-    var tool = document.getElementById('hero-rotator-tool');
-    var link = document.getElementById('hero-rotator-link');
-    var fig = document.getElementById('hero-rotator');
-    var pauseBtn = document.getElementById('hero-rotator-pause');
-    function collect() {
-      var out = [];
-      document.querySelectorAll('.db-row').forEach(function (row) {
-        var c = row.querySelector('.db-row-comic');
-        var t = row.querySelector('.db-row-caption');
-        var h = row.querySelector('h3');
-        if (!c || !t || !h) return;
-        out.push({ src: c.getAttribute('src'), caption: t.textContent, name: h.textContent, id: row.id || '' });
-      });
-      return out;
-    }
-    var pool = [];
-    var i = 0;
-    var timer = null;
-    var paused = false;
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function show(n) {
-      if (!pool.length) return;
-      i = (n + pool.length) % pool.length;
-      var e = pool[i];
-      fig.classList.add('is-fading');
-      setTimeout(function () {
-        img.src = e.src;
-        img.alt = e.name + ' comic';
-        cap.textContent = e.caption;
-        tool.textContent = e.name;
-        tool.hidden = false;
-        link.href = e.id ? '#' + e.id : '#db-main';
-        fig.classList.remove('is-fading');
-      }, reduce ? 0 : 250);
-    }
-    function start() {
-      stop();
-      if (!reduce && !paused) timer = setInterval(function () { show(i + 1); }, 9000);
-    }
-    function stop() { if (timer) { clearInterval(timer); timer = null; } }
-    function init() {
-      pool = collect();
-      if (!pool.length) return;
-      for (var k = pool.length - 1; k > 0; k--) {
-        var j = Math.floor(Math.random() * (k + 1));
-        var tmp = pool[k]; pool[k] = pool[j]; pool[j] = tmp;
-      }
-      show(0);
-      start();
-      fig.addEventListener('mouseenter', stop);
-      fig.addEventListener('mouseleave', start);
-      fig.addEventListener('focusin', stop);
-      fig.addEventListener('focusout', start);
-      document.getElementById('hero-rotator-prev').addEventListener('click', function () { show(i - 1); });
-      document.getElementById('hero-rotator-next').addEventListener('click', function () { show(i + 1); });
-      pauseBtn.addEventListener('click', function () {
-        paused = !paused;
-        pauseBtn.innerHTML = paused ? '&#9654;' : '&#10074;&#10074;';
-        pauseBtn.setAttribute('aria-label', paused ? 'Resume rotation' : 'Pause rotation');
-        if (paused) stop(); else start();
-      });
-      if (reduce) pauseBtn.hidden = true;
-    }
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
-  })();
-  </script>
 
   <div class="news-ticker" aria-label="Latest AI news, scrolling">
     <a class="news-ticker-label" href="news.html">Herald's Cry</a>
@@ -183,24 +120,6 @@
     </div>
   </div>
 
-  <a class="riddle-banner" href="daily.html">
-    <span class="riddle-banner-orb" aria-hidden="true">?</span>
-    <span class="riddle-banner-body">
-      <span class="riddle-banner-kicker">New every day</span>
-      <span class="riddle-banner-title">The Herald's Riddle: name today's AI tool in six guesses</span>
-      <span class="riddle-banner-sub">A blurred comic, a handful of clues, and a streak to protect. Share your result without spoiling it.</span>
-    </span>
-    <span class="riddle-banner-cta">Play &rarr;</span>
-  </a>
-  <a class="riddle-banner ask-banner" href="ask.html">
-    <span class="riddle-banner-orb" aria-hidden="true">&#10022;</span>
-    <span class="riddle-banner-body">
-      <span class="riddle-banner-kicker">Free AI assistant</span>
-      <span class="riddle-banner-title">Ask the Herald anything</span>
-      <span class="riddle-banner-sub">Real answers to any question, told by a wry fantasy narrator. A free AI assistant in the Solos Gems voice.</span>
-    </span>
-    <span class="riddle-banner-cta">Ask &rarr;</span>
-  </a>
 
   <section class="herald-report" aria-label="The Herald's Report">
     <div class="herald-col herald-col-news">
@@ -4238,5 +4157,6 @@
   </div>
 </footer>
 
+<script src="herald.js" defer></script>
 </body>
 </html>

@@ -97,20 +97,14 @@ helpers (see `make_svg` in site.py). Update the word-number in the intro
 4. Commit with a clear message and push to `main`.
 5. New HTML pages must also be added to `assets.run_worker_first` in wrangler.jsonc.
 
-## The Herald's Riddle (daily.html)
+## Herald (homepage chat)
 
-The daily puzzle reads `data/daily.json`, which `rerank` rebuilds: every tool
-(valid guesses) plus an answer schedule 120 days ahead. Never hand-edit it.
-Already scheduled days keep their answer; only a removed tool's days get a new
-pick. The answer pool is tools ranked #1-110 plus every tested tool.
-
-## Ask the Herald (ask.html)
-
-A general-purpose chat assistant with the Solos Gems voice. The page posts the
+A general-purpose chat assistant with the Solos Gems voice, in the homepage
+hero (`#herald` in index.html; `herald.js`, `herald.css`). It posts the
 conversation to `/api/chat` in `worker.js`, which streams a reply from
 `@cf/meta/llama-3.1-8b-instruct-fp8-fast` with `CHAT_SYSTEM` (the Herald style
 guide) and `CHAT_EXAMPLES` (three example exchanges). A LoRA trained on the
 style dataset in `herald-training/` (outside the repo) made answers less
 accurate in testing, so it is not used; retrain only with a bigger, checked
-dataset. The page must keep the "Built with Llama" notice (Llama license).
+dataset. The homepage must keep the "Built with Llama" notice (Llama license).
 `ASK_LIMITER` caps each visitor at 8 messages a minute; nothing is stored.

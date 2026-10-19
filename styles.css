@@ -1364,17 +1364,6 @@ article li { margin: 6px 0; }
 .db-score-badge { color: var(--ink); }
 
 /* ---------- Herald's Report columns ---------- */
-.riddle-banner { display: flex; align-items: center; gap: 16px; margin: 22px 0 6px; padding: 14px 18px; border: 2px solid var(--rust-dark); border-radius: 8px; background: linear-gradient(100deg, #2c2a26, #33261c); color: var(--ink); text-decoration: none; }
-.riddle-banner:hover { background: linear-gradient(100deg, #34312b, #3d2c1f); color: var(--ink); }
-.riddle-banner-orb { flex: none; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; font: 700 1.7rem "IBM Plex Mono", Menlo, monospace; color: #1a1a18; background: radial-gradient(circle at 35% 30%, #fff3cf, #ffd76a 45%, #b8790f); box-shadow: 0 0 18px rgba(255, 215, 106, 0.35); }
-.riddle-banner-body { display: flex; flex-direction: column; min-width: 0; flex: 1; }
-.riddle-banner-kicker { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--rust-dark); }
-.riddle-banner-title { font-family: "IBM Plex Mono", Menlo, monospace; font-weight: 700; font-size: 1.05rem; line-height: 1.3; }
-.riddle-banner-sub { color: var(--ink-soft); font-size: 0.88rem; }
-.riddle-banner-cta { flex: none; font-weight: 700; color: var(--rust-dark); }
-.ask-banner { margin-top: 10px; }
-@media (max-width: 560px) { .riddle-banner-cta { display: none; } .riddle-banner-orb { width: 42px; height: 42px; font-size: 1.3rem; } }
-
 .herald-report {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2265,42 +2254,7 @@ footer .wrap { max-width: var(--max-width); margin: 0 auto; }
 .realm-row-lore { font-style: italic; }
 
 /* ---------- Rotating hero comic ---------- */
-.hero-rotator { margin: 0; text-align: center; }
-.hero-rotator a { display: block; max-width: 420px; margin: 0 auto; }
-.hero-rotator .review-hero { transition: opacity 0.25s ease; }
-.hero-rotator figcaption { transition: opacity 0.25s ease; }
-.hero-rotator.is-fading .review-hero,
-.hero-rotator.is-fading figcaption { opacity: 0; }
-.hero-rotator-tool {
-  display: block;
-  margin-top: 10px;
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--rust-dark);
-}
-.hero-rotator .review-hero-caption { display: block; }
-.hero-rotator-controls {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 10px;
-}
-.hero-rotator-controls button {
-  min-width: 36px;
-  padding: 5px 10px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: var(--panel);
-  color: var(--ink-soft);
-  font-size: 0.75rem;
-  cursor: pointer;
-}
-.hero-rotator-controls button:hover { color: var(--rust-dark); border-color: var(--rust-dark); }
-@media (prefers-reduced-motion: reduce) {
-  .hero-rotator .review-hero, .hero-rotator figcaption { transition: none; }
-}
+
 
 /* ---------- Full-database ranking labels ---------- */
 .db-basis-chip {

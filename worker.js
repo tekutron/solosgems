@@ -30,6 +30,16 @@ home.pathname = "/";
 return Response.redirect(home.toString(), 301);
 }
 
+// The Daily Riddle was removed and Ask the Herald moved onto the homepage
+// (2026-10-19). Both URLs were in the sitemap, so send them home.
+if (/^\/(daily|ask)(\.html)?\/?$/.test(url.pathname)) {
+const home = new URL(request.url);
+home.pathname = "/";
+home.search = "";
+home.hash = url.pathname.startsWith("/ask") ? "herald" : "";
+return Response.redirect(home.toString(), 301);
+}
+
 if (url.pathname === "/") {
 const assetUrl = new URL(request.url);
 assetUrl.pathname = "/index.html";
@@ -1431,7 +1441,7 @@ headers: { "Content-Type": "application/json" },
 }
 
 // ---------------------------------------------------------------------------
-// Ask the Herald (ask.html): a general-purpose AI assistant with the Solos
+// The Herald (homepage chat, index.html #herald): a general-purpose AI assistant with the Solos
 // Gems voice. Llama 3.1 8B on Workers AI, steered by the Herald system prompt
 // plus three example exchanges from the Solos Gems style dataset
 // (herald-training/, outside the repo). A LoRA trained on that dataset made
