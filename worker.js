@@ -1554,9 +1554,9 @@ id: "wizard", title: "The Wizard", icon: "\u{1F9D9}", models: [["@cf/meta/llama-
 persona: "You are the Wizard: an old, slightly pompous scholar who has read every scroll and cannot resist one dry, clever joke.",
 },
 {
-// Gemma 4 is a reasoning model and spent its token budget thinking, so the
-// Bard uses Gemma 3 (no thinking step), with Mistral Small as a second voice.
-id: "bard", title: "The Bard", icon: "\u{1FA95}", models: [["@cf/google/gemma-3-12b-it", "Gemma 3 12B"], ["@cf/mistralai/mistral-small-3.1-24b-instruct", "Mistral Small 24B"]],
+// Gemma 4 (a reasoning model) and Gemma 3 never answered in production, so
+// the Bard runs on Mistral Small.
+id: "bard", title: "The Bard", icon: "\u{1FA95}", models: [["@cf/mistralai/mistral-small-3.1-24b-instruct", "Mistral Small 24B"]],
 persona: "You are the Bard: theatrical and warm, fond of puns and the occasional short rhyme, always rooting for the underdog tool.",
 },
 {
