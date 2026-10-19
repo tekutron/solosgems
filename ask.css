@@ -1,0 +1,59 @@
+/* Ask the Herald (ask.html). Uses the tokens from styles.css. */
+
+.ak-wrap { max-width: var(--max-width); margin: 0 auto; padding: 32px 20px 64px; }
+.ak-wrap .kicker { display: block; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.78rem; color: var(--rust-dark); margin-bottom: 6px; }
+.ak-wrap h1 { margin: 0 0 10px; font-size: 2rem; }
+.ak-lede { color: var(--ink-soft); margin: 0 0 22px; max-width: 640px; }
+
+.ak-form { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 18px; }
+.ak-label { display: block; font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 6px; }
+#ak-q { width: 100%; box-sizing: border-box; font: inherit; font-size: 1.02rem; padding: 10px 12px; border-radius: 5px; border: 2px solid var(--line); background: var(--paper); color: var(--ink); resize: vertical; min-height: 84px; }
+#ak-q:focus { outline: none; border-color: var(--rust-dark); }
+.ak-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 10px; }
+.ak-check { display: flex; align-items: center; gap: 6px; font-size: 0.92rem; cursor: pointer; }
+.ak-count { color: var(--ink-soft); font-size: 0.8rem; margin-left: auto; }
+.ak-btn { font: inherit; font-weight: 600; padding: 9px 18px; border-radius: 5px; border: 2px solid var(--rust-dark); background: var(--rust); color: #fff; cursor: pointer; }
+.ak-btn:hover { background: var(--rust-dark); }
+.ak-btn:disabled { opacity: 0.65; cursor: wait; }
+
+.ak-examples { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 14px 0 0; font-size: 0.85rem; color: var(--ink-soft); }
+.ak-chip { font: inherit; font-size: 0.85rem; background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
+.ak-chip:hover { border-color: var(--rust-dark); background: var(--card); }
+
+.ak-answer { margin-top: 22px; }
+.ak-reply { font-family: "IBM Plex Mono", Menlo, monospace; font-size: 1rem; margin: 0 0 14px; }
+.ak-h { font-size: 1rem; margin: 22px 0 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+.ak-council { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 760px) { .ak-council { grid-template-columns: 1fr; } }
+.ak-member { background: var(--panel); border: 1px solid var(--line); border-top: 3px solid var(--rust-dark); border-radius: 8px; padding: 12px 14px; }
+.ak-bard { border-top-color: #b58cd8; }
+.ak-rogue { border-top-color: #5fb36c; }
+.ak-herald { grid-column: 1 / -1; border-top-color: #ffd76a; background: linear-gradient(100deg, #2c2a26, #33261c); }
+.ak-herald .ak-member-quip { font-size: 1.05rem; }
+.ak-member-head { display: flex; align-items: center; gap: 8px; margin: 0 0 6px; }
+.ak-member-icon { font-size: 1.4rem; }
+.ak-member-brain { margin-left: auto; font-size: 0.72rem; color: var(--ink-soft); border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
+.ak-member-quip { margin: 0; font-style: italic; line-height: 1.5; }
+.ak-crown { display: inline-block; margin-left: 10px; vertical-align: middle; font-family: "IBM Plex Mono", Menlo, monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: #1a1a18; background: #ffd76a; border-radius: 4px; padding: 2px 7px; }
+.ak-votes { list-style: none; margin: 0 0 8px; padding: 0; display: grid; gap: 4px; font-size: 0.92rem; }
+.ak-vote-who { font-weight: 600; }
+.ak-picks { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.ak-pick { display: flex; gap: 16px; align-items: flex-start; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; }
+.ak-pick img { width: 112px; height: 112px; border-radius: 5px; border: 2px solid var(--ink); flex: none; background: var(--card); }
+.ak-pick-body { min-width: 0; }
+.ak-pick-name { margin: 0 0 2px; font-size: 1.25rem; }
+.ak-pick-name .ak-crown { font-weight: 400; }
+.ak-pick-meta { margin: 0 0 8px; font-size: 0.82rem; color: var(--ink-soft); }
+.ak-pick-why { margin: 0 0 6px; }
+.ak-pick-desc { margin: 0 0 8px; font-size: 0.9rem; color: var(--ink-soft); }
+.ak-pick-links { margin: 0; font-size: 0.9rem; }
+.ak-note { margin: 12px 0 0; font-size: 0.82rem; color: var(--ink-soft); }
+@media (max-width: 520px) {
+  .ak-pick { flex-direction: column; }
+  .ak-pick img { width: 84px; height: 84px; }
+}
+
+.ak-about { margin-top: 36px; border-top: 1px solid var(--line); padding-top: 24px; max-width: 680px; }
+.ak-about h2 { font-size: 1.3rem; }
+.ak-about h3 { font-size: 1.02rem; margin-top: 20px; }
+.ak-about-cta { color: var(--ink-soft); }

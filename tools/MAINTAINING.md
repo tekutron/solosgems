@@ -103,3 +103,17 @@ The daily puzzle reads `data/daily.json`, which `rerank` rebuilds: every tool
 (valid guesses) plus an answer schedule 120 days ahead. Never hand-edit it.
 Already scheduled days keep their answer; only a removed tool's days get a new
 pick. The answer pool is tools ranked #1-110 plus every tested tool.
+
+## Ask the Herald (ask.html)
+
+The AI tool finder posts to `/api/ask` in `worker.js`. It reads the same
+`data/daily.json`, so new and renamed tools show up automatically after
+`rerank`. A keyword pass (with the `ASK_SYNONYMS` map of everyday words)
+shortlists up to 14 tools, then the Council of Oracles (`ASK_COUNCIL`: three
+Workers AI models, each a character) votes 1-3 of them by number with a reason;
+none can name a tool outside the shortlist. Votes are tallied 3/2/1 points.
+Each member falls back to Llama 3.2 3B if its model fails; if all fail the top
+keyword matches are returned. The house voice comes from real comic captions
+in the prompt (`askHouseStyle`), so better captions mean a funnier council. Answers are cached a day per question,
+and `ASK_LIMITER` (wrangler `ratelimits`) caps each visitor at 8 asks a minute.
+If a common request finds the wrong tools, add the word to `ASK_SYNONYMS`.

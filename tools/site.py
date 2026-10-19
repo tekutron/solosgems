@@ -198,7 +198,7 @@ def sync_derived(R, ids):
              r'(Tools in the full database</div><div class="spec-value">)\d+(<)', r"(Median score, all )\d+( tools)",
              r"(See all )\d+( ranked tools)", r"(Every one of the )\d+( tools)", r"(with )\d+( tools, all ranked)",
              r"(our database of )\d+(,)"]
-    for p in ("about.html", "llms.txt", "submit.html", "state-of-ai-tools.html", "embed.html"):
+    for p in ("about.html", "llms.txt", "submit.html", "state-of-ai-tools.html", "embed.html", "ask.html"):
         t = read(p)
         for pat in COUNT:
             t = re.sub(pat, lambda m: m.group(1) + str(N) + m.group(2), t)
