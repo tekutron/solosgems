@@ -1472,14 +1472,17 @@ const ip = request.headers.get("CF-Connecting-IP") || "unknown";
 const { success } = await env.ASK_LIMITER.limit({ key: ip });
 if (!success) return json({ error: "The Herald needs a breather. Try again in a minute." }, 429);
 }
-const examples = CHAT_EXAMPLES.flatMap((e) => [
-{ role: "user", content: e.q },
-{ role: "assistant", content: e.a },
-]);
+// The examples go inside the system prompt, clearly labeled, not as fake
+// earlier turns: as turns, the model believed it had already answered them
+// ("I mentioned that earlier") when a visitor asked the same thing.
+const system =
+CHAT_SYSTEM +
+"\n\nExamples of the house style (these are samples, not part of this conversation):\n\n" +
+CHAT_EXAMPLES.map((e) => `Question: ${e.q}\nAnswer: ${e.a}`).join("\n\n");
 let stream;
 try {
 stream = await env.AI.run(CHAT_MODEL, {
-messages: [{ role: "system", content: CHAT_SYSTEM }, ...examples, ...messages],
+messages: [{ role: "system", content: system }, ...messages],
 stream: true,
 max_tokens: 700,
 temperature: 0.5,
