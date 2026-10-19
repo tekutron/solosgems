@@ -986,6 +986,66 @@ article li { margin: 6px 0; }
   .news-ticker-label { padding: 5px 8px; font-size: 0.66rem; }
 }
 
+/* ---------- Homepage comic strip ---------- */
+.comic-strip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1.5px solid var(--line);
+  background: var(--card);
+  padding: 6px 16px;
+  margin: -18px 0 32px;
+  overflow: hidden;
+}
+.comic-strip-viewport {
+  flex: 1;
+  overflow: hidden;
+  padding: 6px 0;
+  mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+}
+.comic-strip-track {
+  display: flex;
+  gap: 10px;
+  width: max-content;
+  animation: news-ticker-scroll 90s linear infinite;
+}
+.comic-strip:hover .comic-strip-track,
+.comic-strip:focus-within .comic-strip-track { animation-play-state: paused; }
+.comic-strip-item {
+  flex: none;
+  display: block;
+  width: 64px;
+  height: 64px;
+  border: 2px solid var(--ink);
+  border-radius: 5px;
+  overflow: hidden;
+  background: var(--panel);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.comic-strip-item img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.comic-strip-item.is-on { transform: scale(1.08); border-color: #ffd76a; }
+.comic-pop {
+  position: fixed;
+  z-index: 50;
+  width: 240px;
+  padding: 10px;
+  background: var(--panel);
+  border: 2px solid #ffd76a;
+  border-radius: 8px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+}
+.comic-pop[hidden] { display: none; }
+.comic-pop img { width: 220px; height: 220px; display: block; border: 2px solid var(--ink); border-radius: 5px; }
+.comic-pop-name { margin: 8px 0 2px; font-family: "IBM Plex Mono", monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--rust-dark); }
+.comic-pop-cap { margin: 0; font-size: 0.85rem; font-style: italic; line-height: 1.4; color: var(--ink); }
+@media (prefers-reduced-motion: reduce) {
+  .comic-strip-track { animation: none; }
+  .comic-strip-viewport { overflow-x: auto; }
+}
+@media (hover: none) { .comic-pop { display: none; } }
+
 /* ---------- Logo wall ---------- */
 .db-wall {
   border: 1.5px solid var(--line);

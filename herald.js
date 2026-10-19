@@ -164,6 +164,7 @@
   function updateCount() {
     q.style.height = "auto";
     q.style.height = Math.min(q.scrollHeight, 140) + "px";
+    q.style.overflowY = q.scrollHeight > 140 ? "auto" : "hidden";
   }
 
   form.addEventListener("submit", function (e) {

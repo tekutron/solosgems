@@ -113,6 +113,88 @@
   </div>
 
 
+  <div class="comic-strip" id="comic-strip" aria-label="Comics from the database, scrolling">
+    <a class="news-ticker-label" href="#db-main">Comics</a>
+    <div class="comic-strip-viewport">
+      <div class="comic-strip-track" id="comic-strip-track"></div>
+    </div>
+  </div>
+  <div class="comic-pop" id="comic-pop" aria-hidden="true" hidden>
+    <img id="comic-pop-img" alt="" width="220" height="220">
+    <p class="comic-pop-name" id="comic-pop-name"></p>
+    <p class="comic-pop-cap" id="comic-pop-cap"></p>
+  </div>
+  <script>
+  // Comic strip: a slow scrolling row of the database's comics. Hovering (or
+  // focusing) pauses it and pops the comic out with its caption; clicking
+  // jumps to that tool's row. Built from the rows already on the page.
+  (function () {
+    var track = document.getElementById('comic-strip-track');
+    var strip = document.getElementById('comic-strip');
+    var pop = document.getElementById('comic-pop');
+    var popImg = document.getElementById('comic-pop-img');
+    var popName = document.getElementById('comic-pop-name');
+    var popCap = document.getElementById('comic-pop-cap');
+    function init() {
+      var pool = [];
+      document.querySelectorAll('.db-row').forEach(function (row) {
+        var c = row.querySelector('.db-row-comic');
+        var t = row.querySelector('.db-row-caption');
+        var h = row.querySelector('h3');
+        if (c && t && h && row.id) pool.push({ src: c.getAttribute('src'), cap: t.textContent, name: h.textContent, id: row.id });
+      });
+      if (!pool.length) { strip.hidden = true; return; }
+      for (var k = pool.length - 1; k > 0; k--) {
+        var j = Math.floor(Math.random() * (k + 1));
+        var tmp = pool[k]; pool[k] = pool[j]; pool[j] = tmp;
+      }
+      pool = pool.slice(0, 30);
+      pool.concat(pool).forEach(function (e, n) {
+        var a = document.createElement('a');
+        a.className = 'comic-strip-item';
+        a.href = '#' + e.id;
+        if (n >= pool.length) { a.tabIndex = -1; a.setAttribute('aria-hidden', 'true'); }
+        a.setAttribute('aria-label', e.name + ': ' + e.cap);
+        var img = document.createElement('img');
+        img.src = e.src;
+        img.alt = '';
+        img.width = 64;
+        img.height = 64;
+        a.appendChild(img);
+        function show() {
+          popImg.src = e.src;
+          popImg.alt = e.name + ' comic';
+          popName.textContent = e.name;
+          popCap.textContent = e.cap;
+          pop.hidden = false;
+          var r = a.getBoundingClientRect();
+          var w = pop.offsetWidth, h = pop.offsetHeight;
+          var x = Math.max(8, Math.min(window.innerWidth - w - 8, r.left + r.width / 2 - w / 2));
+          // Prefer above the comic, below the sticky header; else below it;
+          // either way keep the whole card on screen.
+          var head = document.querySelector('.site-header');
+          var topLimit = (head ? head.getBoundingClientRect().bottom : 0) + 8;
+          var y = r.top - h - 10;
+          if (y < topLimit) y = r.bottom + 10;
+          y = Math.max(topLimit, Math.min(window.innerHeight - h - 8, y));
+          pop.style.left = x + 'px';
+          pop.style.top = y + 'px';
+          a.classList.add('is-on');
+        }
+        function hide() { pop.hidden = true; a.classList.remove('is-on'); }
+        a.addEventListener('mouseenter', show);
+        a.addEventListener('mouseleave', hide);
+        a.addEventListener('focus', show);
+        a.addEventListener('blur', hide);
+        a.addEventListener('click', hide);
+        track.appendChild(a);
+      });
+      window.addEventListener('scroll', function () { pop.hidden = true; }, { passive: true });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  })();
+  </script>
+
   <section class="herald-report" aria-label="The Herald's Report">
     <div class="herald-col herald-col-news">
       <h2>📜 The Herald's Cry</h2>
