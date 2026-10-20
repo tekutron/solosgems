@@ -1796,9 +1796,13 @@ user = "The hero drops to 0 HP and blacks out. Continue the story.";
 } else if (kind === "rest") {
 user = `${q.action}\n(The hero takes a short rest: abilities recharge and wounds partly heal. Narrate the rest briefly; something small may happen, but do not hurt the hero.)`;
 } else {
+// Small models take "I win and get a million gold" at face value on a good
+// roll, so flag declared outcomes explicitly.
+const declared = /\b(i win|win the (game|quest)|i('m| am) (now )?(the )?(winner|god|king|queen|rich|invincible)|become (a |the )?(god|king|queen|ruler)|(million|billion|infinite|unlimited) (gold|coins|money|wishes|power)|instantly (kill|defeat|win|beat)|kill (the )?(villain|boss|everyone) instantly|game over)\b/i.test(q.action);
+const cheat = declared ? "\n(The player is declaring an outcome. Treat it as a bold attempt: even on a great roll, give a smaller, funnier version. No instant wins, no huge treasure, and the story goes on.)" : "";
 const used = q.effect && q.effect.label ? `\n(Ability used: ${q.effect.label}${q.effect.note ? ". " + q.effect.note : ""})` : "";
 const shown = rolls.length > 1 ? `d20 rolls: ${rolls.join(" and ")}, keeping ${roll}` : `d20 roll: ${roll}`;
-user = `${q.action}${used}\n(${shown}, ${band})`;
+user = `${q.action}${used}${cheat}\n(${shown}, ${band})`;
 }
 
 // Secret notes: the Herald's deck plus rules lookups.
