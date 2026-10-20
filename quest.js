@@ -57,7 +57,22 @@
   // ---- Status line --------------------------------------------------------
   // Hide the bracketed status line while it streams in.
   function narration(text) {
-    return text.replace(/<\|eot_id\|>[\s\S]*$/, "").replace(/(^|\n)[ \t]*\[[\s\S]*$/, "").replace(/\s*\[\[[\s\S]*$/, "").trim();
+    return text.replace(/<\|eot_id\|>[\s\S]*$/, "").replace(/(^|\n)[ \t]*\[[\s\S]*$/, "")
+      .replace(/\s*\[\[?\s*(hp|gold|gain|lose|opt|end|title)\b[\s\S]*$/i, "").replace(/\s*\[\[[\s\S]*$/, "").trim();
+  }
+  // The status line as it should have been written, rebuilt from what was
+  // applied. It goes back into the story history so the model always sees
+  // well-formed examples and keeps writing the line.
+  function canonicalStatus(d, opts) {
+    var bits = [];
+    if (d.end) bits.push("end");
+    if (d.hp) bits.push("hp " + (d.hp > 0 ? "+" : "") + d.hp);
+    if (d.gold) bits.push("gold " + (d.gold > 0 ? "+" : "") + d.gold);
+    d.gained.forEach(function (g) { bits.push("gain " + g); });
+    d.lost.forEach(function (g) { bits.push("lose " + g); });
+    if (d.end) { if (d.title) bits.push("title " + d.title); }
+    else opts.forEach(function (o) { bits.push("opt " + o); });
+    return "[[" + bits.join("; ") + "]]";
   }
   function statusLine(text) {
     var m = text.replace(/<\|eot_id\|>[\s\S]*$/, "").match(/\[\[?([^\[\]]*)\]?\]?\s*$/);
@@ -268,9 +283,9 @@
           var entry = { role: "assistant", text: story, change: changeText(d) };
           if (userEntry) { delete userEntry.view; game.entries.push(userEntry); }
           game.entries.push(entry);
-          game.history.push({ role: "user", content: prompt || action || "Begin." }, { role: "assistant", content: story });
-          game.history = game.history.slice(-10);
           game.opts = d.opts.length ? d.opts : FALLBACK_OPTS;
+          game.history.push({ role: "user", content: prompt || action || "Begin." }, { role: "assistant", content: story + "\n" + canonicalStatus(d, game.opts) });
+          game.history = game.history.slice(-10);
           if (d.title) game.title = d.title;
           var finished = mode === "fallen" || d.end || game.turn >= MAX_TURNS;
           if (finished) {
