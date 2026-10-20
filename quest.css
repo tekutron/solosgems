@@ -1,0 +1,64 @@
+/* Herald quests: the homepage Dungeon Master (home.html #qp, quest.js). Uses the tokens from styles.css. */
+
+.herald [hidden] { display: none !important; }
+
+.herald-tabs { margin-left: auto; display: flex; gap: 4px; background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+.herald-tab { font: inherit; font-size: 0.85rem; font-weight: 700; background: transparent; color: var(--ink-soft); border: 0; border-radius: 999px; padding: 5px 14px; cursor: pointer; }
+.herald-tab[aria-selected="true"] { background: var(--rust); color: #fff; }
+.chat-tools { display: flex; justify-content: flex-end; margin: -4px 0 8px; }
+
+.qp-intro { max-width: none; margin: 0 0 12px; color: var(--ink-soft); font-size: 0.92rem; line-height: 1.5; }
+.qp-pick { border: 0; margin: 0 0 14px; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+.qp-pick legend { font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--rust-dark); margin-bottom: 8px; padding: 0; }
+.qp-card, .qp-chip { position: relative; cursor: pointer; }
+.qp-card input[type="radio"], .qp-chip input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+.qp-card > span { display: block; height: 100%; box-sizing: border-box; padding: 10px 12px; border: 2px solid var(--line); border-radius: 8px; background: var(--card); font-size: 0.85rem; color: var(--ink-soft); line-height: 1.4; }
+.qp-card strong { display: block; color: var(--ink); font-size: 0.95rem; margin-bottom: 2px; }
+.qp-card input:checked + span, .qp-chip input:checked + span { border-color: var(--rust-dark); background: linear-gradient(100deg, #2c2a26, #33261c); }
+.qp-card input:focus-visible + span, .qp-chip input:focus-visible + span { outline: 2px solid #ffd76a; outline-offset: 2px; }
+.qp-card-own input[type="text"] { display: block; width: 100%; box-sizing: border-box; margin-top: 6px; font: inherit; font-size: 0.85rem; padding: 6px 8px; border-radius: 5px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); }
+.qp-classes { grid-template-columns: repeat(4, auto) 1fr; align-items: center; }
+.qp-chip > span { display: block; padding: 7px 14px; border: 2px solid var(--line); border-radius: 999px; background: var(--card); font-weight: 700; font-size: 0.9rem; white-space: nowrap; }
+.qp-chip small { font-weight: 400; color: var(--ink-soft); }
+.qp-name { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--ink-soft); }
+.qp-name input { flex: 1; min-width: 0; font: inherit; font-size: 0.9rem; padding: 7px 10px; border-radius: 6px; border: 2px solid var(--line); background: var(--paper); color: var(--ink); }
+.qp-begin { width: 100%; }
+
+.qp-stats { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 8px 10px; margin-bottom: 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); font-size: 0.85rem; color: var(--ink-soft); }
+.qp-hero { font-weight: 700; color: var(--ink); }
+.qp-hp { display: inline-flex; align-items: center; gap: 6px; }
+.qp-hp-bar { width: 70px; height: 8px; border-radius: 4px; background: var(--card); border: 1px solid var(--line); overflow: hidden; }
+.qp-hp-bar span { display: block; height: 100%; background: var(--ok); transition: width 0.4s ease; }
+.qp-hp-bar span.low { background: #c4483c; }
+.qp-items { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px; flex-basis: 100%; }
+.qp-items li { font-size: 0.75rem; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); }
+
+.qp-roll { display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; font-size: 0.75rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); }
+.qp-die { font-size: 0.65rem; color: var(--ink-soft); }
+.qp-roll-disaster { color: #ff7b6b; border-color: #8a3a30; }
+.qp-roll-fail { color: #e0a08a; }
+.qp-roll-mixed { color: #ffd76a; }
+.qp-roll-success { color: #8fd69a; border-color: #3f6f47; }
+.qp-roll-legendary { color: #1a1a18; background: #ffd76a; border-color: #ffd76a; }
+.ak-user-msg .qp-roll { float: right; margin-left: 8px; margin-top: 2px; }
+.qp-change { margin: 6px 0 0; font-size: 0.78rem; font-weight: 700; color: #ffd76a; }
+
+.qp-opts { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.qp-opts:empty { display: none; }
+.qp-opt { font: inherit; font-size: 0.82rem; background: var(--card); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
+.qp-opt:hover { border-color: var(--rust-dark); }
+.qp-opt:disabled { opacity: 0.5; cursor: wait; }
+
+.qp-end { text-align: center; padding: 16px 12px; margin-top: 4px; border: 2px solid #ffd76a; border-radius: 10px; background: linear-gradient(160deg, #2c2a26, #33261c); }
+.qp-end-kicker { margin: 0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--rust-dark); }
+.qp-end h3 { margin: 6px 0; font-size: 1.3rem; }
+.qp-end p { max-width: none; margin: 0 0 12px; color: var(--ink-soft); font-size: 0.88rem; }
+.qp-end-actions .herald-clear { margin-left: 0; }
+.qp-end-actions { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; align-items: center; }
+.qp-abandon { display: block; margin: 8px 0 0 auto; font-size: 0.75rem; }
+
+@media (max-width: 560px) {
+  .qp-classes { grid-template-columns: repeat(2, 1fr); }
+  .qp-name { grid-column: 1 / -1; }
+  .herald-tab { padding: 5px 10px; }
+}

@@ -104,6 +104,14 @@ database is still index.html, but it is served at `/database` (its canonical URL
 /index.html 301s there, and home.html forwards old `/#tool-...` links to
 `/database#tool-...`. Link to database rows as `/database#tool-slug`, never `/#tool-slug`.
 
+The homepage Herald has two tabs. **Quest** (default; `quest.js`, `quest.css`,
+`/api/quest` in worker.js) is a Dungeon Master one-shot: 20 turns, the
+worker rolls the d20 and streams the scene, and the page keeps HP, gold,
+items and the turn, applying the model's `[[hp -2; gain X; opt ...]]` status
+line with clamps (the model never sets totals). The prompt is QUEST_SYSTEM;
+test prompt changes locally against the 8B base model first
+(herald-training/dm/play.py). **Chat** is the general assistant below.
+
 A general-purpose chat assistant with the Solos Gems voice (`#herald` in
 home.html and index.html; `herald.js`, `herald.css`). It posts the
 conversation to `/api/chat` in `worker.js`, which streams a reply from

@@ -7,24 +7,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="max-image-preview:large">
 <title>Solos Gems: The Herald</title>
-<meta name="description" content="Talk to the Herald, the Solos Gems AI assistant with a D&amp;D voice. Ask anything, from recipes to code. A quest mode is being forged.">
+<meta name="description" content="Talk to the Herald, the Solos Gems AI assistant with a D&amp;D voice. Play a short, funny D&amp;D-style quest where a real d20 decides your fate, or ask anything.">
 <link rel="canonical" href="https://solosgems.com/">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Solos Gems">
 <meta property="og:title" content="Solos Gems: The Herald">
-<meta property="og:description" content="Talk to the Herald, the Solos Gems AI assistant with a D&amp;D voice. Ask anything, from recipes to code. A quest mode is being forged.">
+<meta property="og:description" content="Talk to the Herald, the Solos Gems AI assistant with a D&amp;D voice. Play a short, funny D&amp;D-style quest where a real d20 decides your fate, or ask anything.">
 <meta property="og:url" content="https://solosgems.com/">
 <meta property="og:image" content="https://solosgems.com/images/og-default.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Solos Gems: The Herald">
-<meta name="twitter:description" content="Talk to the Herald, the Solos Gems AI assistant with a D&amp;D voice. Ask anything, from recipes to code. A quest mode is being forged.">
+<meta name="twitter:description" content="Talk to the Herald, the Solos Gems AI assistant with a D&amp;D voice. Play a short, funny D&amp;D-style quest where a real d20 decides your fate, or ask anything.">
 <meta name="twitter:image" content="https://solosgems.com/images/og-default.png">
 <meta name="theme-color" content="#1a1a18">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="herald.css">
+<link rel="stylesheet" href="quest.css">
 <script>
 // Old links to the database (/#tool-..., /#db-...) now live at /database.
 if (location.hash && location.hash !== "#herald") location.replace("/database" + location.hash);
@@ -69,19 +70,76 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
       <div class="herald-head">
         <span class="herald-orb" aria-hidden="true">&#10022;</span>
         <h2 class="herald-title">Herald</h2>
-        <button type="button" class="herald-clear" id="ak-new">Clear</button>
+        <div class="herald-tabs" role="tablist" aria-label="Herald mode">
+          <button type="button" role="tab" class="herald-tab" id="tab-quest" aria-controls="qp" aria-selected="true">Quest</button>
+          <button type="button" role="tab" class="herald-tab" id="tab-chat" aria-controls="chat-panel" aria-selected="false">Chat</button>
+        </div>
       </div>
-      <ol class="ak-log" id="ak-log" aria-live="polite">
-        <li class="ak-msg ak-herald-msg"><div class="ak-body"><p>Hail, traveler! Ask me anything: a recipe, a science question, a stubborn bug, how to word a tricky email.</p></div></li>
-      </ol>
-      <form id="ak-form" class="ak-form" autocomplete="off">
-        <label for="ak-q" class="visually-hidden">Ask the Herald</label>
-        <textarea id="ak-q" rows="1" maxlength="2000" placeholder="Ask the Herald..." required></textarea>
-        <button type="submit" class="ak-btn" id="ak-go">Ask</button>
-      </form>
+
+      <div id="qp" class="qp" role="tabpanel" aria-labelledby="tab-quest">
+        <form id="qp-setup" class="qp-setup" autocomplete="off">
+          <p class="qp-intro">Pick a quest and a hero. You type what you do, a real d20 decides how it goes, and the Herald tells the tale. Twenty turns, one ending.</p>
+          <fieldset class="qp-pick">
+            <legend>The quest</legend>
+            <label class="qp-card"><input type="radio" name="qp-setting" value="A heist in the Dwarven Bank, where the vault is guarded less by locks than by paperwork." checked><span><strong>The Dwarven Bank Heist</strong>The vault is guarded less by locks than by paperwork.</span></label>
+            <label class="qp-card"><input type="radio" name="qp-setting" value="An ordinary workday, except the office is a dungeon and the boss is a literal dragon."><span><strong>The Office Dungeon</strong>A normal workday. The boss is a literal dragon.</span></label>
+            <label class="qp-card"><input type="radio" name="qp-setting" value="A swamp village whose homeowners' association has been cursed, and now enforces lawn rules with frogs."><span><strong>The Cursed Swamp HOA</strong>The lawn rules are now enforced by frogs.</span></label>
+            <label class="qp-card"><input type="radio" name="qp-setting" value="A remote tavern with the last working Wi-Fi in the realm, and someone has stolen the password."><span><strong>The Tavern at the End of the Wi-Fi</strong>Someone stole the last password in the realm.</span></label>
+            <label class="qp-card qp-card-own"><input type="radio" name="qp-setting" value="own"><span><strong>Your own</strong><input type="text" id="qp-own" maxlength="160" placeholder="A quest to return a library book 400 years overdue" aria-label="Describe your own quest"></span></label>
+          </fieldset>
+          <fieldset class="qp-pick qp-classes">
+            <legend>Your hero</legend>
+            <label class="qp-chip"><input type="radio" name="qp-class" value="Fighter" checked><span>Fighter <small>14 HP</small></span></label>
+            <label class="qp-chip"><input type="radio" name="qp-class" value="Wizard"><span>Wizard <small>8 HP</small></span></label>
+            <label class="qp-chip"><input type="radio" name="qp-class" value="Rogue"><span>Rogue <small>10 HP</small></span></label>
+            <label class="qp-chip"><input type="radio" name="qp-class" value="Bard"><span>Bard <small>10 HP</small></span></label>
+            <label class="qp-name">Name <input type="text" id="qp-name" maxlength="40"></label>
+          </fieldset>
+          <button type="submit" class="ak-btn qp-begin">Begin the quest</button>
+        </form>
+
+        <div id="qp-play" class="qp-play" hidden>
+          <div class="qp-stats" aria-live="polite">
+            <span class="qp-hero" id="qp-hero"></span>
+            <span class="qp-hp"><span class="qp-hp-bar"><span id="qp-hp-fill"></span></span><span id="qp-hp-text"></span></span>
+            <span id="qp-gold"></span>
+            <span id="qp-turn"></span>
+            <ul class="qp-items" id="qp-items" aria-label="Items"></ul>
+          </div>
+          <ol class="ak-log" id="qp-log" aria-live="polite"></ol>
+          <div class="qp-opts" id="qp-opts"></div>
+          <form id="qp-form" class="ak-form" autocomplete="off">
+            <label for="qp-q" class="visually-hidden">What do you do?</label>
+            <textarea id="qp-q" rows="1" maxlength="300" placeholder="What do you do?" required></textarea>
+            <button type="submit" class="ak-btn" id="qp-go">Act</button>
+          </form>
+          <div class="qp-end" id="qp-end" hidden>
+            <p class="qp-end-kicker" id="qp-end-kicker"></p>
+            <h3 id="qp-end-title"></h3>
+            <p id="qp-end-stats"></p>
+            <div class="qp-end-actions">
+              <button type="button" class="ak-btn" id="qp-copy">Copy the tale</button>
+              <button type="button" class="herald-clear" id="qp-again">New quest</button>
+            </div>
+          </div>
+          <button type="button" class="herald-clear qp-abandon" id="qp-abandon">Abandon quest</button>
+        </div>
+      </div>
+
+      <div id="chat-panel" role="tabpanel" aria-labelledby="tab-chat" hidden>
+        <div class="chat-tools"><button type="button" class="herald-clear" id="ak-new">Clear</button></div>
+        <ol class="ak-log" id="ak-log" aria-live="polite">
+          <li class="ak-msg ak-herald-msg"><div class="ak-body"><p>Hail, traveler! Ask me anything: a recipe, a science question, a stubborn bug, how to word a tricky email.</p></div></li>
+        </ol>
+        <form id="ak-form" class="ak-form" autocomplete="off">
+          <label for="ak-q" class="visually-hidden">Ask the Herald</label>
+          <textarea id="ak-q" rows="1" maxlength="2000" placeholder="Ask the Herald..." required></textarea>
+          <button type="submit" class="ak-btn" id="ak-go">Ask</button>
+        </form>
+      </div>
       <p class="herald-note">Built with Llama. The Herald can be wrong, so double-check anything important, and please don't share personal details. <a href="privacy.html">Privacy</a></p>
     </div>
-    <p class="herald-elsewhere">A quest mode is being forged here. Looking for the AI tools database? It moved to <a href="/database">the Database</a>.</p>
+    <p class="herald-elsewhere">Looking for the AI tools database? It moved to <a href="/database">the Database</a>.</p>
   </section>
 </main>
 <footer>
@@ -90,5 +148,6 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
   </div>
 </footer>
 <script src="herald.js" defer></script>
+<script src="quest.js" defer></script>
 </body>
 </html>

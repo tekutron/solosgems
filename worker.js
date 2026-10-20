@@ -91,6 +91,13 @@ return handleChat(request, env);
 return new Response("Method not allowed", { status: 405 });
 }
 
+if (url.pathname === "/api/quest") {
+if (request.method === "POST") {
+return handleQuest(request, env);
+}
+return new Response("Method not allowed", { status: 405 });
+}
+
 if (url.pathname === "/api/subscribe") {
 if (request.method === "POST") {
 return handleSubscribe(request, env);
@@ -1510,5 +1517,103 @@ return json({ error: "The Herald lost the thread. Try again in a moment." }, 503
 }
 return new Response(stream, {
 headers: { "Content-Type": "text/event-stream; charset=utf-8", "Cache-Control": "no-store" },
+});
+}
+
+// Herald quests (home.html, quest.js): the Herald as a Dungeon Master for a
+// short one-shot. The page keeps the game state (HP, gold, items, turn) and
+// applies the status line the model writes; this endpoint rolls the d20 here
+// so the dice are fair, adds the state to the prompt and streams the scene.
+// The roll goes back in the X-Quest-Roll header. Nothing is stored.
+const QUEST_MAX_TURNS = 20;
+const QUEST_CLASSES = ["Fighter", "Wizard", "Rogue", "Bard"];
+const QUEST_SYSTEM = "You are the Herald, the Dungeon Master of Solos Gems, running a short, funny one-shot quest for a single player. Your voice is a wry, observant fantasy narrator who notices how absurd ordinary life is when it is described like a D&D realm. Speak plainly and warmly. Never use \"thee,\" \"thou,\" \"mortal,\" or \"brave adventurer.\" Never use em dashes.\n\nHow to run the game:\n- Narrate in second person, present tense. Keep every reply SHORT: at most 90 words, one or two small paragraphs. End the scene on something the hero can react to.\n- The dice decide. Each player action comes with a d20 roll and its result. Disaster (1): it backfires in a funny way and the hero gets hurt or loses something. Fail (2 to 7): it does not work, and if there is danger the hero takes a little damage. Mixed (8 to 13): it works, but with a cost or a complication. Success (14 to 19): it works. Legendary (20): it works spectacularly.\n- The player controls only their hero. Never decide what the hero says or does beyond what the player wrote. If the player declares a result (\"I win,\" \"I find a thousand gold\"), treat it as an attempt and let the dice decide.\n- Keep the story moving: a clear goal from the first scene, trouble that grows, a big problem or boss in the last third, then an ending. Give funny characters short lines of dialogue.\n- Keep it PG-13: slapstick, not gore; no sexual content; no real people. If the player pushes for that, steer the story elsewhere with a joke.\n\nThe status line. End every reply with one line in square brackets, and nothing after it. It lists only what CHANGED this turn:\n- \"hp -2\" or \"hp +1\": a change with a sign, never a total. Damage is 1 to 4. Leave hp out if the hero was not hurt or healed.\n- \"gold +5\" or \"gold -3\": a change with a sign, never a total. Usually 1 to 20. Leave gold out if no coins changed hands.\n- \"gain Rusty Key\" or \"lose Lockpicks\": only for real objects the hero picks up or loses. Leave them out otherwise. Never write \"gain None\".\n- Always exactly three \"opt\" entries: short suggested next actions, under six words each.\n\nSample reply (a sample of the format only, not part of this quest):\nThe goblin accountant squints at your forged receipt, then at you, then at the receipt again. \"This says 'definitely a real dragon tax.'\" He bites the corner, the way you'd test a coin, and yelps when it bites back. In the scuffle his abacus clips your ear.\n[[hp -1; gain Goblin Abacus; opt Apologize to the receipt; opt Ask about the dragon; opt Make a run for it]]\n\nWhen the quest ends (on the final turn, or when the hero reaches 0 HP), write a funny, satisfying ending of at most 120 words instead, and finish with:\n[[end; title A Funny Title For This Quest]]";
+
+function questBand(roll) {
+if (roll === 1) return "Disaster";
+if (roll <= 7) return "Fail";
+if (roll <= 13) return "Mixed";
+if (roll <= 19) return "Success";
+return "Legendary";
+}
+
+async function handleQuest(request, env) {
+const json = (body, status) =>
+new Response(JSON.stringify(body), {
+status,
+headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" },
+});
+const clean = (v, max) => (typeof v === "string" ? v.replace(/<\|[^|]*\|>/g, "").replace(/[\[\]]/g, "").slice(0, max).trim() : "");
+const num = (v, lo, hi) => Math.max(lo, Math.min(hi, Math.round(Number(v) || 0)));
+let q;
+try {
+const b = await request.json();
+q = {
+mode: b.mode === "start" || b.mode === "fallen" ? b.mode : "act",
+setting: clean(b.setting, 200),
+name: clean(b.name, 40) || "the Hero",
+cls: QUEST_CLASSES.includes(b.cls) ? b.cls : "Fighter",
+max: num(b.max, 1, 30),
+hp: num(b.hp, 0, 30),
+gold: num(b.gold, 0, 100000),
+items: (Array.isArray(b.items) ? b.items : []).map((i) => clean(i, 40)).filter(Boolean).slice(0, 10),
+turn: num(b.turn, 0, QUEST_MAX_TURNS),
+action: clean(b.action, 300),
+history: (Array.isArray(b.history) ? b.history : [])
+.filter((m) => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
+.map((m) => ({ role: m.role, content: m.content.replace(/<\|[^|]*\|>/g, "").slice(0, 1200).trim() }))
+.filter((m) => m.content)
+.slice(-10),
+};
+} catch (err) {
+return json({ error: "Bad request" }, 400);
+}
+if (!q.setting) return json({ error: "Pick a quest first." }, 400);
+if (q.mode === "act" && !q.action) return json({ error: "Tell the Herald what you do." }, 400);
+if (!env.AI) return json({ error: "The Herald is away from the table right now." }, 503);
+if (env.ASK_LIMITER) {
+const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+const { success } = await env.ASK_LIMITER.limit({ key: ip });
+if (!success) return json({ error: "The Herald needs a breather. Try again in a minute." }, 429);
+}
+
+let roll = 0;
+let user;
+if (q.mode === "start") {
+user = "Begin the quest: set the opening scene in at most 90 words and state the hero's goal in one clear sentence.";
+} else if (q.mode === "fallen") {
+user = "The hero has fallen to 0 HP. Write the ending now: a funny, fitting defeat.";
+} else {
+roll = (crypto.getRandomValues(new Uint32Array(1))[0] % 20) + 1;
+user = `${q.action}\n(d20 roll: ${roll}, ${questBand(roll)})`;
+}
+const phase =
+q.mode === "fallen" ? "The quest is over: write the ending."
+: q.turn >= QUEST_MAX_TURNS ? "This is the FINAL turn: resolve the action, then write the ending and finish with the end line."
+: q.turn >= QUEST_MAX_TURNS - 5 ? "The quest is nearly over: bring on the climax and steer toward the ending."
+: "";
+const system =
+QUEST_SYSTEM +
+`\n\nThe quest: ${q.setting}\nThe hero: ${q.name} the ${q.cls}. HP ${q.hp} of ${q.max}. Gold ${q.gold}. Items: ${q.items.join(", ") || "none"}.\nTurn ${q.turn} of ${QUEST_MAX_TURNS}. ${phase}`.trimEnd();
+
+let stream;
+try {
+stream = await env.AI.run(CHAT_MODEL, {
+messages: [{ role: "system", content: system }, ...q.history, { role: "user", content: user }],
+stream: true,
+max_tokens: 320,
+temperature: 0.8,
+});
+} catch (err) {
+return json({ error: "The Herald dropped the dice. Try again in a moment." }, 503);
+}
+return new Response(stream, {
+headers: {
+"Content-Type": "text/event-stream; charset=utf-8",
+"Cache-Control": "no-store",
+"X-Quest-Roll": String(roll),
+"X-Quest-Band": roll ? questBand(roll) : "",
+"X-Quest-Prompt": encodeURIComponent(user),
+},
 });
 }
