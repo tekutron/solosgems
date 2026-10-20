@@ -182,12 +182,12 @@ def sync_derived(R, ids):
     lines = ("## Ranked tools (#1-%d, every tool in the database, each links to its row)\n\n"
              "Tested = tested hands-on by Solos Gems. Scouted = scored from public pricing, docs, and features.\n\n" % N)
     for r in R["tools"]:
-        lines += "- [%s](https://solosgems.com/#tool-%s): #%d, %s/10, %s. %s\n" % (
+        lines += "- [%s](https://solosgems.com/database#tool-%s): #%d, %s/10, %s. %s\n" % (
             r["name"], ids[r["name"]], r["rank"], fmt(r["score"]), "Tested" if r["basis"] == "tested" else "Scouted", r["why"])
     t = re.sub(r"Last updated: [0-9-]+\.", "Last updated: %s." % TODAY, t)
     write("llms.txt", t[:a] + lines + "\n" + t[bb:])
     # embed widget top 10
-    lis = "".join('    <li><span class="rank-num">%d</span><a class="tool-link" href="https://solosgems.com/#tool-%s" '
+    lis = "".join('    <li><span class="rank-num">%d</span><a class="tool-link" href="https://solosgems.com/database#tool-%s" '
                   'target="_blank" rel="noopener">%s</a><span class="tool-score">%s</span></li>\n'
                   % (r["rank"], ids[r["name"]], html.escape(r["name"]), fmt(r["score"])) for r in R["tools"][:10])
     p = "embed/top10.html"
@@ -210,8 +210,8 @@ def sync_derived(R, ids):
     wanted = (keep & {"NotebookLM", "Windsurf"}) | set(by)
     names = sorted(wanted, key=lambda n: (n[0].islower(), n))
     write("worker.js", wk[:m.start()] + "const TOOL_NAMES = " + json.dumps(names, ensure_ascii=False).replace('","', '", "') + ";" + wk[m.end():])
-    # sitemap lastmod for the homepage
-    write("sitemap.xml", re.sub(r"(<loc>https://solosgems.com/</loc><lastmod>)[0-9-]+", r"\g<1>" + TODAY, read("sitemap.xml")))
+    # sitemap lastmod for the database (/database)
+    write("sitemap.xml", re.sub(r"(<loc>https://solosgems.com/database</loc><lastmod>)[0-9-]+", r"\g<1>" + TODAY, read("sitemap.xml")))
 
 
 def rerank():

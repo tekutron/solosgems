@@ -99,8 +99,13 @@ helpers (see `make_svg` in site.py). Update the word-number in the intro
 
 ## Herald (homepage chat)
 
-A general-purpose chat assistant with the Solos Gems voice, in the homepage
-hero (`#herald` in index.html; `herald.js`, `herald.css`). It posts the
+The homepage (`/`, served from home.html) is the Herald. The AI tools
+database is still index.html, but it is served at `/database` (its canonical URL);
+/index.html 301s there, and home.html forwards old `/#tool-...` links to
+`/database#tool-...`. Link to database rows as `/database#tool-slug`, never `/#tool-slug`.
+
+A general-purpose chat assistant with the Solos Gems voice (`#herald` in
+home.html and index.html; `herald.js`, `herald.css`). It posts the
 conversation to `/api/chat` in `worker.js`, which streams a reply from
 `@cf/meta/llama-3.1-8b-instruct-fp8-fast` with `CHAT_SYSTEM` (the Herald style
 guide) and `CHAT_EXAMPLES` (three example exchanges). A LoRA trained on the

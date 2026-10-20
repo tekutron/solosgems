@@ -24,7 +24,15 @@ const apex = new URL(request.url);
 apex.hostname = "solosgems.com";
 return Response.redirect(apex.toString(), 301);
 }
-if (url.pathname === "/index.html" || url.pathname === "/ai-database" || url.pathname === "/ai-database.html") {
+// Since 2026-10-20 the homepage is the Herald (home.html) and the AI tools
+// database (still index.html, so tools/site.py and the daily routine keep
+// working) lives at /database. Old database URLs go there; /home.html goes home.
+if (url.pathname === "/index.html" || url.pathname === "/database/" || url.pathname === "/database.html" || url.pathname === "/ai-database" || url.pathname === "/ai-database.html") {
+const db = new URL(request.url);
+db.pathname = "/database";
+return Response.redirect(db.toString(), 301);
+}
+if (url.pathname === "/home.html") {
 const home = new URL(request.url);
 home.pathname = "/";
 return Response.redirect(home.toString(), 301);
@@ -40,9 +48,9 @@ home.hash = url.pathname.startsWith("/ask") ? "herald" : "";
 return Response.redirect(home.toString(), 301);
 }
 
-if (url.pathname === "/") {
+if (url.pathname === "/" || url.pathname === "/database") {
 const assetUrl = new URL(request.url);
-assetUrl.pathname = "/index.html";
+assetUrl.pathname = url.pathname === "/" ? "/home.html" : "/index.html";
 return env.ASSETS.fetch(new Request(assetUrl, request));
 }
 
@@ -61,11 +69,11 @@ url.pathname === "/reviews.html" ||
 url.pathname === "/reviews/" ||
 url.pathname.startsWith("/reviews/"))
 ) {
-// Redirect to "/" (the homepage's canonical URL), not "/index.html", so
+// Redirect to "/database" (the database's canonical URL), not "/index.html", so
 // Google doesn't see a redirect that lands on a non-canonical page. Old
 // per-tool review URLs jump straight to that tool's row in the database.
 const redirectUrl = new URL(request.url);
-redirectUrl.pathname = "/";
+redirectUrl.pathname = "/database";
 redirectUrl.search = "";
 const reviewSlug = url.pathname
 .replace(/^\/reviews\/?/, "")
@@ -1202,7 +1210,7 @@ caption = buildStaticCaptionFallback(entry.country, stats);
 // Herald's Hub database on index.html), so link to that tool's own row
 // there instead of a standalone page.
 const reviewLink =
-!usingOriginFallback && stats.hotTool ? `/#tool-${slugifyToolName(stats.hotTool)}` : null;
+!usingOriginFallback && stats.hotTool ? `/database#tool-${slugifyToolName(stats.hotTool)}` : null;
 
 countries.push({
 name: entry.country,
