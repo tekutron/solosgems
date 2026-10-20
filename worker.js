@@ -1520,14 +1520,72 @@ headers: { "Content-Type": "text/event-stream; charset=utf-8", "Cache-Control": 
 });
 }
 
-// Herald quests (home.html, quest.js): the Herald as a Dungeon Master for a
-// short one-shot. The page keeps the game state (HP, gold, items, turn) and
-// applies the status line the model writes; this endpoint rolls the d20 here
-// so the dice are fair, adds the state to the prompt and streams the scene.
-// The roll goes back in the X-Quest-Roll header. Nothing is stored.
-const QUEST_MAX_TURNS = 20;
+// Herald quests (home.html, quest.js): the Herald as a Dungeon Master. The
+// page keeps the game (hero, level, HP, gold, items, abilities, journal,
+// turn) in the visitor's browser and applies the status line the model
+// writes, with clamps. This endpoint rolls the d20 here so the dice are fair
+// (advantage and minimum-roll abilities included), adds the state, the
+// journal, rules lookups from the SRD 5.1 (data/srd.json) and secret cards
+// from the Herald's deck (data/quest-cards.json) to the prompt, and streams
+// the scene. Roll details go back in X-Quest-* headers. Nothing is stored.
+// mode "journal" instead returns the updated quest journal as JSON.
+const QUEST_ONESHOT_TURNS = 20;
+const QUEST_CHAPTER_TURNS = 12;
 const QUEST_CLASSES = ["Fighter", "Wizard", "Rogue", "Bard"];
-const QUEST_SYSTEM = "You are the Herald, the Dungeon Master of Solos Gems, running a short, funny one-shot quest for a single player. Your voice is a wry, observant fantasy narrator who notices how absurd ordinary life is when it is described like a D&D realm. Speak plainly and warmly. Never use \"thee,\" \"thou,\" \"mortal,\" or \"brave adventurer.\" Never use em dashes.\n\nHow to run the game:\n- Narrate in second person, present tense. Keep every reply SHORT: at most 90 words, one or two small paragraphs. End the scene on something the hero can react to.\n- The dice decide. Each player action comes with a d20 roll and its result. Disaster (1): it backfires in a funny way and the hero gets hurt or loses something. Fail (2 to 7): it does not work, and if there is danger the hero takes a little damage. Mixed (8 to 13): it works, but with a cost or a complication. Success (14 to 19): it works. Legendary (20): it works spectacularly.\n- The player controls only their hero. Never decide what the hero says or does beyond what the player wrote. If the player declares a result (\"I win,\" \"I find a thousand gold\"), treat it as an attempt and let the dice decide.\n- Keep the story moving: a clear goal from the first scene, trouble that grows, a big problem or boss in the last third, then an ending. Give funny characters short lines of dialogue.\n- Never mention turns, the turn limit, dice numbers or the status line in the story itself.\n- Keep it PG-13: slapstick, not gore; no sexual content; no real people. If the player pushes for that, steer the story elsewhere with a joke.\n\nThe status line. End every reply with one line in square brackets, and nothing after it. It lists only what CHANGED this turn:\n- \"hp -2\" or \"hp +1\": a change with a sign, never a total. Damage is 1 to 4. Leave hp out if the hero was not hurt or healed.\n- \"gold +5\" or \"gold -3\": a change with a sign, never a total. Usually 1 to 20. Leave gold out if no coins changed hands.\n- \"gain Rusty Key\" or \"lose Lockpicks\": only for real objects the hero picks up or loses. Leave them out otherwise. Never write \"gain None\".\n- Always exactly three \"opt\" entries: short suggested next actions, under six words each.\n\nSample reply (a sample of the format only: never reuse its characters or objects in this quest):\nThe goblin accountant squints at your forged receipt, then at you, then at the receipt again. \"This says 'definitely a real dragon tax.'\" He bites the corner, the way you'd test a coin, and yelps when it bites back. In the scuffle his abacus clips your ear.\n[[hp -1; gain Goblin Abacus; opt Apologize to the receipt; opt Ask about the dragon; opt Make a run for it]]\n\nWhen the quest ends (on the final turn, or when the hero reaches 0 HP), write a funny, satisfying ending of at most 120 words instead, and finish with:\n[[end; title A Funny Title For This Quest]]";
+const QUEST_SYSTEM = `You are the Herald, the Dungeon Master of Solos Gems. You have read every rulebook, every old adventure and every dusty fantasy epic, and you run games like a brilliant, slightly bratty friend: sharp, theatrical, quick with a tease about the player's choices, and impossible to predict. Underneath the jokes you take the game seriously. The world is consistent, choices have consequences, and clever ideas get rewarded. You are never cruel, and you tease the hero's decisions, never the player as a person. Speak plainly; never use "thee," "thou," "mortal," or "brave adventurer." Never use em dashes.
+
+How you run the table:
+- Narrate in second person, present tense. Keep every reply SHORT: at most 110 words, one or two small paragraphs. End on something the hero can react to.
+- The dice decide. Each action comes with a d20 roll and its result. Disaster (1): it backfires in a funny way and the hero gets hurt or loses something. Fail (2 to 7): it does not work, and if there is danger the hero takes damage. Fail forward: even a failure reveals something or changes the situation. Mixed (8 to 13): it works, with a cost or a complication. Success (14 to 19): it works. Legendary (20): it works spectacularly, and the world remembers.
+- The player controls only their hero. Never decide what the hero says, feels or does beyond what the player wrote. If the player declares a result ("I win," "I find a thousand gold"), treat it as an attempt and let the dice decide.
+- Say "yes, and" to creative ideas. Let the story go where the player takes it; there is no script. Plans, factions and the villain keep moving off-screen, so the world reacts even when the hero ignores it.
+- Give characters a want, a quirk and a short line of dialogue. Leave clues for mysteries in more than one place.
+- Use classic D&D creatures, spells and magic items when they fit, and get their basics right. A "Rules reference" in the notes is accurate; trust it over your memory.
+- Secret DM notes may offer a twist, a character, a complication or an item. Use at most one, only if it fits the story, and never mention the notes.
+- Never mention turns, chapters, dice numbers, XP or the status line in the story itself.
+- Keep it PG-13: slapstick, not gore; no sexual content; no real people. If the player pushes for that, steer elsewhere with a joke.
+
+The status line. End every reply with one line in double square brackets, and nothing after it. It lists only what CHANGED:
+- "hp -2" or "hp +1": a change with a sign, never a total. Damage is 1 to 4, more against big monsters. Leave hp out if the hero was not hurt or healed.
+- "gold +5" or "gold -3": a change with a sign, never a total. Usually 1 to 20. Leave it out if no coins changed hands.
+- "gain Rusty Key" or "lose Lockpicks": only for real objects the hero picks up or loses. Never write "gain None".
+- "xp +20": only when the hero achieves something important or clever (10 to 40).
+- Always exactly three "opt" entries: short suggested next actions, under six words each, each one different in spirit (bold, clever, cautious).
+
+Sample reply (a sample of the format only: never reuse its characters or objects):
+The ferryman accepts your coin, bites it, and frowns at the tooth mark. "Counterfeit. Bold." He shoves off anyway, because a scam this bad deserves to see the other shore. Halfway across, the water starts whispering your middle name.
+[[gold -2; opt Whisper back; opt Ask the ferryman why; opt Grab the oar]]
+
+When the quest ends, write a funny, satisfying ending of at most 130 words instead, and finish with:
+[[end; title A Funny Title For This Quest]]`;
+const QUEST_JOURNAL_SYSTEM = `You keep the quest journal for a D&D-style game. Read the old journal and the latest story, then write the updated journal. Be accurate: only record what actually happened in the story. Keep each line short. Never use em dashes. Use exactly these headings, each on its own line, and nothing else:
+LOCATION: where the hero is right now, in a few words
+GOAL: what the hero is currently trying to do, in one line
+DONE:
+- up to 6 of the most important things the hero has done so far, oldest first; merge or drop minor old ones so the newest events always fit
+PEOPLE:
+- Name: who they are and how they feel about the hero (up to 6)
+THREADS:
+- up to 4 open mysteries, promises or unfinished business
+ITEMS:
+- Item name: one short, funny description (one line for each item in the inventory)
+VILLAIN: what the main villain or opposing force is secretly doing next, in one line`;
+
+let questDataCache = null;
+async function questData(env, origin) {
+if (questDataCache) return questDataCache;
+const get = async (path) => {
+try {
+const res = await env.ASSETS.fetch(new Request(origin + path));
+return res.ok ? await res.json() : null;
+} catch (err) {
+return null;
+}
+};
+const [srd, cards] = await Promise.all([get("/data/srd.json"), get("/data/quest-cards.json")]);
+questDataCache = { srd: srd || { monsters: [], items: [], spells: [], conditions: [] }, cards: cards || {} };
+return questDataCache;
+}
 
 function questBand(roll) {
 if (roll === 1) return "Disaster";
@@ -1535,6 +1593,103 @@ if (roll <= 7) return "Fail";
 if (roll <= 13) return "Mixed";
 if (roll <= 19) return "Success";
 return "Legendary";
+}
+function questD20() {
+return (crypto.getRandomValues(new Uint32Array(1))[0] % 20) + 1;
+}
+function questPick(list) {
+return Array.isArray(list) && list.length ? list[crypto.getRandomValues(new Uint32Array(1))[0] % list.length] : "";
+}
+function questChance(p) {
+return crypto.getRandomValues(new Uint32Array(1))[0] / 4294967296 < p;
+}
+
+// SRD entries the player named in their action ("I cast Fireball at the
+// Owlbear"), so the model gets the basics right.
+function questRulesLookup(srd, text) {
+const t = " " + text.toLowerCase().replace(/[^a-z0-9' -]/g, " ") + " ";
+const hits = [];
+const scan = (list, label) => {
+for (const e of list || []) {
+if (hits.length >= 2) return;
+const n = e.n.toLowerCase();
+if (n.length >= 4 && t.includes(" " + n + " ")) hits.push(`${label} ${e.n}: ${e.d}`);
+}
+};
+scan(srd.spells, "Spell");
+scan(srd.monsters, "Creature");
+scan(srd.items, "Magic item");
+scan(srd.conditions, "Condition");
+return hits;
+}
+
+function questPhase(q) {
+if (q.mode === "fallen") return "The hero has fallen. The quest is over: write the ending and finish with the [[end; title ...]] line.";
+if (q.mode === "knockout")
+return "The hero has been knocked out at 0 HP. Narrate them waking up somewhere worse, battered but alive, having lost some gold or an item to whoever found them. The campaign continues; do not write an ending.";
+if (q.length === "campaign") {
+const chapter = Math.floor(Math.max(0, q.turn - 1) / QUEST_CHAPTER_TURNS) + 1;
+const pos = q.turn === 0 ? 0 : ((q.turn - 1) % QUEST_CHAPTER_TURNS) + 1;
+const head = `This is an open-ended campaign, chapter ${chapter}. There is no planned ending; follow the player.`;
+if (pos === 0) return head;
+if (pos <= 3) return head + (chapter === 1 ? " Early chapter: establish the main villain or opposing force and what is at stake." : " Early chapter: open this chapter's new problem, ideally one that grows out of earlier events.");
+if (pos <= 8) return head + " Middle of the chapter: complications, rivals and twists. The chapter's goal stays just out of reach.";
+if (pos < QUEST_CHAPTER_TURNS) return head + " Late chapter: bring this chapter's problem to its climax.";
+return head + " Chapter finale: resolve this chapter's main problem in a satisfying way, award xp, and reveal a hook that pulls the hero into the next chapter. The villain's larger plan is not finished.";
+}
+if (q.turn >= QUEST_ONESHOT_TURNS) return "This is the FINAL turn: resolve the action, write the ending, and finish with the [[end; title ...]] line.";
+if (q.turn >= QUEST_ONESHOT_TURNS - 4) return "Act three: the climax. The hero faces the main villain or the biggest obstacle now. The goal can finally be won or lost.";
+if (q.turn >= 7) return "Act two: complications. The goal stays out of reach. Even when the hero succeeds, reveal a twist, a rival or a new obstacle that keeps the prize away, and let the danger grow.";
+if (q.turn >= 1) return "Act one: introduce the villain or main obstacle and the stakes. The goal must not be reached yet.";
+return "";
+}
+
+function questJournalText(j) {
+if (!j) return "";
+const list = (a) => (a || []).map((x) => "- " + x).join("\n");
+return [
+j.location && "Location: " + j.location,
+j.goal && "Current goal: " + j.goal,
+j.done && j.done.length && "Done so far:\n" + list(j.done),
+j.people && j.people.length && "People met:\n" + list(j.people.map((p) => (p.name ? p.name + ": " + p.note : p))),
+j.threads && j.threads.length && "Open threads:\n" + list(j.threads),
+j.villain && "Villain's secret plan: " + j.villain,
+]
+.filter(Boolean)
+.join("\n");
+}
+
+function questParseJournal(text) {
+const j = { location: "", goal: "", done: [], people: [], threads: [], items: [], villain: "" };
+let section = "";
+for (const raw of text.replace(/\*\*/g, "").split("\n")) {
+const line = raw.trim();
+if (!line) continue;
+const head = line.match(/^(LOCATION|GOAL|DONE|PEOPLE|THREADS|ITEMS|VILLAIN)\s*:\s*(.*)$/i);
+if (head) {
+section = head[1].toLowerCase();
+const rest = head[2].trim();
+if (rest && (section === "location" || section === "goal" || section === "villain")) j[section] = rest.slice(0, 160);
+else if (rest && rest !== "-" && !/^none\.?$/i.test(rest)) line && pushEntry(section, rest);
+continue;
+}
+pushEntry(section, line.replace(/^[-*\d.)\s]+/, ""));
+}
+function pushEntry(sec, val) {
+val = val.trim();
+if (!val || /^none\.?$/i.test(val)) return;
+if (sec === "done") j.done.push(val.slice(0, 160));
+else if (sec === "threads" && j.threads.length < 4) j.threads.push(val.slice(0, 160));
+else if (sec === "people" && j.people.length < 6) {
+const m = val.match(/^([^:]{1,40}):\s*(.+)$/);
+j.people.push(m ? { name: m[1].trim(), note: m[2].trim().slice(0, 140) } : { name: val.slice(0, 40), note: "" });
+} else if (sec === "items" && j.items.length < 10) {
+const m = val.match(/^([^:]{1,40}):\s*(.+)$/);
+if (m) j.items.push({ name: m[1].trim(), note: m[2].trim().slice(0, 140) });
+} else if ((sec === "location" || sec === "goal" || sec === "villain") && !j[sec]) j[sec] = val.slice(0, 160);
+}
+j.done = j.done.slice(-6);
+return j;
 }
 
 async function handleQuest(request, env) {
@@ -1548,20 +1703,34 @@ const num = (v, lo, hi) => Math.max(lo, Math.min(hi, Math.round(Number(v) || 0))
 let q;
 try {
 const b = await request.json();
+const jr = b.journal && typeof b.journal === "object" ? b.journal : {};
+const strList = (a, n, max) => (Array.isArray(a) ? a : []).map((x) => clean(x, max)).filter(Boolean).slice(0, n);
 q = {
-mode: b.mode === "start" || b.mode === "fallen" ? b.mode : "act",
+mode: ["start", "act", "fallen", "knockout", "journal"].includes(b.mode) ? b.mode : "act",
+length: b.length === "campaign" ? "campaign" : "oneshot",
 setting: clean(b.setting, 200),
 name: clean(b.name, 40) || "the Hero",
 cls: QUEST_CLASSES.includes(b.cls) ? b.cls : "Fighter",
-max: num(b.max, 1, 30),
-hp: num(b.hp, 0, 30),
-gold: num(b.gold, 0, 100000),
-items: (Array.isArray(b.items) ? b.items : []).map((i) => clean(i, 40)).filter(Boolean).slice(0, 10),
-turn: num(b.turn, 0, QUEST_MAX_TURNS),
+level: num(b.level, 1, 20),
+max: num(b.max, 1, 200),
+hp: num(b.hp, 0, 200),
+gold: num(b.gold, 0, 1000000),
+items: strList(b.items, 10, 40),
+abilities: strList(b.abilities, 6, 60),
+turn: num(b.turn, 0, 10000),
 action: clean(b.action, 300),
+effect: b.effect && typeof b.effect === "object" ? { kind: clean(b.effect.kind, 12), label: clean(b.effect.label, 60), floor: num(b.effect.floor, 0, 20), note: clean(b.effect.note, 120) } : null,
+journal: {
+location: clean(jr.location, 160),
+goal: clean(jr.goal, 160),
+done: strList(jr.done, 6, 160),
+people: (Array.isArray(jr.people) ? jr.people : []).slice(0, 6).map((p) => ({ name: clean(p && p.name, 40), note: clean(p && p.note, 140) })).filter((p) => p.name),
+threads: strList(jr.threads, 4, 160),
+villain: clean(jr.villain, 200),
+},
 history: (Array.isArray(b.history) ? b.history : [])
 .filter((m) => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
-.map((m) => ({ role: m.role, content: m.content.replace(/<\|[^|]*\|>/g, "").slice(0, 1200).trim() }))
+.map((m) => ({ role: m.role, content: m.content.replace(/<\|[^|]*\|>/g, "").slice(0, 1400).trim() }))
 .filter((m) => m.content)
 .slice(-10),
 };
@@ -1573,50 +1742,121 @@ if (q.mode === "act" && !q.action) return json({ error: "Tell the Herald what yo
 if (!env.AI) return json({ error: "The Herald is away from the table right now." }, 503);
 if (env.ASK_LIMITER) {
 const ip = request.headers.get("CF-Connecting-IP") || "unknown";
-const { success } = await env.ASK_LIMITER.limit({ key: ip });
+const { success } = await env.ASK_LIMITER.limit({ key: "quest:" + ip });
 if (!success) return json({ error: "The Herald needs a breather. Try again in a minute." }, 429);
 }
+const origin = new URL(request.url).origin;
+const { srd, cards } = await questData(env, origin);
 
+const hero = `The hero: ${q.name}, a level ${q.level} ${q.cls}. HP ${q.hp} of ${q.max}. Gold ${q.gold}. Items: ${q.items.join(", ") || "none"}.` + (q.abilities.length ? ` Abilities: ${q.abilities.join("; ")}.` : "");
+
+if (q.mode === "journal") {
+const story = q.history.map((m) => (m.role === "user" ? "Player: " : "DM: ") + m.content.replace(/\n?\[\[[^\]]*\]\]\s*$/, "")).join("\n\n");
+let out;
+try {
+out = await env.AI.run(CHAT_MODEL, {
+messages: [
+{ role: "system", content: QUEST_JOURNAL_SYSTEM },
+{ role: "user", content: `The quest: ${q.setting}\n${hero}\n\nOld journal:\n${questJournalText(q.journal) || "(empty)"}\n\nLatest story:\n${story}\n\nWrite the updated journal now.` },
+],
+max_tokens: 500,
+temperature: 0.2,
+});
+} catch (err) {
+return json({ error: "The Herald misplaced the journal." }, 503);
+}
+const text = (out && (out.response || (out.choices && out.choices[0] && out.choices[0].message && out.choices[0].message.content))) || "";
+const journal = questParseJournal(String(text));
+// The villain's plan is drawn from the deck at the start and stays fixed;
+// the journal model only guesses at it.
+if (q.journal.villain) journal.villain = q.journal.villain;
+return json({ journal });
+}
+
+// The roll, with abilities: advantage (roll twice, keep the higher) or a
+// minimum roll. Rests, insight and the endings roll nothing.
+let rolls = [];
 let roll = 0;
+const kind = q.effect && q.effect.kind;
+if (q.mode === "act" && kind !== "rest") {
+rolls = [questD20()];
+if (kind === "adv") rolls.push(questD20());
+roll = Math.max(...rolls);
+if (kind === "floor" && q.effect.floor) roll = Math.max(roll, q.effect.floor);
+}
+const band = roll ? questBand(roll) : "";
+
 let user;
 if (q.mode === "start") {
-user = "Begin the quest: set the opening scene in at most 90 words and state the hero's goal in one clear sentence.";
+user = "Begin the quest: set the opening scene in at most 100 words, introduce one memorable character, and make the hero's goal clear.";
 } else if (q.mode === "fallen") {
 user = "The hero has fallen to 0 HP. Write the ending now: a funny, fitting defeat.";
+} else if (q.mode === "knockout") {
+user = "The hero drops to 0 HP and blacks out. Continue the story.";
+} else if (kind === "rest") {
+user = `${q.action}\n(The hero takes a short rest: abilities recharge and wounds partly heal. Narrate the rest briefly; something small may happen, but do not hurt the hero.)`;
 } else {
-roll = (crypto.getRandomValues(new Uint32Array(1))[0] % 20) + 1;
-user = `${q.action}\n(d20 roll: ${roll}, ${questBand(roll)})`;
+const used = q.effect && q.effect.label ? `\n(Ability used: ${q.effect.label}${q.effect.note ? ". " + q.effect.note : ""})` : "";
+const shown = rolls.length > 1 ? `d20 rolls: ${rolls.join(" and ")}, keeping ${roll}` : `d20 roll: ${roll}`;
+user = `${q.action}${used}\n(${shown}, ${band})`;
 }
-// Pacing by act, so the goal isn't reached on turn 4 and then wander.
-const phase =
-q.mode === "fallen" ? "The quest is over: write the ending and finish with the [[end; title ...]] line."
-: q.turn >= QUEST_MAX_TURNS ? "This is the FINAL turn: resolve the action, write the ending, and finish with the [[end; title ...]] line."
-: q.turn >= QUEST_MAX_TURNS - 4 ? "Act three: the climax. The hero faces the main villain or the biggest obstacle now. The goal can finally be won or lost."
-: q.turn >= 7 ? "Act two: complications. The goal stays out of reach. Even when the hero succeeds, reveal a twist, a rival or a new obstacle that keeps the prize away, and let the danger grow."
-: q.turn >= 1 ? "Act one: introduce the villain or main obstacle and the stakes. The goal must not be reached yet."
-: "";
+
+// Secret notes: the Herald's deck plus rules lookups.
+const notes = [];
+if (q.mode === "start") {
+notes.push("A place you could use: " + questPick(cards.places));
+notes.push("A character you could use: " + questPick(cards.characters));
+if (!q.journal.villain) notes.push("The villain's secret plan (reveal it slowly): " + questPick(cards.schemes));
+} else if (q.mode === "act" && kind !== "rest") {
+const late = q.length === "campaign" || q.turn >= 4;
+if (late && questChance(0.3)) notes.push("Possible twist: " + questPick(cards.twists));
+else if (questChance(0.3)) notes.push("Possible complication: " + questPick(cards.complications));
+if (questChance(0.25)) notes.push("Possible new character: " + questPick(cards.characters));
+if (roll >= 14 && questChance(0.25)) {
+if (questChance(0.5)) {
+const loot = (srd.items || []).filter((i) => i.r === "Common" || i.r === "Uncommon" || (q.level >= 5 && i.r === "Rare"));
+const it = questPick(loot);
+if (it) notes.push(`Possible loot (SRD magic item) ${it.n}: ${it.d}`);
+} else notes.push("Possible odd loot: " + questPick(cards.oddities));
+}
+if (questChance(0.2)) {
+const foes = (srd.monsters || []).filter((m) => m.cr <= Math.max(1, q.level) && m.cr >= Math.max(0, q.level - 3) / 2);
+const foe = questPick(foes);
+if (foe) notes.push(`Possible creature (SRD) ${foe.n}: ${foe.d}`);
+}
+}
+const refs = q.mode === "act" ? questRulesLookup(srd, q.action) : [];
+refs.forEach((r) => notes.push("Rules reference (SRD 5.1) " + r));
+
 const system =
 QUEST_SYSTEM +
-`\n\nThe quest: ${q.setting}\nThe hero: ${q.name} the ${q.cls}. HP ${q.hp} of ${q.max}. Gold ${q.gold}. Items: ${q.items.join(", ") || "none"}.\nTurn ${q.turn} of ${QUEST_MAX_TURNS}. ${phase}\nEvery reply ends with the [[...]] status line.`;
+`\n\nThe quest: ${q.setting}\n${hero}` +
+(questJournalText(q.journal) ? `\n\nThe journal so far:\n${questJournalText(q.journal)}` : "") +
+`\n\n${questPhase(q)}` +
+(notes.length ? `\n\nSecret DM notes (optional, never mention them):\n- ${notes.join("\n- ")}` : "") +
+"\n\nEvery reply ends with the [[...]] status line.";
 
 let stream;
 try {
 stream = await env.AI.run(CHAT_MODEL, {
 messages: [{ role: "system", content: system }, ...q.history, { role: "user", content: user }],
 stream: true,
-max_tokens: 320,
-temperature: 0.8,
+max_tokens: 360,
+temperature: 0.85,
 });
 } catch (err) {
 return json({ error: "The Herald dropped the dice. Try again in a moment." }, 503);
 }
+const villainNote = notes.find((n) => n.startsWith("The villain's secret plan"));
 return new Response(stream, {
 headers: {
 "Content-Type": "text/event-stream; charset=utf-8",
 "Cache-Control": "no-store",
 "X-Quest-Roll": String(roll),
-"X-Quest-Band": roll ? questBand(roll) : "",
+"X-Quest-Rolls": rolls.join(","),
+"X-Quest-Band": band,
 "X-Quest-Prompt": encodeURIComponent(user),
+"X-Quest-Villain": villainNote ? encodeURIComponent(villainNote.replace(/^[^:]+:\s*/, "")) : "",
 },
 });
 }

@@ -77,15 +77,20 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
       </div>
 
       <div id="qp" class="qp" role="tabpanel" aria-labelledby="tab-quest">
+        <div id="qp-saves" class="qp-saves" hidden>
+          <h3 class="qp-label">Continue a quest</h3>
+          <ul id="qp-save-list"></ul>
+        </div>
         <form id="qp-setup" class="qp-setup" autocomplete="off">
-          <p class="qp-intro">Pick a quest and a hero. You type what you do, a real d20 decides how it goes, and the Herald tells the tale. Twenty turns, one ending.</p>
+          <p class="qp-intro">Pick a quest and a hero. You type what you do, a real d20 decides how it goes, and the Herald runs the world. It is smart, a little bratty, and it never runs the same story twice. Quests save in this browser, so you can come back later.</p>
           <fieldset class="qp-pick">
             <legend>The quest</legend>
-            <label class="qp-card"><input type="radio" name="qp-setting" value="A heist in the Dwarven Bank, where the vault is guarded less by locks than by paperwork." checked><span><strong>The Dwarven Bank Heist</strong>The vault is guarded less by locks than by paperwork.</span></label>
-            <label class="qp-card"><input type="radio" name="qp-setting" value="An ordinary workday, except the office is a dungeon and the boss is a literal dragon."><span><strong>The Office Dungeon</strong>A normal workday. The boss is a literal dragon.</span></label>
-            <label class="qp-card"><input type="radio" name="qp-setting" value="A swamp village whose homeowners' association has been cursed, and now enforces lawn rules with frogs."><span><strong>The Cursed Swamp HOA</strong>The lawn rules are now enforced by frogs.</span></label>
-            <label class="qp-card"><input type="radio" name="qp-setting" value="A remote tavern with the last working Wi-Fi in the realm, and someone has stolen the password."><span><strong>The Tavern at the End of the Wi-Fi</strong>Someone stole the last password in the realm.</span></label>
-            <label class="qp-card qp-card-own"><input type="radio" name="qp-setting" value="own"><span><strong>Your own</strong><input type="text" id="qp-own" maxlength="160" placeholder="A quest to return a library book 400 years overdue" aria-label="Describe your own quest"></span></label>
+            <label class="qp-card"><input type="radio" name="qp-setting" value="A heist in the Dwarven Bank, where the vault is guarded less by locks than by paperwork." data-title="The Dwarven Bank Heist" checked><span><strong>The Dwarven Bank Heist</strong>The vault is guarded less by locks than by paperwork.</span></label>
+            <label class="qp-card"><input type="radio" name="qp-setting" value="An ordinary workday, except the office is a dungeon and the boss is a literal dragon." data-title="The Office Dungeon"><span><strong>The Office Dungeon</strong>A normal workday. The boss is a literal dragon.</span></label>
+            <label class="qp-card"><input type="radio" name="qp-setting" value="A swamp village whose homeowners' association has been cursed, and now enforces lawn rules with frogs." data-title="The Cursed Swamp HOA"><span><strong>The Cursed Swamp HOA</strong>The lawn rules are now enforced by frogs.</span></label>
+            <label class="qp-card"><input type="radio" name="qp-setting" value="A remote tavern with the last working Wi-Fi in the realm, and someone has stolen the password." data-title="The Tavern at the End of the Wi-Fi"><span><strong>The Tavern at the End of the Wi-Fi</strong>Someone stole the last password in the realm.</span></label>
+            <label class="qp-card"><input type="radio" name="qp-setting" value="A classic dungeon crawl beneath a ruined wizard's tower, where the traps were set by someone with a grudge and a sense of humor." data-title="The Tower of Unpaid Apprentices"><span><strong>The Tower of Unpaid Apprentices</strong>A classic dungeon crawl. The traps hold a grudge.</span></label>
+            <label class="qp-card qp-card-own"><input type="radio" name="qp-setting" value="own" data-title="A Quest of Your Own"><span><strong>Your own</strong><input type="text" id="qp-own" maxlength="160" placeholder="A quest to return a library book 400 years overdue" aria-label="Describe your own quest"></span></label>
           </fieldset>
           <fieldset class="qp-pick qp-classes">
             <legend>Your hero</legend>
@@ -95,34 +100,78 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
             <label class="qp-chip"><input type="radio" name="qp-class" value="Bard"><span>Bard <small>10 HP</small></span></label>
             <label class="qp-name">Name <input type="text" id="qp-name" maxlength="40"></label>
           </fieldset>
+          <p class="qp-class-note" id="qp-class-note"></p>
+          <fieldset class="qp-pick qp-lengths">
+            <legend>How long</legend>
+            <label class="qp-chip"><input type="radio" name="qp-length" value="oneshot" checked><span>One-shot <small>20 turns, one ending</small></span></label>
+            <label class="qp-chip"><input type="radio" name="qp-length" value="campaign"><span>Campaign <small>no ending, chapter by chapter</small></span></label>
+          </fieldset>
           <button type="submit" class="ak-btn qp-begin">Begin the quest</button>
         </form>
 
         <div id="qp-play" class="qp-play" hidden>
-          <div class="qp-stats" aria-live="polite">
-            <span class="qp-hero" id="qp-hero"></span>
-            <span class="qp-hp"><span class="qp-hp-bar"><span id="qp-hp-fill"></span></span><span id="qp-hp-text"></span></span>
-            <span id="qp-gold"></span>
-            <span id="qp-turn"></span>
-            <ul class="qp-items" id="qp-items" aria-label="Items"></ul>
-          </div>
-          <ol class="ak-log" id="qp-log" aria-live="polite"></ol>
-          <div class="qp-opts" id="qp-opts"></div>
-          <form id="qp-form" class="ak-form" autocomplete="off">
-            <label for="qp-q" class="visually-hidden">What do you do?</label>
-            <textarea id="qp-q" rows="1" maxlength="300" placeholder="What do you do?" required></textarea>
-            <button type="submit" class="ak-btn" id="qp-go">Act</button>
-          </form>
-          <div class="qp-end" id="qp-end" hidden>
-            <p class="qp-end-kicker" id="qp-end-kicker"></p>
-            <h3 id="qp-end-title"></h3>
-            <p id="qp-end-stats"></p>
-            <div class="qp-end-actions">
-              <button type="button" class="ak-btn" id="qp-copy">Copy the tale</button>
-              <button type="button" class="herald-clear" id="qp-again">New quest</button>
+          <div class="qp-main">
+            <div class="qp-topbar">
+              <span class="qp-quest-title" id="qp-quest-title"></span>
+              <span class="qp-turn" id="qp-turn"></span>
+            </div>
+            <ol class="ak-log qp-log" id="qp-log" aria-live="polite"></ol>
+            <p class="qp-armed" id="qp-armed" hidden></p>
+            <div class="qp-opts" id="qp-opts"></div>
+            <form id="qp-form" class="ak-form" autocomplete="off">
+              <label for="qp-q" class="visually-hidden">What do you do?</label>
+              <textarea id="qp-q" rows="1" maxlength="300" placeholder="What do you do?" required></textarea>
+              <button type="submit" class="ak-btn" id="qp-go">Act</button>
+            </form>
+            <div class="qp-end" id="qp-end" hidden>
+              <p class="qp-end-kicker" id="qp-end-kicker"></p>
+              <h3 id="qp-end-title"></h3>
+              <p id="qp-end-stats"></p>
+              <div class="qp-end-actions">
+                <button type="button" class="ak-btn" id="qp-copy">Copy the tale</button>
+                <button type="button" class="herald-clear" id="qp-again">New quest</button>
+              </div>
+            </div>
+            <div class="qp-foot">
+              <button type="button" class="herald-clear" id="qp-copy-now">Copy the tale</button>
+              <button type="button" class="herald-clear" id="qp-leave">Save and leave</button>
             </div>
           </div>
-          <button type="button" class="herald-clear qp-abandon" id="qp-abandon">Abandon quest</button>
+
+          <aside class="qp-hud" id="qp-hud" aria-label="Hero and quest status">
+            <section class="qp-panel qp-herocard">
+              <div class="qp-hero-line"><strong id="qp-hero"></strong><span id="qp-level"></span></div>
+              <div class="qp-meter"><span class="qp-meter-label">HP</span><span class="qp-bar qp-bar-hp"><span id="qp-hp-fill"></span></span><span id="qp-hp-text"></span></div>
+              <div class="qp-meter"><span class="qp-meter-label">XP</span><span class="qp-bar qp-bar-xp"><span id="qp-xp-fill"></span></span><span id="qp-xp-text"></span></div>
+              <div class="qp-gold"><span aria-hidden="true">&#9679;</span> <span id="qp-gold"></span></div>
+            </section>
+            <details class="qp-panel" open>
+              <summary>Abilities</summary>
+              <ul class="qp-abilities" id="qp-abilities"></ul>
+              <button type="button" class="qp-rest" id="qp-rest">Short rest</button>
+            </details>
+            <details class="qp-panel" open>
+              <summary>Inventory</summary>
+              <ul class="qp-inventory" id="qp-inventory"></ul>
+            </details>
+            <details class="qp-panel" open>
+              <summary>Where you are</summary>
+              <p class="qp-where" id="qp-where"></p>
+              <p class="qp-goal" id="qp-goal"></p>
+            </details>
+            <details class="qp-panel">
+              <summary>Journal</summary>
+              <ol class="qp-list" id="qp-done"></ol>
+            </details>
+            <details class="qp-panel">
+              <summary>People met</summary>
+              <ul class="qp-list" id="qp-people"></ul>
+            </details>
+            <details class="qp-panel">
+              <summary>Open threads</summary>
+              <ul class="qp-list" id="qp-threads"></ul>
+            </details>
+          </aside>
         </div>
       </div>
 
@@ -137,7 +186,7 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
           <button type="submit" class="ak-btn" id="ak-go">Ask</button>
         </form>
       </div>
-      <p class="herald-note">Built with Llama. The Herald can be wrong, so double-check anything important, and please don't share personal details. <a href="privacy.html">Privacy</a></p>
+      <p class="herald-note">Built with Llama. The Herald can be wrong, so double-check anything important, and please don't share personal details. Quests use material from the <a href="https://dnd.wizards.com/resources/systems-reference-document" rel="noopener">SRD 5.1</a> by Wizards of the Coast, licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC BY 4.0</a>. <a href="privacy.html">Privacy</a></p>
     </div>
     <p class="herald-elsewhere">Looking for the AI tools database? It moved to <a href="/database">the Database</a>.</p>
   </section>

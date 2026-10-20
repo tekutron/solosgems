@@ -104,13 +104,27 @@ database is still index.html, but it is served at `/database` (its canonical URL
 /index.html 301s there, and home.html forwards old `/#tool-...` links to
 `/database#tool-...`. Link to database rows as `/database#tool-slug`, never `/#tool-slug`.
 
-The homepage Herald has two tabs. **Quest** (default; `quest.js`, `quest.css`,
-`/api/quest` in worker.js) is a Dungeon Master one-shot: 20 turns, the
-worker rolls the d20 and streams the scene, and the page keeps HP, gold,
-items and the turn, applying the model's `[[hp -2; gain X; opt ...]]` status
-line with clamps (the model never sets totals). The prompt is QUEST_SYSTEM;
-test prompt changes locally against the 8B base model first
-(herald-training/dm/play.py). **Chat** is the general assistant below.
+The homepage Herald has two tabs. **Quest** (default; `quest.js`,
+`quest.css`, `/api/quest` in worker.js) is an AI Dungeon Master:
+- One-shot (20 turns, three acts) or campaign (no ending, 12-turn chapters;
+  0 HP knocks the hero out instead of ending it).
+- The worker rolls the d20 (abilities give advantage or a minimum roll),
+  adds the hero, the journal, SRD 5.1 lookups for spells/creatures/items the
+  player names (`data/srd.json`, CC BY 4.0, credit on about.html and under
+  the Herald) and random secret cards from `data/quest-cards.json` (our own
+  twists, characters, complications, oddities, places, villain schemes),
+  then streams the scene. `mode: "journal"` returns the updated journal
+  (location, goal, done, people, threads, item notes) as JSON; the page
+  calls it every 4 turns. The villain's plan is drawn once and kept fixed.
+- The page owns the rules: HP/gold/XP clamps, levels (`LEVELS`), class
+  abilities and rests (`CLASSES` in quest.js), and up to 6 saves in
+  localStorage (`solosgems-quests-v2`). The model only writes a status line
+  like `[[hp -2; gain X; xp +10; opt ...]]`; history gets a rebuilt clean
+  line so the model keeps writing it.
+- Prompts are QUEST_SYSTEM and QUEST_JOURNAL_SYSTEM. Test prompt changes
+  locally against the 8B base model first (herald-training/dm/play3.py).
+
+**Chat** is the general assistant below.
 
 A general-purpose chat assistant with the Solos Gems voice (`#herald` in
 home.html and index.html; `herald.js`, `herald.css`). It posts the
