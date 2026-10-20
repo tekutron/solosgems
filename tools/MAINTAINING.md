@@ -121,6 +121,22 @@ The homepage Herald has two tabs. **Quest** (default; `quest.js`,
   localStorage (`solosgems-quests-v2`). The model only writes a status line
   like `[[hp -2; gain X; xp +10; opt ...]]`; history gets a rebuilt clean
   line so the model keeps writing it.
+- Items: the bag holds 10 slots; the model adds `near X` for loose objects
+  in the scene (the "Nearby" shelf, cleared on a new location). The page
+  also reads the player's action, so "I give my staff to Tee" removes the
+  Staff and "I pick up the key" takes a nearby Key even when the model
+  forgets the `lose`/`gain` entry (`GIVE_AWAY`, `SET_DOWN`, `PICK_UP` in
+  quest.js). Dropping from the HUD is free and is told to the model next turn.
+- No skipping: the worker flags "skip to the end"-style actions, and the page
+  ignores an `end` line in a one-shot before act three (turn 16).
+- Scene art: when the journal's location changes, the page posts it to
+  `/api/quest-art` (flux-1-schnell, about 3 quest turns of neurons each) and
+  keeps a 640x360 copy in the save; if storage is full, paintings go first.
+- Reactions: on a natural 20, a 1, a level up, a knockout, the ending and
+  sometimes on other rolls, the page asks `/api/quest-gif` for a PG GIPHY
+  GIF. It needs the `GIPHY_KEY` secret (Cloudflare dashboard > the worker >
+  Settings > Variables and Secrets); without it the page shows its own emoji
+  stickers. GIFs must keep the "Powered by GIPHY" credit.
 - Prompts are QUEST_SYSTEM and QUEST_JOURNAL_SYSTEM. Test prompt changes
   locally against the 8B base model first (herald-training/dm/play3.py).
 

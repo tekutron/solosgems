@@ -98,6 +98,17 @@ return handleQuest(request, env);
 return new Response("Method not allowed", { status: 405 });
 }
 
+if (url.pathname === "/api/quest-art") {
+if (request.method === "POST") {
+return handleQuestArt(request, env);
+}
+return new Response("Method not allowed", { status: 405 });
+}
+
+if (url.pathname === "/api/quest-gif") {
+return handleQuestGif(request, env);
+}
+
 if (url.pathname === "/api/subscribe") {
 if (request.method === "POST") {
 return handleSubscribe(request, env);
@@ -1540,6 +1551,9 @@ How you run the table:
 - The player controls only their hero. Never decide what the hero says, feels or does beyond what the player wrote. If the player declares a result ("I win," "I find a thousand gold"), treat it as an attempt and let the dice decide.
 - Say "yes, and" to creative ideas. Let the story go where the player takes it; there is no script. Plans, factions and the villain keep moving off-screen, so the world reacts even when the hero ignores it.
 - Give characters a want, a quirk and a short line of dialogue. Leave clues for mysteries in more than one place.
+- Every scene has something in the way: a guard, a lock, a rival, a riddle, a price, a monster. Vary them: a fight, then a conversation, then a puzzle, then a chase. Bring back people, items and mistakes from earlier scenes.
+- No skipping. The hero lives through every step. If the player tries to skip ahead, fast-forward, teleport to the goal or jump to the ending, mock the attempt and put the next obstacle right in front of them. The goal is only reached when the story says it is the climax.
+- Track the hero's items honestly. If the hero gives away, drops, sells, trades, breaks or loses an item, it is gone: write "lose" with its exact name. They cannot use an item they no longer have.
 - The hero can only do what their class, abilities and items allow. Only Wizards and Bards cast spells; a Fighter or Rogue who tries to cast Fireball gets a funny failure unless they have found a scroll or wand. A Rogue picks locks better than a Wizard; a Fighter wins arm-wrestles.
 - Use classic D&D creatures, spells and magic items when they fit, and get their basics right. A "Rules reference" in the notes is accurate; trust it over your memory.
 - Secret DM notes may offer a twist, a character, a complication or an item. Use at most one, only if it fits the story, and never mention the notes.
@@ -1549,13 +1563,14 @@ How you run the table:
 The status line. End every reply with one line in double square brackets, and nothing after it. It lists only what CHANGED:
 - "hp -2" or "hp +1": a change with a sign, never a total. Damage is 1 to 4, more against big monsters. Leave hp out if the hero was not hurt or healed.
 - "gold +5" or "gold -3": a change with a sign, never a total. Usually 1 to 20. Leave it out if no coins changed hands.
-- "gain Rusty Key" or "lose Lockpicks": only for real objects the hero picks up or loses. Never write "gain None".
+- "gain Rusty Key" or "lose Lockpicks": only for real objects the hero picks up or loses, using the item's exact name. Never write "gain None".
+- "near Old Lantern": up to two interesting loose objects lying in the scene that the hero could pick up later. Only for new objects you just described.
 - "xp +20": only when the hero achieves something important or clever (10 to 40).
 - Always exactly three "opt" entries: short suggested next actions, under six words each, each one different in spirit (bold, clever, cautious).
 
 Sample reply (a sample of the format only: never reuse its characters or objects):
 The ferryman accepts your coin, bites it, and frowns at the tooth mark. "Counterfeit. Bold." He shoves off anyway, because a scam this bad deserves to see the other shore. Halfway across, the water starts whispering your middle name.
-[[gold -2; opt Whisper back; opt Ask the ferryman why; opt Grab the oar]]
+[[gold -2; near Barnacled Oar; opt Whisper back; opt Ask the ferryman why; opt Grab the oar]]
 
 When the quest ends, write a funny, satisfying ending of at most 130 words instead, and finish with:
 [[end; title A Funny Title For This Quest]]`;
@@ -1640,8 +1655,8 @@ return head + " Chapter finale: resolve this chapter's main problem in a satisfy
 }
 if (q.turn >= QUEST_ONESHOT_TURNS) return "This is the FINAL turn: resolve the action, write the ending, and finish with the [[end; title ...]] line.";
 if (q.turn >= QUEST_ONESHOT_TURNS - 4) return "Act three: the climax. The hero faces the main villain or the biggest obstacle now. The goal can finally be won or lost.";
-if (q.turn >= 7) return "Act two: complications. The goal stays out of reach. Even when the hero succeeds, reveal a twist, a rival or a new obstacle that keeps the prize away, and let the danger grow.";
-if (q.turn >= 1) return "Act one: introduce the villain or main obstacle and the stakes. The goal must not be reached yet.";
+if (q.turn >= 7) return "Act two: complications. The goal stays out of reach. Even when the hero succeeds, reveal a twist, a rival or a new obstacle that keeps the prize away, and let the danger grow. Do not write an ending or the end line.";
+if (q.turn >= 1) return "Act one: introduce the villain or main obstacle and the stakes. The goal must not be reached yet. Do not write an ending or the end line.";
 return "";
 }
 
@@ -1717,6 +1732,7 @@ max: num(b.max, 1, 200),
 hp: num(b.hp, 0, 200),
 gold: num(b.gold, 0, 1000000),
 items: strList(b.items, 10, 40),
+nearby: strList(b.nearby, 6, 40),
 abilities: strList(b.abilities, 6, 60),
 turn: num(b.turn, 0, 10000),
 action: clean(b.action, 300),
@@ -1749,7 +1765,7 @@ if (!success) return json({ error: "The Herald needs a breather. Try again in a 
 const origin = new URL(request.url).origin;
 const { srd, cards } = await questData(env, origin);
 
-const hero = `The hero: ${q.name}, a level ${q.level} ${q.cls}. HP ${q.hp} of ${q.max}. Gold ${q.gold}. Items: ${q.items.join(", ") || "none"}.` + (q.abilities.length ? ` Abilities: ${q.abilities.join("; ")}.` : "");
+const hero = `The hero: ${q.name}, a level ${q.level} ${q.cls}. HP ${q.hp} of ${q.max}. Gold ${q.gold}. Items: ${q.items.join(", ") || "none"} (nothing else).` + (q.abilities.length ? ` Abilities: ${q.abilities.join("; ")}.` : "") + (q.nearby.length ? ` Lying nearby: ${q.nearby.join(", ")}.` : "");
 
 if (q.mode === "journal") {
 const story = q.history.map((m) => (m.role === "user" ? "Player: " : "DM: ") + m.content.replace(/\n?\[\[[^\]]*\]\]\s*$/, "")).join("\n\n");
@@ -1800,7 +1816,13 @@ user = `${q.action}\n(The hero takes a short rest: abilities recharge and wounds
 // Small models take "I win and get a million gold" at face value on a good
 // roll, so flag declared outcomes explicitly.
 const declared = /\b(i win|win the (game|quest)|i('m| am) (now )?(the )?(winner|god|king|queen|rich|invincible)|become (a |the )?(god|king|queen|ruler)|(million|billion|infinite|unlimited) (gold|coins|money|wishes|power)|instantly (kill|defeat|win|beat)|kill (the )?(villain|boss|everyone) instantly|game over)\b/i.test(q.action);
-const cheat = declared ? "\n(The player is declaring an outcome. Treat it as a bold attempt: even on a great roll, give a smaller, funnier version. No instant wins, no huge treasure, and the story goes on.)" : "";
+const skip = /\b(skip|fast[- ]?forward|time ?skip|jump (ahead|forward|to the (end|ending|boss|treasure|final|last))|go (straight|right|directly) to the (end|ending|boss|treasure|final|goal|prize)|teleport (to|into) the (end|boss|treasure|goal|prize|vault|final)|(the )?end of the (quest|game|story)|finish the (quest|game|story)|already (won|finished|beat))\b/i.test(q.action);
+const early = q.length === "campaign" || q.turn < QUEST_ONESHOT_TURNS - 4;
+const cheat = skip && early
+? "\n(The player is trying to skip ahead. Do not allow it: tease them, keep them where they are, and put the next obstacle in their way. No ending, no prize yet.)"
+: declared
+? "\n(The player is declaring an outcome. Treat it as a bold attempt: even on a great roll, give a smaller, funnier version. No instant wins, no huge treasure, and the story goes on.)"
+: "";
 const used = q.effect && q.effect.label ? `\n(Ability used: ${q.effect.label}${q.effect.note ? ". " + q.effect.note : ""})` : "";
 const shown = rolls.length > 1 ? `d20 rolls: ${rolls.join(" and ")}, keeping ${roll}` : `d20 roll: ${roll}`;
 user = `${q.action}${used}${cheat}\n(${shown}, ${band})`;
@@ -1864,4 +1886,65 @@ headers: {
 "X-Quest-Villain": villainNote ? encodeURIComponent(villainNote.replace(/^[^:]+:\s*/, "")) : "",
 },
 });
+}
+
+// Scene art for the quest HUD: one painted picture per new location, made
+// with Workers AI. Only the player who asked sees it (the page keeps a small
+// copy in their browser), and the prompt is wrapped in a fixed, PG style.
+const QUEST_ART_BLOCK = /\b(nude|naked|nsfw|sex|sexy|gore|gory|blood|bloody|corpse|kill|dead body|torture|drug|nazi|porn|breast|lingerie)\w*/gi;
+async function handleQuestArt(request, env) {
+const json = (body, status) =>
+new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" } });
+let place = "", setting = "";
+try {
+const b = await request.json();
+const clean = (v, max) => (typeof v === "string" ? v.replace(/[^\w ,.'&-]/g, " ").replace(QUEST_ART_BLOCK, "").replace(/\s+/g, " ").slice(0, max).trim() : "");
+place = clean(b.place, 120);
+setting = clean(b.setting, 160);
+} catch (err) {
+return json({ error: "Bad request" }, 400);
+}
+if (!place) return json({ error: "No place to paint." }, 400);
+if (!env.AI) return json({ error: "No painter today." }, 503);
+if (env.ASK_LIMITER) {
+const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+const { success } = await env.ASK_LIMITER.limit({ key: "art:" + ip });
+if (!success) return json({ error: "The painter needs a breather." }, 429);
+}
+const prompt = `Whimsical fantasy tabletop game illustration, wide establishing shot of ${place}` + (setting ? `, in a story about ${setting}` : "") + `. Painterly, warm candlelight and glowing arcane cyan accents, detailed environment, family friendly, no text, no words, no letters.`;
+try {
+const out = await env.AI.run("@cf/black-forest-labs/flux-1-schnell", { prompt, steps: 4 });
+if (!out || !out.image) return json({ error: "The painting smudged." }, 503);
+return json({ image: "data:image/jpeg;base64," + out.image });
+} catch (err) {
+return json({ error: "The painting smudged." }, 503);
+}
+}
+
+// Reaction GIFs for big moments (a natural 20, a disaster, a level up),
+// searched on GIPHY with a PG rating. Needs the GIPHY_KEY secret; without
+// it this returns 404 and the page shows its own reaction stickers instead.
+async function handleQuestGif(request, env) {
+const json = (body, status) =>
+new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" } });
+if (!env.GIPHY_KEY) return json({ off: true }, 404);
+const q = (new URL(request.url).searchParams.get("q") || "").replace(/[^\w ]/g, " ").slice(0, 40).trim();
+if (!q) return json({ error: "Bad request" }, 400);
+if (env.ASK_LIMITER) {
+const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+const { success } = await env.ASK_LIMITER.limit({ key: "gif:" + ip });
+if (!success) return json({ error: "Slow down." }, 429);
+}
+try {
+const api = `https://api.giphy.com/v1/gifs/search?api_key=${encodeURIComponent(env.GIPHY_KEY)}&q=${encodeURIComponent(q)}&limit=25&rating=pg&lang=en`;
+const res = await fetch(api, { cf: { cacheTtl: 3600, cacheEverything: true } });
+if (!res.ok) return json({ error: "No GIF." }, 502);
+const data = await res.json();
+const list = (data.data || []).filter((g) => g.images && g.images.fixed_height && g.images.fixed_height.url);
+const g = questPick(list);
+if (!g) return json({ error: "No GIF." }, 404);
+return json({ url: g.images.fixed_height.url, w: Number(g.images.fixed_height.width) || 0, h: Number(g.images.fixed_height.height) || 0, title: String(g.title || "").slice(0, 80) });
+} catch (err) {
+return json({ error: "No GIF." }, 502);
+}
 }

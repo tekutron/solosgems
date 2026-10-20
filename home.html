@@ -115,6 +115,10 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
               <span class="qp-quest-title" id="qp-quest-title"></span>
               <span class="qp-turn" id="qp-turn"></span>
             </div>
+            <figure class="qp-scene" id="qp-scene" hidden>
+              <img id="qp-scene-img" alt="" width="640" height="360">
+              <figcaption><span class="qp-scene-tag">Location</span> <span id="qp-scene-cap"></span></figcaption>
+            </figure>
             <ol class="ak-log qp-log" id="qp-log" aria-live="polite"></ol>
             <p class="qp-armed" id="qp-armed" hidden></p>
             <div class="qp-opts" id="qp-opts"></div>
@@ -133,6 +137,7 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
               </div>
             </div>
             <div class="qp-foot">
+              <button type="button" class="herald-clear" id="qp-pops">Pop-ups: on</button>
               <button type="button" class="herald-clear" id="qp-copy-now">Copy the tale</button>
               <button type="button" class="herald-clear" id="qp-leave">Save and leave</button>
             </div>
@@ -140,7 +145,7 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
 
           <aside class="qp-hud" id="qp-hud" aria-label="Hero and quest status">
             <section class="qp-panel qp-herocard">
-              <div class="qp-hero-line"><strong id="qp-hero"></strong><span id="qp-level"></span></div>
+              <div class="qp-hero-line"><span class="qp-portrait" id="qp-portrait" aria-hidden="true"></span><span class="qp-hero-id"><strong id="qp-hero"></strong><span id="qp-level"></span></span></div>
               <div class="qp-meter"><span class="qp-meter-label">HP</span><span class="qp-bar qp-bar-hp"><span id="qp-hp-fill"></span></span><span id="qp-hp-text"></span></div>
               <div class="qp-meter"><span class="qp-meter-label">XP</span><span class="qp-bar qp-bar-xp"><span id="qp-xp-fill"></span></span><span id="qp-xp-text"></span></div>
               <div class="qp-gold"><span aria-hidden="true">&#9679;</span> <span id="qp-gold"></span></div>
@@ -151,8 +156,11 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
               <button type="button" class="qp-rest" id="qp-rest">Short rest</button>
             </details>
             <details class="qp-panel" open>
-              <summary>Inventory</summary>
-              <ul class="qp-inventory" id="qp-inventory"></ul>
+              <summary>Inventory <span class="qp-count" id="qp-inv-count"></span></summary>
+              <ul class="qp-slots" id="qp-inventory"></ul>
+              <p class="qp-sub">Nearby</p>
+              <ul class="qp-slots qp-slots-near" id="qp-nearby"></ul>
+              <div class="qp-item-detail" id="qp-item-detail" hidden></div>
             </details>
             <details class="qp-panel" open>
               <summary>Where you are</summary>
@@ -172,6 +180,7 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
               <ul class="qp-list" id="qp-threads"></ul>
             </details>
           </aside>
+          <div class="qp-pop" id="qp-pop" role="status" hidden></div>
         </div>
       </div>
 
