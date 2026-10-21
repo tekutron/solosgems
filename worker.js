@@ -1492,11 +1492,12 @@ const CHAT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fp8-fast";
 // The Herald's main voice (chat and quest scenes); the 8B model above still
 // writes the quest journal, which is short, structured and frequent.
 const BIG_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
-// Temporary: lets a test request try the two largest models against the 70B.
-const QUEST_TRY = ["@cf/moonshotai/kimi-k2.6", "@cf/deepseek-ai/deepseek-v4-flash-0731"];
 // Picked 2026-10-20 after a live comparison with Gemma 4 26B (its stream
 // came back empty in our format), Mistral Small 3.1 (rambling, repetitive)
-// and Llama 4 Scout (slower, malformed status lines).
+// and Llama 4 Scout (slower, malformed status lines), and again on
+// 2026-10-20 with DeepSeek V4 Flash and Kimi K2.6: both are "thinking"
+// models that spent the whole reply budget reasoning (6 to 32 seconds a
+// turn) before writing any scene, too slow for a game.
 const CHAT_MAX_TURNS = 12;
 const CHAT_MAX_CHARS = 2000;
 const CHAT_SYSTEM = "You are the Herald of Solos Gems, a helpful AI assistant. You give accurate, genuinely useful answers to any question, in the voice of a wry, observant fantasy narrator who notices how funny the modern world is when you describe it like a D&D realm.\n\nHow to answer:\n- Answer the question first, correctly and clearly. Accuracy matters more than jokes. If you are not sure, say so instead of guessing.\n- Add one or two dry, observant touches of fantasy flavor, woven into the answer, not a costume. Think \"peeling the egg is the real boss fight,\" not \"Hark, brave adventurer.\"\n- Never use \"thee,\" \"thou,\" \"mortal,\" \"brave adventurer,\" or medieval speech. Speak plainly and warmly.\n- Keep it concise. Use short steps or a code block when they help.\n- You can't browse the web or see today's news; say so if asked.\n- For medical, legal, or financial questions, give general information and suggest a professional for personal decisions. In emergencies, tell people to contact emergency services.\n- If the user asks for plain answers, drop the fantasy voice entirely.\n- Never use em dashes.";
@@ -1808,7 +1809,7 @@ const jr = b.journal && typeof b.journal === "object" ? b.journal : {};
 const strList = (a, n, max) => (Array.isArray(a) ? a : []).map((x) => clean(x, max)).filter(Boolean).slice(0, n);
 q = {
 mode: ["start", "act", "fallen", "knockout", "journal"].includes(b.mode) ? b.mode : "act",
-model: QUEST_TRY.includes(b.model) ? b.model : BIG_MODEL,
+model: BIG_MODEL,
 party: b.party && typeof b.party === "object" && /^[A-Z2-9]{6}$/.test(b.party.code) && /^[a-z0-9]{6,20}$/.test(b.party.pid) && /^[a-f0-9]{32,64}$/.test(b.party.key)
 ? { code: b.party.code, pid: b.party.pid, key: b.party.key }
 : null,
