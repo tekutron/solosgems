@@ -138,8 +138,8 @@ The homepage Herald has two tabs. **Quest** (default; `quest.js`,
   Settings > Variables and Secrets); without it the page shows its own emoji
   stickers. GIFs must keep the "Powered by GIPHY" credit.
 - Models: scenes and the chat use `BIG_MODEL` (Llama 3.3 70B, Workers Paid);
-  the journal stays on the 8B `CHAT_MODEL`. `TRY_MODELS` lets a request pick
-  another model while we compare them; remove it once one is chosen.
+  the journal stays on the 8B `CHAT_MODEL`. Chosen over Gemma 4, Mistral Small
+  3.1 and Llama 4 Scout in a live comparison (see the comment on BIG_MODEL).
 - Knowledge: `data/srd.json` (SRD 5.2 rules, plus SRD 5.1 entries marked
   `v: "2014"`), `data/dm-codex.json` (our DM Codex: game-running tips from
   old-school play to the 2024 rules, picked per turn by `questCraft`),

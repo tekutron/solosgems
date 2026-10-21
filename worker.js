@@ -1488,9 +1488,9 @@ const CHAT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fp8-fast";
 // The Herald's main voice (chat and quest scenes); the 8B model above still
 // writes the quest journal, which is short, structured and frequent.
 const BIG_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
-// Models a request may ask for while we compare them (all cost about the
-// same as BIG_MODEL or less). Remove once a winner is picked.
-const TRY_MODELS = ["@cf/meta/llama-3.3-70b-instruct-fp8-fast", "@cf/google/gemma-4-26b-a4b-it", "@cf/mistralai/mistral-small-3.1-24b-instruct", "@cf/meta/llama-4-scout-17b-16e-instruct"];
+// Picked 2026-10-20 after a live comparison with Gemma 4 26B (its stream
+// came back empty in our format), Mistral Small 3.1 (rambling, repetitive)
+// and Llama 4 Scout (slower, malformed status lines).
 const CHAT_MAX_TURNS = 12;
 const CHAT_MAX_CHARS = 2000;
 const CHAT_SYSTEM = "You are the Herald of Solos Gems, a helpful AI assistant. You give accurate, genuinely useful answers to any question, in the voice of a wry, observant fantasy narrator who notices how funny the modern world is when you describe it like a D&D realm.\n\nHow to answer:\n- Answer the question first, correctly and clearly. Accuracy matters more than jokes. If you are not sure, say so instead of guessing.\n- Add one or two dry, observant touches of fantasy flavor, woven into the answer, not a costume. Think \"peeling the egg is the real boss fight,\" not \"Hark, brave adventurer.\"\n- Never use \"thee,\" \"thou,\" \"mortal,\" \"brave adventurer,\" or medieval speech. Speak plainly and warmly.\n- Keep it concise. Use short steps or a code block when they help.\n- You can't browse the web or see today's news; say so if asked.\n- For medical, legal, or financial questions, give general information and suggest a professional for personal decisions. In emergencies, tell people to contact emergency services.\n- If the user asks for plain answers, drop the fantasy voice entirely.\n- Never use em dashes.";
@@ -1794,7 +1794,7 @@ const jr = b.journal && typeof b.journal === "object" ? b.journal : {};
 const strList = (a, n, max) => (Array.isArray(a) ? a : []).map((x) => clean(x, max)).filter(Boolean).slice(0, n);
 q = {
 mode: ["start", "act", "fallen", "knockout", "journal"].includes(b.mode) ? b.mode : "act",
-model: TRY_MODELS.includes(b.model) ? b.model : BIG_MODEL,
+model: BIG_MODEL,
 tavern: b.tavern && typeof b.tavern === "object" && /^[a-z0-9]{6,40}$/.test(b.tavern.id) && /^[a-z0-9]{16,64}$/.test(b.tavern.key)
 ? { id: b.tavern.id, key: b.tavern.key, title: clean(b.tavern.title, 60), shown: clean(b.tavern.shown, 300) }
 : null,
@@ -2199,8 +2199,15 @@ try {
 const messages = [{ role: "user", content: userText || "(no action)" }];
 if (reply) messages.push({ role: "assistant", content: reply });
 const out = await env.AI.run("@cf/meta/llama-guard-3-8b", { messages });
-const r = out && out.response;
-if (r && typeof r === "object") return r.safe === true;
+// The reply is { safe, categories } or the raw text "safe" / "unsafe\nS1";
+// accept either shape, and treat anything unclear as unsafe.
+let r = out && out.response;
+if (typeof r === "string" && r.trim().startsWith("{")) {
+try {
+r = JSON.parse(r);
+} catch (err) {}
+}
+if (r && typeof r === "object") return r.safe === true || r.safe === "true";
 return typeof r === "string" && /^\s*safe\b/i.test(r);
 } catch (err) {
 return false;
