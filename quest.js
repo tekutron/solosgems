@@ -231,6 +231,7 @@
       panels[k].hidden = k !== which;
     });
     herald.classList.toggle("qp-wide", which === "quest" && !play.hidden);
+    document.body.classList.toggle("qp-playing", which === "quest" && !play.hidden);
     try { localStorage.setItem("solosgems-herald-tab", which); } catch (e) {}
   }
   tabs.quest.addEventListener("click", function () { showTab("quest"); });
@@ -296,6 +297,26 @@
     var m = action.match(verb);
     return m ? action.slice(m.index).split(/[,.;!?]|\b(?:and (?:i|then)|then|but|while|before|after|so)\b/i)[0] : "";
   }
+  // Who got it: "give my staff to the apprentice" -> "the apprentice",
+  // "hand Tee the map" -> "Tee".
+  function recipient(text, item) {
+    var t = text.replace(/[,.;!?][\s\S]*$/, "");
+    var word = "[A-Za-z][\\w'-]*";
+    var m = t.match(new RegExp("\\b(?:to|with)\\s+(?:the\\s+|a\\s+|an\\s+|my\\s+)?(" + word + "(?:\\s+(?!(?:as|so|in|for|and|then|because|while|before|after|if)\\b)" + word + "){0,2})", "i"));
+    if (!m) m = t.match(new RegExp("^\\w+(?:\\s+over)?\\s+(?:the\\s+)?(" + word + "(?:\\s+" + word + ")?)\\s+(?:my|the|a|an|his|her|our|this|that|some)\\b", "i"));
+    if (!m) return "";
+    var who = m[1].trim();
+    if (mentions(who, item) || /^(my|it|them|him|her)$/i.test(who)) return "";
+    return /^[a-z]/.test(who) && !/^the /i.test(who) ? "the " + who : who;
+  }
+  function howGone(text) {
+    if (/\b(sell|sells|sold)\b/i.test(text)) return "sold";
+    if (/\b(trade|trades|traded)\b/i.test(text)) return "traded";
+    if (/\b(eat|eats|ate)\b/i.test(text)) return "eaten";
+    if (/\b(feed|feeds)\b/i.test(text)) return "fed";
+    if (/\b(pay|pays)\b/i.test(text)) return "paid";
+    return "given";
+  }
   function addNearby(name) {
     if (findItem(game.nearby, name) >= 0 || findItem(game.items, name) >= 0) return;
     game.nearby.push(name);
@@ -330,8 +351,10 @@
     // something over, or "gain" when they pick something up, so read the
     // action too (unless the roll says it didn't work).
     var worked = band !== "Fail" && band !== "Disaster";
+    var away = "";
     if (action && worked) {
-      var away = clause(action, GIVE_AWAY), down = away ? "" : clause(action, SET_DOWN), up = clause(action, PICK_UP);
+      away = clause(action, GIVE_AWAY);
+      var down = away ? "" : clause(action, SET_DOWN), up = clause(action, PICK_UP);
       if (away || down) {
         game.items.slice().forEach(function (it) {
           if (!mentions(away || down, it) || findItem(d.lost, it) >= 0) return;
@@ -346,6 +369,12 @@
       }
     }
     d.lost = lost;
+    d.given = lost.map(function (it) {
+      var g = away && mentions(away, it) ? { item: it, how: howGone(away), to: recipient(away, it), turn: game.turn } : { item: it, how: "lost", to: "", turn: game.turn };
+      game.given.unshift(g);
+      return g;
+    });
+    game.given = game.given.slice(0, 8);
     if (band === "Disaster" && d.hp >= 0 && !d.lost.length) d.hp = -1;
     if (ward && d.hp < 0) { d.hp = 0; d.blocked = true; }
     d.gained = d.gained.filter(function (g) {
@@ -353,6 +382,7 @@
       if (k >= 0) { g = game.nearby[k]; game.nearby.splice(k, 1); }
       if (game.items.length >= MAX_ITEMS || game.items.some(function (it) { return it.toLowerCase() === g.toLowerCase(); })) return false;
       game.items.push(g);
+      game.given = game.given.filter(function (x) { return norm(x.item) !== norm(g); });
       return true;
     });
     d.near = d.near.filter(function (n) {
@@ -375,7 +405,7 @@
     if (d.blocked) bits.push("hit blocked");
     if (d.gold) bits.push((d.gold > 0 ? "+" : "") + d.gold + " gold");
     d.gained.forEach(function (g) { bits.push("gained " + g); });
-    d.lost.forEach(function (g) { bits.push("lost " + g); });
+    (d.given || []).forEach(function (g) { bits.push(g.how === "lost" ? "lost " + g.item : g.how + " " + g.item + (g.to ? " to " + g.to : "")); });
     d.dropped.forEach(function (g) { bits.push("set down " + g); });
     if (d.xp) bits.push("+" + d.xp + " XP");
     return bits.join(" · ");
@@ -408,8 +438,39 @@
   }
 
   // ---- Rendering ----------------------------------------------------------
-  function renderText(body, text) {
+  // Story text the way games print it: dialogue in its own color, item and
+  // character names lit up, and comic sound effects that wobble.
+  var SFX = "boom|kaboom|crash|bang|thud|whoosh|splash|crack|zap|pow|splat|clang|thwack|smash|poof|snap|crunch|roar|thunk|bonk|boing|kapow|whack|ka-?ching|squelch|sploosh|rumble|creak|ribbit";
+  function esc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+  function hlNames() {
+    if (!game) return { src: "", kind: {} };
+    var kind = {};
+    (game.items || []).concat(game.nearby || []).forEach(function (n) { if (n.length >= 3) kind[n.toLowerCase()] = "qp-hl-item"; });
+    ((game.journal && game.journal.people) || []).forEach(function (p) {
+      var n = (p.name || "").replace(/\s*\(.*$/, "").trim();
+      if (n.length >= 3) kind[n.toLowerCase()] = "qp-hl-npc";
+      var first = n.split(" ")[0];
+      if (first && first.length >= 4 && !kind[first.toLowerCase()]) kind[first.toLowerCase()] = "qp-hl-npc";
+    });
+    if (game.name) kind[game.name.toLowerCase()] = "qp-hl-hero";
+    var names = Object.keys(kind).sort(function (a, b) { return b.length - a.length; });
+    return { src: names.map(esc).join("|"), kind: kind };
+  }
+  function appendRich(parent, text, hl) {
+    var re = new RegExp("(\"[^\"\\n]{1,400}\"?|\u201c[^\u201d\\n]{1,400}\u201d?)|\\b(" + SFX + ")\\b(!*)" + (hl.src ? "|\\b(" + hl.src + ")\\b" : ""), "gi");
+    var last = 0, m;
+    while ((m = re.exec(text))) {
+      if (m.index > last) parent.appendChild(document.createTextNode(text.slice(last, m.index)));
+      if (m[1]) parent.appendChild(el("span", "qp-say", m[1]));
+      else if (m[2]) parent.appendChild(el("span", "qp-sfx", m[2].toUpperCase() + (m[3] || "!")));
+      else parent.appendChild(el("span", hl.kind[m[4].toLowerCase()] || "qp-hl-item", m[4]));
+      last = re.lastIndex;
+    }
+    if (last < text.length) parent.appendChild(document.createTextNode(text.slice(last)));
+  }
+  function renderText(body, text, rich) {
     body.innerHTML = "";
+    var hl = rich ? hlNames() : null;
     text.split(/\n{2,}/).forEach(function (para) {
       if (!para.trim()) return;
       var p = el("p");
@@ -418,24 +479,81 @@
         line.split(/(\*\*[^*\n]+\*\*|\*[^*\n]+\*)/).forEach(function (part) {
           if (/^\*\*[^*]+\*\*$/.test(part)) p.appendChild(el("strong", null, part.slice(2, -2)));
           else if (/^\*[^*]+\*$/.test(part)) p.appendChild(el("em", null, part.slice(1, -1)));
+          else if (part && hl) appendRich(p, part, hl);
           else if (part) p.appendChild(document.createTextNode(part));
         });
       });
       body.appendChild(p);
     });
   }
+
+  // ---- Game feel: shakes, flashes, floating numbers, spinning dice ----------
+  var calm = false;
+  try { calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+  function fx(cls, ms) {
+    if (calm) return;
+    var box = document.querySelector(".qp-main");
+    box.classList.remove(cls);
+    void box.offsetWidth;
+    box.classList.add(cls);
+    setTimeout(function () { box.classList.remove(cls); }, ms || 700);
+  }
+  function floatText(text, cls, anchor) {
+    if (calm || !anchor) return;
+    var r = anchor.getBoundingClientRect();
+    if (!r.width) return;
+    var f = el("span", "qp-float " + cls, text);
+    f.style.left = Math.round(r.left + r.width / 2) + "px";
+    f.style.top = Math.round(r.top) + "px";
+    document.body.appendChild(f);
+    setTimeout(function () { f.remove(); }, 1500);
+  }
+  function banner(text, cls) {
+    if (calm) return;
+    var b = el("div", "qp-banner " + cls, text);
+    document.querySelector(".qp-main").appendChild(b);
+    setTimeout(function () { b.remove(); }, 1600);
+  }
+  function feel(d, band) {
+    var t = 0;
+    var later = function (fn) { setTimeout(fn, t); t += 180; };
+    if (d.hp) later(function () { floatText((d.hp > 0 ? "+" : "") + d.hp + " HP", d.hp > 0 ? "is-heal" : "is-hurt", $("qp-hp-fill").parentNode); });
+    if (d.xp) later(function () { floatText("+" + d.xp + " XP", "is-xp", $("qp-xp-fill").parentNode); });
+    if (d.gold) later(function () { floatText((d.gold > 0 ? "+" : "") + d.gold + " gold", "is-gold", $("qp-gold")); });
+    d.gained.forEach(function (g) { later(function () { floatText("+ " + g, "is-item", document.querySelector('.qp-hud-tab[data-pane="bag"]')); }); });
+    (d.given || []).forEach(function (g) { later(function () { floatText("- " + g.item, "is-gone", document.querySelector('.qp-hud-tab[data-pane="bag"]')); }); });
+    if (d.gained.length || (d.given || []).length || d.near.length) newsOn("bag");
+    if (band === "Disaster") { fx("fx-shake", 600); fx("fx-red", 900); banner("NATURAL 1", "is-bad"); }
+    else if (band === "Fail" && d.hp < 0) fx("fx-shake-small", 400);
+    else if (band === "Legendary") { fx("fx-gold", 1100); banner("NATURAL 20!", "is-good"); }
+    if (d.hp < 0 && band !== "Disaster") fx("fx-red", 600);
+  }
+  function spinChip(chip, final) {
+    if (calm) return;
+    var node = chip.querySelector(".qp-roll-n");
+    if (!node) return;
+    var n = 0;
+    chip.classList.add("is-spinning");
+    var tick = setInterval(function () {
+      node.textContent = String(1 + Math.floor(Math.random() * 20));
+      if (++n >= 9) { clearInterval(tick); node.textContent = final; chip.classList.remove("is-spinning"); }
+    }, 55);
+  }
   function addEntry(entry) {
     var cls = entry.role === "user" ? "ak-user-msg" : entry.role === "system" ? "qp-system-msg" : "ak-herald-msg";
     var li = el("li", "ak-msg " + cls);
     var body = el("div", "ak-body");
-    renderText(body, entry.text);
+    renderText(body, entry.text, entry.role === "assistant");
     li.appendChild(body);
     if (entry.ability) li.appendChild(el("span", "qp-used", entry.ability));
     if (entry.roll) {
       var chip = el("span", "qp-roll qp-roll-" + entry.band.toLowerCase());
       chip.appendChild(el("span", "qp-die", "d20"));
-      chip.appendChild(document.createTextNode(" " + (entry.rolls && entry.rolls.length > 1 ? entry.rolls.join(" / ") + " → " : "") + entry.roll + " · " + entry.band));
+      chip.appendChild(document.createTextNode(" " + (entry.rolls && entry.rolls.length > 1 ? entry.rolls.join(" / ") + " \u2192 " : "")));
+      chip.appendChild(el("span", "qp-roll-n", String(entry.roll)));
+      chip.appendChild(document.createTextNode(" \u00b7 " + entry.band));
       li.appendChild(chip);
+      if (entry.spin) spinChip(chip, String(entry.roll));
     }
     if (entry.change) li.appendChild(el("p", "qp-change", entry.change));
     log.appendChild(li);
@@ -505,7 +623,11 @@
     renderBag();
     var j = game.journal || {};
     $("qp-where").textContent = j.location || "Somewhere the map hasn't caught up with yet.";
-    $("qp-goal").textContent = j.goal ? "Goal: " + j.goal : "";
+    $("qp-goal").textContent = j.goal || "Work out what's going on. The tracker fills in as the story moves.";
+    var recent = $("qp-recent");
+    recent.innerHTML = "";
+    (j.done || []).slice(-3).forEach(function (x) { recent.appendChild(el("li", null, x)); });
+    if (j.threads && j.threads.length) recent.appendChild(el("li", "qp-track-open", j.threads.length + " open thread" + (j.threads.length === 1 ? "" : "s") + ": " + j.threads[0]));
     fillList("qp-done", j.done || [], "Nothing yet. Give it time.");
     fillList("qp-people", j.people || [], "Nobody memorable. Yet.");
     fillList("qp-threads", j.threads || [], "No loose ends. Suspicious.");
@@ -521,10 +643,48 @@
     b.appendChild(el("span", "qp-slot-icon", itemIcon(name)));
     b.appendChild(el("span", "qp-slot-name", name));
     b.addEventListener("click", function () {
-      picked = picked && picked.from === from && picked.name === name ? null : { from: from, name: name };
+      var same = picked && picked.from === from && picked.name === name;
+      picked = same ? null : { from: from, name: name };
+      if (!same && !busy && !game.over) insertItem(name, from);
       renderBag();
     });
     return b;
+  }
+  // HUD tabs; a dot marks a tab with news the player hasn't looked at.
+  var hudPane = "bag";
+  function small() {
+    try { return window.matchMedia("(max-width: 900px)").matches; } catch (e) { return false; }
+  }
+  // On phones the tabs fold: tap a tab to open it, tap it again to close.
+  if (small()) hudPane = null;
+  function showPane(name, toggle) {
+    if (toggle && small() && name === hudPane) name = null;
+    hudPane = name;
+    document.querySelector(".qp-hud-body").hidden = !name;
+    Array.prototype.forEach.call(document.querySelectorAll(".qp-hud-tab"), function (t) {
+      var on = t.dataset.pane === name;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      if (on) t.classList.remove("has-news");
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".qp-pane"), function (p) { p.hidden = p.dataset.pane !== name; });
+  }
+  function newsOn(name) {
+    if (name === hudPane) return;
+    var t = document.querySelector('.qp-hud-tab[data-pane="' + name + '"]');
+    if (t) t.classList.add("has-news");
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".qp-hud-tab"), function (t) {
+    t.addEventListener("click", function () { showPane(t.dataset.pane, true); });
+  });
+  // Clicking an item puts it into the action box: "I use my Staff ", or
+  // adds "my Staff" to what the player is already writing.
+  function insertItem(name, from) {
+    var v = q.value;
+    if (!v.trim()) q.value = (from === "inv" ? "I use my " : "I pick up the ") + name + " ";
+    else q.value = v.replace(/\s*$/, " ") + (from === "inv" ? "my " : "the ") + name + " ";
+    grow();
+    q.focus();
+    try { q.setSelectionRange(q.value.length, q.value.length); } catch (e) {}
   }
   function renderBag() {
     if (picked && (picked.from === "inv" ? game.items : game.nearby).indexOf(picked.name) < 0) picked = null;
@@ -541,6 +701,16 @@
     near.innerHTML = "";
     if (!game.nearby.length) near.appendChild(el("li", "qp-empty", "Nothing lying around. Look harder."));
     game.nearby.forEach(function (n, i) { var li = el("li"); li.appendChild(slot(n, "near", i)); near.appendChild(li); });
+    var gone = $("qp-given");
+    gone.innerHTML = "";
+    if (!game.given.length) gone.appendChild(el("li", "qp-empty", "Nothing given away. Generous, you are not."));
+    game.given.forEach(function (g) {
+      var li = el("li");
+      li.appendChild(el("span", "qp-given-icon", itemIcon(g.item)));
+      li.appendChild(el("strong", null, g.item));
+      li.appendChild(document.createTextNode(" " + (g.how === "lost" ? "lost" : g.how + (g.to ? " to " + g.to : "")) + " (turn " + g.turn + ")"));
+      gone.appendChild(li);
+    });
 
     var box = $("qp-item-detail");
     box.innerHTML = "";
@@ -601,16 +771,23 @@
     save();
     renderHud();
   }
-  // ---- Scene art: one painting per new location ------------------------------
-  var artBusy = false;
+  // ---- Scene art: a new picture of what just happened, every turn ------------
+  var artBusy = false, artNext = null;
   function renderScene() {
-    var fig = $("qp-scene"), img = $("qp-scene-img");
+    var fig = $("qp-scene"), img = $("qp-scene-img"), old = $("qp-scene-old");
     var art = game.art;
-    fig.hidden = !art;
+    fig.hidden = !art || game.artOn === false;
+    $("qp-scene-busy").hidden = !artBusy;
     if (!art) return;
-    if (img.getAttribute("src") !== art.src) img.setAttribute("src", art.src);
-    img.alt = "Painting of " + art.place;
-    $("qp-scene-cap").textContent = art.place;
+    if (img.getAttribute("src") !== art.src) {
+      if (img.getAttribute("src")) old.setAttribute("src", img.getAttribute("src"));
+      img.classList.remove("is-new");
+      void img.offsetWidth;
+      img.setAttribute("src", art.src);
+      img.classList.add("is-new");
+    }
+    img.alt = art.place ? "Picture of " + art.place : "Picture of the scene";
+    $("qp-scene-cap").textContent = art.place || game.questTitle;
   }
   // Keep a small copy so six saved quests still fit in the browser's storage.
   function shrink(src) {
@@ -629,22 +806,39 @@
       im.src = src;
     });
   }
-  function paintScene(g) {
-    var place = g.journal.location;
-    if (!place || artBusy || (g.art && norm(g.art.place) === norm(place))) return;
+  function paintScene(g, scene) {
+    if (g.artOn === false || !scene) return;
+    if (artBusy) { artNext = { g: g, scene: scene }; return; }
     artBusy = true;
-    fetch("/api/quest-art", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ place: place, setting: g.questTitle }) })
+    if (g === game) $("qp-scene-busy").hidden = false;
+    var place = (g.journal && g.journal.location) || "";
+    var body = { scene: scene.slice(0, 500), place: place, setting: g.questTitle, style: g.artStyle || "pixel", hero: g.name + ", a " + g.cls };
+    if (g.tavern && g.tavern.on) body.tavern = { id: g.id, key: g.tavern.key };
+    fetch("/api/quest-art", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) { return d && d.image ? shrink(d.image) : null; })
       .then(function (src) {
         artBusy = false;
-        if (!src) return;
-        g.art = { place: place, src: src };
-        save();
+        if (src) { g.art = { place: place, src: src }; save(); }
         if (g === game) renderScene();
+        if (artNext) { var n = artNext; artNext = null; paintScene(n.g, n.scene); }
       })
-      .catch(function () { artBusy = false; });
+      .catch(function () { artBusy = false; if (g === game) renderScene(); });
   }
+  function renderArtToggle() {
+    $("qp-art-toggle").textContent = game && game.artOn === false ? "Pictures: off" : "Pictures: on";
+  }
+  $("qp-art-toggle").addEventListener("click", function () {
+    if (!game) return;
+    game.artOn = game.artOn === false;
+    save();
+    renderArtToggle();
+    renderScene();
+    if (game.artOn && !game.art) {
+      var lastScene = game.entries.filter(function (e) { return e.role === "assistant"; }).pop();
+      if (lastScene) paintScene(game, lastScene.text);
+    }
+  });
 
   // ---- Reactions: a GIF (or a sticker) for the big moments --------------------
   var REACT = {
@@ -745,6 +939,8 @@
   }
   function renderAll() {
     if (!game.nearby) game.nearby = [];
+    if (!game.given) game.given = [];
+    if (!game.artStyle) game.artStyle = "painted";
     if (game.pending == null) game.pending = "";
     picked = null;
     setup.hidden = true;
@@ -759,13 +955,15 @@
     renderEnd();
     renderTavern();
     loadSrdItems();
-    if (!game.art && game.journal && game.journal.location) paintScene(game);
-    // On narrow screens the HUD sits above the story, so start it folded.
-    try {
-      if (window.matchMedia("(max-width: 900px)").matches) {
-        Array.prototype.forEach.call(document.querySelectorAll("#qp-hud details"), function (d) { d.open = false; });
-      }
-    } catch (e) {}
+    if (!game.art && game.entries.length) {
+      var lastScene = game.entries.filter(function (e) { return e.role === "assistant"; }).pop();
+      if (lastScene) paintScene(game, lastScene.text);
+    }
+    showPane(hudPane);
+    renderArtToggle();
+    document.body.classList.add("qp-playing");
+    $("qp-account").hidden = true;
+    fitPlay(true);
   }
   function loadSrdItems() {
     if (srdItems) return;
@@ -814,7 +1012,7 @@
   function payload(mode, action, effect, shownAction) {
     return {
       mode: mode, length: game.length, action: action || "", effect: effect || null, setting: game.setting,
-      name: game.name, cls: game.cls, level: game.level, hp: game.hp, max: game.max, gold: game.gold, items: game.items, nearby: game.nearby,
+      name: game.name, cls: game.cls, level: game.level, hp: game.hp, max: game.max, gold: game.gold, items: game.items, nearby: game.nearby, given: game.given.slice(0, 6),
       abilities: abilities().map(function (a) { return a.name + " (" + usesLeft(a) + " left)"; }),
       turn: game.turn, journal: game.journal, history: game.history,
       tavern: game.tavern && game.tavern.on && mode !== "journal" ? { id: game.id, key: game.tavern.key, title: game.questTitle, shown: shownAction || "" } : null,
@@ -838,7 +1036,7 @@
         (j.items || []).forEach(function (it) { if (it && it.name && it.note) g.itemNotes[it.name.toLowerCase()] = it.note; });
         save();
         renderHud();
-        if (moved) paintScene(g);
+
       })
       .catch(function () {});
   }
@@ -884,7 +1082,9 @@
           userEntry.roll = r;
           userEntry.band = band;
           userEntry.rolls = rolls;
+          userEntry.spin = true;
           var fresh = addEntry(userEntry);
+          delete userEntry.spin;
           log.replaceChild(fresh.li, userEntry.view.li);
           userEntry.view = fresh;
           log.appendChild(view.li);
@@ -898,8 +1098,9 @@
           heal = Math.min(game.max - game.hp, Math.ceil(game.max / 2));
           game.hp += heal;
         }
+        view.li.classList.add("is-typing");
         return readStream(res, function (t) {
-          renderText(view.body, narration(t) || "...");
+          renderText(view.body, narration(t) || "...", true);
           log.scrollTop = log.scrollHeight;
         }).then(function (full) {
           var story = narration(full);
@@ -925,7 +1126,10 @@
           game.history = game.history.slice(-10);
           if (d.title) game.endTitle = d.title;
           view.li.remove();
-          addEntry(entry);
+          var shown = addEntry(entry);
+          shown.li.classList.add("is-fresh");
+          feel(d, band);
+          paintScene(game, story);
           var up = checkLevelUp();
           if (up) { var lv = { role: "system", text: up }; game.entries.push(lv); addEntry(lv); }
           var finished = mode === "fallen" || (game.length === "oneshot" && (d.end || game.turn >= ONESHOT_TURNS));
@@ -1027,7 +1231,25 @@
     $("qp-class-note").textContent = cls + ": " + c.blurb + " Starts with " + c.items.join(" and ") + ", plus " +
       c.abilities.filter(function (a) { return a.lvl === 1; }).map(function (a) { return a.name; }).join(" and ") + ".";
   }
+  // Bring the whole game into view and size it to the window, so the story,
+  // the HUD and the input box all fit without scrolling the page.
+  function fitPlay(scroll) {
+    if (play.hidden) return;
+    try {
+      var head = document.querySelector(".site-header");
+      var headH = head ? head.getBoundingClientRect().height : 0;
+      if (scroll) {
+        var top = herald.getBoundingClientRect().top + window.scrollY - headH - 8;
+        window.scrollTo(0, Math.max(0, top));
+      }
+      var avail = window.innerHeight - Math.max(play.getBoundingClientRect().top, headH) - 12;
+      play.style.setProperty("--qp-h", Math.max(520, Math.round(avail)) + "px");
+    } catch (e) {}
+  }
+  window.addEventListener("resize", function () { fitPlay(false); });
   function showSetup() {
+    document.body.classList.remove("qp-playing");
+    $("qp-account").hidden = false;
     game = null;
     armed = null;
     play.hidden = true;
@@ -1051,7 +1273,7 @@
       length: setup.querySelector('input[name="qp-length"]:checked').value, setting: setting,
       questTitle: pick.value === "own" ? (setting.length > 48 ? setting.slice(0, 46) + "..." : setting) : pick.dataset.title,
       name: nameIn.value.trim() || randomName(), cls: cls, level: 1, xp: 0, hp: c.hp, max: c.hp, gold: 10,
-      items: c.items.slice(), nearby: [], pending: "", art: null, itemNotes: {}, uses: {}, lastRest: 0, turn: 0, history: [], entries: [], opts: [],
+      items: c.items.slice(), nearby: [], given: [], pending: "", art: null, artStyle: setup.querySelector('input[name="qp-style"]:checked').value, itemNotes: {}, uses: {}, lastRest: 0, turn: 0, history: [], entries: [], opts: [],
       journal: { location: "", goal: "", done: [], people: [], threads: [], villain: "" }, over: false, outcome: "", endTitle: "",
     };
     if ($("qp-tavern").checked) game.tavern = { on: true, key: tavernKey() };

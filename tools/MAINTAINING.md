@@ -129,9 +129,20 @@ The homepage Herald has two tabs. **Quest** (default; `quest.js`,
   quest.js). Dropping from the HUD is free and is told to the model next turn.
 - No skipping: the worker flags "skip to the end"-style actions, and the page
   ignores an `end` line in a one-shot before act three (turn 16).
-- Scene art: when the journal's location changes, the page posts it to
-  `/api/quest-art` (flux-1-schnell, about 3 quest turns of neurons each) and
-  keeps a 640x360 copy in the save; if storage is full, paintings go first.
+- Scene art: after every scene the page posts the scene text to
+  `/api/quest-art` (flux-1-schnell, about $0.0006 a picture) in the quest's
+  art style (`pixel`, `lowpoly` or `painted`, chosen at setup) and keeps a
+  640x360 copy in the save; if storage is full, pictures go first. Players
+  can switch pictures off. For a Tavern quest the worker also keeps the
+  newest picture as `tvart:<id>`, served at `/api/tavern/<id>/art`.
+- Game feel (quest.js): dialogue, item, character and hero names are colored
+  in the story (`appendRich`), comic sound effects (`SFX`) get a wobble,
+  rolls spin, HP/XP/gold/items float up from the HUD, and a natural 1 or 20
+  shakes or flashes the screen. All of it is skipped under reduced motion.
+- Layout: on screens wider than 900px the game is sized to the window
+  (`fitPlay`), the story scrolls inside, and the HUD has the quest tracker
+  plus tabs (Bag, Skills, People, Journal). "Gone" in the Bag lists items
+  given away and to whom (`recipient`), and is sent to the model.
 - Reactions: on a natural 20, a 1, a level up, a knockout, the ending and
   sometimes on other rolls, the page asks `/api/quest-gif` for a PG GIPHY
   GIF. It needs the `GIPHY_KEY` secret (Cloudflare dashboard > the worker >

@@ -1488,6 +1488,8 @@ const CHAT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fp8-fast";
 // The Herald's main voice (chat and quest scenes); the 8B model above still
 // writes the quest journal, which is short, structured and frequent.
 const BIG_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
+// Temporary: lets a test request try the two largest models against the 70B.
+const QUEST_TRY = ["@cf/moonshotai/kimi-k2.6", "@cf/deepseek-ai/deepseek-v4-flash-0731"];
 // Picked 2026-10-20 after a live comparison with Gemma 4 26B (its stream
 // came back empty in our format), Mistral Small 3.1 (rambling, repetitive)
 // and Llama 4 Scout (slower, malformed status lines).
@@ -1563,6 +1565,14 @@ const QUEST_ONESHOT_TURNS = 20;
 const QUEST_CHAPTER_TURNS = 12;
 const QUEST_CLASSES = ["Fighter", "Wizard", "Rogue", "Bard"];
 const QUEST_SYSTEM = `You are the Herald, the Dungeon Master of Solos Gems. You have read every rulebook, every old adventure and every dusty fantasy epic, and you run games like a brilliant, slightly bratty friend: sharp, theatrical, quick with a tease about the player's choices, and impossible to predict. Underneath the jokes you take the game seriously. The world is consistent, choices have consequences, and clever ideas get rewarded. You are never cruel, and you tease the hero's decisions, never the player as a person. Speak plainly; never use "thee," "thou," "mortal," or "brave adventurer." Never use em dashes.
+
+Your humor is the Solos Gems comic-caption voice: dry, observational, sarcastic and smart. Set something up straight, then twist it in the last clause. Find the joke in the situation and in the hero's choices; never be mean to the player. Every reply has at least one genuinely funny line, often the last one. Captions from our comics, to show the voice (never quote them):
+- "The oracle planned his entire day for him. He spent the whole day arguing with the oracle instead."
+- "A thousand arrows loosed at once turns archery into weather."
+- "The messenger replies before you finish your sentence, which is impressive and also exactly what your rudest uncle does."
+- "The otter wrote down every word spoken in the war council, perfectly, and still couldn't tell you who won."
+- "The crystal ball let him watch the whole meeting whenever he wanted. He wanted, apparently, never."
+- "Once the parrot can do every voice in the tavern, nobody in the tavern can prove they ever said anything."
 
 How you run the table:
 - Narrate in second person, present tense. Keep every reply SHORT: at most 110 words, one or two small paragraphs. End on something the hero can react to.
@@ -1794,7 +1804,7 @@ const jr = b.journal && typeof b.journal === "object" ? b.journal : {};
 const strList = (a, n, max) => (Array.isArray(a) ? a : []).map((x) => clean(x, max)).filter(Boolean).slice(0, n);
 q = {
 mode: ["start", "act", "fallen", "knockout", "journal"].includes(b.mode) ? b.mode : "act",
-model: BIG_MODEL,
+model: QUEST_TRY.includes(b.model) ? b.model : BIG_MODEL,
 tavern: b.tavern && typeof b.tavern === "object" && /^[a-z0-9]{6,40}$/.test(b.tavern.id) && /^[a-z0-9]{16,64}$/.test(b.tavern.key)
 ? { id: b.tavern.id, key: b.tavern.key, title: clean(b.tavern.title, 60), shown: clean(b.tavern.shown, 300) }
 : null,
@@ -1808,6 +1818,7 @@ hp: num(b.hp, 0, 200),
 gold: num(b.gold, 0, 1000000),
 items: strList(b.items, 10, 40),
 nearby: strList(b.nearby, 6, 40),
+given: (Array.isArray(b.given) ? b.given : []).slice(0, 6).map((g) => (g && typeof g === "object" ? `${clean(g.item, 40)}${g.to ? " (" + clean(g.how, 12) + " to " + clean(g.to, 40) + ")" : " (" + clean(g.how, 12) + ")"}` : "")).filter((s) => s.length > 3),
 abilities: strList(b.abilities, 6, 60),
 turn: num(b.turn, 0, 10000),
 action: clean(b.action, 300),
@@ -1840,7 +1851,7 @@ if (!success) return json({ error: "The Herald needs a breather. Try again in a 
 const origin = new URL(request.url).origin;
 const { srd, cards, codex } = await questData(env, origin);
 
-const hero = `The hero: ${q.name}, a level ${q.level} ${q.cls}. HP ${q.hp} of ${q.max}. Gold ${q.gold}. Items: ${q.items.join(", ") || "none"} (nothing else).` + (q.abilities.length ? ` Abilities: ${q.abilities.join("; ")}.` : "") + (q.nearby.length ? ` Lying nearby: ${q.nearby.join(", ")}.` : "");
+const hero = `The hero: ${q.name}, a level ${q.level} ${q.cls}. HP ${q.hp} of ${q.max}. Gold ${q.gold}. Items: ${q.items.join(", ") || "none"} (nothing else).` + (q.abilities.length ? ` Abilities: ${q.abilities.join("; ")}.` : "") + (q.nearby.length ? ` Lying nearby: ${q.nearby.join(", ")}.` : "") + (q.given.length ? ` No longer has: ${q.given.join(", ")}.` : "");
 
 if (q.mode === "journal") {
 const story = q.history.map((m) => (m.role === "user" ? "Player: " : "DM: ") + m.content.replace(/\n?\[\[[^\]]*\]\]\s*$/, "")).join("\n\n");
@@ -1973,37 +1984,53 @@ headers: {
 });
 }
 
-// Scene art for the quest HUD: one painted picture per new location, made
-// with Workers AI. Only the player who asked sees it (the page keeps a small
-// copy in their browser), and the prompt is wrapped in a fixed, PG style.
-const QUEST_ART_BLOCK = /\b(nude|naked|nsfw|sex|sexy|gore|gory|blood|bloody|corpse|kill|dead body|torture|drug|nazi|porn|breast|lingerie)\w*/gi;
+// Scene art for the quest screen: a fresh picture of what just happened,
+// every turn, in the quest's art style (pixel art, low-poly 3D or painted),
+// made with Workers AI. The page keeps a small copy. For a quest on the
+// Tavern board (and only with that quest's key), the latest picture is also
+// kept for its TV at /api/tavern/<id>/art.
+const QUEST_ART_BLOCK = /\b(nude|naked|nsfw|sex|sexy|gore|gory|blood|bloody|corpse|kill|killed|dead body|torture|drug|nazi|porn|breast|lingerie|decapitat|dismember)\w*/gi;
+const QUEST_ART_STYLES = {
+pixel: "16-bit pixel art video game screenshot, crisp pixels, vibrant limited palette, side-scrolling fantasy RPG scene",
+lowpoly: "low-poly 3D render, chunky stylized isometric diorama, soft colorful lighting, cozy fantasy video game scene",
+painted: "whimsical painted fantasy tabletop illustration, warm candlelight with glowing arcane cyan accents",
+};
 async function handleQuestArt(request, env) {
 const json = (body, status) =>
 new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" } });
-let place = "", setting = "";
+let place = "", setting = "", scene = "", style = "pixel", hero = "", tavern = null;
 try {
 const b = await request.json();
-const clean = (v, max) => (typeof v === "string" ? v.replace(/[^\w ,.'&-]/g, " ").replace(QUEST_ART_BLOCK, "").replace(/\s+/g, " ").slice(0, max).trim() : "");
+const clean = (v, max) => (typeof v === "string" ? v.replace(/"[^"]*"/g, " ").replace(/[^\w ,.'&-]/g, " ").replace(QUEST_ART_BLOCK, "").replace(/\s+/g, " ").slice(0, max).trim() : "");
 place = clean(b.place, 120);
-setting = clean(b.setting, 160);
+setting = clean(b.setting, 120);
+scene = clean(b.scene, 360);
+hero = clean(b.hero, 60);
+style = QUEST_ART_STYLES[b.style] ? b.style : "pixel";
+if (b.tavern && /^[a-z0-9]{6,40}$/.test(b.tavern.id) && /^[a-z0-9]{16,64}$/.test(b.tavern.key)) tavern = b.tavern;
 } catch (err) {
 return json({ error: "Bad request" }, 400);
 }
-if (!place) return json({ error: "No place to paint." }, 400);
+if (!place && !scene) return json({ error: "Nothing to paint." }, 400);
 if (!env.AI) return json({ error: "No painter today." }, 503);
 if (env.ASK_LIMITER) {
 const ip = request.headers.get("CF-Connecting-IP") || "unknown";
 const { success } = await env.ASK_LIMITER.limit({ key: "art:" + ip });
 if (!success) return json({ error: "The painter needs a breather." }, 429);
 }
-const prompt = `Whimsical fantasy tabletop game illustration, wide establishing shot of ${place}` + (setting ? `, in a story about ${setting}` : "") + `. Painterly, warm candlelight and glowing arcane cyan accents, detailed environment, family friendly, no text, no words, no letters.`;
+const prompt = `${QUEST_ART_STYLES[style]}. ` + (scene ? `Scene: ${scene} ` : "") + (place ? `Location: ${place}. ` : "") + (hero ? `The hero is ${hero}. ` : "") + (setting ? `Story: ${setting}. ` : "") + "Funny, expressive, family friendly. No text, no words, no letters, no speech bubbles.";
+let image;
 try {
-const out = await env.AI.run("@cf/black-forest-labs/flux-1-schnell", { prompt, steps: 4 });
-if (!out || !out.image) return json({ error: "The painting smudged." }, 503);
-return json({ image: "data:image/jpeg;base64," + out.image });
-} catch (err) {
-return json({ error: "The painting smudged." }, 503);
+const out = await env.AI.run("@cf/black-forest-labs/flux-1-schnell", { prompt: prompt.slice(0, 1800), steps: 4 });
+image = out && out.image;
+} catch (err) {}
+if (!image) return json({ error: "The painting smudged." }, 503);
+if (tavern && env.QUESTS) {
+const raw = await env.QUESTS.get("tv:" + tavern.id);
+const rec = raw ? JSON.parse(raw) : null;
+if (rec && !rec.hidden && rec.keyHash === (await sha256Hex(tavern.key))) await env.QUESTS.put("tvart:" + tavern.id, image, { expirationTtl: 7 * 86400 });
 }
+return json({ image: "data:image/jpeg;base64," + image });
 }
 
 // Reaction GIFs for big moments (a natural 20, a disaster, a level up),
@@ -2276,6 +2303,14 @@ index = raw ? JSON.parse(raw) : [];
 const day = Date.now() - 86400000;
 return json({ quests: index.filter((x) => x.updated > day) }, 200, "public, max-age=5");
 }
+const art = path.match(/^([a-z0-9]{6,40})\/art$/);
+if (art) {
+const img = await env.QUESTS.get("tvart:" + art[1]);
+const raw = img && (await env.QUESTS.get("tv:" + art[1]));
+if (!img || !raw || JSON.parse(raw).hidden) return new Response("", { status: 404 });
+const bin = Uint8Array.from(atob(img), (c) => c.charCodeAt(0));
+return new Response(bin, { headers: { "Content-Type": "image/jpeg", "Cache-Control": "public, max-age=15" } });
+}
 const m = path.match(/^([a-z0-9]{6,40})(\/report)?$/);
 if (!m) return json({ error: "Not found" }, 404);
 const key = "tv:" + m[1];
@@ -2291,6 +2326,7 @@ if (raw) {
 const rec = JSON.parse(raw);
 rec.hidden = true;
 await env.QUESTS.put(key, JSON.stringify(rec), { expirationTtl: 7 * 86400 });
+await env.QUESTS.delete("tvart:" + m[1]);
 }
 const iraw = await env.QUESTS.get("tv:index");
 if (iraw) await env.QUESTS.put("tv:index", JSON.stringify(JSON.parse(iraw).filter((x) => x.id !== m[1])));

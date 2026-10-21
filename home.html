@@ -105,7 +105,7 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
           <ul id="qp-save-list"></ul>
         </div>
         <form id="qp-setup" class="qp-setup" autocomplete="off">
-          <p class="qp-intro">Pick a quest and a hero. You type what you do, a real d20 decides how it goes, and the Herald runs the world. It is smart, a little bratty, and it never runs the same story twice. Quests save in this browser, so you can come back later.</p>
+          <p class="qp-intro">Pick a quest and a hero. You type what you do, a real d20 decides how it goes, and the Herald runs the world. Quests save in this browser, so you can come back later.</p>
           <fieldset class="qp-pick">
             <legend>The quest</legend>
             <label class="qp-card"><input type="radio" name="qp-setting" value="A heist in the Dwarven Bank, where the vault is guarded less by locks than by paperwork." data-title="The Dwarven Bank Heist" checked><span><strong>The Dwarven Bank Heist</strong>The vault is guarded less by locks than by paperwork.</span></label>
@@ -129,6 +129,12 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
             <label class="qp-chip"><input type="radio" name="qp-length" value="oneshot" checked><span>One-shot <small>20 turns, one ending</small></span></label>
             <label class="qp-chip"><input type="radio" name="qp-length" value="campaign"><span>Campaign <small>no ending, chapter by chapter</small></span></label>
           </fieldset>
+          <fieldset class="qp-pick qp-styles">
+            <legend>Art style</legend>
+            <label class="qp-chip"><input type="radio" name="qp-style" value="pixel" checked><span>Pixel art <small>16-bit game</small></span></label>
+            <label class="qp-chip"><input type="radio" name="qp-style" value="lowpoly"><span>Low-poly 3D <small>chunky diorama</small></span></label>
+            <label class="qp-chip"><input type="radio" name="qp-style" value="painted"><span>Painted <small>storybook</small></span></label>
+          </fieldset>
           <label class="qp-check"><input type="checkbox" id="qp-tavern"><span>Show this quest on the <a href="tavern.html" target="_blank" rel="noopener">Tavern board</a> so others can watch. Your hero name and the story are public; your account is not.</span></label>
           <button type="submit" class="ak-btn qp-begin">Begin the quest</button>
         </form>
@@ -139,8 +145,18 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
               <span class="qp-quest-title" id="qp-quest-title"></span>
               <span class="qp-turn" id="qp-turn"></span>
             </div>
+            <div class="qp-foot qp-toolbar">
+              <a class="herald-clear qp-watch" id="qp-watch" href="tavern.html" target="_blank" rel="noopener" hidden>Watch page</a>
+              <button type="button" class="herald-clear" id="qp-tavern-toggle">Tavern: off</button>
+              <button type="button" class="herald-clear" id="qp-art-toggle">Pictures: on</button>
+              <button type="button" class="herald-clear" id="qp-pops">Pop-ups: on</button>
+              <button type="button" class="herald-clear" id="qp-copy-now">Copy the tale</button>
+              <button type="button" class="herald-clear" id="qp-leave">Save and leave</button>
+            </div>
             <figure class="qp-scene" id="qp-scene" hidden>
+              <img id="qp-scene-old" class="qp-scene-old" alt="" width="640" height="360" aria-hidden="true">
               <img id="qp-scene-img" alt="" width="640" height="360">
+              <span class="qp-scene-busy" id="qp-scene-busy" hidden>Painting...</span>
               <figcaption><span class="qp-scene-tag">Location</span> <span id="qp-scene-cap"></span></figcaption>
             </figure>
             <ol class="ak-log qp-log" id="qp-log" aria-live="polite"></ol>
@@ -160,13 +176,6 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
                 <button type="button" class="herald-clear" id="qp-again">New quest</button>
               </div>
             </div>
-            <div class="qp-foot">
-              <a class="herald-clear qp-watch" id="qp-watch" href="tavern.html" target="_blank" rel="noopener" hidden>Watch page</a>
-              <button type="button" class="herald-clear" id="qp-tavern-toggle">Tavern: off</button>
-              <button type="button" class="herald-clear" id="qp-pops">Pop-ups: on</button>
-              <button type="button" class="herald-clear" id="qp-copy-now">Copy the tale</button>
-              <button type="button" class="herald-clear" id="qp-leave">Save and leave</button>
-            </div>
           </div>
 
           <aside class="qp-hud" id="qp-hud" aria-label="Hero and quest status">
@@ -176,35 +185,42 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
               <div class="qp-meter"><span class="qp-meter-label">XP</span><span class="qp-bar qp-bar-xp"><span id="qp-xp-fill"></span></span><span id="qp-xp-text"></span></div>
               <div class="qp-gold"><span aria-hidden="true">&#9679;</span> <span id="qp-gold"></span></div>
             </section>
-            <details class="qp-panel" open>
-              <summary>Abilities</summary>
-              <ul class="qp-abilities" id="qp-abilities"></ul>
-              <button type="button" class="qp-rest" id="qp-rest">Short rest</button>
-            </details>
-            <details class="qp-panel" open>
-              <summary>Inventory <span class="qp-count" id="qp-inv-count"></span></summary>
-              <ul class="qp-slots" id="qp-inventory"></ul>
-              <p class="qp-sub">Nearby</p>
-              <ul class="qp-slots qp-slots-near" id="qp-nearby"></ul>
-              <div class="qp-item-detail" id="qp-item-detail" hidden></div>
-            </details>
-            <details class="qp-panel" open>
-              <summary>Where you are</summary>
-              <p class="qp-where" id="qp-where"></p>
-              <p class="qp-goal" id="qp-goal"></p>
-            </details>
-            <details class="qp-panel">
-              <summary>Journal</summary>
-              <ol class="qp-list" id="qp-done"></ol>
-            </details>
-            <details class="qp-panel">
-              <summary>People met</summary>
-              <ul class="qp-list" id="qp-people"></ul>
-            </details>
-            <details class="qp-panel">
-              <summary>Open threads</summary>
-              <ul class="qp-list" id="qp-threads"></ul>
-            </details>
+            <section class="qp-panel qp-tracker" aria-label="Quest tracker">
+              <p class="qp-track-label">Objective</p>
+              <p class="qp-track-goal" id="qp-goal"></p>
+              <p class="qp-track-where"><span aria-hidden="true">&#9906;</span> <span id="qp-where"></span></p>
+              <ul class="qp-track-done" id="qp-recent"></ul>
+            </section>
+            <div class="qp-hud-tabs" role="tablist" aria-label="Hero details">
+              <button type="button" role="tab" class="qp-hud-tab" data-pane="bag" aria-selected="true">Bag <span class="qp-count" id="qp-inv-count"></span></button>
+              <button type="button" role="tab" class="qp-hud-tab" data-pane="skills" aria-selected="false">Skills</button>
+              <button type="button" role="tab" class="qp-hud-tab" data-pane="people" aria-selected="false">People</button>
+              <button type="button" role="tab" class="qp-hud-tab" data-pane="log" aria-selected="false">Journal</button>
+            </div>
+            <div class="qp-hud-body">
+              <section class="qp-pane" data-pane="bag">
+                <ul class="qp-slots" id="qp-inventory"></ul>
+                <div class="qp-item-detail" id="qp-item-detail" hidden></div>
+                <p class="qp-sub">Nearby</p>
+                <ul class="qp-slots qp-slots-near" id="qp-nearby"></ul>
+                <p class="qp-sub">Gone</p>
+                <ul class="qp-list qp-given" id="qp-given"></ul>
+              </section>
+              <section class="qp-pane" data-pane="skills" hidden>
+                <ul class="qp-abilities" id="qp-abilities"></ul>
+                <button type="button" class="qp-rest" id="qp-rest">Short rest</button>
+              </section>
+              <section class="qp-pane" data-pane="people" hidden>
+                <p class="qp-sub">People met</p>
+                <ul class="qp-list" id="qp-people"></ul>
+                <p class="qp-sub">Open threads</p>
+                <ul class="qp-list" id="qp-threads"></ul>
+              </section>
+              <section class="qp-pane" data-pane="log" hidden>
+                <p class="qp-sub">The story so far</p>
+                <ol class="qp-list" id="qp-done"></ol>
+              </section>
+            </div>
           </aside>
           <div class="qp-pop" id="qp-pop" role="status" hidden></div>
         </div>
