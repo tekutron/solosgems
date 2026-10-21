@@ -819,7 +819,11 @@
       .then(function (d) { return d && d.image ? shrink(d.image) : null; })
       .then(function (src) {
         artBusy = false;
-        if (src) { g.art = { place: place, src: src }; save(); }
+        if (src) {
+          g.art = { place: place, src: src };
+          save();
+          if (g.party) partyPost(g, "art", { src: src }).then(function (x) { if (x.ok && x.d.artV) g.party.artV = x.d.artV; });
+        }
         if (g === game) renderScene();
         if (artNext) { var n = artNext; artNext = null; paintScene(n.g, n.scene); }
       })
@@ -961,6 +965,9 @@
     }
     showPane(hudPane);
     renderArtToggle();
+    renderParty();
+    renderGate();
+    if (game.party) partyPoll(50);
     document.body.classList.add("qp-playing");
     $("qp-account").hidden = true;
     fitPlay(true);
@@ -977,7 +984,7 @@
   // ---- Turns --------------------------------------------------------------
   function setBusy(on) {
     busy = on;
-    go.disabled = on;
+    go.disabled = on || (game && game.party ? !myTurn() : false);
     go.textContent = on ? "..." : "Act";
     Array.prototype.forEach.call(optsBox.querySelectorAll("button"), function (b) { b.disabled = on; });
     if (game) renderHud();
@@ -1015,7 +1022,8 @@
       name: game.name, cls: game.cls, level: game.level, hp: game.hp, max: game.max, gold: game.gold, items: game.items, nearby: game.nearby, given: game.given.slice(0, 6),
       abilities: abilities().map(function (a) { return a.name + " (" + usesLeft(a) + " left)"; }),
       turn: game.turn, journal: game.journal, history: game.history,
-      tavern: game.tavern && game.tavern.on && mode !== "journal" ? { id: game.id, key: game.tavern.key, title: game.questTitle, shown: shownAction || "" } : null,
+      party: game.party ? { code: game.party.code, pid: game.party.pid, key: game.party.key } : null,
+      tavern: !game.party && game.tavern && game.tavern.on && mode !== "journal" ? { id: game.id, key: game.tavern.key, title: game.questTitle, shown: shownAction || "" } : null,
     };
   }
   function updateJournal() {
@@ -1042,6 +1050,7 @@
   }
   function turn(mode, action, opts) {
     if (busy || !game || game.over) return;
+    if (game.party && mode === "act" && !myTurn()) return;
     opts = opts || {};
     var userEntry = null, effect = null, ability = null, heal = 0;
     var sent = action;
@@ -1132,13 +1141,30 @@
           paintScene(game, story);
           var up = checkLevelUp();
           if (up) { var lv = { role: "system", text: up }; game.entries.push(lv); addEntry(lv); }
-          var finished = mode === "fallen" || (game.length === "oneshot" && (d.end || game.turn >= ONESHOT_TURNS));
+          var finished = !game.party && (mode === "fallen" || (game.length === "oneshot" && (d.end || game.turn >= ONESHOT_TURNS)));
           if (finished) { game.over = true; game.outcome = game.hp <= 0 ? "fell" : "won"; }
           react(finished ? (game.outcome === "fell" ? "fell" : "won") : up ? "levelup" : mode === "knockout" ? "knockout" : d.gold >= 20 ? "rich" : band);
           save();
           setBusy(false);
           renderOpts();
           renderEnd();
+          if (game.party) {
+            // Party rules: nobody dies; a hero at 0 HP blacks out and gets back up.
+            if (game.hp <= 0) {
+              var lostGold = Math.floor(game.gold / 2);
+              game.gold -= lostGold;
+              game.hp = Math.max(1, Math.ceil(game.max / 3));
+              var ko = { role: "system", text: game.name + " blacks out, wakes up with " + game.hp + " HP and " + lostGold + " fewer gold, and pretends it was a tactical nap." };
+              game.entries.push(ko);
+              addEntry(ko);
+              save();
+            }
+            partyHeroSync();
+            renderGate();
+            if (mode === "start" || (mode === "act" && game.turn % JOURNAL_EVERY === 0)) updateJournal();
+            partyPoll(600);
+            return;
+          }
           if (!game.over && game.hp <= 0) return turn(game.length === "campaign" ? "knockout" : "fallen");
           if (!game.over && (mode === "start" || mode === "knockout" || (mode === "act" && game.turn % JOURNAL_EVERY === 0))) updateJournal();
         });
@@ -1163,6 +1189,7 @@
         game.opts = game.entries.length && mode !== "knockout" ? FALLBACK_OPTS : [];
         setBusy(false);
         renderOpts();
+        if (game.party) { renderGate(); partyPoll(300); }
         if (!game.entries.length || mode === "knockout") {
           var retry = el("button", "qp-opt", mode === "knockout" ? "Wake up" : "Try starting again");
           retry.type = "button";
@@ -1199,7 +1226,7 @@
       var li = el("li", "qp-save");
       var info = el("div", "qp-save-info");
       info.appendChild(el("strong", null, g.questTitle));
-      info.appendChild(el("span", null, g.name + " · level " + g.level + " " + g.cls + " · " +
+      info.appendChild(el("span", null, (g.party ? "Party " + g.party.code + " · " : "") + g.name + " · level " + g.level + " " + g.cls + " · " +
         (g.length === "campaign" ? "campaign, turn " + g.turn : "turn " + g.turn + " of " + ONESHOT_TURNS) + " · " + ago(g.updated)));
       li.appendChild(info);
       var cont = el("button", "ak-btn qp-save-go", "Continue");
@@ -1209,7 +1236,7 @@
         armed = null;
         save();
         renderAll();
-        if (!game.entries.length) turn("start");
+        if (!game.entries.length && !game.party) turn("start");
         else if (game.hp <= 0) turn(game.length === "campaign" ? "knockout" : "fallen");
       });
       var del = el("button", "herald-clear", "Delete");
@@ -1245,9 +1272,11 @@
       var avail = window.innerHeight - Math.max(play.getBoundingClientRect().top, headH) - 12;
       play.style.setProperty("--qp-h", Math.max(520, Math.round(avail)) + "px");
     } catch (e) {}
+    if (scroll) setTimeout(function () { fitPlay(false); }, 80);
   }
   window.addEventListener("resize", function () { fitPlay(false); });
   function showSetup() {
+    clearTimeout(partyTimer);
     document.body.classList.remove("qp-playing");
     $("qp-account").hidden = false;
     game = null;
@@ -1261,8 +1290,59 @@
   }
   Array.prototype.forEach.call(setup.querySelectorAll('input[name="qp-class"]'), function (r) { r.addEventListener("change", classNote); });
   ownIn.addEventListener("focus", function () { setup.querySelector('input[value="own"]').checked = true; });
+  function setupMode() { return setup.querySelector('input[name="qp-mode"]:checked').value; }
+  function modeChanged() {
+    var join = setupMode() === "join";
+    Array.prototype.forEach.call(setup.querySelectorAll(".qp-quests, .qp-lengths, .qp-styles, .qp-check"), function (f) { f.hidden = join; });
+    setup.querySelector(".qp-begin").textContent = join ? "Join the party" : setupMode() === "host" ? "Start the party quest" : "Begin the quest";
+    partyNote("");
+  }
+  function partyNote(text, bad) {
+    var n = $("qp-party-note");
+    n.hidden = !text;
+    n.textContent = text;
+    n.classList.toggle("is-error", !!bad);
+  }
+  Array.prototype.forEach.call(setup.querySelectorAll('input[name="qp-mode"]'), function (r) { r.addEventListener("change", modeChanged); });
+  $("qp-code").addEventListener("focus", function () { setup.querySelector('input[value="join"]').checked = true; modeChanged(); });
+  $("qp-code").addEventListener("input", function () { this.value = this.value.toUpperCase().replace(/[^A-Z2-9]/g, ""); });
+  function newHero(cls) {
+    var c = CLASSES[cls];
+    return {
+      id: "q" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), created: Date.now(), updated: Date.now(),
+      name: nameIn.value.trim() || randomName(), cls: cls, level: 1, xp: 0, hp: c.hp, max: c.hp, gold: 10,
+      items: c.items.slice(), nearby: [], given: [], pending: "", art: null, itemNotes: {}, uses: {}, lastRest: 0, turn: 0, history: [], entries: [], opts: [],
+      journal: { location: "", goal: "", done: [], people: [], threads: [], villain: "" }, over: false, outcome: "", endTitle: "",
+    };
+  }
+  function joinParty(cls) {
+    var code = $("qp-code").value.trim().toUpperCase();
+    if (code.length !== 6) { partyNote("Party codes are 6 letters and numbers.", true); $("qp-code").focus(); return; }
+    var g = newHero(cls);
+    partyNote("Knocking on the tavern door...");
+    fetch("/api/party/join", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code: code, hero: { name: g.name, cls: g.cls, level: 1, hp: g.hp, max: g.max } }) })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (x) {
+        if (!x.ok) { partyNote(x.d.error || "Couldn't join that party.", true); return; }
+        var r = x.d;
+        g.setting = r.setting;
+        g.questTitle = r.title;
+        g.length = r.length;
+        g.artStyle = r.style;
+        g.turn = r.turn;
+        g.party = { code: r.code, pid: r.pid, key: r.key, host: false, lastN: 0, artV: 0, players: r.players, turnPid: r.turnPid, started: r.started };
+        g.entries.push({ role: "system", text: "You joined " + (r.players[0] ? r.players[0].name + "'s" : "the") + " party. Party code " + r.code + "." });
+        game = g;
+        applyRoom(r);
+        save();
+        renderAll();
+      })
+      .catch(function () { partyNote("The tavern door is stuck. Try again in a moment.", true); });
+  }
   setup.addEventListener("submit", function (e) {
     e.preventDefault();
+    var mode = setupMode();
+    if (mode === "join") { joinParty(setup.querySelector('input[name="qp-class"]:checked').value); return; }
     var pick = setup.querySelector('input[name="qp-setting"]:checked');
     var setting = pick.value === "own" ? ownIn.value.trim() : pick.value;
     if (!setting) { ownIn.focus(); return; }
@@ -1276,10 +1356,191 @@
       items: c.items.slice(), nearby: [], given: [], pending: "", art: null, artStyle: setup.querySelector('input[name="qp-style"]:checked').value, itemNotes: {}, uses: {}, lastRest: 0, turn: 0, history: [], entries: [], opts: [],
       journal: { location: "", goal: "", done: [], people: [], threads: [], villain: "" }, over: false, outcome: "", endTitle: "",
     };
+    if (mode === "host") {
+      var hostGame = game;
+      game = null;
+      partyNote("Booking a table for the party...");
+      fetch("/api/party/create", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ setting: hostGame.setting, title: hostGame.questTitle, length: hostGame.length, style: hostGame.artStyle, hero: { name: hostGame.name, cls: hostGame.cls, level: 1, hp: hostGame.hp, max: hostGame.max } }) })
+        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (x) {
+          if (!x.ok) { partyNote(x.d.error || "Couldn't open a party room.", true); return; }
+          hostGame.party = { code: x.d.code, pid: x.d.pid, key: x.d.key, host: true, lastN: 0, artV: 0, players: [{ pid: x.d.pid, name: hostGame.name, cls: hostGame.cls, level: 1, hp: hostGame.hp, max: hostGame.max }], turnPid: x.d.pid, started: false };
+          hostGame.entries.push({ role: "system", text: "Party code " + x.d.code + ". Send it (or the invite link above) to your friends. They join on this page and take turns after you." });
+          game = hostGame;
+          save();
+          renderAll();
+          turn("start");
+        })
+        .catch(function () { partyNote("Couldn't reach the tavern. Try again in a moment.", true); });
+      return;
+    }
     if ($("qp-tavern").checked) game.tavern = { on: true, key: tavernKey() };
     save();
     renderAll();
     turn("start");
+  });
+
+  // ---- Party play ------------------------------------------------------------
+  // The room is the source of truth for the shared story and the turn order;
+  // each player's page owns their own hero. Other players' scenes arrive by
+  // polling every few seconds and are added to this player's log.
+  var partyTimer = 0;
+  function partyPost(g, op, body) {
+    return fetch("/api/party/" + g.party.code + "/" + op, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(Object.assign({ pid: g.party.pid, key: g.party.key }, body || {})) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, status: r.status, d: d }; }); });
+  }
+  function myTurn() {
+    var P = game && game.party;
+    if (!P) return true;
+    if (P.gone || game.over) return false;
+    if (!P.started) return false;
+    return P.turnPid === P.pid && (!P.busy || P.busy === P.pid);
+  }
+  function partyHeroSync() {
+    if (!game || !game.party) return;
+    partyPost(game, "hero", { hero: { name: game.name, cls: game.cls, level: game.level, hp: game.hp, max: game.max } }).catch(function () {});
+  }
+  function partyPoll(delay) {
+    clearTimeout(partyTimer);
+    if (!game || !game.party || game.party.gone) return;
+    var g = game;
+    partyTimer = setTimeout(function () {
+      if (g !== game || play.hidden) return;
+      partyPost(g, "state", { since: g.party.lastN || 0 }).then(function (x) {
+        if (g !== game) return;
+        if (x.status === 403 || x.status === 404) {
+          g.party.gone = true;
+          var e = { role: "system", text: "This party room has closed. Your hero and the story so far are still saved here." };
+          g.entries.push(e);
+          addEntry(e);
+          save();
+          renderGate();
+          return;
+        }
+        if (x.ok) applyRoom(x.d);
+        partyPoll(document.hidden ? 8000 : 2500);
+      }).catch(function () { partyPoll(5000); });
+    }, delay == null ? 2500 : delay);
+  }
+  // "hp -2; gain Rope" from someone else's turn, for their scene's change line.
+  function statusSummary(st, name) {
+    var bits = [];
+    st.split(/\s*;\s*/).forEach(function (p) {
+      var m;
+      if ((m = p.match(/^hp\s*([+-]\s*\d+)$/i))) bits.push(m[1].replace(/\s/g, "") + " HP");
+      else if ((m = p.match(/^gold\s*([+-]\s*\d+)$/i))) bits.push(m[1].replace(/\s/g, "") + " gold");
+      else if ((m = p.match(/^gain\s+(.+)$/i)) && !NONE.test(m[1])) bits.push("gained " + m[1]);
+      else if ((m = p.match(/^lose\s+(.+)$/i)) && !NONE.test(m[1])) bits.push("lost " + m[1]);
+    });
+    return bits.length ? name + ": " + bits.join(" \u00b7 ") : "";
+  }
+  function applyRoom(r) {
+    var P = game.party;
+    P.players = r.players || P.players;
+    P.turnPid = r.turnPid;
+    P.busy = r.busy;
+    P.started = r.started;
+    P.last = r.last;
+    if (r.journal && (r.journal.location || r.journal.goal || (r.journal.done && r.journal.done.length))) {
+      game.journal = Object.assign({ location: "", goal: "", done: [], people: [], threads: [], villain: "" }, r.journal);
+    }
+    if (typeof r.turn === "number") game.turn = r.turn;
+    var fresh = [];
+    (r.entries || []).forEach(function (e) {
+      if (e.n <= (P.lastN || 0)) return;
+      P.lastN = e.n;
+      if (e.pid === P.pid) return; // our own scenes are already on screen
+      if (e.a) {
+        var u = { role: "user", text: e.name + ": " + e.a, roll: e.r || 0, band: e.b || "", who: e.name };
+        game.entries.push(u);
+        addEntry(u);
+      }
+      var h = { role: "assistant", text: e.s, change: e.st ? statusSummary(e.st, e.name) : "" };
+      game.entries.push(h);
+      addEntry(h).li.classList.add("is-fresh");
+      fresh.push(e);
+    });
+    if (fresh.length) {
+      var lastE = fresh[fresh.length - 1];
+      if (lastE.b === "Disaster") { fx("fx-shake", 600); fx("fx-red", 900); banner("NATURAL 1", "is-bad"); }
+      else if (lastE.b === "Legendary") { fx("fx-gold", 1100); banner("NATURAL 20!", "is-good"); }
+    }
+    if (r.artV && r.artV !== P.artV) {
+      P.artV = r.artV;
+      partyPost(game, "artget", {}).then(function (x) {
+        if (x.ok && x.d.src && game && game.party === P) { game.art = { place: (game.journal && game.journal.location) || "", src: x.d.src }; save(); renderScene(); }
+      });
+    }
+    if (r.over && !game.over) {
+      game.over = true;
+      game.outcome = "won";
+      renderEnd();
+    }
+    var wasMine = P.wasMine;
+    P.wasMine = myTurn();
+    if (P.wasMine && !wasMine && fresh.length) { banner("YOUR TURN", "is-good"); game.opts = FALLBACK_OPTS; }
+    save();
+    renderHud();
+    renderParty();
+    renderGate();
+    renderOpts();
+  }
+  function renderParty() {
+    var box = $("qp-party");
+    var P = game && game.party;
+    box.hidden = !P;
+    $("qp-party-code").hidden = !P;
+    if (!P) return;
+    $("qp-party-code").textContent = "Party " + P.code + " \u00b7 copy invite";
+    box.innerHTML = "";
+    (P.players || []).forEach(function (p) {
+      var li = el("li", "qp-party-row" + (p.pid === P.turnPid ? " is-turn" : "") + (p.pid === P.pid ? " is-me" : ""));
+      li.appendChild(el("span", "qp-party-icon", CLASS_ICONS[p.cls] || ""));
+      li.appendChild(el("span", "qp-party-name", p.name + (p.pid === P.pid ? " (you)" : "")));
+      li.appendChild(el("span", "qp-party-meta", "L" + p.level + " \u00b7 " + p.hp + "/" + p.max));
+      var bar = el("span", "qp-party-bar");
+      var fill = el("span");
+      fill.style.width = Math.round((100 * p.hp) / Math.max(1, p.max)) + "%";
+      bar.appendChild(fill);
+      li.appendChild(bar);
+      box.appendChild(li);
+    });
+  }
+  function renderGate() {
+    var P = game && game.party;
+    var gate = $("qp-gate");
+    if (!P || game.over) {
+      gate.hidden = true;
+      q.disabled = false;
+      q.placeholder = "What do you do?";
+      return;
+    }
+    var mine = myTurn();
+    var who = (P.players || []).filter(function (p) { return p.pid === P.turnPid; })[0];
+    var text;
+    if (P.gone) text = "The party room has closed.";
+    else if (!P.started) text = P.host ? "Setting the scene..." : "Waiting for the host to start the quest...";
+    else if (mine) text = "Your turn! What does " + game.name + " do?";
+    else if (P.busy) text = (who ? who.name : "Someone") + " is taking their turn...";
+    else text = "Waiting for " + (who ? who.name : "the next hero") + " to act.";
+    gate.hidden = false;
+    gate.classList.toggle("is-mine", mine);
+    $("qp-gate-text").textContent = text;
+    $("qp-skip").hidden = !(P.started && !mine && !P.busy && !P.gone && P.last && Date.now() - P.last > 120000);
+    q.disabled = !mine || busy;
+    go.disabled = !mine || busy;
+    q.placeholder = mine ? "Your turn. What do you do?" : "Waiting for your turn...";
+    optsBox.hidden = !mine;
+  }
+  $("qp-skip").addEventListener("click", function () {
+    if (!game || !game.party) return;
+    partyPost(game, "skip", {}).then(function () { partyPoll(100); });
+  });
+  $("qp-party-code").addEventListener("click", function () {
+    if (!game || !game.party) return;
+    var btn = this, link = location.origin + "/?party=" + game.party.code;
+    var label = btn.textContent;
+    try { navigator.clipboard.writeText("Join my quest on Solos Gems! Party code " + game.party.code + ": " + link).then(function () { btn.textContent = "Invite copied"; setTimeout(function () { btn.textContent = label; }, 1800); }, function () {}); } catch (e) {}
   });
   function tavernKey() {
     var a = new Uint8Array(20);
@@ -1290,8 +1551,9 @@
     var on = !!(game && game.tavern && game.tavern.on);
     $("qp-tavern-toggle").textContent = on ? "Tavern: on" : "Tavern: off";
     $("qp-tavern-toggle").title = on ? "Others can watch this quest on the Tavern board" : "Let others watch this quest on the Tavern board";
+    $("qp-tavern-toggle").hidden = !!(game && game.party);
     var watch = $("qp-watch");
-    watch.hidden = !on;
+    watch.hidden = !on || !!(game && game.party);
     if (game) watch.href = "tavern.html?q=" + encodeURIComponent(game.id);
   }
   $("qp-tavern-toggle").addEventListener("click", function () {
@@ -1355,8 +1617,10 @@
   if (resume && !resume.over) {
     game = resume;
     renderAll();
-    if (!game.entries.length) turn("start");
-    else if (game.hp <= 0) turn(game.length === "campaign" ? "knockout" : "fallen");
+    if (!game.party) {
+      if (!game.entries.length) turn("start");
+      else if (game.hp <= 0) turn(game.length === "campaign" ? "knockout" : "fallen");
+    }
   } else showSetup();
   renderAccount();
   fetch("/api/account/me").then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
@@ -1364,5 +1628,18 @@
   }).catch(function () {});
   var lastTab = "quest";
   try { lastTab = localStorage.getItem("solosgems-herald-tab") === "chat" ? "chat" : "quest"; } catch (e) {}
+  var invite = (new URLSearchParams(location.search).get("party") || "").toUpperCase().replace(/[^A-Z2-9]/g, "");
+  if (invite.length === 6) {
+    lastTab = "quest";
+    if (game && game.party && game.party.code === invite) {
+      // Already in this party: carry on.
+    } else {
+      if (game) { save(); store.active = null; showSetup(); }
+      setup.querySelector('input[value="join"]').checked = true;
+      $("qp-code").value = invite;
+      modeChanged();
+      partyNote("You've been invited to party " + invite + ". Pick your hero, then join.");
+    }
+  }
   showTab(lastTab);
 })();

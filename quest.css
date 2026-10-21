@@ -314,3 +314,28 @@ ol.qp-list li::before { content: counter(done, decimal-leading-zero) "  "; font-
 .qp-toolbar { justify-content: flex-start; margin: 0 0 8px; gap: 6px; }
 .qp-toolbar .herald-clear { font-size: 0.7rem; padding: 3px 10px; }
 body.qp-playing .qp-toolbar { flex: none; margin-top: 0; }
+
+/* Party quests */
+.qp-modes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.qp-modes .qp-chip > span { border-radius: 8px; white-space: normal; height: 100%; box-sizing: border-box; }
+.qp-modes small { display: block; }
+.qp-join-chip input[type="text"] { display: block; width: 100%; box-sizing: border-box; margin-top: 4px; font: inherit; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.95rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 4px 8px; border-radius: 5px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); }
+.qp-party-note { margin: -4px 0 14px; font-size: 0.85rem; color: #9fe8ff; max-width: none; }
+.qp-party-note.is-error { color: #ff7b6b; }
+.qp-party { list-style: none; margin: 9px 0 0; padding: 8px 0 0; border-top: 1px dashed var(--holo-dim); display: grid; gap: 5px; }
+.qp-party-row { display: grid; grid-template-columns: 20px 1fr auto; grid-template-rows: auto 4px; gap: 1px 6px; align-items: center; font-size: 0.76rem; color: var(--ink-soft); padding: 2px 4px; border-radius: 4px; }
+.qp-party-row.is-turn { background: rgba(255, 215, 106, 0.1); box-shadow: inset 2px 0 0 var(--gold); color: var(--ink); }
+.qp-party-row.is-me .qp-party-name { color: #8fe3b0; }
+.qp-party-icon { grid-row: 1 / 3; font-size: 0.95rem; }
+.qp-party-name { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.qp-party-meta { font-family: var(--mono); font-size: 0.66rem; }
+.qp-party-bar { grid-column: 2 / 4; height: 4px; border-radius: 2px; background: rgba(255, 255, 255, 0.06); overflow: hidden; }
+.qp-party-bar span { display: block; height: 100%; background: #4fe08a; }
+.qp-gate { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 6px 0 8px; padding: 7px 12px; border: 1px dashed var(--holo-dim); border-radius: 6px; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--ink-soft); }
+.qp-gate.is-mine { border-style: solid; border-color: var(--gold); color: var(--gold); box-shadow: 0 0 14px rgba(255, 215, 106, 0.2); animation: qp-pulse 2s ease-in-out infinite; }
+.qp-gate .herald-clear { margin-left: auto; }
+.qp-party-code { font-family: var(--mono); letter-spacing: 0.06em; color: var(--gold); border-color: rgba(255, 215, 106, 0.5); }
+#qp-q:disabled { opacity: 0.6; cursor: not-allowed; }
+body.qp-playing .qp-main > .qp-gate { flex: none; }
+@media (max-width: 560px) { .qp-modes { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .qp-gate.is-mine { animation: none; } }

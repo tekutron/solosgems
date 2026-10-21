@@ -168,6 +168,17 @@ The homepage Herald has two tabs. **Quest** (default; `quest.js`,
   the action and the scene, and writes `tv:<id>` (last 40 scenes, 7-day TTL)
   and `tv:index`. Only the quest's own key can post; a report hides a quest
   at once. The page has no ads and is noindex (player-made content).
+- Party quests: `/api/party/{create,join}` and `/api/party/<CODE>/{state,hero,art,artget,skip,leave}`
+  in worker.js, backed by the `PartyRoom` Durable Object (binding `PARTY`,
+  migration tag v1 in wrangler.jsonc). One room per six-letter code, up to 4
+  heroes, turns in join order. The worker checks the turn ("begin"), uses the
+  room's shared history and journal for the prompt, and records the scene
+  itself when the stream ends ("finish"); "begin", "peek", "finish" and
+  "journal" are internal only and must never be routed publicly. Each page
+  keeps its own hero and polls "state" every 2.5 s for other players'
+  scenes. In parties nobody dies (0 HP blacks out locally), a quiet player
+  can be skipped after 2 minutes, and rooms delete themselves after a week.
+  Invite links are `/?party=CODE`.
 - Local testing without Cloudflare: download Node into a scratch folder and
   run worker.js with in-memory KV and a scripted AI (see the dev server used
   for the accounts work); never test accounts on the live site.

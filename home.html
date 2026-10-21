@@ -105,8 +105,15 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
           <ul id="qp-save-list"></ul>
         </div>
         <form id="qp-setup" class="qp-setup" autocomplete="off">
+          <fieldset class="qp-pick qp-modes">
+            <legend>Who's playing</legend>
+            <label class="qp-chip"><input type="radio" name="qp-mode" value="solo" checked><span>Solo <small>just you and the Herald</small></span></label>
+            <label class="qp-chip"><input type="radio" name="qp-mode" value="host"><span>Start a party <small>get a code for friends</small></span></label>
+            <label class="qp-chip qp-join-chip"><input type="radio" name="qp-mode" value="join"><span>Join a party <input type="text" id="qp-code" maxlength="6" placeholder="CODE" autocomplete="off" spellcheck="false" aria-label="Party code"></span></label>
+          </fieldset>
+          <p class="qp-party-note" id="qp-party-note" hidden></p>
           <p class="qp-intro">Pick a quest and a hero. You type what you do, a real d20 decides how it goes, and the Herald runs the world. Quests save in this browser, so you can come back later.</p>
-          <fieldset class="qp-pick">
+          <fieldset class="qp-pick qp-quests">
             <legend>The quest</legend>
             <label class="qp-card"><input type="radio" name="qp-setting" value="A heist in the Dwarven Bank, where the vault is guarded less by locks than by paperwork." data-title="The Dwarven Bank Heist" checked><span><strong>The Dwarven Bank Heist</strong>The vault is guarded less by locks than by paperwork.</span></label>
             <label class="qp-card"><input type="radio" name="qp-setting" value="An ordinary workday, except the office is a dungeon and the boss is a literal dragon." data-title="The Office Dungeon"><span><strong>The Office Dungeon</strong>A normal workday. The boss is a literal dragon.</span></label>
@@ -146,6 +153,7 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
               <span class="qp-turn" id="qp-turn"></span>
             </div>
             <div class="qp-foot qp-toolbar">
+              <button type="button" class="herald-clear qp-party-code" id="qp-party-code" hidden></button>
               <a class="herald-clear qp-watch" id="qp-watch" href="tavern.html" target="_blank" rel="noopener" hidden>Watch page</a>
               <button type="button" class="herald-clear" id="qp-tavern-toggle">Tavern: off</button>
               <button type="button" class="herald-clear" id="qp-art-toggle">Pictures: on</button>
@@ -160,6 +168,7 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
               <figcaption><span class="qp-scene-tag">Location</span> <span id="qp-scene-cap"></span></figcaption>
             </figure>
             <ol class="ak-log qp-log" id="qp-log" aria-live="polite"></ol>
+            <div class="qp-gate" id="qp-gate" hidden><span id="qp-gate-text"></span> <button type="button" class="herald-clear" id="qp-skip" hidden>Skip their turn</button></div>
             <p class="qp-armed" id="qp-armed" hidden></p>
             <div class="qp-opts" id="qp-opts"></div>
             <form id="qp-form" class="ak-form" autocomplete="off">
@@ -184,6 +193,7 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
               <div class="qp-meter"><span class="qp-meter-label">HP</span><span class="qp-bar qp-bar-hp"><span id="qp-hp-fill"></span></span><span id="qp-hp-text"></span></div>
               <div class="qp-meter"><span class="qp-meter-label">XP</span><span class="qp-bar qp-bar-xp"><span id="qp-xp-fill"></span></span><span id="qp-xp-text"></span></div>
               <div class="qp-gold"><span aria-hidden="true">&#9679;</span> <span id="qp-gold"></span></div>
+              <ul class="qp-party" id="qp-party" hidden></ul>
             </section>
             <section class="qp-panel qp-tracker" aria-label="Quest tracker">
               <p class="qp-track-label">Objective</p>

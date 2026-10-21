@@ -113,6 +113,10 @@ if (url.pathname.startsWith("/api/account/")) {
 return handleAccount(request, env, url.pathname.slice("/api/account/".length));
 }
 
+if (url.pathname.startsWith("/api/party/")) {
+return handleParty(request, env, url.pathname.slice("/api/party/".length));
+}
+
 if (url.pathname === "/api/tavern" || url.pathname.startsWith("/api/tavern/")) {
 return handleTavern(request, env, url.pathname.slice("/api/tavern".length).replace(/^\//, ""));
 }
@@ -1805,6 +1809,9 @@ const strList = (a, n, max) => (Array.isArray(a) ? a : []).map((x) => clean(x, m
 q = {
 mode: ["start", "act", "fallen", "knockout", "journal"].includes(b.mode) ? b.mode : "act",
 model: QUEST_TRY.includes(b.model) ? b.model : BIG_MODEL,
+party: b.party && typeof b.party === "object" && /^[A-Z2-9]{6}$/.test(b.party.code) && /^[a-z0-9]{6,20}$/.test(b.party.pid) && /^[a-f0-9]{32,64}$/.test(b.party.key)
+? { code: b.party.code, pid: b.party.pid, key: b.party.key }
+: null,
 tavern: b.tavern && typeof b.tavern === "object" && /^[a-z0-9]{6,40}$/.test(b.tavern.id) && /^[a-z0-9]{16,64}$/.test(b.tavern.key)
 ? { id: b.tavern.id, key: b.tavern.key, title: clean(b.tavern.title, 60), shown: clean(b.tavern.shown, 300) }
 : null,
@@ -1851,7 +1858,31 @@ if (!success) return json({ error: "The Herald needs a breather. Try again in a 
 const origin = new URL(request.url).origin;
 const { srd, cards, codex } = await questData(env, origin);
 
+// A party quest: the room (a Durable Object) holds the shared story, the
+// journal, the turn order and everyone's heroes. It checks it is this
+// player's turn and hands back the shared history, so every player's turn
+// builds on the same story.
+let room = null;
+if (q.party) {
+if (!env.PARTY) return json({ error: "Parties are not set up yet." }, 503);
+if (!["start", "act", "journal"].includes(q.mode)) return json({ error: "Bad request" }, 400);
+const r = await partyCall(env, q.party.code, q.mode === "journal" ? "peek" : "begin", { pid: q.party.pid, key: q.party.key, mode: q.mode });
+const d = await r.json();
+if (!r.ok) return json({ error: d.error || "The party room is closed." }, r.status);
+room = d;
+q.history = room.history || [];
+q.journal = Object.assign({ location: "", goal: "", done: [], people: [], threads: [], villain: "" }, room.journal || {});
+q.setting = room.setting;
+q.length = room.length;
+q.turn = (room.turn || 0) + (q.mode === "act" ? 1 : 0);
+q.tavern = null;
+}
+
 const hero = `The hero: ${q.name}, a level ${q.level} ${q.cls}. HP ${q.hp} of ${q.max}. Gold ${q.gold}. Items: ${q.items.join(", ") || "none"} (nothing else).` + (q.abilities.length ? ` Abilities: ${q.abilities.join("; ")}.` : "") + (q.nearby.length ? ` Lying nearby: ${q.nearby.join(", ")}.` : "") + (q.given.length ? ` No longer has: ${q.given.join(", ")}.` : "");
+
+const partyLine = room
+? `\nThis is a party quest: several players share one story and take turns. The party: ${room.players.map((p) => `${p.name}, a level ${p.level} ${p.cls} (HP ${p.hp} of ${p.max})`).join("; ")}. It is ${q.name}'s turn: narrate what ${q.name} does. The other heroes are right there: mention them and let them react a little, but never decide what they do or say. The status line changes only ${q.name}.`
+: "";
 
 if (q.mode === "journal") {
 const story = q.history.map((m) => (m.role === "user" ? "Player: " : "DM: ") + m.content.replace(/\n?\[\[[^\]]*\]\]\s*$/, "")).join("\n\n");
@@ -1873,6 +1904,7 @@ const journal = questParseJournal(String(text));
 // The villain's plan is drawn from the deck at the start and stays fixed;
 // the journal model only guesses at it.
 if (q.journal.villain) journal.villain = q.journal.villain;
+if (room) await partyCall(env, q.party.code, "journal", { pid: q.party.pid, key: q.party.key, journal });
 return json({ journal });
 }
 
@@ -1945,7 +1977,7 @@ const craft = q.mode === "act" || q.mode === "start" ? questCraft(codex, q.mode 
 
 const system =
 QUEST_SYSTEM +
-`\n\nThe quest: ${q.setting}\n${hero}` +
+`\n\nThe quest: ${q.setting}\n${hero}${partyLine}` +
 (questJournalText(q.journal) ? `\n\nThe journal so far:\n${questJournalText(q.journal)}` : "") +
 `\n\n${questPhase(q)}` +
 (notes.length ? `\n\nSecret DM notes (optional, never mention them):\n- ${notes.join("\n- ")}` : "") +
@@ -1966,6 +1998,27 @@ return json({ error: "The Herald dropped the dice. Try again in a moment." }, 50
 const villainNote = notes.find((n) => n.startsWith("The villain's secret plan"));
 // A quest on the Tavern board: keep a copy of the scene as it streams, then
 // moderate it and post it for watchers once it is done.
+if (room && ctx && stream && stream.tee) {
+const [mine, theirs] = stream.tee();
+stream = mine;
+ctx.waitUntil(
+sseText(theirs)
+.then((text) =>
+partyCall(env, q.party.code, "finish", {
+pid: q.party.pid,
+key: q.party.key,
+mode: q.mode,
+shown: q.action.replace(/^\([^)]*\)\s*/, ""),
+user,
+text,
+roll,
+band,
+villain: villainNote ? villainNote.replace(/^[^:]+:\s*/, "") : "",
+}),
+)
+.catch(() => {}),
+);
+}
 if (q.tavern && env.QUESTS && ctx && stream && stream.tee && q.mode !== "journal") {
 const [mine, theirs] = stream.tee();
 stream = mine;
@@ -2240,6 +2293,33 @@ return typeof r === "string" && /^\s*safe\b/i.test(r);
 return false;
 }
 }
+// Read a Workers AI event stream into plain text.
+async function sseText(stream) {
+const reader = stream.getReader();
+const decoder = new TextDecoder();
+let buf = "", text = "";
+for (;;) {
+const { done, value } = await reader.read();
+if (done) break;
+buf += decoder.decode(value, { stream: true });
+const lines = buf.split("\n");
+buf = lines.pop();
+for (const line of lines) {
+if (!line.startsWith("data:")) continue;
+const data = line.slice(5).trim();
+if (!data || data === "[DONE]") continue;
+try {
+const j = JSON.parse(data);
+const d = j.choices && j.choices[0] && j.choices[0].delta;
+text += d && typeof d.content === "string" ? d.content : j.response != null ? String(j.response) : "";
+} catch (err) {}
+}
+}
+return text;
+}
+function questStory(text) {
+return text.replace(/<\|eot_id\|>[\s\S]*$/, "").replace(/(^|\n)[ \t]*\[[\s\S]*$/, "").replace(/\s*\[+\s*(hp|gold|gain|lose|near|opt|end|title|xp)\b[\s\S]*$/i, "").trim();
+}
 async function tavernRecord(env, q, roll, band, stream) {
 // Read the SSE stream into plain text.
 const reader = stream.getReader();
@@ -2337,4 +2417,232 @@ const rec = raw ? JSON.parse(raw) : null;
 if (!rec || rec.hidden) return json({ error: "This quest isn't on the board." }, 404);
 const { keyHash, hidden, ...pub } = rec;
 return json(pub, 200, "public, max-age=4");
+}
+
+// ---- Party quests -----------------------------------------------------------
+// Friends share one quest: the host starts it and gets a six-letter code,
+// friends join with their own heroes, and everyone takes turns in join
+// order. Each party is a PartyRoom Durable Object (one per code), which
+// keeps the shared story, the journal, the roster, whose turn it is and the
+// newest scene picture. Scenes are recorded by the worker itself when a
+// turn's stream finishes ("finish" below), never posted by a browser, so
+// nobody can write fake scenes into a party. Rooms delete themselves after
+// a week without activity.
+const PARTY_MAX = 4;
+const PARTY_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+const PARTY_TURN_LOCK = 90000;
+const PARTY_IDLE_SKIP = 120000;
+function partyCall(env, code, op, body) {
+const stub = env.PARTY.get(env.PARTY.idFromName(code));
+return stub.fetch("https://party/" + op, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body || {}) });
+}
+function partyHero(h) {
+h = h && typeof h === "object" ? h : {};
+const s = (v, max) => (typeof v === "string" ? v.replace(/<\|[^|]*\|>/g, "").replace(/[\[\]]/g, "").slice(0, max).trim() : "");
+const n = (v, lo, hi) => Math.max(lo, Math.min(hi, Math.round(Number(v) || 0)));
+return { name: s(h.name, 40) || "A Hero", cls: QUEST_CLASSES.includes(h.cls) ? h.cls : "Fighter", level: n(h.level, 1, 20), hp: n(h.hp, 0, 200), max: n(h.max, 1, 200) };
+}
+async function handleParty(request, env, path) {
+const json = (body, status) =>
+new Response(JSON.stringify(body), { status: status || 200, headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" } });
+if (!env.PARTY) return json({ error: "Parties are not set up yet." }, 503);
+if (request.method !== "POST") return json({ error: "Method not allowed" }, 405);
+const url = new URL(request.url);
+const origin = request.headers.get("Origin");
+if (origin && origin !== url.origin) return json({ error: "Bad origin" }, 403);
+let b;
+try {
+b = await request.json();
+} catch (err) {
+return json({ error: "Bad request" }, 400);
+}
+const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+const limit = async (key) => {
+if (!env.ASK_LIMITER) return true;
+const { success } = await env.ASK_LIMITER.limit({ key });
+return success;
+};
+if (path === "create") {
+if (!(await limit("party:" + ip))) return json({ error: "Slow down a little." }, 429);
+const clean = (v, max) => (typeof v === "string" ? v.replace(/<\|[^|]*\|>/g, "").replace(/[\[\]]/g, "").slice(0, max).trim() : "");
+const setting = clean(b.setting, 200);
+if (!setting) return json({ error: "Pick a quest first." }, 400);
+for (let i = 0; i < 5; i++) {
+const rnd = crypto.getRandomValues(new Uint8Array(6));
+const code = [...rnd].map((x) => PARTY_ALPHABET[x % PARTY_ALPHABET.length]).join("");
+const r = await partyCall(env, code, "create", {
+setting,
+title: clean(b.title, 60) || "A Party Quest",
+length: b.length === "campaign" ? "campaign" : "oneshot",
+style: ["pixel", "lowpoly", "painted"].includes(b.style) ? b.style : "pixel",
+hero: partyHero(b.hero),
+});
+if (r.status === 409) continue;
+const d = await r.json();
+return json(Object.assign({ code }, d), r.status);
+}
+return json({ error: "Couldn't open a room. Try again." }, 503);
+}
+if (path === "join") {
+if (!(await limit("party:" + ip))) return json({ error: "Slow down a little." }, 429);
+const code = String(b.code || "").toUpperCase().replace(/[^A-Z2-9]/g, "");
+if (code.length !== 6) return json({ error: "Party codes are 6 letters and numbers." }, 400);
+const r = await partyCall(env, code, "join", { hero: partyHero(b.hero) });
+return json(Object.assign({ code }, await r.json()), r.status);
+}
+const m = path.match(/^([A-Z2-9]{6})\/(state|hero|art|artget|skip|leave)$/);
+if (!m) return json({ error: "Not found" }, 404);
+const body = { pid: String(b.pid || ""), key: String(b.key || ""), since: Number(b.since) || 0 };
+if (m[2] === "hero") body.hero = partyHero(b.hero);
+if (m[2] === "art") {
+const src = typeof b.src === "string" ? b.src : "";
+if (!/^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/.test(src) || src.length > 100000) return json({ error: "Bad picture" }, 400);
+body.src = src;
+}
+const r = await partyCall(env, m[1], m[2], body);
+return json(await r.json(), r.status);
+}
+
+export class PartyRoom {
+constructor(state, env) {
+this.state = state;
+this.env = env;
+}
+async fetch(request) {
+const op = new URL(request.url).pathname.slice(1);
+const b = await request.json().catch(() => ({}));
+const json = (body, status) => new Response(JSON.stringify(body), { status: status || 200, headers: { "Content-Type": "application/json" } });
+const store = this.state.storage;
+let room = await store.get("room");
+const now = Date.now();
+const touch = async () => {
+room.v = (room.v || 0) + 1;
+room.last = now;
+await store.put("room", room);
+await store.setAlarm(now + 7 * 86400000);
+};
+const pub = (since) => {
+const turnP = room.players.length ? room.players[room.turnIdx % room.players.length] : null;
+return {
+setting: room.setting, title: room.title, length: room.length, style: room.style, turn: room.turn, over: room.over, v: room.v, artV: room.artV || 0, last: room.last,
+journal: room.journal, turnPid: turnP ? turnP.pid : "", started: room.n > 0,
+busy: room.busy && now - room.busy.t < PARTY_TURN_LOCK ? room.busy.pid : "",
+players: room.players.map((p) => ({ pid: p.pid, name: p.name, cls: p.cls, level: p.level, hp: p.hp, max: p.max, seen: p.seen })),
+entries: since === null ? undefined : room.entries.filter((e) => e.n > since),
+};
+};
+const newPlayer = async (hero) => {
+const pid = randomHex(6), key = randomHex(24);
+room.players.push(Object.assign({ pid, keyHash: await sha256Hex(key), seen: now }, hero));
+return { pid, key };
+};
+
+if (op === "create") {
+if (room) return json({ error: "taken" }, 409);
+room = { setting: b.setting, title: b.title, length: b.length, style: b.style, created: now, players: [], turnIdx: 0, turn: 0, n: 0, busy: null, over: false, journal: {}, entries: [], history: [], v: 0, artV: 0 };
+const me = await newPlayer(b.hero);
+await touch();
+return json(me);
+}
+if (!room) return json({ error: "No party with that code. Check the letters?" }, 404);
+if (op === "join") {
+if (room.over) return json({ error: "That quest is already over." }, 409);
+if (room.players.length >= PARTY_MAX) return json({ error: "That party is full (4 heroes max)." }, 409);
+const me = await newPlayer(b.hero);
+await touch();
+return json(Object.assign(me, pub(-1)));
+}
+const p = room.players.find((x) => x.pid === b.pid);
+if (!p || p.keyHash !== (await sha256Hex(String(b.key || "")))) return json({ error: "You're not in this party." }, 403);
+const turnP = room.players[room.turnIdx % room.players.length];
+
+if (op === "state") {
+if (now - (p.seen || 0) > 30000) {
+p.seen = now;
+await store.put("room", room);
+}
+return json(pub(b.since));
+}
+p.seen = now;
+if (op === "begin" || op === "peek") {
+if (op === "begin") {
+if (room.over) return json({ error: "This quest is over." }, 409);
+if (room.busy && now - room.busy.t < PARTY_TURN_LOCK && room.busy.pid !== p.pid) return json({ error: "Someone is in the middle of a turn." }, 409);
+if (b.mode === "start" && (room.n > 0 || room.players[0].pid !== p.pid)) return json({ error: room.n > 0 ? "The quest has already started." : "Only the host can start the quest." }, 409);
+if (b.mode === "act" && (room.n === 0 || turnP.pid !== p.pid)) return json({ error: room.n === 0 ? "Wait for the host to start the quest." : "It's " + turnP.name + "'s turn." }, 409);
+room.busy = { pid: p.pid, t: now };
+await store.put("room", room);
+}
+return json({ history: room.history, journal: room.journal, turn: room.turn, setting: room.setting, length: room.length, players: room.players.map((x) => ({ name: x.name, cls: x.cls, level: x.level, hp: x.hp, max: x.max })) });
+}
+if (op === "finish") {
+const story = questStory(String(b.text || "")).slice(0, 2000);
+room.busy = null;
+if (!story) {
+await touch();
+return json({ ok: false });
+}
+const status = (String(b.text).match(/\[+([^\[\]]*)\]*\s*$/) || [])[1] || "";
+room.n += 1;
+room.entries.push({ n: room.n, pid: p.pid, name: p.name, a: b.mode === "act" ? String(b.shown || "").slice(0, 300) : "", s: story, st: status.slice(0, 300), r: Number(b.roll) || 0, b: String(b.band || ""), m: b.mode, t: now });
+room.entries = room.entries.slice(-40);
+room.history.push({ role: "user", content: String(b.user || "").slice(0, 1400) }, { role: "assistant", content: String(b.text).slice(0, 1400) });
+room.history = room.history.slice(-10);
+if (b.villain && !room.journal.villain) room.journal.villain = String(b.villain).slice(0, 200);
+if (b.mode === "act") {
+room.turn += 1;
+room.turnIdx = (room.turnIdx + 1) % room.players.length;
+}
+const ended = /\[\[\s*end\b/i.test(String(b.text)) && room.turn >= QUEST_ONESHOT_TURNS - 4;
+if (room.length === "oneshot" && (ended || room.turn >= QUEST_ONESHOT_TURNS)) room.over = true;
+await touch();
+return json({ ok: true });
+}
+if (op === "journal") {
+const villain = room.journal.villain;
+room.journal = Object.assign({}, b.journal || {}, { villain: villain || (b.journal && b.journal.villain) || "" });
+await touch();
+return json({ ok: true });
+}
+if (op === "hero") {
+Object.assign(p, b.hero || {});
+await touch();
+return json({ ok: true });
+}
+if (op === "art") {
+await store.put("art", b.src);
+room.artV = (room.artV || 0) + 1;
+await touch();
+return json({ ok: true, artV: room.artV });
+}
+if (op === "artget") {
+return json({ src: (await store.get("art")) || "", artV: room.artV || 0 });
+}
+if (op === "skip") {
+// Anyone can skip a player who has gone quiet, so one nap can't stall the party.
+const idle = now - Math.max(room.last || 0, (room.busy && room.busy.t) || 0);
+if (turnP.pid === p.pid || idle < PARTY_IDLE_SKIP) return json({ error: "Give them a moment." }, 409);
+room.turnIdx = (room.turnIdx + 1) % room.players.length;
+room.busy = null;
+await touch();
+return json({ ok: true });
+}
+if (op === "leave") {
+const i = room.players.indexOf(p);
+const wasTurn = turnP.pid === p.pid;
+room.players.splice(i, 1);
+if (!room.players.length) {
+await store.deleteAll();
+return json({ ok: true });
+}
+room.turnIdx = wasTurn ? i % room.players.length : room.players.findIndex((x) => x.pid === turnP.pid);
+if (room.busy && room.busy.pid === p.pid) room.busy = null;
+await touch();
+return json({ ok: true });
+}
+return json({ error: "Not found" }, 404);
+}
+async alarm() {
+await this.state.storage.deleteAll();
+}
 }

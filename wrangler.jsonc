@@ -38,6 +38,14 @@
 "ai": {
 "binding": "AI"
 },
+"durable_objects": {
+"bindings": [
+{ "name": "PARTY", "class_name": "PartyRoom" }
+]
+},
+"migrations": [
+{ "tag": "v1", "new_sqlite_classes": ["PartyRoom"] }
+],
 "ratelimits": [
 {
 "name": "ASK_LIMITER",
