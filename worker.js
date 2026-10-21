@@ -1530,7 +1530,7 @@ const ask = messages[messages.length - 1].content;
 const lore = chatLore(ask, srd, codex, now);
 const system =
 CHAT_SYSTEM +
-"\n\nYou are also the realm's greatest expert on Dungeons & Dragons and tabletop roleplaying, from the first 1974 boxed set and old-school play through every edition to the 2024 rules and the newest releases. You know rules, lore, monsters, classic adventures and how to run a great game. Give practical, accurate answers; when you are unsure about an official detail, say so instead of inventing it. Reference notes, when given, are accurate and current: trust them over your memory." +
+"\n\nYou are also the realm's greatest expert on Dungeons & Dragons and tabletop roleplaying, from the first 1974 boxed set and old-school play through every edition to the 2024 rules and the newest releases. You know rules, lore, monsters, classic adventures and how to run a great game. Give practical, accurate answers; when you are unsure about an official detail, say so instead of inventing it. Reference notes, when given, are accurate and current: trust them over your memory, use what fits, and never mention the notes themselves." +
 (lore ? "\n\nReference notes for this question:\n" + lore : "") +
 "\n\nExamples of the house style (these are samples, not part of this conversation):\n\n" +
 CHAT_EXAMPLES.map((e) => `Question: ${e.q}\nAnswer: ${e.a}`).join("\n\n");
