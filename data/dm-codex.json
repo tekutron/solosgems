@@ -1,0 +1,569 @@
+{
+ "_about": "The Herald's DM Codex: game-running techniques from every era of tabletop roleplaying (old-school dungeon crawls, classic adventure design, modern table craft, the 2024 rules and current releases), written in our own words by Solos Gems. Rules facts follow SRD 5.2 (CC BY 4.0).",
+ "tips": [
+  {
+   "era": "vintage",
+   "s": "explore",
+   "k": [
+    "dungeon",
+    "door",
+    "corridor",
+    "room"
+   ],
+   "x": "The dungeon is a living place, not a list of rooms. Things move between rooms, doors get spiked shut, and monsters hear the noise the hero makes."
+  },
+  {
+   "era": "vintage",
+   "s": "explore",
+   "k": [
+    "wait",
+    "rest",
+    "search",
+    "camp",
+    "noise"
+   ],
+   "x": "Old-school wandering monsters: every so often, especially when the hero is loud or slow, something arrives that was not in the plan. It wants something (food, shiny things, quiet) and is not always hostile."
+  },
+  {
+   "era": "vintage",
+   "s": "social",
+   "k": [
+    "talk",
+    "greet",
+    "approach",
+    "parley",
+    "hail"
+   ],
+   "x": "Reaction rolls: a creature's attitude is not fixed. A good roll or a good approach can turn a monster into a nervous ally, a bad one into an enemy. Let the dice and the player's manners decide."
+  },
+  {
+   "era": "vintage",
+   "s": "combat",
+   "k": [
+    "attack",
+    "fight",
+    "kill",
+    "strike",
+    "charge"
+   ],
+   "x": "Morale: most monsters do not fight to the death. When their leader falls or the fight turns, they flee, surrender, beg or bargain. That is often more interesting than a body count."
+  },
+  {
+   "era": "vintage",
+   "s": "explore",
+   "k": [
+    "look",
+    "inspect",
+    "examine",
+    "check",
+    "poke",
+    "search"
+   ],
+   "x": "Player skill over character sheet: reward the player who pokes the statue with a pole, checks the ceiling or asks what the floor is made of. Describe details that clever questions can unlock."
+  },
+  {
+   "era": "vintage",
+   "s": "explore",
+   "k": [
+    "room",
+    "enter",
+    "open"
+   ],
+   "x": "Empty rooms matter. A quiet room with an odd detail (a warm chair, fresh boot prints, a half-eaten meal) builds dread and tells a story without a fight."
+  },
+  {
+   "era": "vintage",
+   "s": "explore",
+   "k": [
+    "torch",
+    "light",
+    "dark",
+    "food",
+    "rope"
+   ],
+   "x": "Resources are pressure: torches burn down, food runs out, rope gets cut. Light, time and supplies make choices meaningful."
+  },
+  {
+   "era": "vintage",
+   "s": "any",
+   "k": [
+    "treasure",
+    "gold",
+    "loot",
+    "chest",
+    "coin"
+   ],
+   "x": "Treasure tells a story. A coin from a fallen empire, a crown sized for a much bigger head, a ledger that names the real owner: loot should raise a question as well as a smile."
+  },
+  {
+   "era": "vintage",
+   "s": "explore",
+   "k": [
+    "trap",
+    "floor",
+    "lever",
+    "pressure",
+    "plate"
+   ],
+   "x": "Traps are puzzles, not punishments. Telegraph them (scorch marks, a skeleton in a strange pose, a too-clean floor) so the player can outthink them."
+  },
+  {
+   "era": "vintage",
+   "s": "any",
+   "k": [
+    "rumor",
+    "gossip",
+    "listen",
+    "tavern",
+    "ask around"
+   ],
+   "x": "Rumor tables: townsfolk repeat gossip that is part true, part wrong and part wildly wrong. Let the hero hear one when they listen around."
+  },
+  {
+   "era": "vintage",
+   "s": "explore",
+   "k": [
+    "travel",
+    "road",
+    "forest",
+    "wilderness",
+    "journey",
+    "march"
+   ],
+   "x": "Hex-crawl wilderness: travel is a scene. Weather turns, landmarks are strange, and every few miles the land offers a ruin, a lair, a camp or a crossroads."
+  },
+  {
+   "era": "vintage",
+   "s": "social",
+   "k": [
+    "hire",
+    "henchman",
+    "servant",
+    "porter",
+    "mercenary"
+   ],
+   "x": "Hirelings and henchfolk have opinions, prices and limits. A torchbearer who is paid too little will demand a raise at the worst moment."
+  },
+  {
+   "era": "vintage",
+   "s": "any",
+   "k": [
+    "temple",
+    "idol",
+    "ruin",
+    "sorcerer"
+   ],
+   "x": "Sword-and-sorcery tone from the old pulp tales: ancient cities, decadent sorcerers, forbidden idols, heroes motivated by gold and glory as much as virtue."
+  },
+  {
+   "era": "vintage",
+   "s": "explore",
+   "k": [
+    "down",
+    "deeper",
+    "stairs",
+    "descend",
+    "below"
+   ],
+   "x": "The mythic underworld: deeper is stranger. The further down the hero goes, the less the rules of the surface apply, and the more the place itself feels awake."
+  },
+  {
+   "era": "vintage",
+   "s": "any",
+   "k": [
+    "pick",
+    "lock",
+    "listen",
+    "search"
+   ],
+   "x": "Ten-minute turns: careful work (searching, picking locks, listening at doors) takes time, and time lets the dungeon react."
+  },
+  {
+   "era": "vintage",
+   "s": "combat",
+   "k": [
+    "goblin",
+    "kobold",
+    "orc",
+    "ambush"
+   ],
+   "x": "Monsters fight smart in their own home: kobolds use tunnels and traps, goblins attack from cover, intelligent foes retreat to better ground."
+  },
+  {
+   "era": "classic",
+   "s": "mystery",
+   "k": [
+    "clue",
+    "mystery",
+    "investigate",
+    "who",
+    "why",
+    "find out"
+   ],
+   "x": "The three-clue principle: for every conclusion the hero must reach, leave at least three clues in different places. Players will miss one, ignore another and misread the third."
+  },
+  {
+   "era": "classic",
+   "s": "structure",
+   "k": [],
+   "x": "Five-room adventure shape: an entrance with a guardian, a puzzle or roleplay challenge, a trick or setback, the big climax, then a reward with a twist."
+  },
+  {
+   "era": "classic",
+   "s": "social",
+   "k": [
+    "talk",
+    "ask",
+    "question",
+    "npc"
+   ],
+   "x": "Every important character has a want, a fear and a secret. The secret is what makes them worth talking to twice."
+  },
+  {
+   "era": "classic",
+   "s": "structure",
+   "k": [
+    "villain",
+    "boss",
+    "enemy",
+    "escape"
+   ],
+   "x": "A recurring villain is worth ten one-off monsters. Let the villain escape once, leave a mocking note, and return with a grudge."
+  },
+  {
+   "era": "classic",
+   "s": "structure",
+   "k": [
+    "guild",
+    "faction",
+    "gang",
+    "council",
+    "cult"
+   ],
+   "x": "Factions: two or three groups want the same thing for different reasons. Whatever the hero does helps one and annoys another."
+  },
+  {
+   "era": "classic",
+   "s": "any",
+   "k": [],
+   "x": "Box text is short. Describe a scene in two or three vivid details and stop. Let the player's questions fill in the rest."
+  },
+  {
+   "era": "classic",
+   "s": "structure",
+   "k": [],
+   "x": "Sandbox, not railroad: offer hooks, let the player choose, and make the world keep moving on the paths they did not take."
+  },
+  {
+   "era": "classic",
+   "s": "social",
+   "k": [
+    "lie",
+    "lying",
+    "trust",
+    "suspicious",
+    "persuade",
+    "deceive"
+   ],
+   "x": "Intrigue: an NPC can lie, half-lie or tell the truth badly. Give the hero a way to notice (a nervous tic, a detail that does not fit)."
+  },
+  {
+   "era": "classic",
+   "s": "combat",
+   "k": [
+    "attack",
+    "fight",
+    "battle",
+    "combat"
+   ],
+   "x": "Make fights about more than hit points: a collapsing bridge, a hostage, a ticking ritual, a prize to grab. Give the hero a reason to do something other than swing."
+  },
+  {
+   "era": "classic",
+   "s": "combat",
+   "k": [
+    "swing",
+    "jump",
+    "push",
+    "climb",
+    "kick"
+   ],
+   "x": "Use the terrain: chandeliers to swing on, barrels to topple, ledges to fall from. Reward the hero for using the room."
+  },
+  {
+   "era": "classic",
+   "s": "structure",
+   "k": [
+    "escape",
+    "chase",
+    "convince",
+    "race"
+   ],
+   "x": "Skill challenges: a big task (escaping a burning tower, winning over a council) is a series of rolls where each success or failure changes the situation."
+  },
+  {
+   "era": "classic",
+   "s": "structure",
+   "k": [],
+   "x": "Plant hooks early and pay them off later. A detail mentioned in passing on the first scene should matter by the climax."
+  },
+  {
+   "era": "classic",
+   "s": "explore",
+   "k": [
+    "dungeon",
+    "lair",
+    "cave",
+    "tunnel"
+   ],
+   "x": "Dungeons have an ecology: who cleans it, what the monsters eat, where the water comes from, and who built it before the current tenants."
+  },
+  {
+   "era": "modern",
+   "s": "any",
+   "k": [],
+   "x": "Fail forward: a failed roll never stops the story. The hero fails but learns something, or succeeds at a cost, or the situation gets worse in an interesting way."
+  },
+  {
+   "era": "modern",
+   "s": "any",
+   "k": [],
+   "x": "Yes, and / yes, but: accept the player's idea and build on it. If it cannot fully work, say yes with a complication instead of a flat no."
+  },
+  {
+   "era": "modern",
+   "s": "any",
+   "k": [],
+   "x": "Show, don't tell: use one sight, one sound and one smell to make a place real. Skip lists of furniture."
+  },
+  {
+   "era": "modern",
+   "s": "structure",
+   "k": [],
+   "x": "A strong start: open every scene or chapter in motion, close to the action, with a problem already happening."
+  },
+  {
+   "era": "modern",
+   "s": "mystery",
+   "k": [],
+   "x": "Secrets and clues: prepare a handful of truths about the world and reveal them however the hero stumbles near them, not only where they were planned."
+  },
+  {
+   "era": "modern",
+   "s": "structure",
+   "k": [],
+   "x": "Fronts and clocks: the villain's plan advances in visible steps. When the hero ignores it, the next step happens, and the world shows it."
+  },
+  {
+   "era": "modern",
+   "s": "any",
+   "k": [],
+   "x": "The three pillars: mix combat, exploration and social scenes. If the last scenes were fights, offer a conversation or a mystery next."
+  },
+  {
+   "era": "modern",
+   "s": "any",
+   "k": [
+    "flip",
+    "stylish",
+    "epic",
+    "cool",
+    "dramatic"
+   ],
+   "x": "Rule of cool: when a player tries something stylish and fun, lean toward letting it work, as long as the dice and the world stay fair."
+  },
+  {
+   "era": "modern",
+   "s": "any",
+   "k": [],
+   "x": "Telegraph danger: before something deadly, show signs (bones, warnings, a terrified NPC) so the player chooses the risk."
+  },
+  {
+   "era": "modern",
+   "s": "social",
+   "k": [
+    "monster",
+    "creature",
+    "beast",
+    "dragon",
+    "ogre",
+    "troll"
+   ],
+   "x": "Monsters with motives: the ogre under the bridge is lonely, the dragon is worried about its eggs, the cultist joined for the snacks. Motives make enemies talkable."
+  },
+  {
+   "era": "modern",
+   "s": "any",
+   "k": [],
+   "x": "Ask the player questions and use the answers: what does your hero fear here, who taught you that trick, what do you smell? It makes the world theirs."
+  },
+  {
+   "era": "modern",
+   "s": "any",
+   "k": [],
+   "x": "End scenes on a hook: a question, a door opening, a voice behind them. Never end on a dead stop."
+  },
+  {
+   "era": "modern",
+   "s": "social",
+   "k": [
+    "help",
+    "thank",
+    "insult",
+    "promise",
+    "owe"
+   ],
+   "x": "Let NPCs remember. Kindness, insults, debts and broken promises come back."
+  },
+  {
+   "era": "modern",
+   "s": "any",
+   "k": [],
+   "x": "Spotlight: the hero is the star. Allies help, but the important choices and the winning move belong to the player."
+  },
+  {
+   "era": "modern",
+   "s": "any",
+   "k": [],
+   "x": "Safety and tone: keep the content within what everyone at the table enjoys. For this game that means PG-13, slapstick over gore."
+  },
+  {
+   "era": "modern",
+   "s": "any",
+   "k": [
+    "burn",
+    "steal",
+    "rob",
+    "save",
+    "destroy"
+   ],
+   "x": "Consequences ripple. A burned bridge stays burned, a robbed merchant raises prices, a saved village throws a party."
+  },
+  {
+   "era": "modern",
+   "s": "combat",
+   "k": [
+    "attack",
+    "fight",
+    "battle"
+   ],
+   "x": "Fights should change every round: a new threat arrives, the floor gives way, the enemy changes tactics or tries to talk."
+  },
+  {
+   "era": "modern",
+   "s": "explore",
+   "k": [
+    "puzzle",
+    "riddle",
+    "lever",
+    "mechanism",
+    "statue",
+    "door"
+   ],
+   "x": "Puzzles with several answers: describe the parts clearly, then accept any clever solution that makes sense, even one you did not plan."
+  },
+  {
+   "era": "new",
+   "s": "combat",
+   "k": [
+    "sword",
+    "axe",
+    "hammer",
+    "mace",
+    "dagger",
+    "spear",
+    "bow",
+    "weapon"
+   ],
+   "x": "2024 rules: weapons have Mastery properties (Cleave, Graze, Nick, Push, Sap, Slow, Topple, Vex). A Topple hit can knock a foe prone; a Push shoves it 10 feet. Use them for flavor in fights."
+  },
+  {
+   "era": "new",
+   "s": "any",
+   "k": [
+    "tired",
+    "exhausted",
+    "march",
+    "sleep",
+    "cold",
+    "hunger"
+   ],
+   "x": "2024 rules: Exhaustion stacks; each level is -2 to every d20 test and -5 feet of speed, and level 6 is death. Good for long marches and no sleep."
+  },
+  {
+   "era": "new",
+   "s": "social",
+   "k": [
+    "persuade",
+    "intimidate",
+    "deceive",
+    "convince",
+    "charm",
+    "bribe"
+   ],
+   "x": "2024 rules: the Influence action covers persuading, deceiving or intimidating a creature; its attitude (friendly, indifferent, hostile) sets how hard it is."
+  },
+  {
+   "era": "new",
+   "s": "explore",
+   "k": [
+    "search",
+    "study",
+    "recall",
+    "analyze",
+    "read"
+   ],
+   "x": "2024 rules: the Search and Study actions split noticing things (Wisdom) from recalling or analyzing them (Intelligence)."
+  },
+  {
+   "era": "new",
+   "s": "any",
+   "k": [],
+   "x": "2024 rules: Heroic Inspiration lets a hero reroll one die. It suits a moment of great roleplay or a natural 20."
+  },
+  {
+   "era": "new",
+   "s": "any",
+   "k": [],
+   "x": "2024 rules: characters choose a species (not a race) and a background that grants an origin feat, such as Alert, Lucky or Tough."
+  },
+  {
+   "era": "new",
+   "s": "structure",
+   "k": [
+    "home",
+    "base",
+    "castle",
+    "tower",
+    "keep",
+    "headquarters"
+   ],
+   "x": "The 2024 Dungeon Master's Guide adds Bastions: a home base the hero can build and staff, which makes a great campaign reward."
+  },
+  {
+   "era": "new",
+   "s": "any",
+   "k": [
+    "horror",
+    "ghost",
+    "vampire",
+    "fog",
+    "curse",
+    "haunted"
+   ],
+   "x": "Horror flavor from Ravenloft: The Horrors Within (2026): dread, fog that will not let you leave, and dark gifts that grant power with a curse attached."
+  },
+  {
+   "era": "new",
+   "s": "any",
+   "k": [
+    "magic",
+    "wand",
+    "spell",
+    "artifact",
+    "enchant"
+   ],
+   "x": "High-magic flavor from Arcana Unleashed (2026): magic items that grow in power with the hero, and spellcraft as a theme."
+  }
+ ]
+}

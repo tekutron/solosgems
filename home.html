@@ -77,6 +77,29 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
       </div>
 
       <div id="qp" class="qp" role="tabpanel" aria-labelledby="tab-quest">
+        <div class="qp-account" id="qp-account">
+          <p class="qp-account-line"><span id="qp-account-text">Quests save in this browser. Sign in to keep them on any device.</span>
+            <button type="button" class="herald-clear" id="qp-account-btn">Sign in</button>
+            <button type="button" class="herald-clear" id="qp-del-btn" hidden>Delete account</button>
+            <a class="qp-tavern-link" href="tavern.html">Watch live quests</a></p>
+          <form id="qp-auth" class="qp-auth" hidden>
+            <label>Username <input type="text" id="qp-user" name="username" autocomplete="username" maxlength="20" required pattern="[A-Za-z0-9_\-]{3,20}"></label>
+            <label>Password <input type="password" id="qp-pass" name="password" autocomplete="current-password" minlength="8" maxlength="128" required></label>
+            <div class="qp-auth-actions">
+              <button type="submit" class="ak-btn" id="qp-login">Sign in</button>
+              <button type="button" class="herald-clear" id="qp-signup">Create account</button>
+            </div>
+            <p class="qp-auth-note" id="qp-auth-note">No email needed. There is no password reset, so pick one you'll remember.</p>
+          </form>
+          <form id="qp-del" class="qp-auth" hidden>
+            <label>Password, to delete your account and its saved quests <input type="password" id="qp-del-pass" autocomplete="current-password" maxlength="128" required></label>
+            <div class="qp-auth-actions">
+              <button type="submit" class="ak-btn">Delete for good</button>
+              <button type="button" class="herald-clear" id="qp-del-cancel">Keep it</button>
+            </div>
+            <p class="qp-auth-note" id="qp-del-note">Quests stay in this browser; the copies on our server are erased.</p>
+          </form>
+        </div>
         <div id="qp-saves" class="qp-saves" hidden>
           <h3 class="qp-label">Continue a quest</h3>
           <ul id="qp-save-list"></ul>
@@ -106,6 +129,7 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
             <label class="qp-chip"><input type="radio" name="qp-length" value="oneshot" checked><span>One-shot <small>20 turns, one ending</small></span></label>
             <label class="qp-chip"><input type="radio" name="qp-length" value="campaign"><span>Campaign <small>no ending, chapter by chapter</small></span></label>
           </fieldset>
+          <label class="qp-check"><input type="checkbox" id="qp-tavern"><span>Show this quest on the <a href="tavern.html" target="_blank" rel="noopener">Tavern board</a> so others can watch. Your hero name and the story are public; your account is not.</span></label>
           <button type="submit" class="ak-btn qp-begin">Begin the quest</button>
         </form>
 
@@ -137,6 +161,8 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
               </div>
             </div>
             <div class="qp-foot">
+              <a class="herald-clear qp-watch" id="qp-watch" href="tavern.html" target="_blank" rel="noopener" hidden>Watch page</a>
+              <button type="button" class="herald-clear" id="qp-tavern-toggle">Tavern: off</button>
               <button type="button" class="herald-clear" id="qp-pops">Pop-ups: on</button>
               <button type="button" class="herald-clear" id="qp-copy-now">Copy the tale</button>
               <button type="button" class="herald-clear" id="qp-leave">Save and leave</button>
@@ -195,7 +221,7 @@ if (location.hash && location.hash !== "#herald") location.replace("/database" +
           <button type="submit" class="ak-btn" id="ak-go">Ask</button>
         </form>
       </div>
-      <p class="herald-note">Built with Llama. The Herald can be wrong, so double-check anything important, and please don't share personal details. Quests use material from the <a href="https://dnd.wizards.com/resources/systems-reference-document" rel="noopener">SRD 5.1</a> by Wizards of the Coast, licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC BY 4.0</a>. <a href="privacy.html">Privacy</a></p>
+      <p class="herald-note">Built with Llama. The Herald can be wrong, so double-check anything important, and please don't share personal details. Quests use material from the <a href="https://www.dndbeyond.com/srd" rel="noopener">SRD 5.2 and 5.1</a> by Wizards of the Coast, licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC BY 4.0</a>. <a href="privacy.html">Privacy</a></p>
     </div>
     <p class="herald-elsewhere">Looking for the AI tools database? It moved to <a href="/database">the Database</a>.</p>
   </section>

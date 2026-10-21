@@ -73,7 +73,8 @@
   var play = $("qp-play"), log = $("qp-log"), form = $("qp-form"), q = $("qp-q"), go = $("qp-go");
   var optsBox = $("qp-opts"), endBox = $("qp-end"), nameIn = $("qp-name"), ownIn = $("qp-own"), herald = $("herald");
 
-  var store = { active: null, games: {} };
+  var store = { active: null, games: {}, gone: {} };
+  var account = null; // signed-in username, when the player has an account
   var game = null;
   var busy = false;
   var armed = null; // ability id armed for the next action
@@ -104,6 +105,7 @@
     var ids = Object.keys(store.games).sort(function (a, b) { return store.games[b].updated - store.games[a].updated; });
     ids.slice(MAX_SAVES).forEach(function (id) { delete store.games[id]; });
     // If the browser's storage is full, the paintings go first, never the story.
+    if (account) schedulePush();
     for (var k = ids.length; k >= 0; k--) {
       try { localStorage.setItem(STORE, JSON.stringify(store)); return; } catch (e) {}
       var drop = ids[k] && store.games[ids[k]];
@@ -112,9 +114,113 @@
   }
   function removeGame(id) {
     delete store.games[id];
+    store.gone = store.gone || {};
+    store.gone[id] = Date.now();
     if (store.active === id) store.active = null;
     try { localStorage.setItem(STORE, JSON.stringify(store)); } catch (e) {}
+    if (account) schedulePush();
   }
+
+  // ---- Accounts: the same saves, kept on the server too ------------------------
+  // Signed-in players get their quests on any device. Each save is pushed a
+  // couple of seconds after it changes; signing in merges the two lists,
+  // keeping the newer copy of each quest and honoring deletions.
+  var pushTimer = 0;
+  function schedulePush() {
+    clearTimeout(pushTimer);
+    pushTimer = setTimeout(pushSaves, 2500);
+  }
+  function pushSaves() {
+    if (!account) return;
+    fetch("/api/account/saves", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ games: store.games, gone: store.gone || {} }) })
+      .then(function (r) { if (r.status === 401) signedOut(); })
+      .catch(function () {});
+  }
+  function pullSaves() {
+    return fetch("/api/account/saves").then(function (r) { return r.ok ? r.json() : null; }).then(function (remote) {
+      if (!remote) return;
+      store.gone = store.gone || {};
+      Object.keys(remote.gone || {}).forEach(function (id) { store.gone[id] = Math.max(store.gone[id] || 0, remote.gone[id]); });
+      Object.keys(remote.games || {}).forEach(function (id) {
+        var r = remote.games[id], mine = store.games[id];
+        if (!r || store.gone[id]) return;
+        if (!mine || (r.updated || 0) > (mine.updated || 0)) {
+          if (game && game.id === id) return; // never swap the quest being played
+          store.games[id] = r;
+        }
+      });
+      Object.keys(store.gone).forEach(function (id) { if (!(game && game.id === id)) delete store.games[id]; });
+      try { localStorage.setItem(STORE, JSON.stringify(store)); } catch (e) {}
+      if (!game) renderSaves();
+      pushSaves();
+    }).catch(function () {});
+  }
+  function renderAccount() {
+    $("qp-account-text").textContent = account
+      ? "Signed in as " + account + ". Your quests follow you to any device."
+      : "Quests save in this browser. Sign in to keep them on any device.";
+    $("qp-account-btn").textContent = account ? "Sign out" : "Sign in";
+    $("qp-del-btn").hidden = !account;
+    if (account) $("qp-auth").hidden = true;
+    else $("qp-del").hidden = true;
+  }
+  $("qp-del-btn").addEventListener("click", function () { $("qp-del").hidden = false; $("qp-del-pass").focus(); });
+  $("qp-del-cancel").addEventListener("click", function () { $("qp-del").hidden = true; $("qp-del-pass").value = ""; });
+  $("qp-del").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var note = $("qp-del-note");
+    fetch("/api/account/delete", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: $("qp-del-pass").value }) })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (x) {
+        $("qp-del-pass").value = "";
+        if (!x.ok) { note.textContent = x.d.error || "That didn't work."; note.classList.add("is-error"); return; }
+        note.classList.remove("is-error");
+        signedOut();
+        $("qp-account-text").textContent = "Account deleted. Your quests are still saved in this browser.";
+      })
+      .catch(function () { note.textContent = "Couldn't reach the server. Try again."; note.classList.add("is-error"); });
+  });
+  function signedOut() {
+    account = null;
+    renderAccount();
+  }
+  function authNote(text, bad) {
+    var n = $("qp-auth-note");
+    n.textContent = text;
+    n.classList.toggle("is-error", !!bad);
+  }
+  function auth(kind) {
+    var name = $("qp-user").value.trim(), pass = $("qp-pass").value;
+    if (!/^[A-Za-z0-9_-]{3,20}$/.test(name)) { authNote("Usernames are 3 to 20 letters, numbers, - or _.", true); return; }
+    if (pass.length < 8) { authNote("Passwords need at least 8 characters.", true); return; }
+    authNote(kind === "signup" ? "Carving your name into the guild ledger..." : "Checking the guild ledger...");
+    fetch("/api/account/" + kind, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ username: name, password: pass }) })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (x) {
+        if (!x.ok || !x.d.user) { authNote(x.d.error || "That didn't work. Try again.", true); return; }
+        account = x.d.user;
+        $("qp-pass").value = "";
+        authNote("No email needed. There is no password reset, so pick one you'll remember.");
+        renderAccount();
+        pullSaves();
+      })
+      .catch(function () { authNote("The guild ledger is out of reach. Try again in a moment.", true); });
+  }
+  $("qp-account-btn").addEventListener("click", function () {
+    if (account) {
+      fetch("/api/account/logout", { method: "POST" }).catch(function () {});
+      signedOut();
+      return;
+    }
+    var f = $("qp-auth");
+    f.hidden = !f.hidden;
+    if (!f.hidden) $("qp-user").focus();
+  });
+  $("qp-auth").addEventListener("submit", function (e) { e.preventDefault(); auth("login"); });
+  $("qp-signup").addEventListener("click", function () {
+    $("qp-pass").setAttribute("autocomplete", "new-password");
+    auth("signup");
+  });
 
   // ---- Tabs ---------------------------------------------------------------
   var tabs = { quest: $("tab-quest"), chat: $("tab-chat") };
@@ -651,6 +757,7 @@
     renderArmed();
     renderOpts();
     renderEnd();
+    renderTavern();
     loadSrdItems();
     if (!game.art && game.journal && game.journal.location) paintScene(game);
     // On narrow screens the HUD sits above the story, so start it folded.
@@ -704,12 +811,13 @@
     }
     return pump();
   }
-  function payload(mode, action, effect) {
+  function payload(mode, action, effect, shownAction) {
     return {
       mode: mode, length: game.length, action: action || "", effect: effect || null, setting: game.setting,
       name: game.name, cls: game.cls, level: game.level, hp: game.hp, max: game.max, gold: game.gold, items: game.items, nearby: game.nearby,
       abilities: abilities().map(function (a) { return a.name + " (" + usesLeft(a) + " left)"; }),
       turn: game.turn, journal: game.journal, history: game.history,
+      tavern: game.tavern && game.tavern.on && mode !== "journal" ? { id: game.id, key: game.tavern.key, title: game.questTitle, shown: shownAction || "" } : null,
     };
   }
   function updateJournal() {
@@ -759,7 +867,7 @@
     renderOpts();
     setBusy(true);
     var view = addEntry({ role: "assistant", text: "..." });
-    fetch("/api/quest", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload(mode, sent, effect)) })
+    fetch("/api/quest", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload(mode, sent, effect, action)) })
       .then(function (res) {
         if (!res.ok || !res.body) {
           return res.json().catch(function () { return {}; }).then(function (d) {
@@ -946,9 +1054,30 @@
       items: c.items.slice(), nearby: [], pending: "", art: null, itemNotes: {}, uses: {}, lastRest: 0, turn: 0, history: [], entries: [], opts: [],
       journal: { location: "", goal: "", done: [], people: [], threads: [], villain: "" }, over: false, outcome: "", endTitle: "",
     };
+    if ($("qp-tavern").checked) game.tavern = { on: true, key: tavernKey() };
     save();
     renderAll();
     turn("start");
+  });
+  function tavernKey() {
+    var a = new Uint8Array(20);
+    crypto.getRandomValues(a);
+    return Array.prototype.map.call(a, function (b) { return ("0" + b.toString(16)).slice(-2); }).join("");
+  }
+  function renderTavern() {
+    var on = !!(game && game.tavern && game.tavern.on);
+    $("qp-tavern-toggle").textContent = on ? "Tavern: on" : "Tavern: off";
+    $("qp-tavern-toggle").title = on ? "Others can watch this quest on the Tavern board" : "Let others watch this quest on the Tavern board";
+    var watch = $("qp-watch");
+    watch.hidden = !on;
+    if (game) watch.href = "tavern.html?q=" + encodeURIComponent(game.id);
+  }
+  $("qp-tavern-toggle").addEventListener("click", function () {
+    if (!game) return;
+    if (!game.tavern) game.tavern = { on: false, key: tavernKey() };
+    game.tavern.on = !game.tavern.on;
+    save();
+    renderTavern();
   });
   $("qp-again").addEventListener("click", function () { if (!busy) showSetup(); });
   $("qp-leave").addEventListener("click", function () {
@@ -1007,6 +1136,10 @@
     if (!game.entries.length) turn("start");
     else if (game.hp <= 0) turn(game.length === "campaign" ? "knockout" : "fallen");
   } else showSetup();
+  renderAccount();
+  fetch("/api/account/me").then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+    if (d && d.user) { account = d.user; renderAccount(); pullSaves(); }
+  }).catch(function () {});
   var lastTab = "quest";
   try { lastTab = localStorage.getItem("solosgems-herald-tab") === "chat" ? "chat" : "quest"; } catch (e) {}
   showTab(lastTab);

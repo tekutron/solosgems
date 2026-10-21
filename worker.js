@@ -5,7 +5,7 @@
 // trigger to refresh the news feed stored in the NEWS KV namespace.
 
 export default {
-async fetch(request, env) {
+async fetch(request, env, ctx) {
 const url = new URL(request.url);
 
 // html_handling is set to "none" in wrangler.jsonc (so /foo.html doesn't
@@ -93,7 +93,7 @@ return new Response("Method not allowed", { status: 405 });
 
 if (url.pathname === "/api/quest") {
 if (request.method === "POST") {
-return handleQuest(request, env);
+return handleQuest(request, env, ctx);
 }
 return new Response("Method not allowed", { status: 405 });
 }
@@ -107,6 +107,14 @@ return new Response("Method not allowed", { status: 405 });
 
 if (url.pathname === "/api/quest-gif") {
 return handleQuestGif(request, env);
+}
+
+if (url.pathname.startsWith("/api/account/")) {
+return handleAccount(request, env, url.pathname.slice("/api/account/".length));
+}
+
+if (url.pathname === "/api/tavern" || url.pathname.startsWith("/api/tavern/")) {
+return handleTavern(request, env, url.pathname.slice("/api/tavern".length).replace(/^\//, ""));
 }
 
 if (url.pathname === "/api/subscribe") {
@@ -1477,6 +1485,12 @@ headers: { "Content-Type": "application/json" },
 // ---------------------------------------------------------------------------
 
 const CHAT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fp8-fast";
+// The Herald's main voice (chat and quest scenes); the 8B model above still
+// writes the quest journal, which is short, structured and frequent.
+const BIG_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
+// Models a request may ask for while we compare them (all cost about the
+// same as BIG_MODEL or less). Remove once a winner is picked.
+const TRY_MODELS = ["@cf/meta/llama-3.3-70b-instruct-fp8-fast", "@cf/google/gemma-4-26b-a4b-it", "@cf/mistralai/mistral-small-3.1-24b-instruct", "@cf/meta/llama-4-scout-17b-16e-instruct"];
 const CHAT_MAX_TURNS = 12;
 const CHAT_MAX_CHARS = 2000;
 const CHAT_SYSTEM = "You are the Herald of Solos Gems, a helpful AI assistant. You give accurate, genuinely useful answers to any question, in the voice of a wry, observant fantasy narrator who notices how funny the modern world is when you describe it like a D&D realm.\n\nHow to answer:\n- Answer the question first, correctly and clearly. Accuracy matters more than jokes. If you are not sure, say so instead of guessing.\n- Add one or two dry, observant touches of fantasy flavor, woven into the answer, not a costume. Think \"peeling the egg is the real boss fight,\" not \"Hark, brave adventurer.\"\n- Never use \"thee,\" \"thou,\" \"mortal,\" \"brave adventurer,\" or medieval speech. Speak plainly and warmly.\n- Keep it concise. Use short steps or a code block when they help.\n- You can't browse the web or see today's news; say so if asked.\n- For medical, legal, or financial questions, give general information and suggest a professional for personal decisions. In emergencies, tell people to contact emergency services.\n- If the user asks for plain answers, drop the fantasy voice entirely.\n- Never use em dashes.";
@@ -1511,13 +1525,18 @@ if (!success) return json({ error: "The Herald needs a breather. Try again in a 
 // The examples go inside the system prompt, clearly labeled, not as fake
 // earlier turns: as turns, the model believed it had already answered them
 // ("I mentioned that earlier") when a visitor asked the same thing.
+const { srd, codex, now } = await questData(env, new URL(request.url).origin);
+const ask = messages[messages.length - 1].content;
+const lore = chatLore(ask, srd, codex, now);
 const system =
 CHAT_SYSTEM +
+"\n\nYou are also the realm's greatest expert on Dungeons & Dragons and tabletop roleplaying, from the first 1974 boxed set and old-school play through every edition to the 2024 rules and the newest releases. You know rules, lore, monsters, classic adventures and how to run a great game. Give practical, accurate answers; when you are unsure about an official detail, say so instead of inventing it. Reference notes, when given, are accurate and current: trust them over your memory." +
+(lore ? "\n\nReference notes for this question:\n" + lore : "") +
 "\n\nExamples of the house style (these are samples, not part of this conversation):\n\n" +
 CHAT_EXAMPLES.map((e) => `Question: ${e.q}\nAnswer: ${e.a}`).join("\n\n");
 let stream;
 try {
-stream = await env.AI.run(CHAT_MODEL, {
+stream = await env.AI.run(BIG_MODEL, {
 messages: [{ role: "system", content: system }, ...messages],
 stream: true,
 max_tokens: 700,
@@ -1536,7 +1555,7 @@ headers: { "Content-Type": "text/event-stream; charset=utf-8", "Cache-Control": 
 // turn) in the visitor's browser and applies the status line the model
 // writes, with clamps. This endpoint rolls the d20 here so the dice are fair
 // (advantage and minimum-roll abilities included), adds the state, the
-// journal, rules lookups from the SRD 5.1 (data/srd.json) and secret cards
+// journal, rules lookups from the SRD 5.2 and 5.1 (data/srd.json), craft tips from the DM Codex (data/dm-codex.json) and secret cards
 // from the Herald's deck (data/quest-cards.json) to the prompt, and streams
 // the scene. Roll details go back in X-Quest-* headers. Nothing is stored.
 // mode "journal" instead returns the updated quest journal as JSON.
@@ -1598,8 +1617,8 @@ return res.ok ? await res.json() : null;
 return null;
 }
 };
-const [srd, cards] = await Promise.all([get("/data/srd.json"), get("/data/quest-cards.json")]);
-questDataCache = { srd: srd || { monsters: [], items: [], spells: [], conditions: [] }, cards: cards || {} };
+const [srd, cards, codex, now] = await Promise.all([get("/data/srd.json"), get("/data/quest-cards.json"), get("/data/dm-codex.json"), get("/data/dnd-now.json")]);
+questDataCache = { srd: srd || { monsters: [], items: [], spells: [], conditions: [] }, cards: cards || {}, codex: (codex && codex.tips) || [], now: now || { facts: [] } };
 return questDataCache;
 }
 
@@ -1622,12 +1641,13 @@ return crypto.getRandomValues(new Uint32Array(1))[0] / 4294967296 < p;
 
 // SRD entries the player named in their action ("I cast Fireball at the
 // Owlbear"), so the model gets the basics right.
-function questRulesLookup(srd, text) {
+function questRulesLookup(srd, text, max) {
+max = max || 2;
 const t = " " + text.toLowerCase().replace(/[^a-z0-9' -]/g, " ") + " ";
 const hits = [];
 const scan = (list, label) => {
 for (const e of list || []) {
-if (hits.length >= 2) return;
+if (hits.length >= max) return;
 const n = e.n.toLowerCase();
 if (n.length >= 4 && t.includes(" " + n + " ")) hits.push(`${label} ${e.n}: ${e.d}`);
 }
@@ -1636,7 +1656,58 @@ scan(srd.spells, "Spell");
 scan(srd.monsters, "Creature");
 scan(srd.items, "Magic item");
 scan(srd.conditions, "Condition");
+scan(srd.feats, "Feat");
+scan(srd.species, "Species");
+scan(srd.backgrounds, "Background");
+scan(srd.mastery, "Weapon mastery");
 return hits;
+}
+
+// The DM Codex (data/dm-codex.json): game-running craft from old-school
+// play to the 2024 rules. Each turn gets a tip or two that fit the scene:
+// tips whose keywords the action names first, then tips for the kind of
+// scene (fight, talk, explore, mystery), then general ones.
+const QUEST_SCENES = {
+combat: /\b(attack|fight|hit|stab|slash|swing|shoot|punch|kick|charge|duel|battle|kill|strike|smash|parry|dodge|cast)\b/i,
+social: /\b(talk|ask|say|tell|persuade|convince|lie|bribe|charm|threaten|intimidate|flirt|bargain|negotiate|greet|sing|joke|apologi[sz]e)\b/i,
+explore: /\b(look|search|explore|open|climb|sneak|enter|walk|go|follow|inspect|examine|listen|travel|descend|hide)\b/i,
+mystery: /\b(who|why|clues?|mystery|mysteries|detective|whodunit|murder|investigate|investigation|figure out|find out|study|read|deduce|suspect)\b/i,
+};
+function questCraft(codex, text, structure, max) {
+max = max || 2;
+if (!codex.length) return [];
+const t = " " + text.toLowerCase().replace(/[^a-z0-9' ]/g, " ") + " ";
+const scene = ["mystery", "combat", "social", "explore"].find((k) => QUEST_SCENES[k].test(text)) || "any";
+const named = codex.filter((c) => c.k.some((k) => t.includes(" " + k + " ")));
+const fits = codex.filter((c) => c.s === scene);
+const general = codex.filter((c) => c.s === "any" || (structure && c.s === "structure"));
+const out = [];
+for (const pool of [named, fits, general]) {
+const tip = questPick(pool.filter((c) => !out.includes(c)));
+if (tip && out.length < max) out.push(tip);
+}
+while (out.length < max) {
+const tip = questPick([...fits, ...general].filter((c) => !out.includes(c)));
+if (!tip) break;
+out.push(tip);
+}
+return out.map((c) => c.x);
+}
+
+// Notes for a D&D question in the chat: rules from the SRD, craft from the
+// codex, and dated release facts when the question is about what is new.
+function chatLore(text, srd, codex, now) {
+const dnd = /\b(d&d|dnd|dungeons? (and|&) dragons|dungeon master|\bdm\b|tabletop|ttrpg|rpg|5e|5\.5e|2024 rules|srd|campaign|one[- ]shot|player'?s handbook|monster manual|spell|cantrip|feat|subclass|class|initiative|saving throw|d20|homebrew|session zero|wizards of the coast|ravenloft|greyhawk|forgotten realms|eberron|dark sun)\b/i;
+const rules = questRulesLookup(srd, text, 3);
+if (!dnd.test(text) && !rules.length) return "";
+const notes = rules.map((r) => "SRD 5.2: " + r);
+if (/\b(dm|dungeon master|run|running|prep|session|players|table|campaign|adventure|encounter|npc|villain|plot|story|tips?|advice)\b/i.test(text)) {
+questCraft(codex, text.replace(/\b(dungeon masters?|dms?|game masters?|gms?)\b/gi, " "), true, 3).forEach((x) => notes.push("Game-running craft: " + x));
+}
+if (/\b(new|newest|latest|upcoming|coming|next|release|released|edition|book|books|announce|2024|2025|2026|2027|history|first|original|old|vintage)\b/i.test(text)) {
+(now.facts || []).forEach((f) => notes.push(`D&D fact (as of ${now.as_of}): ${f}`));
+}
+return notes.map((n) => "- " + n).join("\n");
 }
 
 function questPhase(q) {
@@ -1708,7 +1779,7 @@ j.done = j.done.slice(-6);
 return j;
 }
 
-async function handleQuest(request, env) {
+async function handleQuest(request, env, ctx) {
 const json = (body, status) =>
 new Response(JSON.stringify(body), {
 status,
@@ -1723,6 +1794,10 @@ const jr = b.journal && typeof b.journal === "object" ? b.journal : {};
 const strList = (a, n, max) => (Array.isArray(a) ? a : []).map((x) => clean(x, max)).filter(Boolean).slice(0, n);
 q = {
 mode: ["start", "act", "fallen", "knockout", "journal"].includes(b.mode) ? b.mode : "act",
+model: TRY_MODELS.includes(b.model) ? b.model : BIG_MODEL,
+tavern: b.tavern && typeof b.tavern === "object" && /^[a-z0-9]{6,40}$/.test(b.tavern.id) && /^[a-z0-9]{16,64}$/.test(b.tavern.key)
+? { id: b.tavern.id, key: b.tavern.key, title: clean(b.tavern.title, 60), shown: clean(b.tavern.shown, 300) }
+: null,
 length: b.length === "campaign" ? "campaign" : "oneshot",
 setting: clean(b.setting, 200),
 name: clean(b.name, 40) || "the Hero",
@@ -1763,7 +1838,7 @@ const { success } = await env.ASK_LIMITER.limit({ key: "quest:" + ip });
 if (!success) return json({ error: "The Herald needs a breather. Try again in a minute." }, 429);
 }
 const origin = new URL(request.url).origin;
-const { srd, cards } = await questData(env, origin);
+const { srd, cards, codex } = await questData(env, origin);
 
 const hero = `The hero: ${q.name}, a level ${q.level} ${q.cls}. HP ${q.hp} of ${q.max}. Gold ${q.gold}. Items: ${q.items.join(", ") || "none"} (nothing else).` + (q.abilities.length ? ` Abilities: ${q.abilities.join("; ")}.` : "") + (q.nearby.length ? ` Lying nearby: ${q.nearby.join(", ")}.` : "");
 
@@ -1836,7 +1911,7 @@ notes.push("A character you could use: " + questPick(cards.characters));
 if (!q.journal.villain) notes.push("The villain's secret plan (reveal it slowly): " + questPick(cards.schemes));
 } else if (q.mode === "act" && kind !== "rest") {
 const late = q.length === "campaign" || q.turn >= 4;
-if (late && questChance(0.3)) notes.push("Possible twist: " + questPick(cards.twists));
+if (late && questChance(0.3)) notes.push(questChance(0.35) && cards.legends ? "An old legend you could twist into this story: " + questPick(cards.legends) : "Possible twist: " + questPick(cards.twists));
 else if (questChance(0.3)) notes.push("Possible complication: " + questPick(cards.complications));
 if (questChance(0.25)) notes.push("Possible new character: " + questPick(cards.characters));
 if (roll >= 14 && questChance(0.25)) {
@@ -1853,7 +1928,9 @@ if (foe) notes.push(`Possible creature (SRD) ${foe.n}: ${foe.d}`);
 }
 }
 const refs = q.mode === "act" ? questRulesLookup(srd, q.action) : [];
-refs.forEach((r) => notes.push("Rules reference (SRD 5.1) " + r));
+refs.forEach((r) => notes.push("Rules reference (SRD 5.2) " + r));
+const fresh = q.turn <= 1 || (q.length === "campaign" && q.turn % QUEST_CHAPTER_TURNS <= 1);
+const craft = q.mode === "act" || q.mode === "start" ? questCraft(codex, q.mode === "start" ? q.setting : q.action, fresh) : [];
 
 const system =
 QUEST_SYSTEM +
@@ -1861,11 +1938,12 @@ QUEST_SYSTEM +
 (questJournalText(q.journal) ? `\n\nThe journal so far:\n${questJournalText(q.journal)}` : "") +
 `\n\n${questPhase(q)}` +
 (notes.length ? `\n\nSecret DM notes (optional, never mention them):\n- ${notes.join("\n- ")}` : "") +
+(craft.length ? `\n\nDM craft to keep in mind this turn:\n- ${craft.join("\n- ")}` : "") +
 "\n\nEvery reply ends with the [[...]] status line.";
 
 let stream;
 try {
-stream = await env.AI.run(CHAT_MODEL, {
+stream = await env.AI.run(q.model, {
 messages: [{ role: "system", content: system }, ...q.history, { role: "user", content: user }],
 stream: true,
 max_tokens: 360,
@@ -1875,6 +1953,13 @@ temperature: 0.85,
 return json({ error: "The Herald dropped the dice. Try again in a moment." }, 503);
 }
 const villainNote = notes.find((n) => n.startsWith("The villain's secret plan"));
+// A quest on the Tavern board: keep a copy of the scene as it streams, then
+// moderate it and post it for watchers once it is done.
+if (q.tavern && env.QUESTS && ctx && stream && stream.tee && q.mode !== "journal") {
+const [mine, theirs] = stream.tee();
+stream = mine;
+ctx.waitUntil(tavernRecord(env, q, roll, band, theirs).catch(() => {}));
+}
 return new Response(stream, {
 headers: {
 "Content-Type": "text/event-stream; charset=utf-8",
@@ -1947,4 +2032,266 @@ return json({ url: g.images.fixed_height.url, w: Number(g.images.fixed_height.wi
 } catch (err) {
 return json({ error: "No GIF." }, 502);
 }
+}
+
+// ---- Accounts ---------------------------------------------------------------
+// Optional sign-in so quests follow the player to any device. Stored in the
+// QUESTS KV namespace: "user:<name>" (salted PBKDF2 hash, never the password),
+// "sess:<sha256 of token>" (30-day sessions, HttpOnly cookie) and
+// "saves:<name>" (the player's saved quests, same shape as the page's store).
+const ACCOUNT_ITER = 100000;
+const SESSION_DAYS = 30;
+const RESERVED_NAMES = /^(admin|administrator|root|herald|solos|solosgems|support|moderator|mod|staff|system|null|undefined)$/i;
+const toHex = (buf) => [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
+const fromHex = (hex) => new Uint8Array((hex.match(/../g) || []).map((h) => parseInt(h, 16)));
+async function sha256Hex(text) {
+return toHex(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text)));
+}
+async function hashPassword(password, saltHex, iter) {
+const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveBits"]);
+const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt: fromHex(saltHex), iterations: iter }, key, 256);
+return toHex(bits);
+}
+function sameString(a, b) {
+if (typeof a !== "string" || typeof b !== "string" || a.length !== b.length) return false;
+let diff = 0;
+for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+return diff === 0;
+}
+function randomHex(bytes) {
+return toHex(crypto.getRandomValues(new Uint8Array(bytes)));
+}
+function sessionCookie(token, maxAge) {
+return `sg_session=${token}; Path=/api; HttpOnly; Secure; SameSite=Lax; Max-Age=${maxAge}`;
+}
+async function currentUser(request, env) {
+const m = (request.headers.get("Cookie") || "").match(/(?:^|;\s*)sg_session=([a-f0-9]{64})/);
+if (!m) return null;
+const raw = await env.QUESTS.get("sess:" + (await sha256Hex(m[1])));
+if (!raw) return null;
+try {
+const s = JSON.parse(raw);
+return s && s.u ? { name: s.u, token: m[1] } : null;
+} catch (err) {
+return null;
+}
+}
+async function startSession(env, name) {
+const token = randomHex(32);
+await env.QUESTS.put("sess:" + (await sha256Hex(token)), JSON.stringify({ u: name, t: Date.now() }), { expirationTtl: SESSION_DAYS * 86400 });
+return token;
+}
+
+async function handleAccount(request, env, action) {
+const json = (body, status, cookie) => {
+const headers = { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" };
+if (cookie) headers["Set-Cookie"] = cookie;
+return new Response(JSON.stringify(body), { status: status || 200, headers });
+};
+if (!env.QUESTS) return json({ error: "Accounts are not set up yet." }, 503);
+const url = new URL(request.url);
+const origin = request.headers.get("Origin");
+if (request.method !== "GET" && origin && origin !== url.origin) return json({ error: "Bad origin" }, 403);
+const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+
+if (action === "me" && request.method === "GET") {
+const user = await currentUser(request, env);
+return json({ user: user ? user.name : null });
+}
+
+if ((action === "signup" || action === "login") && request.method === "POST") {
+if (env.ASK_LIMITER) {
+const { success } = await env.ASK_LIMITER.limit({ key: "auth:" + ip });
+if (!success) return json({ error: "Too many tries. Wait a minute and try again." }, 429);
+}
+let name = "", password = "";
+try {
+const b = await request.json();
+name = typeof b.username === "string" ? b.username.trim() : "";
+password = typeof b.password === "string" ? b.password : "";
+} catch (err) {
+return json({ error: "Bad request" }, 400);
+}
+if (!/^[A-Za-z0-9_-]{3,20}$/.test(name)) return json({ error: "Usernames are 3 to 20 letters, numbers, - or _." }, 400);
+if (password.length < 8 || password.length > 128) return json({ error: "Passwords are 8 to 128 characters." }, 400);
+const key = "user:" + name.toLowerCase();
+if (action === "signup") {
+if (RESERVED_NAMES.test(name)) return json({ error: "That name is taken." }, 409);
+if (password.toLowerCase() === name.toLowerCase()) return json({ error: "Your password can't be your username." }, 400);
+if (await env.QUESTS.get(key)) return json({ error: "That name is taken." }, 409);
+const salt = randomHex(16);
+const hash = await hashPassword(password, salt, ACCOUNT_ITER);
+await env.QUESTS.put(key, JSON.stringify({ name, salt, hash, iter: ACCOUNT_ITER, created: new Date().toISOString() }));
+const token = await startSession(env, name);
+return json({ user: name }, 200, sessionCookie(token, SESSION_DAYS * 86400));
+}
+// Login: the same answer for a wrong name and a wrong password, and a
+// short lockout after many misses on one account.
+const fails = Number(await env.QUESTS.get("fail:" + name.toLowerCase())) || 0;
+if (fails >= 10) return json({ error: "Too many wrong passwords. Try again in 15 minutes." }, 429);
+const raw = await env.QUESTS.get(key);
+const rec = raw ? JSON.parse(raw) : null;
+const hash = await hashPassword(password, rec ? rec.salt : "00".repeat(16), rec ? rec.iter : ACCOUNT_ITER);
+if (!rec || !sameString(hash, rec.hash)) {
+await env.QUESTS.put("fail:" + name.toLowerCase(), String(fails + 1), { expirationTtl: 900 });
+return json({ error: "Wrong username or password." }, 401);
+}
+if (fails) await env.QUESTS.delete("fail:" + name.toLowerCase());
+const token = await startSession(env, rec.name);
+return json({ user: rec.name }, 200, sessionCookie(token, SESSION_DAYS * 86400));
+}
+
+const user = await currentUser(request, env);
+if (action === "logout" && request.method === "POST") {
+if (user) await env.QUESTS.delete("sess:" + (await sha256Hex(user.token)));
+return json({ user: null }, 200, sessionCookie("", 0));
+}
+if (!user) return json({ error: "Sign in first." }, 401);
+const savesKey = "saves:" + user.name.toLowerCase();
+
+if (action === "saves" && request.method === "GET") {
+const raw = await env.QUESTS.get(savesKey);
+return json(raw ? JSON.parse(raw) : { games: {}, gone: {} });
+}
+if (action === "saves" && request.method === "PUT") {
+const text = await request.text();
+if (text.length > 1500000) return json({ error: "That's a lot of quests. Delete a few first." }, 413);
+let b;
+try {
+b = JSON.parse(text);
+} catch (err) {
+return json({ error: "Bad request" }, 400);
+}
+const games = b && typeof b.games === "object" && b.games ? b.games : {};
+const ids = Object.keys(games).filter((id) => /^q[a-z0-9]{4,30}$/.test(id) && games[id] && typeof games[id] === "object").slice(0, 12);
+const out = { games: {}, gone: {}, updated: Date.now() };
+ids.forEach((id) => (out.games[id] = games[id]));
+const gone = b && typeof b.gone === "object" && b.gone ? b.gone : {};
+Object.keys(gone).filter((id) => /^q[a-z0-9]{4,30}$/.test(id)).slice(0, 100).forEach((id) => (out.gone[id] = Number(gone[id]) || 0));
+await env.QUESTS.put(savesKey, JSON.stringify(out));
+return json({ ok: true, updated: out.updated });
+}
+if (action === "delete" && request.method === "POST") {
+let password = "";
+try {
+password = String((await request.json()).password || "");
+} catch (err) {}
+const raw = await env.QUESTS.get("user:" + user.name.toLowerCase());
+const rec = raw ? JSON.parse(raw) : null;
+if (!rec || !sameString(await hashPassword(password, rec.salt, rec.iter), rec.hash)) return json({ error: "Wrong password." }, 401);
+await Promise.all([env.QUESTS.delete("user:" + user.name.toLowerCase()), env.QUESTS.delete(savesKey), env.QUESTS.delete("sess:" + (await sha256Hex(user.token)))]);
+return json({ user: null, deleted: true }, 200, sessionCookie("", 0));
+}
+return json({ error: "Not found" }, 404);
+}
+
+// ---- The Tavern board -----------------------------------------------------
+// Players can let others watch a quest live (opt-in, per quest). The worker
+// records each scene itself as it streams (so posts are real Herald scenes),
+// runs Llama Guard over the player's action and the scene, and keeps the
+// last 40 scenes under "tv:<id>". "tv:index" lists the quests updated most
+// recently. Hero names and quest titles are checked too. Anyone can report a
+// quest, which hides it at once.
+const TAVERN_KEEP = 40;
+const TAVERN_INDEX = 40;
+async function tavernSafe(env, userText, reply) {
+try {
+const messages = [{ role: "user", content: userText || "(no action)" }];
+if (reply) messages.push({ role: "assistant", content: reply });
+const out = await env.AI.run("@cf/meta/llama-guard-3-8b", { messages });
+const r = out && out.response;
+if (r && typeof r === "object") return r.safe === true;
+return typeof r === "string" && /^\s*safe\b/i.test(r);
+} catch (err) {
+return false;
+}
+}
+async function tavernRecord(env, q, roll, band, stream) {
+// Read the SSE stream into plain text.
+const reader = stream.getReader();
+const decoder = new TextDecoder();
+let buf = "", text = "";
+for (;;) {
+const { done, value } = await reader.read();
+if (done) break;
+buf += decoder.decode(value, { stream: true });
+const lines = buf.split("\n");
+buf = lines.pop();
+for (const line of lines) {
+if (!line.startsWith("data:")) continue;
+const data = line.slice(5).trim();
+if (!data || data === "[DONE]") continue;
+try {
+const j = JSON.parse(data);
+const d = j.choices && j.choices[0] && j.choices[0].delta;
+text += d && typeof d.content === "string" ? d.content : j.response != null ? String(j.response) : "";
+} catch (err) {}
+}
+}
+const story = text.replace(/<\|eot_id\|>[\s\S]*$/, "").replace(/(^|\n)[ \t]*\[[\s\S]*$/, "").replace(/\s*\[+\s*(hp|gold|gain|lose|near|opt|end|title|xp)\b[\s\S]*$/i, "").trim().slice(0, 1500);
+if (!story) return;
+const key = "tv:" + q.tavern.id;
+const raw = await env.QUESTS.get(key);
+let rec = raw ? JSON.parse(raw) : null;
+const keyHash = await sha256Hex(q.tavern.key);
+if (rec && rec.keyHash !== keyHash) return;
+if (rec && rec.hidden) return;
+if (!rec) {
+const nameOk = await tavernSafe(env, `Hero name: ${q.name}. Quest: ${q.tavern.title || q.setting}`);
+if (!nameOk) return;
+rec = { id: q.tavern.id, keyHash, title: q.tavern.title || "A quest", entries: [], created: Date.now() };
+}
+const shown = q.mode === "act" ? q.tavern.shown || q.action.replace(/^\([^)]*\)\s*/, "") : "";
+if (!(await tavernSafe(env, shown, story))) return;
+const entry = { a: shown, s: story, r: roll || 0, b: band || "", m: q.mode, t: Date.now() };
+rec.entries = rec.entries.concat(entry).slice(-TAVERN_KEEP);
+Object.assign(rec, { hero: q.name, cls: q.cls, level: q.level, hp: q.hp, max: q.max, turn: q.turn, length: q.length, updated: Date.now(), over: q.mode === "fallen" || /\[\[\s*end\b/i.test(text) });
+await env.QUESTS.put(key, JSON.stringify(rec), { expirationTtl: 7 * 86400 });
+const iraw = await env.QUESTS.get("tv:index");
+let index = [];
+try {
+index = iraw ? JSON.parse(iraw) : [];
+} catch (err) {}
+index = index.filter((x) => x.id !== rec.id);
+index.unshift({ id: rec.id, title: rec.title, hero: rec.hero, cls: rec.cls, level: rec.level, turn: rec.turn, length: rec.length, over: rec.over, updated: rec.updated, last: story.slice(0, 160) });
+await env.QUESTS.put("tv:index", JSON.stringify(index.slice(0, TAVERN_INDEX)));
+}
+async function handleTavern(request, env, path) {
+const json = (body, status, cache) =>
+new Response(JSON.stringify(body), { status: status || 200, headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": cache || "no-store" } });
+if (!env.QUESTS) return json({ quests: [] });
+if (!path && request.method === "GET") {
+const raw = await env.QUESTS.get("tv:index");
+let index = [];
+try {
+index = raw ? JSON.parse(raw) : [];
+} catch (err) {}
+const day = Date.now() - 86400000;
+return json({ quests: index.filter((x) => x.updated > day) }, 200, "public, max-age=5");
+}
+const m = path.match(/^([a-z0-9]{6,40})(\/report)?$/);
+if (!m) return json({ error: "Not found" }, 404);
+const key = "tv:" + m[1];
+if (m[2]) {
+if (request.method !== "POST") return json({ error: "Method not allowed" }, 405);
+const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+if (env.ASK_LIMITER) {
+const { success } = await env.ASK_LIMITER.limit({ key: "report:" + ip });
+if (!success) return json({ error: "Slow down." }, 429);
+}
+const raw = await env.QUESTS.get(key);
+if (raw) {
+const rec = JSON.parse(raw);
+rec.hidden = true;
+await env.QUESTS.put(key, JSON.stringify(rec), { expirationTtl: 7 * 86400 });
+}
+const iraw = await env.QUESTS.get("tv:index");
+if (iraw) await env.QUESTS.put("tv:index", JSON.stringify(JSON.parse(iraw).filter((x) => x.id !== m[1])));
+return json({ ok: true });
+}
+const raw = await env.QUESTS.get(key);
+const rec = raw ? JSON.parse(raw) : null;
+if (!rec || rec.hidden) return json({ error: "This quest isn't on the board." }, 404);
+const { keyHash, hidden, ...pub } = rec;
+return json(pub, 200, "public, max-age=4");
 }

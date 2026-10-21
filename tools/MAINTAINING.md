@@ -137,6 +137,29 @@ The homepage Herald has two tabs. **Quest** (default; `quest.js`,
   GIF. It needs the `GIPHY_KEY` secret (Cloudflare dashboard > the worker >
   Settings > Variables and Secrets); without it the page shows its own emoji
   stickers. GIFs must keep the "Powered by GIPHY" credit.
+- Models: scenes and the chat use `BIG_MODEL` (Llama 3.3 70B, Workers Paid);
+  the journal stays on the 8B `CHAT_MODEL`. `TRY_MODELS` lets a request pick
+  another model while we compare them; remove it once one is chosen.
+- Knowledge: `data/srd.json` (SRD 5.2 rules, plus SRD 5.1 entries marked
+  `v: "2014"`), `data/dm-codex.json` (our DM Codex: game-running tips from
+  old-school play to the 2024 rules, picked per turn by `questCraft`),
+  `data/quest-cards.json` (now with `legends`, public-domain myth motifs in
+  our own words) and `data/dnd-now.json` (dated release facts the chat uses
+  for "what's new" questions; update it when Wizards announces books, with
+  facts checked against D&D Beyond or Wizards).
+- Accounts (optional): `/api/account/{signup,login,logout,me,saves,delete}`
+  in worker.js. KV binding `QUESTS` (currently the same namespace as REALMS,
+  keys prefixed `user:`, `sess:`, `saves:`, `fail:`, `tv:`). Passwords are
+  PBKDF2-SHA256 (100k iterations, salted); sessions are an HttpOnly cookie.
+  The page pushes saves 2.5 s after each change and merges on sign-in.
+- Tavern board (`tavern.html`, `tavern.js`, `tavern.css`, `/api/tavern`):
+  opt-in per quest. The worker tees the scene stream, runs Llama Guard over
+  the action and the scene, and writes `tv:<id>` (last 40 scenes, 7-day TTL)
+  and `tv:index`. Only the quest's own key can post; a report hides a quest
+  at once. The page has no ads and is noindex (player-made content).
+- Local testing without Cloudflare: download Node into a scratch folder and
+  run worker.js with in-memory KV and a scripted AI (see the dev server used
+  for the accounts work); never test accounts on the live site.
 - Prompts are QUEST_SYSTEM and QUEST_JOURNAL_SYSTEM. Test prompt changes
   locally against the 8B base model first (herald-training/dm/play3.py).
 

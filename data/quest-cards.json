@@ -1,5 +1,5 @@
 {
-  "_about": "The Herald's deck: original Solos Gems tables the quest Dungeon Master draws from at random (see handleQuest in worker.js). Classic quest shapes (the false friend, the bargain with a price, the prize that is not what it seems) inspired by public-domain myth and romance; all wording is our own.",
+  "_about": "The Herald's deck: original Solos Gems tables the quest Dungeon Master draws from at random (see handleQuest in worker.js). Classic quest shapes (the false friend, the bargain with a price, the prize that is not what it seems) inspired by public-domain myth and romance; all wording is our own. The legends table retells motifs from public-domain myth, folklore and literature (Arthurian romance, Homer, Grimm, the Arabian Nights, Norse and Celtic tales) in our own words.",
   "twists": [
     "The person who hired the hero is the one who caused the problem, and they would very much like that to stay quiet.",
     "The monster everyone fears is guarding something, not hoarding it, and it has been doing a genuinely good job.",
@@ -156,5 +156,37 @@
     "kidnapping every bard so nobody can sing about what they did",
     "turning the season to permanent winter to corner the firewood market",
     "trading the town's future to a fey lord for a single perfect afternoon"
+  ],
+  "legends": [
+    "A green-skinned stranger offers a beheading game: strike me once now, and I strike you once in a year.",
+    "The hero escapes a one-eyed giant by giving a false name, and later regrets bragging about the real one.",
+    "Three impossible tasks set by a jealous ruler, each solved with help from a creature the hero was kind to earlier.",
+    "A hut on chicken legs that only turns its door toward guests who ask politely.",
+    "A djinn grants wishes literally, and very much enjoys the loopholes.",
+    "Fairy food that traps anyone who eats it in the fair folk's court for a hundred years.",
+    "A sword in a stone that refuses everyone who wants it too badly.",
+    "A labyrinth whose monster is less dangerous than its architect.",
+    "A trickster god who helps and hinders in equal measure and always wants a share.",
+    "A ship of the dead that collects promises left unkept.",
+    "A sleeping king under the hill who will wake only when the land truly needs him, and is grumpy about it.",
+    "A forbidden book that whispers the reader's name and knows things it should not.",
+    "A town where it is always the same day, and only the hero notices.",
+    "Seven-league boots that cover huge distances but cannot stop easily.",
+    "A golden apple marked 'for the fairest' thrown into a party to start a feud.",
+    "A bargain at the crossroads at midnight, with a price hidden in the wording.",
+    "A swan maiden whose feathered cloak was stolen, and who wants it back very badly.",
+    "A city of brass in the desert, empty but still perfectly polished.",
+    "A gingerbread house whose owner is extremely hospitable for suspicious reasons.",
+    "An ancient sorcerer-king sealed beneath a lake, slowly bribing the fish.",
+    "A princess who must be made to laugh, and every jester who failed is now a statue.",
+    "A ferryman across a dark river who must be paid, and remembers anyone who cheats.",
+    "A tower with no door, entered only by climbing someone's very long hair.",
+    "A monster that can only be beaten by showing it its own reflection.",
+    "A magic mill at the bottom of the sea that grinds out salt forever.",
+    "A thief who steals the sound of a cat's footsteps and the roots of a mountain to forge a chain.",
+    "A knight sworn to answer one riddle: what do people most desire?",
+    "A dragon sleeping on a hoard, woken by a single stolen cup.",
+    "A pied piper who was never paid and has come back to collect.",
+    "A wandering city that walks on giant legs and stops for no one."
   ]
 }

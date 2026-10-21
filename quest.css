@@ -200,3 +200,24 @@ ol.qp-list li::before { content: counter(done, decimal-leading-zero) "  "; font-
   .qp-name { grid-column: 1 / -1; }
   .herald-tab { padding: 5px 10px; }
 }
+
+/* Accounts and the Tavern switch */
+.qp-account { margin-bottom: 14px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); font-size: 0.85rem; }
+.qp-account-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; max-width: none; color: var(--ink-soft); }
+.qp-account-line .herald-clear { margin-left: 0; }
+.qp-account-line > span:first-child { flex: 1 1 260px; }
+.qp-tavern-link { font-weight: 700; white-space: nowrap; }
+.qp-auth { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; margin-top: 10px; }
+.qp-auth label { display: flex; flex-direction: column; gap: 4px; font-size: 0.8rem; color: var(--ink-soft); }
+.qp-auth input { font: inherit; font-size: 0.9rem; padding: 7px 10px; border-radius: 6px; border: 2px solid var(--line); background: var(--paper); color: var(--ink); }
+.qp-auth-actions { grid-column: 1 / -1; display: flex; gap: 10px; align-items: center; }
+.qp-auth-actions .herald-clear { margin-left: 0; }
+.qp-auth-note { grid-column: 1 / -1; margin: 0; font-size: 0.78rem; color: var(--ink-soft); max-width: none; }
+.qp-auth-note.is-error { color: #ff7b6b; }
+.qp-check { display: flex; gap: 8px; align-items: flex-start; margin: 0 0 14px; font-size: 0.85rem; color: var(--ink-soft); line-height: 1.45; }
+.qp-check input { margin-top: 3px; accent-color: var(--rust); }
+.qp-watch { text-decoration: none; }
+@media (max-width: 560px) {
+  .qp-auth { grid-template-columns: 1fr; }
+  .qp-tavern-link { margin-left: 0; }
+}

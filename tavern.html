@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
+<title>The Tavern Board: Solos Gems</title>
+<meta name="description" content="Watch live Herald quests: real players, a real d20 and an AI Dungeon Master with opinions.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="theme-color" content="#1a1a18">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="herald.css">
+<link rel="stylesheet" href="quest.css">
+<link rel="stylesheet" href="tavern.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/"><svg class="gem-icon" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true">
+        <defs>
+          <linearGradient id="gemGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ffd76a"/>
+            <stop offset="100%" stop-color="#b8790f"/>
+          </linearGradient>
+        </defs>
+        <polygon points="16,2 27,12 16,30 5,12" fill="url(#gemGrad)" stroke="#1a1a18" stroke-width="1"/>
+        <polygon points="16,2 27,12 21,12" fill="#fff3cf"/>
+        <polygon points="16,2 5,12 11,12" fill="#ffe9a8"/>
+        <polygon points="5,12 11,12 16,30" fill="#c98a1f"/>
+        <polygon points="27,12 21,12 16,30" fill="#8a5a12"/>
+        <line x1="11" y1="12" x2="21" y2="12" stroke="#1a1a18" stroke-width="0.6"/>
+      </svg><span class="logo-word">SOLOS GEMS</span></a> <a class="quest-badge" href="game.html" title="Play: The Road to Solos Gems">🎲 Quest</a>
+    <nav>
+         <a href="/">Herald</a>
+      <a href="/database">Database</a>
+         <a href="realms.html">Realms</a>
+      <a href="deathstack.html">DeathStack</a>
+      <a href="news.html">News</a>
+      <a href="submit.html">Submit</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wide">
+  <section class="hero tv-hero">
+    <span class="kicker">The Herald's quests</span>
+    <h1>The Tavern Board</h1>
+    <p>Pull up a stool and watch other heroes make questionable decisions live. Players choose to share their quests here; every scene is checked by an AI safety filter before it is posted. Want your quest up here? Switch on "Show on the Tavern board" when you <a href="/">start a quest</a>.</p>
+  </section>
+
+  <div id="tv-list-view">
+    <p class="tv-status" id="tv-status">Checking who's at the tables...</p>
+    <ul class="tv-list" id="tv-list"></ul>
+  </div>
+
+  <div id="tv-watch" class="tv-watch" hidden>
+    <p><a href="tavern.html" id="tv-back">&larr; All quests</a></p>
+    <div class="tv-watch-head">
+      <div>
+        <h2 id="tv-title"></h2>
+        <p class="tv-meta" id="tv-meta"></p>
+      </div>
+      <span class="tv-live" id="tv-live">Live</span>
+    </div>
+    <ol class="ak-log qp-log tv-log" id="tv-log" aria-live="polite"></ol>
+    <p class="tv-foot"><button type="button" class="herald-clear" id="tv-report">Report this quest</button> <span id="tv-report-note"></span></p>
+  </div>
+  <p class="herald-note tv-note">Quests on this board are written by an AI Dungeon Master from players' actions and can be silly or wrong. Shared quests disappear after a week. <a href="privacy.html">Privacy</a></p>
+</main>
+
+<script src="tavern.js" defer></script>
+<footer>
+  <div class="wrap">
+    <p>Solos Gems is an independent site. Some links may be affiliate links; we only recommend tools we'd use ourselves. See <a href="about.html">About</a>, <a href="privacy.html">Privacy</a>, and <a href="terms.html">Terms</a>.</p>
+  </div>
+</footer>
+
+</body>
+</html>
